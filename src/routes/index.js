@@ -1,9 +1,9 @@
 const express = require('express')
 const router = express.Router()
-
+const eleAlgebraRouter = require('./ele-algebra')
 /* GET home page. */
 router.get('/', function (req, res, next) {
   res.render('index', { title: 'Express' })
 })
 
-module.exports = router
+module.exports = { router, eleAlgebraRouter }
