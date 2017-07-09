@@ -1,7 +1,48 @@
 doctype html
 html
   head
-    title= title
+    title Mathbook
+    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css')
+    link(rel='stylesheet', href='/bulma/bulma.css')
     link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='/stylesheets/layout.css')
+    script(type="text/javascript" src="/mathjax/MathJax.js?config=TeX-AMS_HTML")
   body
-    block content
+    nav.nav
+    .container
+      .nav-left
+        a.nav-item(routerlink='')
+          img(src='/images/mathbook_indigo_white_v5.png', alt='Mathbook Logo')
+      span.nav-toggle
+        span
+        span
+        span
+      .nav-right.nav-menu
+        a.nav-item(routerlink='')
+          | Home
+        a.nav-item(routerlink='')
+          | Documentation
+        a.nav-item(routerlink='')
+          | Blog
+    #wrapper.my-wrapper
+      block content
+    .columns.is-gapless
+      .column.notification.is-info
+      .column.notification.is-warning
+      .column.notification.is-danger
+  .columns.is-marginless.is-hidden-touch
+    .column.my-spacer.my-purple-bg
+    .column.my-spacer.my-primary-bg
+    .column.my-spacer.my-blue-bg
+    .column.my-spacer.my-red-bg
+    .column.my-spacer.my-orange-bg
+  footer.footer.my-footer-color
+    .container
+      .content.has-text-centered
+        p.my-footer-text
+          strong.my-footer-text Mathbook
+          |  was created by 
+          a.my-footer-text(target='_blank', href='http://johnygeorges.com') Johny Georges
+          | .
+          a.icon.my-footer-text(target='_blank', href='https://github.com/jetjet13')
+            i.fa.fa-github
