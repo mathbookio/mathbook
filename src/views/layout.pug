@@ -6,19 +6,22 @@ html
     link(rel='stylesheet', href='/bulma/bulma.css')
     link(rel='stylesheet', href='/stylesheets/style.css')
     link(rel='stylesheet', href='/stylesheets/layout.css')
+    link(rel='stylesheet', href='/stylesheets/components/topic-box.css')
     script(type="text/javascript" src="/mathjax/MathJax.js?config=TeX-AMS_HTML")
+    script(type="text/javascript" src="/jquery/dist/jquery.min.js")
+    script(type="text/javascript" src="/js/showAnswer.js")
   body
     nav.nav
     .container
       .nav-left
-        a.nav-item(routerlink='')
+        a.nav-item(href='/')
           img(src='/images/mathbook_indigo_white_v5.png', alt='Mathbook Logo')
       span.nav-toggle
         span
         span
         span
       .nav-right.nav-menu
-        a.nav-item(routerlink='')
+        a.nav-item(href='/')
           | Home
         a.nav-item(routerlink='')
           | Documentation

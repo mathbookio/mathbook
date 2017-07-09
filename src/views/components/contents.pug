@@ -1,0 +1,18 @@
+block contents
+  .section.my-section-margin
+    .title.is-4 Contents
+    .content
+      ol
+        each item in config.contentsList
+          li
+            a(href='', fragment=item.fragment, (click)='scrollToAnchor(childitem.fragment)') #{item.title}
+            if item.children
+              ul(style='margin-top:0;')
+                each childItem in item.children
+                  li
+                    a(href='', fragment=childitem.fragment, (click)='scrollToAnchor(childitem.fragment)') #{childitem.title}
+        // exercises and resources are used in every contents list
+        li
+          a(href='', fragment='exercises', (click)="scrollToAnchor('exercises')") Exercises
+        li
+          a(href='', fragment='resources', (click)="scrollToAnchor('resources')") Resources

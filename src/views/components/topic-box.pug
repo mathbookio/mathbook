@@ -1,0 +1,8 @@
+block topic
+  a.tile.is-child.box.my-topic-box(
+    href='/ele-algebra/' + topic.link,
+    class='my-topic-' + topic.color + '-border'
+  )
+    h3.title.is-3 #{topic.title}
+    .content.is-medium
+      p #{topic.statement}

@@ -1,0 +1,6 @@
+block intro
+  .section.my-section-margin
+    .title.is-4 Introduction
+    .content
+      // We 'join' the opening sentence because it is in an array format
+      p(itemprop='description') #{config.openingSentence.join(' ')}

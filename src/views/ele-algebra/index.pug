@@ -13,5 +13,6 @@ block content
     .container
       .tile.is-ancestor
         .tile.is-parent.is-vertical
-          topic-box(*ngfor='let topic of topics', [title]='topic.title', [statement]='topic.statement', [link]='topic.link', [color]='topic.color')
+          each topic in topics
+            include ../components/topic-box.pug
 

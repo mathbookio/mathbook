@@ -1,0 +1,11 @@
+block exercises
+  #exercises.section.my-section-margin
+    .title.is-4 Exercises
+    .content
+      p #{statement}
+    each q, index in exercises.exercises
+      .content
+        p #{index + 1}) \(\quad\) \(#{q.question.join(' ')}\)
+        |     \(\quad\)
+        button.button.is-white(onclick='showAnswer('+'q'+index+')') Show Answer
+        p(id='q'+index hidden) #{q.answer.join(' ')}

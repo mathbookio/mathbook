@@ -5,7 +5,7 @@ const plugins = require('gulp-load-plugins')()
 const browserSync = require('browser-sync').create()
 
 const files = {
-  allFiles: ['./src/**/*.js', './tests/*.spec.js'],
+  allFiles: ['./src/**/*.js', './tests/*.spec.js', '!./src/public/javascripts/*.js'],
   testFiles: ['./tests/*.spec.js'],
   srcFiles: ['./src/**/*.js', './src/**/*.pug', './src/**/*.css']
 }
@@ -31,7 +31,7 @@ gulp.task('test', ['test:config'], () => {
 
 gulp.task('lint', function () {
   return gulp.src(files.allFiles)
-    .pipe(plugins.standard())
+    .pipe(plugins.standard({ignore: [ 'src/public' ]}))
     .pipe(plugins.standard.reporter('default', {
       breakOnError: true,
       quiet: true

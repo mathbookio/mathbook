@@ -26,6 +26,7 @@ app.use('/stylesheets', express.static(path.join(__dirname, 'public/stylesheets'
 app.use('/images', express.static(path.join(__dirname, 'public/images')))
 app.use('/bulma', express.static(path.resolve(__dirname, '..', 'node_modules/bulma/css/')))
 app.use('/mathjax', express.static(path.resolve(__dirname, '..', 'node_modules/mathjax/')))
+app.use('/jquery', express.static(path.resolve(__dirname, '..', 'node_modules/jquery/')))
 
 app.use('/', router.router)
 app.use('/ele-algebra', router.eleAlgebraRouter)
