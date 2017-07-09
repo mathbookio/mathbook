@@ -1,0 +1,26 @@
+{
+  "name": "express-mathbook",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www",
+    "serve": "nodemon ./bin/www --harmony",
+    "precommit": "standard",
+    "prepush": "standard",
+    "lint": "standard",
+    "fix": "standard --fix"
+  },
+  "dependencies": {
+    "body-parser": "~1.17.1",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.3",
+    "express": "~4.15.2",
+    "morgan": "~1.8.1",
+    "pug": "~2.0.0-beta11",
+    "serve-favicon": "~2.4.2"
+  },
+  "devDependencies": {
+    "husky": "^0.14.3",
+    "standard": "^10.0.2"
+  }
+}
