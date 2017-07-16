@@ -36,4 +36,13 @@ border: none !important;
 .my-thin-title{
   font-weight: 300;
 }
+#loading-wrapper{
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+}
 
+#prepare{
+  width: 100%;
+  text-align: center
+}

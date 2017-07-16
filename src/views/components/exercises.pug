@@ -3,7 +3,7 @@ block exercises
     .title.is-4 Exercises
     .content
       p #{statement}
-    each q, index in exercises.exercises
+    each q, index in exercises
       .content
         p #{index + 1}) \(\quad\) \(#{q.question.join(' ')}\)
         |     \(\quad\)

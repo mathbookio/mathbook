@@ -5,7 +5,7 @@ block contents
       ol
         each item in config.contentsList
           li
-            a(href='', fragment=item.fragment, (click)='scrollToAnchor(childitem.fragment)') #{item.title}
+            a(href=item.fragment) #{item.title}
             if item.children
               ul(style='margin-top:0;')
                 each childItem in item.children
@@ -13,6 +13,6 @@ block contents
                     a(href='', fragment=childitem.fragment, (click)='scrollToAnchor(childitem.fragment)') #{childitem.title}
         // exercises and resources are used in every contents list
         li
-          a(href='', fragment='exercises', (click)="scrollToAnchor('exercises')") Exercises
+          a(href='#exercises') Exercises
         li
-          a(href='', fragment='resources', (click)="scrollToAnchor('resources')") Resources
+          a(href='#resources') Resources

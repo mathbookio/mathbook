@@ -5,7 +5,6 @@ block content
   include ../components/topic-header
   // Introduction Section
   include ../components/intro
-
   // Prerequisite Section
   include ../components/pre-req
   // Contents Section
@@ -20,10 +19,10 @@ block content
       p
         | In order to understand expressions, we have to break the expression down into its terms.
       p
-        | A term is a group of constants (numbers) and variables (like $x$)
-        | combined together with various operators like $\times$ and $\div$.
+        | A term is a group of constants (numbers) and variables (like \(x\))
+        | combined together with various operators like \(\times\) and \(\div\).
       p
-        | Terms are seperated by binary operators, $+$ and $-$.
+        | Terms are seperated by binary operators, \(+\) and \(-\).
     .content
       p
         | Here are a few examples of terms and non-terms.
@@ -31,49 +30,56 @@ block content
         .column.has-text-centered
           span.icon.my-green-icon
             i.fa.fa-check-circle
-        .column.has-text-centered(*ngfor='let goodTerm of mathContent.goodTerms')
-          span {{goodTerm}}
+        for goodTerm in content.goodTerms
+          .column.has-text-centered
+            span #{goodTerm}
     hr
     .content
       .columns
         .column.has-text-centered
           span.icon.my-red-icon
             i.fa.fa-minus-circle
-        .column.has-text-centered(*ngfor='let badTerm of mathContent.badTerms')
-          span {{badTerm}}
+        for badTerm in content.badTerms
+          .column.has-text-centered(*ngfor='let badTerm of content.badTerms')
+            span #{badTerm}
   #example-expressions.section.my-section-margin
-    .title.is-4 Examples of Expressions
+    .title.is-4 
+      | Examples of Expressions
+      a(href='#example-expressions', style='opacity:0.4;')
+        span.icon
+          i.fa.fa-anchor
+
     .content
       p Let's build an expression from the examples above.
       p All we have to do is combine the terms using \(+\) and/or \(-\)
     .content
-      p {{mathContent.expression1}}
+      p #{content.expression1}
       p
         | Easy right ? Here are a few more examples of expressions.
       .columns
-        .column.has-text-centered(*ngfor='let expr of mathContent.expressions') {{expr}}
+        for expr in content.expressions
+          .column.has-text-centered #{expr}
   #evaluate-expressions.section.my-section-margin
     .title.is-4 Evaluating Expressions
     .content
       p
         | Now for the fun part. For completeness, we are going to evaluate two different kinds of expressions.
       p  Let's start with an expression without variables.
-      p {{mathContent.expression2}}
+      p #{content.expression2}
       p
         | When evaluating an expression with no variables, we can simply evaluate by applying BEDMAS.
-      p {{mathsolveExpression2}}
+      p #{content.solveExpression2}
       br
       p Good stuff. Now, let's evaluate an expression with variables.
-      p {{mathContent.expression3}}
+      p #{content.expression3}
       p
         | We have to perform an additional step at the start before we can evaluate, which is
         | to substitute the value given for the variable, in this case $3$ for $x$.
         | Then evaluate like a simple expression by applying BEDMAS.
-      p {{mathContent.solveExpression3}}
+      p #{content.solveExpression3}
       p
         | That's it. Now you know how to evaluate an expression. Practice these concepts in the Exercise section below.
   // Exercises Section
   include ../components/exercises
-//- exercises([statement]='config.exercisesStatement', [exercises]='exercises')
-//- // Resources Section
-//- resources([resourcelist]='config.resourceList', [keywords]='config.keywords')
+  // Resources Section
+  include ../components/resources

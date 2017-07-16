@@ -1,0 +1,11 @@
+block further-reading
+  #resources.section.my-section-margin
+    .title.is-4 Resources
+    meta(itemprop='keywords', content='{{keywords}}')
+    .content
+      p
+        | Below is a list of resources to help you practice and build on what we discussed above.
+      ul
+        for reading in config.resources
+          li
+            a(href=reading.url, target='_blank') #{reading.title}

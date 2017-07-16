@@ -13,7 +13,7 @@ module.exports = {
   'openingSentence': [
     'An expression is a combination of operators and terms.',
     'Expressions come in all different forms and variations, some utilize special mathematical symbols,',
-    'like $\\sum$ (summation) and $\\prod$ (product).'
+    'like \\(\\sum\\) (summation) and \\(\\prod\\) (product).'
   ],
   'prerequisiteTopics': [
     {
@@ -24,19 +24,19 @@ module.exports = {
   'contentsList': [
     {
       'title': 'Understanding expressions',
-      'fragment': 'understanding-expressions'
+      'fragment': '#understanding-expressions'
     },
     {
       'title': 'Examples of expressions',
-      'fragment': 'example-expressions'
+      'fragment': '#example-expressions'
     },
     {
       'title': 'Evaluating expressions',
-      'fragment': 'evaluate-expressions'
+      'fragment': '#evaluate-expressions'
     }
   ],
   'exercisesStatement': 'Evaluate the following expressions.',
-  'resourceList': [
+  'resources': [
     {
       'title': 'What is BEDMAS?',
       'url': 'https://bctf.ca/diversity/ResourceInventory/LessonsTopics/Davies/BEDMAS.pdf'
