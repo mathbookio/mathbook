@@ -6,12 +6,13 @@ const browserSync = require('browser-sync').create()
 
 const files = {
   allFiles: ['./src/**/*.js', './tests/*.spec.js', '!./src/public/javascripts/*.js'],
-  testFiles: ['./tests/*.spec.js'],
-  srcFiles: ['./src/**/*.js', './src/**/*.pug', './src/**/*.css']
+  testFiles: ['./tests/**/*.spec.js'],
+  srcFiles: ['./src/**/*.js', './src/**/*.pug', './src/**/*.css'],
+  srcTestFiles: ['./src/**/*.js']
 }
 
 gulp.task('test:config', () => {
-  return gulp.src(files.srcFiles)
+  return gulp.src(files.srcTestFiles)
     // Covering files
     .pipe(plugins.istanbul())
     // Force `require` to return covered files

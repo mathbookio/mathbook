@@ -18,4 +18,13 @@ router.get('/eval-expressions', function (req, res) {
   { config: evalExpressionsConfig, exercises: evalExpressionsExercises, content: evalExpressionsContent })
 })
 
+// define the iso-variables route
+const isoVariablesConfig = require('../ele-algebra/iso-variables/config')
+const isoVariablesExercises = require('../ele-algebra/iso-variables/exercises')
+const isoVariablesContent = require('../ele-algebra/iso-variables/content')
+router.get('/iso-variables', function (req, res) {
+  res.render('ele-algebra/iso-variables',
+  { config: isoVariablesConfig, exercises: isoVariablesExercises, content: isoVariablesContent })
+})
+
 module.exports = router

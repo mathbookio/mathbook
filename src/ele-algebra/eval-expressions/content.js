@@ -47,12 +47,5 @@ const data = {
   ]
 }
 
-for (let key in data) {
-  if (key.includes('#')) {
-    const newKey = key.replace('#', '')
-    data[newKey] = data[key].join('')
-    delete data[key]
-  }
-}
-
-module.exports = data
+const formatter = require('../formatter')
+module.exports = formatter(data)

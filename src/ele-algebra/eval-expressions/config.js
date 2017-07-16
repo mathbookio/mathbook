@@ -1,4 +1,4 @@
-module.exports = {
+const data = {
   'title': 'Evaluating Expressions',
   'breadCrumbs': [
     {
@@ -10,7 +10,7 @@ module.exports = {
       'url': '/ele-algebra'
     }
   ],
-  'openingSentence': [
+  '#openingSentence': [
     'An expression is a combination of operators and terms.',
     'Expressions come in all different forms and variations, some utilize special mathematical symbols,',
     'like \\(\\sum\\) (summation) and \\(\\prod\\) (product).'
@@ -48,3 +48,6 @@ module.exports = {
   ],
   'keywords': 'mathbook,math,book,help,algebra,evaluating expressions,evaluating,expressions'
 }
+
+const formatter = require('../formatter')
+module.exports = formatter(data)

@@ -1,18 +1,10 @@
-extends ../layout
+extends ./template
 
-block content
-  // Topic Header Section
-  include ../components/topic-header
-  // Introduction Section
-  include ../components/intro
-  // Prerequisite Section
-  include ../components/pre-req
-  // Contents Section
-  include ../components/contents
+block contentSections
   #understanding-expressions.section.my-section-margin
     .title.is-4
       | Understanding Expressions 
-      a(style='opacity:0.4;')
+      a(href='#understanding-expressions', style='opacity:0.4;')
         span.icon
           i.fa.fa-anchor
     .content
@@ -60,7 +52,11 @@ block content
         for expr in content.expressions
           .column.has-text-centered #{expr}
   #evaluate-expressions.section.my-section-margin
-    .title.is-4 Evaluating Expressions
+    .title.is-4
+      | Evaluating Expressions
+      a(href='#evaluate-expressions', style='opacity:0.4;')
+        span.icon
+          i.fa.fa-anchor
     .content
       p
         | Now for the fun part. For completeness, we are going to evaluate two different kinds of expressions.
@@ -79,7 +75,3 @@ block content
       p #{content.solveExpression3}
       p
         | That's it. Now you know how to evaluate an expression. Practice these concepts in the Exercise section below.
-  // Exercises Section
-  include ../components/exercises
-  // Resources Section
-  include ../components/resources
