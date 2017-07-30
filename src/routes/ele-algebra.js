@@ -27,4 +27,22 @@ router.get('/iso-variables', function (req, res) {
   { config: isoVariablesConfig, exercises: isoVariablesExercises, content: isoVariablesContent })
 })
 
+// define the solve-equations route
+const solveEquationsConfig = require('../ele-algebra/solving-equations/config')
+const solveEquationsExercises = require('../ele-algebra/solving-equations/exercises')
+const solveEquationsContent = require('../ele-algebra/solving-equations/content')
+router.get('/solve-equations', function (req, res) {
+  res.render('ele-algebra/solving-equations',
+  { config: solveEquationsConfig, exercises: solveEquationsExercises, content: solveEquationsContent })
+})
+
+// define the solve-equations route
+const substitutionConfig = require('../ele-algebra/substitution/config')
+const substitutionExercises = require('../ele-algebra/substitution/exercises')
+const substitutionContent = require('../ele-algebra/substitution/content')
+router.get('/substitution', function (req, res) {
+  res.render('ele-algebra/substitution',
+  { config: substitutionConfig, exercises: substitutionExercises, content: substitutionContent })
+})
+
 module.exports = router
