@@ -45,4 +45,13 @@ router.get('/substitution', function (req, res) {
   { config: substitutionConfig, exercises: substitutionExercises, content: substitutionContent })
 })
 
+// define the solve-equations route
+const factoringConfig = require('../ele-algebra/factoring/config')
+const factoringExercises = require('../ele-algebra/factoring/exercises')
+const factoringContent = require('../ele-algebra/factoring/content')
+router.get('/factoring', function (req, res) {
+  res.render('ele-algebra/factoring',
+  { config: factoringConfig, exercises: factoringExercises, content: factoringContent })
+})
+
 module.exports = router

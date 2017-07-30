@@ -1,0 +1,91 @@
+extends ./template
+
+block contentSections
+  #whatRoot.section.my-section-margin
+    .title.is-4 What are Roots
+      .content
+        p
+          | Roots are numbers that evaluate a polynomial \(P(x)\) to \(0\). More formally,
+        p #{content.whatRootDefinition}
+        p
+          | In regards to knowing how many roots a polynomial has, we refer to
+          | one of the Fundamental Theorems of Algebra, which states the following,
+        p #{content.whatTheoremAlgebra}
+        p#rootExample
+          | For example, the polynomial \(Q(x) = x^2 - 1\) has degree \(2\),
+          | meaning it has exactly \(2\) roots.
+        p
+          | By inspection, we can see that \(Q(1) = 0\) and \(Q(-1) = 0\).
+          | Hence, the two roots of \(Q(x)\) are \(1, -1\) respectively.
+  #whatFactoring.section.my-section-margin
+    .title.is-4 What is Factoring
+    .content
+      p
+        | Factoring is a method used to find the roots of a polynomial.
+      p
+        | In it's true sense, factoring is the process of decomposing a polynomial into
+        | its factors, which are simply smaller degree polynomials.
+      p
+        | A factor of a polynomial \(P(x)\) is a polynomial \(F(x)\)
+        | in which we can multiply it by another polynomial, \(G(x)\) to produce \(P(x)\).
+      p #{content.whatPolyFactor}
+      p
+        | As an example, consider the example in the previous section.
+      p #{content.whatFactorExample}
+      p
+        | We will go in more detail about out how we came up with
+        | the factors of \(Q(x)\) in a later section.
+      p
+        | For now let's move onto the basics before we get into the actual methods of factoring.
+  #basics.section.my-section-margin
+    .title.is-4 Factoring Basics
+    .content
+      p
+        | Besides factoring a polynomial to find its roots and factors,
+        | we can also factor a polynomial to simplify and clean it up.
+      p
+        | The most commonly used trick is to seperate the greatest common factor of a polynomial from its terms.
+        | The \(G.C.F\) being the greatest common factor of every coefficient in the polynomial.
+      p #{content.basicsGCF}
+      p
+        | For each coefficient in \(p(x)\), we see that \(a\) is a factor.
+        | This then means that \(a\) is a common factor and in this case the greatest common factor.
+        | We can then "factor" it out of the polynomial.
+      p #{content.basicsGCFSolution}
+      p
+        | In this case, we factored out a factor of each coefficient.
+        | We can also apply this method to factor out a common variable from each term.
+      p #{content.basicsCommonVar}
+      p #{content.basicsCommonVarSolution}
+      p
+        | Notice that when we factor common variables out of each term,
+        | we sometimes get factors of the polynomial to reveal themselves.
+      p #{content.basicsCommonVarFactored}
+  #how.section.my-section-margin
+    .title.is-4 How to find roots
+    .content
+      p
+        | Before we start with examples, we need to make a note that there are many different patterns we can
+        | apply to successfully factor a polynomial. The following is a list of the more popular patterns.
+      ul
+        li Quadratic Formula
+        li Completing the square
+        li Sum of differences
+        li Grouping
+        li Polynomial division
+      p
+        | For our first example, let's start with a simple polynomial.
+      p #{content.howExample1}
+      p
+        | Before we try and find the root, we can simplify this polynomial with basic factoring.
+      p #{content.howBasicFactorExample1}
+      p
+        | As mentioned above, we know that a value is a root of a polynomial if it evaluates the polynomial to \(0\).
+      p
+        | The common approach to finding the roots of a first degree polynomial is to set it to \(0\) and isolate for the variable.
+      p #{content.howSolutionExample1}
+      p
+        | Hence, we see that the root for the given polynomial is \(x = 2\)
+      p
+        | Now that we found the root of the polynomial we can rewrite the polynomial in its factored form.
+      p #{content.howFactoredExample1}
