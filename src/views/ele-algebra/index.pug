@@ -1,0 +1,18 @@
+extends ../layout
+
+block content
+  .section.my-section-margin
+    .container
+      .heading
+        h1.title Elementary Algebra
+      h5.title.is-5 A branch of algebra that deals with arithmetic and solving equations.
+  .section.my-section-margin
+    .container
+      h3.title.is-3 Select a topic from the list below.
+  .section.my-section-margin
+    .container
+      .tile.is-ancestor
+        .tile.is-parent.is-vertical
+          each topic in topics
+            include ../components/topic-box.pug
+

@@ -7,8 +7,7 @@ const logger = require('morgan')
 const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
 
-const index = require('./routes/index')
-const users = require('./routes/users')
+const router = require('./routes/index')
 
 const app = express()
 
@@ -22,10 +21,16 @@ app.use(logger('dev'))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser())
-app.use(express.static(path.join(__dirname, 'public')))
+app.use('/js', express.static(path.join(__dirname, 'public/javascripts')))
+app.use('/stylesheets', express.static(path.join(__dirname, 'public/stylesheets')))
+app.use('/images', express.static(path.join(__dirname, 'public/images')))
+app.use('/bulma', express.static(path.resolve(__dirname, '..', 'node_modules/bulma/css/')))
+app.use('/mathjax', express.static(path.resolve(__dirname, '..', 'node_modules/mathjax/')))
+app.use('/jquery', express.static(path.resolve(__dirname, '..', 'node_modules/jquery/')))
 
-app.use('/', index)
-app.use('/users', users)
+app.use('/', router.router)
+app.use('/editor', router.editorRouter)
+app.use('/ele-algebra', router.eleAlgebraRouter)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

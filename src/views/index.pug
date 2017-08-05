@@ -1,0 +1,62 @@
+extends layout
+
+block content
+  section.hero.is-info.is-medium
+    .hero-body
+      .container
+        h1.title
+          | Welcome to Mathbook
+        h2.subtitle
+          | An online resource for students and educators who need some calculations done.
+  .container.is-fluid
+    section.section.my-section-margin
+      .container
+        h3.title.is-3 Select A Subject to Get Started
+    section.section.my-section-margin
+      .container
+        .tile.is-ancestor
+          .tile.is-4.is-parent
+            a.tile.is-child.box.notification.is-primary(href="/ele-algebra")
+              h3.title Elementary Algebra
+              .content.is-medium
+                p basic algebra dealing with arithmetic and polynomials.
+              span.content.is-medium.my-subject-example $$ax^2 + bx + c = 0$$
+          .tile.is-4.is-parent
+            a.tile.is-child.box.notification.is-warning
+              h3.title Calculus
+              .content.is-medium
+                p Foundational Calculus dealing with derivatives and integration.
+              span.content.is-medium.my-subject-example $$\frac{\mathrm d y}{\mathrm d x} \left( x^2 + x - 3 \right)$$
+          .tile.is-4.is-parent
+            a.tile.is-child.box.notification.is-danger
+              h3.title Linear Algebra
+              .content.is-medium
+                p Matrices and Vector manipulations.
+              span.content.is-medium.my-subject-example $$M = \begin{bmatrix} 1 & 0 & 2 \\ 0 & 3 & 0 \\ 4 & 0 & 5 \end{bmatrix}$$
+        .tile.is-ancestor
+          .tile.is-4.is-parent
+            a.tile.is-child.box.notification.is-info
+              h3.title Number Theory
+              .content.is-medium
+                p Known as "The Queen of Mathematics". The study of integers.
+              span.content.is-medium.my-subject-example $$a^n + b^n = c^n$$
+          .tile.is-4.is-parent
+            a.tile.is-child.box.notification.is-success
+              h3.title Geometry
+              .content.is-medium
+                p
+                  | Questions of shape, size, relative position of figures, and the properties of space
+              span.content.is-medium.my-subject-example $$tan(x) = \frac{sin(x)}{cos(x)}$$
+          .tile.is-4.is-parent
+            a.tile.is-child.box.notification.my-purple-subject
+              h3.title Combinatorics
+              .content.is-medium
+                p Counting numbers.
+              span.content.is-medium.my-subject-example $$\binom{n}{k} = \frac{n!}{k!(n-k)!}$$
+  section.hero.is-light.is-bold
+    .hero-body
+      .container.has-text-centered
+        h1.title
+          | Math is a tool created to help us measure the world around us.
+        h2.subtitle
+          | For that reason alone, math is worth learning.

@@ -1,0 +1,48 @@
+
+.my-footer-color{
+  background-color:  #212121;
+
+}
+.my-footer-text{
+  color:white;
+    text-decoration: none !important;
+    border: none !important;
+}
+.my-footer-text a:hover{
+  color: #18ffff;
+}
+a:visited .my-footer-text{
+border: none !important;
+}
+.my-nav-bg{
+  background-color: #3273DC;
+  color: #ffffff !important;
+}
+.my-spacer{
+  height: 5px;
+  padding: 0 !important;
+}
+
+
+.my-subject-example{
+  text-align: center;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+.my-purple{
+  background-color:  #9c27b0;
+  color: white;
+}
+.my-thin-title{
+  font-weight: 300;
+}
+#loading-wrapper{
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+}
+
+#prepare{
+  width: 100%;
+  text-align: center
+}
