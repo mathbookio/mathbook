@@ -27,6 +27,7 @@ app.use('/images', express.static(path.join(__dirname, 'public/images')))
 app.use('/bulma', express.static(path.resolve(__dirname, '..', 'node_modules/bulma/css/')))
 app.use('/mathjax', express.static(path.resolve(__dirname, '..', 'node_modules/mathjax/')))
 app.use('/jquery', express.static(path.resolve(__dirname, '..', 'node_modules/jquery/')))
+app.use('/highlight', express.static(path.resolve(__dirname, '..', 'node_modules/highlight.js/')))
 
 app.use('/', router.router)
 app.use('/contribute', router.contributeRouter)

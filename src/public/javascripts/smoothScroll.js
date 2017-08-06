@@ -8,6 +8,9 @@
 $(document).ready(function () {
   $('#loading-wrapper').show()
   $('#wrapper').hide()
+  $('pre code').each(function (i, block) {
+    hljs.highlightBlock(block)
+  })
 })
 MathJax.Hub.Register.StartupHook('End', function () {
   $('#loading-wrapper').hide()

@@ -18,7 +18,7 @@ block content
               li
                 a(href='#know') Things to Know
               li
-                a Invitations
+                a(href='#components') Tutorial Components
               li
                 a Cloud Storage Environment Settings
               li
@@ -41,4 +41,42 @@ block content
               |  to discuss the details.
             p If and when your tutorial gets added to Mathbook, you will be added as a contributor to this project.
             
-            
+            h3#components Tutorial Components
+            .content
+              p We break up every tutorial into three parts.
+              ul
+                li
+                  a(href='#config') Configuration
+                li
+                  a(href='#content') Content
+                li 
+                  a(href='#exercises') Exercises
+              p Every tutorial follows a certain structure so the reader can expect a certain format for each tutorial regardless of subject.
+              h5#config Configuration
+              p The configuration part contains information like the title, table of contents, and a list of external resources for extra information.
+                | Here's the full list of required data and sample.
+              ul
+                li 
+                  strong Title 
+                  span - the title of the tutorial
+                li 
+                  strong BreadCrumb 
+                  span - a list of links that lead to the tutorial
+                li 
+                  strong Opening Statement 
+                  span - an opening statement for the tutorial 
+                li 
+                  strong Prerequisite Topics 
+                  span - a list of prerequiste topics that the reader should know before starting
+                li 
+                  strong Table of Contents 
+                  span - a list of the contents of the tutorial
+                li 
+                  strong Exercises' Statement 
+                  span - a statement regarding the set of exercises presented at the end of the tutorial
+                li 
+                  strong Resources 
+                  span - A list of external resources related to the topic discussed in the tutorial
+                li 
+                  strong Keywords 
+                  span - a list of words that relate to the topic of the tutorial
