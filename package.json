@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "body-parser": "~1.17.1",
-    "bulma": "^0.4.3",
+    "bulma": "^0.5.0",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.3",
     "express": "~4.15.2",
@@ -22,9 +22,9 @@
     "serve-favicon": "~2.4.2"
   },
   "devDependencies": {
-    "browser-sync": "^2.18.12",
-    "bunyan": "^1.8.10",
-    "chai": "^4.0.2",
+    "browser-sync": "^2.18.13",
+    "bunyan": "^1.8.12",
+    "chai": "^4.1.1",
     "gulp": "^3.9.1",
     "gulp-istanbul": "^1.1.2",
     "gulp-load-plugins": "^1.5.0",
@@ -32,8 +32,8 @@
     "gulp-nodemon": "^2.2.1",
     "gulp-standard": "^10.0.0",
     "husky": "^0.14.3",
-    "mocha": "^3.4.2",
-    "sinon": "^2.3.6",
+    "mocha": "^3.5.0",
+    "sinon": "^3.0.0",
     "standard": "^10.0.2"
   }
 }

@@ -14,25 +14,25 @@ html
     script(type="text/javascript" src="/js/smoothScroll.js")
   body
     nav.nav
-    .container
-      .nav-left
-        a.nav-item(href='/')
-          img(src='/images/mathbook_indigo_white_v5.png', alt='Mathbook Logo')
-      span.nav-toggle
-        span
-        span
-        span
-      .nav-right.nav-menu
-        a.nav-item(href='/')
-          | Home
-        a.nav-item(routerlink='')
-          | Documentation
-        a.nav-item(href='/editor')
-          | Editor
-      #loading-wrapper
-        include ./components/loading-view
-      #wrapper.my-wrapper
-        block content
+      .container
+        .nav-left
+          a.nav-item(href='/')
+            img(src='/images/mathbook_indigo_white_v5.png', alt='Mathbook Logo')
+        span.nav-toggle
+          span
+          span
+          span
+        .nav-right.nav-menu
+          a.nav-item(href='/')
+            | Home
+          a.nav-item(routerlink='')
+            | Documentation
+          a.nav-item(href='/contribute')
+            | Contribute
+    #loading-wrapper
+      include ./components/loading-view
+    #wrapper.my-wrapper
+      block content
     .columns.is-gapless
       .column.notification.is-info
       .column.notification.is-warning

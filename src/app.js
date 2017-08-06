@@ -29,7 +29,7 @@ app.use('/mathjax', express.static(path.resolve(__dirname, '..', 'node_modules/m
 app.use('/jquery', express.static(path.resolve(__dirname, '..', 'node_modules/jquery/')))
 
 app.use('/', router.router)
-app.use('/editor', router.editorRouter)
+app.use('/contribute', router.contributeRouter)
 app.use('/ele-algebra', router.eleAlgebraRouter)
 
 // catch 404 and forward to error handler
