@@ -1,0 +1,85 @@
+extends ./layout
+
+block content
+  section.hero.is-info
+    .hero-body.has-text-centered
+      h3.title Tutorial Builder
+  section.section
+    .container
+      .content
+        p Welcome to the tutorial builder. Please build out the tutorial in the order presented.
+  section.section
+    .container
+      h5.title Configuration
+      .field
+        label.label Subject
+        .control
+          .select
+            select
+              option Elementary Algebra
+              option Calculus
+              option Linear Algebra
+              option Number Theory
+              option Geometry
+              option Combinatorics
+      .field
+        label.label Title
+        .control
+          input.input(type='text', placeholder='Tutorial Title')
+      .field
+        label.label Opening Statement
+        .control
+          textarea.textarea
+      .field
+        label.label Prerequisite Topics
+      .field.is-grouped
+        .control.is-expanded
+          input.input(type='text' placeholder='Topic Title')
+        .control.is-expanded
+          input.input(type='text' placeholder='Topic Url')
+        .control
+          a.button.is-success Add
+        .control
+          a.button.is-danger Delete
+      .field
+        label.label Table of Contents
+      .field.is-grouped
+        .control.is-expanded
+          input.input(type='text' placeholder='Section Name')
+        .control
+          a.button.is-success Add
+        .control
+          a.button.is-danger Delete
+      .field
+        .control
+          span - Introduction
+        .control
+          span - Prerequisites
+        .control
+          span - Exercises
+        .control
+          span - Resources
+      .field
+        label.label Exercises' Statement
+        .control
+          input.input(type='text' placeholder='e.g. Solve for \\(y\\) for the following exercises')
+      .field
+        label.label Resources
+      .field.is-grouped
+        .control.is-expanded
+          input.input(type='text' placeholder='Resource Title')
+        .control.is-expanded
+          input.input(type='text' placeholder='Resource Url')
+        .control
+          a.button.is-success Add
+        .control
+          a.button.is-danger Delete
+      .field
+        label.label Keywords
+      .field.is-grouped
+        .control.is-expanded
+          input.input(type='text' placeholder='Keyword ie. calculus')
+        .control
+          a.button.is-success Add
+        .control
+          a.button.is-danger Delete

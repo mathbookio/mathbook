@@ -31,6 +31,7 @@ app.use('/highlight', express.static(path.resolve(__dirname, '..', 'node_modules
 
 app.use('/', router.router)
 app.use('/contribute', router.contributeRouter)
+app.use('/editor', router.editorRouter)
 app.use('/ele-algebra', router.eleAlgebraRouter)
 
 // catch 404 and forward to error handler
