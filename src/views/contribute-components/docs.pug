@@ -11,7 +11,7 @@ block content
         .column.is-two
           aside.menu
             p.menu-label
-              | Contents
+              | Guide
             ul.menu-list
               li
                 a(href='#gettingStarted') Getting Started
@@ -20,9 +20,9 @@ block content
               li
                 a(href='#components') Tutorial Components
               li
-                a Cloud Storage Environment Settings
+                a(href='#publishing') Publishing Tutorials
               li
-                a Authentication
+                a(href='#start') Start building your tutorial
         .column.is-10
           .content
             h3#gettingStarted Getting Started
@@ -54,14 +54,11 @@ block content
               p Every tutorial follows a certain structure so the reader can expect a certain format for each tutorial regardless of subject.
               h5#config Configuration
               p The configuration part contains information like the title, table of contents, and a list of external resources for extra information.
-                | Here's the full list of required data and sample.
+                | Here's the full list of required data.
               ul
                 li 
                   strong Title 
                   span - the title of the tutorial
-                li 
-                  strong BreadCrumb 
-                  span - a list of links that lead to the tutorial
                 li 
                   strong Opening Statement 
                   span - an opening statement for the tutorial 
@@ -80,3 +77,46 @@ block content
                 li 
                   strong Keywords 
                   span - a list of words that relate to the topic of the tutorial
+              h5#cont Content
+              p The content of the tutorial is simply all the sections (the body) of the tutorial that are not a part of the configuration and exercises. Each section can contain blocks of MathJax that require rendering. For example,
+              pre 
+                code
+                  | &lt;p&gt; Here's an example for finding the roots of a polynomial. &lt;/p&gt;
+                  | $$ \text{Find the roots for} \quad y = x^2 - 4 $$
+                  | \begin{align}
+                  | y &= x^2 - 4 \\
+                  | y &= (x - 2)(x + 2) \\
+                  | x &= \pm 2 \quad \text{$\square$}
+                  | \end{align}
+              p Will render into
+              .box
+                p Here's an example for finding the roots of a polynomial.
+                  | $$ \text{Find the roots for} \quad y = x^2 - 4 $$
+                  | \begin{align}
+                  | y &= x^2 - 4 \\
+                  | y &= (x - 2)(x + 2)\\
+                  | x &= \pm 2 \quad \text{$\square$}
+                  | \end{align}
+              h5#exercises Exercises
+              p The last component of a tutorial are the exercises. 
+                | At the end of each tutorial, you will need to provide some exercises (at least 3) 
+                | so that the reader can apply and practice what was explained in the tutorial. One requirement
+                | of the exercises is that they must increase in difficulty and they must be accompanied by answers.
+                | Feel free to include small hints if you think they help the reader start off on the right track.
+              p Note:The exercises cannot be links to an external site, they must live on the page of the tutorial.
+            h3#publishing Publishing Tutorials
+            .content
+              p The process of publishing a tutorial is an easy one. 
+                | Once you have provided the required configuration information, content and exercises for your tutorial,
+                | you will need to submit the tutorial for review. The tutorial needs to be reviewed by a fellow Mathbook contributor
+                | and approved. Changes may be requested and discussed so having a github account is necessary for this process.
+              p Once your tutorial gets approved, it gets added to the collection of tutorials on Mathbook immediately and 
+                | your github account and name will be added to the contributors list.
+              p You can take a look at the tutorials currently under review
+                a(href='https://google.ca')  here
+            h3#start Start building your tutorial
+            .content
+              p In regards to building your tutorial, we have created a tutorial builder that you can use which will
+                | help keep things simple and straight forward.
+              p The Tutorial Builder lives 
+                a(href='/editor') here
