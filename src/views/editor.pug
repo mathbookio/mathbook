@@ -11,75 +11,21 @@ block content
   section.section
     .container
       h5.title Configuration
-      .field
-        label.label Subject
-        .control
-          .select
-            select
-              option Elementary Algebra
-              option Calculus
-              option Linear Algebra
-              option Number Theory
-              option Geometry
-              option Combinatorics
-      .field
-        label.label Title
-        .control
-          input.input(type='text', placeholder='Tutorial Title')
-      .field
-        label.label Opening Statement
-        .control
-          textarea.textarea
+      subject
+      config-title
+      opening-statement
       pre-req
       table-of-contents
-      //- .field
-      //-   label.label Table of Contents
-      //- .field.is-grouped
-      //-   .control.is-expanded
-      //-     input.input(type='text' placeholder='Section Name')
-      //-   .control
-      //-     a.button.is-success Add
-      //-   .control
-      //-     a.button.is-danger Delete
-      //- .field
-      //-   .control#tocIntro
-      //-     span - Introduction
-      //-   .control#tocPrereq
-      //-     span - Prerequisites
-      //-   .control#tocExercises
-      //-     span - Exercises
-      //-   .control#tocResources
-      //-     span - Resources
-      .field
-        label.label Exercises' Statement
-        .control
-          input.input(type='text' placeholder='e.g. Solve for \\(y\\) for the following exercises')
+      exercise-statement
       resources
-      //- .field
-      //-   label.label Resources
-      //- .field.is-grouped
-      //-   .control.is-expanded
-      //-     input.input(type='text' placeholder='Resource Title')
-      //-   .control.is-expanded
-      //-     input.input(type='text' placeholder='Resource Url')
-      //-   .control
-      //-     a.button.is-success Add
-      //-   .control
-      //-     a.button.is-danger Delete
-      //- .field
-      //-   label.label Keywords
-      //- .field.is-grouped
-      //-   .control.is-expanded
-      //-     input.input(type='text' placeholder='Keyword ie. calculus')
-      //-   .control
-      //-     a.button.is-success Add
-      //-   .control
-      //-     a.button.is-danger Delete
       keywords
   
+  script(type="text/javascript" src="/tags/editor/subject.js")
+  script(type="text/javascript" src="/tags/editor/config-title.js")
+  script(type="text/javascript" src="/tags/editor/opening-statement.js")
   script(type="text/javascript" src="/tags/editor/pre-req.js")
   script(type="text/javascript" src="/tags/editor/table-of-contents.js")
   script(type="text/javascript" src="/tags/editor/resources.js")
+  script(type="text/javascript" src="/tags/editor/exerciseStatement.js")
   script(type="text/javascript" src="/tags/editor/keywords.js")
   script(type="text/javascript" src="/js/riotInit.js")
-  //- script(type="text/javascript" src="/js/tutorialBuilder.js")
