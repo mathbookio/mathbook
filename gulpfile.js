@@ -69,7 +69,9 @@ gulp.task('nodemon', function (cb) {
 gulp.task('riot', function () {
   gulp.src(files.tagFiles)
       .pipe(plugins.riot())
-      .pipe(gulp.dest('./src/public/tags'))
+      .pipe(plugins.concat('all.js'))
+      .pipe(gulp.dest('./src/public/javascripts'))
+      // .pipe(gulp.dest('./src/public/tags'))
 })
 
 gulp.task('serve', ['nodemon'], function () {

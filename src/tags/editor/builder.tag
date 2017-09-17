@@ -1,4 +1,4 @@
-<navigation>
+<builder>
 <section class="section">
   <div class="tabs is-centered is-boxed">
     <ul>
@@ -20,7 +20,7 @@
     </ul>
   </div>
   <configuration id="config"></configuration>
-  <div id="content">CONTENT PAGE</div>
+  <content id="content"></content>
   <div id="exercises">EXERCISES PAGE</div>
 </section>
   <script>
@@ -56,6 +56,4 @@
       $("#config").hide();
     }
   </script>
-
-  <script type="text/javascript" src="../../public/tags/editor/configuration.js"></script>
-</navigation>
+</builder>

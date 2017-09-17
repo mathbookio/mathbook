@@ -17,20 +17,12 @@
       <resources></resources>
       <br/>
       <keywords></keywords>
-      <br/>
+      <!--  <br/>
       <div class="field">
         <div class="control">
           <button class="button is-info">Save Configuration</button>
         </div>
       </div>
-    </div>
+    </div>  -->
   </section>
-  <script type="text/javascript" src="../../public/tags/editor/subject.js"></script>
-  <script type="text/javascript" src="../../public/tags/editor/config-title.js"></script>
-  <script type="text/javascript" src="../../public/tags/editor/opening-statement.js"></script>
-  <script type="text/javascript" src="../../public/tags/editor/pre-req.js"></script>
-  <script type="text/javascript" src="../../public/tags/editor/table-of-contents.js"></script>
-  <script type="text/javascript" src="../../public/tags/editor/resources.js"></script>
-  <script type="text/javascript" src="../../public/tags/editor/exerciseStatement.js"></script>
-  <script type="text/javascript" src="../../public/tags/editor/keywords.js"></script>
 </configuration>
