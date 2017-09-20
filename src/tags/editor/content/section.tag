@@ -25,18 +25,18 @@
     <section class="modal-card-body">
       <div class="field">
         <div class="control">
-          <input type="text" id="{ editContentTitleId }" class="input mathContent" placeholder="Section Title ie) Understanding Factoring"/>
+          <input type="text" id="{ editTitleId }" class="input mathContent" placeholder="Section Title ie) Understanding Factoring"/>
        </div>
       </div>
       <div class="field">
         <div class="control">
-          <textarea id="{ editContentSectionId }" class="textarea mathContent" placeholder="Edit section content"></textarea>
+          <textarea id="{ editSectionId }" class="textarea mathContent" placeholder="Edit section content"></textarea>
         </div>
         <br/>
         <div class="control">
         <label>Preview</label>
           <div class="box">
-            <p id="{ editContentSectionTextId }"></p>
+            <p id="{ editSectionTextId }"></p>
           </div>
         </div>
       </div>
@@ -56,40 +56,48 @@ this.sectionTitle = this.opts.sectionTitle
 this.sectionContent = this.opts.sectionContent
 this.sectionText = this.opts.sectionText
 
-this.editContentTitleId =  'editContentTitle' + '_' + this.opts.id
-this.editContentSectionId = 'editContentSection' + '_' + this.opts.id
-this.editContentSectionTextId = 'editContentSectionText' + '_' + this.opts.id
+//generate Id's
+this.editTitleId =  'editContentTitle_' + this.opts.id
+this.editSectionId = 'editContentSection_' + this.opts.id
+this.editSectionTextId = 'editContentSectionText_' + this.opts.id
 
 
 this.on('mount', function() {
-  $('#'+this.sectionId).html(this.sectionContent)
 
-  $('#'+this.editContentSectionId).on('input', function(e) {
-      var osText = $('#'+that.editContentSectionId).val()
-      console.log('$(#this.editContentSectionId).val()', $('#'+that.editContentSectionId))
-      console.log('EDIT CONTENT SECTION TEXT', osText)
-      $('#'+that.editContentSectionTextId).html(osText)
-      MathJax.Hub.Queue(['Typeset', MathJax.Hub, that.editContentSectionTextId])
+  // bind section content
+  this.$('sectionId').html(this.sectionContent)
+  
+  // preview section content edits/changes in modal view
+  this.$('editSectionId').on('input', function(e) {
+      var contentVal = that.$('editSectionId').val()
+      that.$('editSectionTextId').html(contentVal)
+      MathJax.Hub.Queue(['Typeset', MathJax.Hub, that.editSectionTextId])
     });
 
 })
 
+
 editSection(){
   this.showModal = true
-  $('#'+this.editContentTitleId).val(this.sectionTitle)
-  $('#'+this.editContentSectionId).val(this.sectionText)
-  $('#'+this.editContentSectionTextId).html(this.sectionContent)
+  // when the modal opens, we want the section title and content values to carry over
+  this.$('editTitleId').val(this.sectionTitle)
+  this.$('editSectionId').val(this.sectionText)
+  this.$('editSectionTextId').html(this.sectionContent)
 }
 
 saveChanges(){
   var confirmChanges = confirm('Would you like to confirm these changes ?')
   if (confirmChanges){
-    this.sectionTitle = $('#'+this.editContentTitleId).val()
-    this.sectionText = $('#'+this.editContentSectionId).val()
-    this.sectionContent = $('#'+this.editContentSectionTextId).html()
-    $('#'+this.sectionId).html(this.sectionContent)
+    this.updateContent()
     this.closeModal()
   }
+}
+
+updateContent(){
+  this.sectionTitle = this.$('editTitleId').val()
+  this.sectionText = this.$('editSectionId').val()
+  this.sectionContent = this.$('editSectionTextId').html()
+  this.$('sectionId').html(this.sectionContent)
 }
 
 closeModal(){
@@ -102,6 +110,11 @@ removeSection(){
     this.unmount(true)
     $('#'+this.opts.id).remove()
   }
+}
+
+// jquery alias
+$(val){
+  return $('#'+this[val])
 }
 </script>
 </content-section>

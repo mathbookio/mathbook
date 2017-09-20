@@ -315,7 +315,7 @@ riot.tag2('table-of-contents', '<div class="field"> <label class="label">Table o
       return ($.trim(title) === '')
     }
 });
-riot.tag2('content-section', '<div class="box"> <div class="level"> <div class="level-right"> <span class="level-item moveHandle"> <span class="icon is-small"><i class="fa fa-bars" aria-hidden="true"></i></span> </span> <a class="level-item" onclick="{editSection}"> <span class="icon is-small has-text-info"><i class="fa fa-pencil" aria-hidden="true"></i></span> </a> <a class="level-item" onclick="{removeSection}"> <span class="icon is-small has-text-danger"><i class="fa fa-close" aria-hidden="true"></i></span> </a> </div></div> <div class="title is-4">{sectionTitle}</div> <div class="content" id="{sectionId}"></div> </div> <div class="modal {is-active: showModal}"> <div class="modal-background"></div> <div class="modal-card"> <header class="modal-card-head"> <p class="modal-card-title">Edit Section</p> <button class="delete" aria-label="close" onclick="{closeModal}"></button> </header> <section class="modal-card-body"> <div class="field"> <div class="control"> <input type="text" id="{editContentTitleId}" class="input mathContent" placeholder="Section Title ie) Understanding Factoring"> </div> </div> <div class="field"> <div class="control"> <textarea id="{editContentSectionId}" class="textarea mathContent" placeholder="Edit section content"></textarea> </div> <br> <div class="control"> <label>Preview</label> <div class="box"> <p id="{editContentSectionTextId}"></p> </div> </div> </div> </section> <footer class="modal-card-foot"> <button class="button is-success" onclick="{saveChanges}">Save changes</button> <button class="button" onclick="{closeModal}">Cancel</button> </footer> </div> </div>', '', '', function(opts) {
+riot.tag2('content-section', '<div class="box"> <div class="level"> <div class="level-right"> <span class="level-item moveHandle"> <span class="icon is-small"><i class="fa fa-bars" aria-hidden="true"></i></span> </span> <a class="level-item" onclick="{editSection}"> <span class="icon is-small has-text-info"><i class="fa fa-pencil" aria-hidden="true"></i></span> </a> <a class="level-item" onclick="{removeSection}"> <span class="icon is-small has-text-danger"><i class="fa fa-close" aria-hidden="true"></i></span> </a> </div></div> <div class="title is-4">{sectionTitle}</div> <div class="content" id="{sectionId}"></div> </div> <div class="modal {is-active: showModal}"> <div class="modal-background"></div> <div class="modal-card"> <header class="modal-card-head"> <p class="modal-card-title">Edit Section</p> <button class="delete" aria-label="close" onclick="{closeModal}"></button> </header> <section class="modal-card-body"> <div class="field"> <div class="control"> <input type="text" id="{editTitleId}" class="input mathContent" placeholder="Section Title ie) Understanding Factoring"> </div> </div> <div class="field"> <div class="control"> <textarea id="{editSectionId}" class="textarea mathContent" placeholder="Edit section content"></textarea> </div> <br> <div class="control"> <label>Preview</label> <div class="box"> <p id="{editSectionTextId}"></p> </div> </div> </div> </section> <footer class="modal-card-foot"> <button class="button is-success" onclick="{saveChanges}">Save changes</button> <button class="button" onclick="{closeModal}">Cancel</button> </footer> </div> </div>', '', '', function(opts) {
 console.log(this.opts)
 var that = this
 this.showModal = false
@@ -324,39 +324,43 @@ this.sectionTitle = this.opts.sectionTitle
 this.sectionContent = this.opts.sectionContent
 this.sectionText = this.opts.sectionText
 
-this.editContentTitleId =  'editContentTitle' + '_' + this.opts.id
-this.editContentSectionId = 'editContentSection' + '_' + this.opts.id
-this.editContentSectionTextId = 'editContentSectionText' + '_' + this.opts.id
+this.editTitleId =  'editContentTitle_' + this.opts.id
+this.editSectionId = 'editContentSection_' + this.opts.id
+this.editSectionTextId = 'editContentSectionText_' + this.opts.id
 
 this.on('mount', function() {
-  $('#'+this.sectionId).html(this.sectionContent)
 
-  $('#'+this.editContentSectionId).on('input', function(e) {
-      var osText = $('#'+that.editContentSectionId).val()
-      console.log('$(#this.editContentSectionId).val()', $('#'+that.editContentSectionId))
-      console.log('EDIT CONTENT SECTION TEXT', osText)
-      $('#'+that.editContentSectionTextId).html(osText)
-      MathJax.Hub.Queue(['Typeset', MathJax.Hub, that.editContentSectionTextId])
+  this.$('sectionId').html(this.sectionContent)
+
+  this.$('editSectionId').on('input', function(e) {
+      var contentVal = that.$('editSectionId').val()
+      that.$('editSectionTextId').html(contentVal)
+      MathJax.Hub.Queue(['Typeset', MathJax.Hub, that.editSectionTextId])
     });
 
 })
 
 this.editSection = function(){
   this.showModal = true
-  $('#'+this.editContentTitleId).val(this.sectionTitle)
-  $('#'+this.editContentSectionId).val(this.sectionText)
-  $('#'+this.editContentSectionTextId).html(this.sectionContent)
+
+  this.$('editTitleId').val(this.sectionTitle)
+  this.$('editSectionId').val(this.sectionText)
+  this.$('editSectionTextId').html(this.sectionContent)
 }.bind(this)
 
 this.saveChanges = function(){
   var confirmChanges = confirm('Would you like to confirm these changes ?')
   if (confirmChanges){
-    this.sectionTitle = $('#'+this.editContentTitleId).val()
-    this.sectionText = $('#'+this.editContentSectionId).val()
-    this.sectionContent = $('#'+this.editContentSectionTextId).html()
-    $('#'+this.sectionId).html(this.sectionContent)
+    this.updateContent()
     this.closeModal()
   }
+}.bind(this)
+
+this.updateContent = function(){
+  this.sectionTitle = this.$('editTitleId').val()
+  this.sectionText = this.$('editSectionId').val()
+  this.sectionContent = this.$('editSectionTextId').html()
+  this.$('sectionId').html(this.sectionContent)
 }.bind(this)
 
 this.closeModal = function(){
@@ -369,6 +373,10 @@ this.removeSection = function(){
     this.unmount(true)
     $('#'+this.opts.id).remove()
   }
+}.bind(this)
+
+this.$ = function(val){
+  return $('#'+this[val])
 }.bind(this)
 });
 riot.tag2('exercise-section', '<div class="box"> <div class="level"> <div class="level-right"> <span class="level-item moveHandle"> <span class="icon is-small"><i class="fa fa-bars" aria-hidden="true"></i></span> </span> <a class="level-item" onclick="{editExercise}"> <span class="icon is-small has-text-info"><i class="fa fa-pencil" aria-hidden="true"></i></span> </a> <a class="level-item" onclick="{removeExercise}"> <span class="icon is-small has-text-danger"><i class="fa fa-close" aria-hidden="true"></i></span> </a> </div></div> <div class="exercise" id="{questionId}"></div> <div class="exercise" id="{answerId}"></div> </div> <div class="modal {is-active: showModal}"> <div class="modal-background"></div> <div class="modal-card"> <header class="modal-card-head"> <p class="modal-card-title">Edit Exercise</p> <button class="delete" aria-label="close" onclick="{closeModal}"></button> </header> <section class="modal-card-body"> <div class="field"> <div class="control"> <input type="text" id="{editQuestionId}" class="input mathContent" placeholder="edit exercise question"> </div> </div> <div class="field"> <div class="control"> <textarea id="{editAnswerId}" class="textarea mathContent" placeholder="edit exercise answer"></textarea> </div> <br> <div class="control"> <label>Question Preview</label> <div class="box"> <p id="{editQuestionTextId}"></p> </div> </div> <div class="control"> <label>Answer Preview</label> <div class="box"> <p id="{editAnswerTextId}"></p> </div> </div> </div> </section> <footer class="modal-card-foot"> <button class="button is-success" onclick="{saveChanges}">Save changes</button> <button class="button" onclick="{closeModal}">Cancel</button> </footer> </div> </div>', '', '', function(opts) {
