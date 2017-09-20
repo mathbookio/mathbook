@@ -46,30 +46,40 @@
     
 
   this.on('mount', function() {
-    const exerciseList = document.getElementById('exerciseList')
-    Sortable.create(exerciseList, { handle: '.moveHandle' });
+    that.initSortable()
     $('#exerciseQuestion').on('input', function(e) {
-      var osText = $('#exerciseQuestion').val()
-      $('#exerciseQuestionText').html(osText)
+      var questionVal = $('#exerciseQuestion').val()
+      $('#exerciseQuestionText').html(questionVal)
       MathJax.Hub.Queue(['Typeset', MathJax.Hub, 'exerciseQuestionText'])
     });
     $('#exerciseAnswer').on('input', function(e) {
-      var osText = $('#exerciseAnswer').val()
-      $('#exerciseAnswerText').html(osText)
+      var answerVal = $('#exerciseAnswer').val()
+      $('#exerciseAnswerText').html(answerVal)
       MathJax.Hub.Queue(['Typeset', MathJax.Hub, 'exerciseAnswerText'])
     });
   })
+
+  initSortable(){
+    var exerciseList = document.getElementById('exerciseList')
+    Sortable.create(exerciseList, { handle: '.moveHandle' });
+  }
 
   saveSection(){
     var exerciseNumber = this.uniqueId()
     var exerciseId = 'exerciseBox_'+exerciseNumber
 
-    var exerciseQuestion = $('#exerciseQuestion').val()
-    var exerciseQuestionText = $('#exerciseQuestionText').html()
-    var exerciseAnswer = $('#exerciseAnswer').val()
-    var exerciseAnswerText = $('#exerciseAnswerText').html()
+    var question = $('#exerciseQuestion').val()
+    var questionText = $('#exerciseQuestionText').html()
+
+    var answer = $('#exerciseAnswer').val()
+    var answerText = $('#exerciseAnswerText').html()
     $('#exerciseList').append('<exercise-section id="'+exerciseId+'"></exercise-section>')
-    riot.mount('#'+exerciseId, { exerciseQuestion: exerciseQuestion, exerciseQuestionText: exerciseQuestionText, exerciseAnswerText: exerciseAnswerText, exerciseAnswer: exerciseAnswer })
+    riot.mount('#'+exerciseId, 
+    { 
+      question: question, 
+      questionText: questionText, 
+      answerText: answerText, 
+      answer: answer })
     this.cleanupFields()
   }
 

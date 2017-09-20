@@ -4,7 +4,6 @@ riot.tag2('builder', '<section class="section"> <div class="tabs is-centered is-
     })
 
     this.pickConfiguration = function(){
-      console.log("PICK CONFIGURATION")
       $("#configTab").addClass("is-active")
       $("#contentTab").removeClass("is-active")
       $("#exercisesTab").removeClass("is-active")
@@ -13,7 +12,6 @@ riot.tag2('builder', '<section class="section"> <div class="tabs is-centered is-
       $("#config").show();
     }.bind(this)
     this.pickContent = function(){
-      console.log("PICK CONTENT")
       $("#configTab").removeClass("is-active")
       $("#contentTab").addClass("is-active")
       $("#exercisesTab").removeClass("is-active")
@@ -22,7 +20,6 @@ riot.tag2('builder', '<section class="section"> <div class="tabs is-centered is-
       $("#config").hide();
     }.bind(this)
     this.pickExercises = function(){
-      console.log("PICK EXERCISES")
       $("#configTab").removeClass("is-active")
       $("#contentTab").removeClass("is-active")
       $("#exercisesTab").addClass("is-active")
@@ -39,15 +36,19 @@ riot.tag2('content', '<section class="section"> <div id="contentContainer" class
     var that = this
 
   this.on('mount', function() {
-    var sectionList = document.getElementById('sectionList')
-    Sortable.create(sectionList, { handle: '.moveHandle' });
+    that.initSortable()
+
     $('#contentSection').on('input', function(e) {
-      var osText = $('#contentSection').val()
-      console.log('osText', osText)
-      $('#contentSectionText').html(osText)
+      var contentVal = $('#contentSection').val()
+      $('#contentSectionText').html(contentVal)
       MathJax.Hub.Queue(['Typeset', MathJax.Hub, 'contentSectionText'])
     });
   })
+
+  this.initSortable = function(){
+    var sectionList = document.getElementById('sectionList')
+    Sortable.create(sectionList, { handle: '.moveHandle' });
+  }.bind(this)
 
   this.saveSection = function(){
     var sectionNumber = this.uniqueId()
@@ -76,30 +77,40 @@ riot.tag2('exercises', '<section class="section"> <div id="exerciseContainer" cl
     var that = this
 
   this.on('mount', function() {
-    const exerciseList = document.getElementById('exerciseList')
-    Sortable.create(exerciseList, { handle: '.moveHandle' });
+    that.initSortable()
     $('#exerciseQuestion').on('input', function(e) {
-      var osText = $('#exerciseQuestion').val()
-      $('#exerciseQuestionText').html(osText)
+      var questionVal = $('#exerciseQuestion').val()
+      $('#exerciseQuestionText').html(questionVal)
       MathJax.Hub.Queue(['Typeset', MathJax.Hub, 'exerciseQuestionText'])
     });
     $('#exerciseAnswer').on('input', function(e) {
-      var osText = $('#exerciseAnswer').val()
-      $('#exerciseAnswerText').html(osText)
+      var answerVal = $('#exerciseAnswer').val()
+      $('#exerciseAnswerText').html(answerVal)
       MathJax.Hub.Queue(['Typeset', MathJax.Hub, 'exerciseAnswerText'])
     });
   })
+
+  this.initSortable = function(){
+    var exerciseList = document.getElementById('exerciseList')
+    Sortable.create(exerciseList, { handle: '.moveHandle' });
+  }.bind(this)
 
   this.saveSection = function(){
     var exerciseNumber = this.uniqueId()
     var exerciseId = 'exerciseBox_'+exerciseNumber
 
-    var exerciseQuestion = $('#exerciseQuestion').val()
-    var exerciseQuestionText = $('#exerciseQuestionText').html()
-    var exerciseAnswer = $('#exerciseAnswer').val()
-    var exerciseAnswerText = $('#exerciseAnswerText').html()
+    var question = $('#exerciseQuestion').val()
+    var questionText = $('#exerciseQuestionText').html()
+
+    var answer = $('#exerciseAnswer').val()
+    var answerText = $('#exerciseAnswerText').html()
     $('#exerciseList').append('<exercise-section id="'+exerciseId+'"></exercise-section>')
-    riot.mount('#'+exerciseId, { exerciseQuestion: exerciseQuestion, exerciseQuestionText: exerciseQuestionText, exerciseAnswerText: exerciseAnswerText, exerciseAnswer: exerciseAnswer })
+    riot.mount('#'+exerciseId,
+    {
+      question: question,
+      questionText: questionText,
+      answerText: answerText,
+      answer: answer })
     this.cleanupFields()
   }.bind(this)
 
@@ -360,68 +371,83 @@ this.removeSection = function(){
   }
 }.bind(this)
 });
-riot.tag2('exercise-section', '<div class="box"> <div class="level"> <div class="level-right"> <span class="level-item moveHandle"> <span class="icon is-small"><i class="fa fa-bars" aria-hidden="true"></i></span> </span> <a class="level-item" onclick="{editSection}"> <span class="icon is-small has-text-info"><i class="fa fa-pencil" aria-hidden="true"></i></span> </a> <a class="level-item" onclick="{removeSection}"> <span class="icon is-small has-text-danger"><i class="fa fa-close" aria-hidden="true"></i></span> </a> </div></div> <div class="exercise" id="{exerciseQuestionId}"></div> <div class="exercise" id="{exerciseAnswerId}"></div> </div> <div class="modal {is-active: showModal}"> <div class="modal-background"></div> <div class="modal-card"> <header class="modal-card-head"> <p class="modal-card-title">Edit Exercise</p> <button class="delete" aria-label="close" onclick="{closeModal}"></button> </header> <section class="modal-card-body"> <div class="field"> <div class="control"> <input type="text" id="{editExerciseQuestionId}" class="input mathContent" placeholder="edit exercise question"> </div> </div> <div class="field"> <div class="control"> <textarea id="{editExerciseAnswerId}" class="textarea mathContent" placeholder="edit exercise answer"></textarea> </div> <br> <div class="control"> <label>Question Preview</label> <div class="box"> <p id="{editExerciseQuestionTextId}"></p> </div> </div> <div class="control"> <label>Answer Preview</label> <div class="box"> <p id="{editExerciseAnswerTextId}"></p> </div> </div> </div> </section> <footer class="modal-card-foot"> <button class="button is-success" onclick="{saveChanges}">Save changes</button> <button class="button" onclick="{closeModal}">Cancel</button> </footer> </div> </div>', '', '', function(opts) {
+riot.tag2('exercise-section', '<div class="box"> <div class="level"> <div class="level-right"> <span class="level-item moveHandle"> <span class="icon is-small"><i class="fa fa-bars" aria-hidden="true"></i></span> </span> <a class="level-item" onclick="{editExercise}"> <span class="icon is-small has-text-info"><i class="fa fa-pencil" aria-hidden="true"></i></span> </a> <a class="level-item" onclick="{removeExercise}"> <span class="icon is-small has-text-danger"><i class="fa fa-close" aria-hidden="true"></i></span> </a> </div></div> <div class="exercise" id="{questionId}"></div> <div class="exercise" id="{answerId}"></div> </div> <div class="modal {is-active: showModal}"> <div class="modal-background"></div> <div class="modal-card"> <header class="modal-card-head"> <p class="modal-card-title">Edit Exercise</p> <button class="delete" aria-label="close" onclick="{closeModal}"></button> </header> <section class="modal-card-body"> <div class="field"> <div class="control"> <input type="text" id="{editQuestionId}" class="input mathContent" placeholder="edit exercise question"> </div> </div> <div class="field"> <div class="control"> <textarea id="{editAnswerId}" class="textarea mathContent" placeholder="edit exercise answer"></textarea> </div> <br> <div class="control"> <label>Question Preview</label> <div class="box"> <p id="{editQuestionTextId}"></p> </div> </div> <div class="control"> <label>Answer Preview</label> <div class="box"> <p id="{editAnswerTextId}"></p> </div> </div> </div> </section> <footer class="modal-card-foot"> <button class="button is-success" onclick="{saveChanges}">Save changes</button> <button class="button" onclick="{closeModal}">Cancel</button> </footer> </div> </div>', '', '', function(opts) {
 var that = this
 console.log(this.opts)
 this.showModal = false
-this.exerciseAnswerId = 'exerciseAnswer_' + this.opts.id
-this.exerciseQuestionId = 'exerciseQuestion_' + this.opts.id
 
-this.editExerciseQuestionId = 'editExerciseQuestion' + '_' + this.opts.id
-this.editExerciseQuestionTextId = 'editExerciseQuestionText' + '_' + this.opts.id
+this.answerId = 'answer_' + this.opts.id
+this.questionId = 'question_' + this.opts.id
 
-this.editExerciseAnswerId = 'editExerciseAnswer' + '_' + this.opts.id
-this.editExerciseAnswerTextId = 'editExerciseAnswerText' + '_' + this.opts.id
+this.editQuestionId = 'editQuestion_' + this.opts.id
+this.editQuestionTextId = 'editQuestionText_' + this.opts.id
+
+this.editAnswerId = 'editAnswer_' + this.opts.id
+this.editAnswerTextId = 'editAnswerText_' + this.opts.id
 
 this.on('mount', function() {
-  $('#'+this.exerciseAnswerId).html(this.opts.exerciseAnswer)
-  $('#'+this.exerciseQuestionId).html(this.opts.exerciseQuestion)
+  that.bindExerciseValues()
 
-  $('#'+this.editExerciseQuestionId).on('input', function(e) {
-      var osText = $('#'+that.editExerciseQuestionId).val()
-      $('#'+that.editExerciseQuestionTextId).html(osText)
-      MathJax.Hub.Queue(['Typeset', MathJax.Hub, '#'+that.editExerciseQuestionTextId])
-    });
-  $('#'+this.editExerciseAnswerId).on('input', function(e) {
-      var osText = $('#'+that.editExerciseAnswerId).val()
-      $('#'+that.editExerciseAnswerTextId).html(osText)
-      MathJax.Hub.Queue(['Typeset', MathJax.Hub, '#'+that.editExerciseAnswerTextId])
+  that.$('editQuestionId').on('input', function(e) {
+      var questionVal = that.$('editQuestionId').val()
+      that.$('editQuestionTextId').html(questionVal)
+      MathJax.Hub.Queue(['Typeset', MathJax.Hub, '#'+that.editQuestionTextId])
     });
 
+  that.$('editAnswerId').on('input', function(e) {
+      var answerVal = that.$('editAnswerId').val()
+      that.$('editAnswerTextId').html(answerVal)
+      MathJax.Hub.Queue(['Typeset', MathJax.Hub, '#'+that.editAnswerTextId])
+    });
 })
 
-this.editSection = function(){
-  this.showModal = true
-  $('#'+this.editExerciseQuestionId).val(this.opts.exerciseQuestion)
-  $('#'+this.editExerciseQuestionTextId).html(this.opts.exerciseQuestionText)
+this.bindExerciseValues = function(){
+  this.$('questionId').html(this.opts.question)
+  this.$('answerId').html(this.opts.answer)
+}.bind(this)
 
-  $('#'+this.editExerciseAnswerId).val(this.opts.exerciseAnswer)
-  $('#'+this.editExerciseAnswerTextId).html(this.opts.exerciseAnswerText)
+this.editExercise = function(){
+  this.showModal = true
+
+  this.$('editQuestionId').val(this.opts.question)
+  this.$('editQuestionTextId').html(this.opts.questionText)
+
+  this.$('editAnswerId').val(this.opts.answer)
+  this.$('editAnswerTextId').html(this.opts.answerText)
 }.bind(this)
 
 this.saveChanges = function(){
   var confirmChanges = confirm('Would you like to confirm these changes ?')
   if (confirmChanges){
-    this.opts.exerciseQuestion = $('#'+this.editExerciseQuestionId).val()
-    this.opts.exerciseQuestionText = $('#'+this.editExerciseQuestionTextId).html()
-
-    this.opts.exerciseAnswer = $('#'+this.editExerciseAnswerId).val()
-    this.opts.exerciseAnswerText = $('#'+this.editExerciseAnswerTextId).html()
-    $('#'+this.exerciseQuestionId).html(this.opts.exerciseQuestionText)
-    $('#'+this.exerciseAnswerId).html(this.opts.exerciseAnswerText)
+    this.updateExercise()
     this.closeModal()
   }
+}.bind(this)
+
+this.updateExercise = function(){
+    this.opts.question = this.$('editQuestionId').val()
+    this.opts.questionText = this.$('editQuestionTextId').html()
+
+    this.opts.answer = this.$('editAnswerId').val()
+    this.opts.answerText = this.$('editAnswerTextId').html()
+
+    this.$('questionId').html(this.opts.questionText)
+    this.$('answerId').html(this.opts.answerText)
 }.bind(this)
 
 this.closeModal = function(){
   this.showModal = false
 }.bind(this)
 
-this.removeSection = function(){
+this.removeExercise = function(){
   var confirmChanges = confirm('Are you sure you want to delete the chosen exercise ?')
   if (confirmChanges){
     this.unmount(true)
-    $('#'+this.opts.id).remove()
+    $(this.opts.id).remove()
   }
+}.bind(this)
+
+this.$ = function(val){
+  return $('#'+this[val])
 }.bind(this)
 });

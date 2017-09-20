@@ -38,15 +38,19 @@
     var that = this
 
   this.on('mount', function() {
-    var sectionList = document.getElementById('sectionList')
-    Sortable.create(sectionList, { handle: '.moveHandle' });
+    that.initSortable()
+
     $('#contentSection').on('input', function(e) {
-      var osText = $('#contentSection').val()
-      console.log('osText', osText)
-      $('#contentSectionText').html(osText)
+      var contentVal = $('#contentSection').val()
+      $('#contentSectionText').html(contentVal)
       MathJax.Hub.Queue(['Typeset', MathJax.Hub, 'contentSectionText'])
     });
   })
+
+  initSortable(){
+    var sectionList = document.getElementById('sectionList')
+    Sortable.create(sectionList, { handle: '.moveHandle' });
+  }
 
   saveSection(){
     var sectionNumber = this.uniqueId()

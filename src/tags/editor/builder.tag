@@ -37,7 +37,6 @@
     })
     
     pickConfiguration(){
-      console.log("PICK CONFIGURATION")
       $("#configTab").addClass("is-active")
       $("#contentTab").removeClass("is-active")
       $("#exercisesTab").removeClass("is-active")
@@ -46,7 +45,6 @@
       $("#config").show();
     }
     pickContent(){
-      console.log("PICK CONTENT")
       $("#configTab").removeClass("is-active")
       $("#contentTab").addClass("is-active")
       $("#exercisesTab").removeClass("is-active")
@@ -55,7 +53,6 @@
       $("#config").hide();
     }
     pickExercises(){
-      console.log("PICK EXERCISES")
       $("#configTab").removeClass("is-active")
       $("#contentTab").removeClass("is-active")
       $("#exercisesTab").addClass("is-active")
