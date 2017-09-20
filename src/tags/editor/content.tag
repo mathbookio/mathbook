@@ -11,12 +11,12 @@
   
   <div class="field">
     <div class="control">
-      <input type="text" id="contentTitle" class="input" placeholder="Section Title ie) Understanding Factoring"/>
+      <input type="text" id="contentTitle" class="input mathContent" placeholder="Section Title ie) Understanding Factoring"/>
     </div>
   </div>
   <div class="field">
     <div class="control">
-      <textarea id="contentSection" class="textarea" placeholder="Consider this one section"></textarea>
+      <textarea id="contentSection" class="textarea mathContent" placeholder="section content..."></textarea>
     </div>
     <br/>
     <div class="control">
@@ -30,6 +30,7 @@
     <a class="button is-info" onclick={ saveSection }>Save Section</a>
   </div>
   <br/>
+    <div id="sectionList"></div>
     </div>
   </section>
   
@@ -37,7 +38,8 @@
     var that = this
 
   this.on('mount', function() {
-    
+    var sectionList = document.getElementById('sectionList')
+    Sortable.create(sectionList, { handle: '.moveHandle' });
     $('#contentSection').on('input', function(e) {
       var osText = $('#contentSection').val()
       console.log('osText', osText)
@@ -47,13 +49,13 @@
   })
 
   saveSection(){
-    var sectionNumber = $('.box').length
+    var sectionNumber = this.uniqueId()
     var sectionId = 'sectionBox_'+sectionNumber
 
     var sectionTitle = $('#contentTitle').val()
     var sectionText = $('#contentSection').val()
     var sectionContent = $('#contentSectionText').html()
-    $('#contentContainer').append('<content-section id="'+sectionId+'"></content-section>')
+    $('#sectionList').append('<content-section id="'+sectionId+'"></content-section>')
     riot.mount('#'+sectionId, { sectionTitle: sectionTitle, sectionContent: sectionContent, sectionText: sectionText })
     this.cleanupFields()
   }
@@ -63,6 +65,10 @@
     $('#contentSection').val('')
     $('#contentSectionText').html('')
   }
+
+  uniqueId() {
+    return Math.random().toString(36).substr(2, 10);
+  };
 
   </script>
 </content>

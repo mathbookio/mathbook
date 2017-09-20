@@ -17,12 +17,5 @@
       <resources></resources>
       <br/>
       <keywords></keywords>
-      <!--  <br/>
-      <div class="field">
-        <div class="control">
-          <button class="button is-info">Save Configuration</button>
-        </div>
-      </div>
-    </div>  -->
   </section>
 </configuration>

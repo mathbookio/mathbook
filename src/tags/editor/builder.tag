@@ -1,4 +1,12 @@
 <builder>
+<style>
+  .mathContent{
+    font-family: 'consolas';
+  }
+  .moveHandle{
+    cursor: move;
+  }
+</style>
 <section class="section">
   <div class="tabs is-centered is-boxed">
     <ul>
@@ -21,7 +29,7 @@
   </div>
   <configuration id="config"></configuration>
   <content id="content"></content>
-  <div id="exercises">EXERCISES PAGE</div>
+  <exercises id="exercises"></exercises>
 </section>
   <script>
     this.on('mount', function() {

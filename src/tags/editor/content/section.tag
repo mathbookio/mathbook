@@ -2,6 +2,9 @@
 <div class="box">
 <div class="level">
      <div class="level-right">
+      <span class="level-item moveHandle" >
+        <span class="icon is-small"><i class="fa fa-bars" aria-hidden="true"></i></span>
+     </span>
      <a class="level-item" onclick={ editSection }>
      <span class="icon is-small has-text-info"><i class="fa fa-pencil" aria-hidden="true"></i></span>
      </a>
@@ -22,18 +25,18 @@
     <section class="modal-card-body">
       <div class="field">
         <div class="control">
-          <input type="text" id="editContentTitle" class="input" placeholder="Section Title ie) Understanding Factoring"/>
+          <input type="text" id="{ editContentTitleId }" class="input mathContent" placeholder="Section Title ie) Understanding Factoring"/>
        </div>
       </div>
       <div class="field">
         <div class="control">
-          <textarea id="editContentSection" class="textarea" placeholder="Edit section content"></textarea>
+          <textarea id="{ editContentSectionId }" class="textarea mathContent" placeholder="Edit section content"></textarea>
         </div>
         <br/>
         <div class="control">
         <label>Preview</label>
           <div class="box">
-            <p id='editContentSectionText'></p>
+            <p id="{ editContentSectionTextId }"></p>
           </div>
         </div>
       </div>
@@ -46,36 +49,45 @@
 </div>
 <script>
 console.log(this.opts)
+var that = this
 this.showModal = false
 this.sectionId = 'content_' + this.opts.id
 this.sectionTitle = this.opts.sectionTitle
+this.sectionContent = this.opts.sectionContent
+this.sectionText = this.opts.sectionText
+
+this.editContentTitleId =  'editContentTitle' + '_' + this.opts.id
+this.editContentSectionId = 'editContentSection' + '_' + this.opts.id
+this.editContentSectionTextId = 'editContentSectionText' + '_' + this.opts.id
+
 
 this.on('mount', function() {
-  $('#'+this.sectionId).html(this.opts.sectionContent)
+  $('#'+this.sectionId).html(this.sectionContent)
 
-  $('#editContentSection').on('input', function(e) {
-      var osText = $('#editContentSection').val()
-      console.log('editOsText', osText)
-      $('#editContentSectionText').html(osText)
-      MathJax.Hub.Queue(['Typeset', MathJax.Hub, 'editContentSectionText'])
+  $('#'+this.editContentSectionId).on('input', function(e) {
+      var osText = $('#'+that.editContentSectionId).val()
+      console.log('$(#this.editContentSectionId).val()', $('#'+that.editContentSectionId))
+      console.log('EDIT CONTENT SECTION TEXT', osText)
+      $('#'+that.editContentSectionTextId).html(osText)
+      MathJax.Hub.Queue(['Typeset', MathJax.Hub, that.editContentSectionTextId])
     });
 
 })
 
 editSection(){
   this.showModal = true
-  $('#editContentTitle').val(this.sectionTitle)
-  $('#editContentSection').val(this.opts.sectionText)
-  $('#editContentSectionText').html(this.opts.sectionContent)
+  $('#'+this.editContentTitleId).val(this.sectionTitle)
+  $('#'+this.editContentSectionId).val(this.sectionText)
+  $('#'+this.editContentSectionTextId).html(this.sectionContent)
 }
 
 saveChanges(){
   var confirmChanges = confirm('Would you like to confirm these changes ?')
   if (confirmChanges){
-    this.sectionTitle = $('#editContentTitle').val()
-    this.opts.sectionText = $('#editContentSection').val()
-    this.opts.sectionContent = $('#editContentSectionText').html()
-    $('#'+this.sectionId).html(this.opts.sectionContent)
+    this.sectionTitle = $('#'+this.editContentTitleId).val()
+    this.sectionText = $('#'+this.editContentSectionId).val()
+    this.sectionContent = $('#'+this.editContentSectionTextId).html()
+    $('#'+this.sectionId).html(this.sectionContent)
     this.closeModal()
   }
 }

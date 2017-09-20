@@ -1,4 +1,4 @@
-riot.tag2('builder', '<section class="section"> <div class="tabs is-centered is-boxed"> <ul> <li id="configTab"> <a onclick="{pickConfiguration}"> <span>Configuration</span> </a> </li> <li id="contentTab"> <a onclick="{pickContent}"> <span>Content</span> </a> </li> <li id="exercisesTab"> <a onclick="{pickExercises}"> <span>Exercises</span> </a> </li> </ul> </div> <configuration id="config"></configuration> <content id="content"></content> <div id="exercises">EXERCISES PAGE</div> </section>', '', '', function(opts) {
+riot.tag2('builder', '<section class="section"> <div class="tabs is-centered is-boxed"> <ul> <li id="configTab"> <a onclick="{pickConfiguration}"> <span>Configuration</span> </a> </li> <li id="contentTab"> <a onclick="{pickContent}"> <span>Content</span> </a> </li> <li id="exercisesTab"> <a onclick="{pickExercises}"> <span>Exercises</span> </a> </li> </ul> </div> <configuration id="config"></configuration> <content id="content"></content> <exercises id="exercises"></exercises> </section>', 'builder .mathContent,[data-is="builder"] .mathContent{ font-family: \'consolas\'; } builder .moveHandle,[data-is="builder"] .moveHandle{ cursor: move; }', '', function(opts) {
     this.on('mount', function() {
       this.pickConfiguration();
     })
@@ -35,11 +35,12 @@ riot.tag2('builder', '<section class="section"> <div class="tabs is-centered is-
 riot.tag2('configuration', '<section class="section"> <div class="container"> <h5 class="title">Configuration</h5> <subject></subject> <br> <config-title></config-title> <br> <opening-statement></opening-statement> <br> <pre-req></pre-req> <br> <table-of-contents></table-of-contents> <br> <exercise-statement></exercise-statement> <br> <resources></resources> <br> <keywords></keywords> </section>', '', '', function(opts) {
 });
 
-riot.tag2('content', '<section class="section"> <div id="contentContainer" class="container"> <h5 class="title">Content</h5> <h6 class="subtitle">The content explains the \'What\', \'Why\' and \'How\'</h6> <div class="field"> <div class="control"> <input type="text" id="contentTitle" class="input" placeholder="Section Title ie) Understanding Factoring"> </div> </div> <div class="field"> <div class="control"> <textarea id="contentSection" class="textarea" placeholder="Consider this one section"></textarea> </div> <br> <div class="control"> <label>Preview</label> <div class="box"> <p id="contentSectionText"></p> </div> </div> </div> <div class="control"> <a class="button is-info" onclick="{saveSection}">Save Section</a> </div> <br> </div> </section>', 'content #contentSectionText,[data-is="content"] #contentSectionText{ white-space: pre-wrap; }', '', function(opts) {
+riot.tag2('content', '<section class="section"> <div id="contentContainer" class="container"> <h5 class="title">Content</h5> <h6 class="subtitle">The content explains the \'What\', \'Why\' and \'How\'</h6> <div class="field"> <div class="control"> <input type="text" id="contentTitle" class="input mathContent" placeholder="Section Title ie) Understanding Factoring"> </div> </div> <div class="field"> <div class="control"> <textarea id="contentSection" class="textarea mathContent" placeholder="section content..."></textarea> </div> <br> <div class="control"> <label>Preview</label> <div class="box"> <p id="contentSectionText"></p> </div> </div> </div> <div class="control"> <a class="button is-info" onclick="{saveSection}">Save Section</a> </div> <br> <div id="sectionList"></div> </div> </section>', 'content #contentSectionText,[data-is="content"] #contentSectionText{ white-space: pre-wrap; }', '', function(opts) {
     var that = this
 
   this.on('mount', function() {
-
+    var sectionList = document.getElementById('sectionList')
+    Sortable.create(sectionList, { handle: '.moveHandle' });
     $('#contentSection').on('input', function(e) {
       var osText = $('#contentSection').val()
       console.log('osText', osText)
@@ -49,13 +50,13 @@ riot.tag2('content', '<section class="section"> <div id="contentContainer" class
   })
 
   this.saveSection = function(){
-    var sectionNumber = $('.box').length
+    var sectionNumber = this.uniqueId()
     var sectionId = 'sectionBox_'+sectionNumber
 
     var sectionTitle = $('#contentTitle').val()
     var sectionText = $('#contentSection').val()
     var sectionContent = $('#contentSectionText').html()
-    $('#contentContainer').append('<content-section id="'+sectionId+'"></content-section>')
+    $('#sectionList').append('<content-section id="'+sectionId+'"></content-section>')
     riot.mount('#'+sectionId, { sectionTitle: sectionTitle, sectionContent: sectionContent, sectionText: sectionText })
     this.cleanupFields()
   }.bind(this)
@@ -66,10 +67,57 @@ riot.tag2('content', '<section class="section"> <div id="contentContainer" class
     $('#contentSectionText').html('')
   }.bind(this)
 
+  this.uniqueId = function() {
+    return Math.random().toString(36).substr(2, 10);
+  }.bind(this);
+
+});
+riot.tag2('exercises', '<section class="section"> <div id="exerciseContainer" class="container"> <h5 class="title">Exercises</h5> <h6 class="subtitle">Create a minimum of 3 exercises that range in difficulty</h6> <div class="field"> <div class="control"> <input type="text" id="exerciseQuestion" class="input mathContent" placeholder="question"> </div> </div> <div class="field"> <div class="control"> <textarea id="exerciseAnswer" class="textarea mathContent" placeholder="the answer..."></textarea> </div> <br> <div class="control"> <label>Question Preview</label> <div class="box"> <p id="exerciseQuestionText"></p> </div> </div> <div class="control"> <label>Answer Preview</label> <div class="box"> <p id="exerciseAnswerText"></p> </div> </div> </div> <div class="control"> <a class="button is-info" onclick="{saveSection}">Save Section</a> </div> <br> <div id="exerciseList"> </div> </div> </section>', 'exercises #exerciseAnswerText,[data-is="exercises"] #exerciseAnswerText{ white-space: pre-wrap; }', '', function(opts) {
+    var that = this
+
+  this.on('mount', function() {
+    const exerciseList = document.getElementById('exerciseList')
+    Sortable.create(exerciseList, { handle: '.moveHandle' });
+    $('#exerciseQuestion').on('input', function(e) {
+      var osText = $('#exerciseQuestion').val()
+      $('#exerciseQuestionText').html(osText)
+      MathJax.Hub.Queue(['Typeset', MathJax.Hub, 'exerciseQuestionText'])
+    });
+    $('#exerciseAnswer').on('input', function(e) {
+      var osText = $('#exerciseAnswer').val()
+      $('#exerciseAnswerText').html(osText)
+      MathJax.Hub.Queue(['Typeset', MathJax.Hub, 'exerciseAnswerText'])
+    });
+  })
+
+  this.saveSection = function(){
+    var exerciseNumber = this.uniqueId()
+    var exerciseId = 'exerciseBox_'+exerciseNumber
+
+    var exerciseQuestion = $('#exerciseQuestion').val()
+    var exerciseQuestionText = $('#exerciseQuestionText').html()
+    var exerciseAnswer = $('#exerciseAnswer').val()
+    var exerciseAnswerText = $('#exerciseAnswerText').html()
+    $('#exerciseList').append('<exercise-section id="'+exerciseId+'"></exercise-section>')
+    riot.mount('#'+exerciseId, { exerciseQuestion: exerciseQuestion, exerciseQuestionText: exerciseQuestionText, exerciseAnswerText: exerciseAnswerText, exerciseAnswer: exerciseAnswer })
+    this.cleanupFields()
+  }.bind(this)
+
+  this.cleanupFields = function(){
+    $('#exerciseQuestion').val('')
+    $('#exerciseQuestionText').html('')
+    $('#exerciseAnswer').val('')
+    $('#exerciseAnswerText').html('')
+  }.bind(this)
+
+  this.uniqueId = function() {
+    return Math.random().toString(36).substr(2, 10);
+  }.bind(this);
+
 });
 riot.tag2('config-title', '<div class="field"> <label class="label">Title</label> <div class="control"> <input class="input" type="text" placeholder="Tutorial Title"> </div> </div>', '', '', function(opts) {
 });
-riot.tag2('exercise-statement', '<div class="field"> <label class="label">Exercises\' Statement</label> <div class="control"> <input id="exerciseStatement" class="input" type="text" placeholder="e.g. Solve for \\\\(y\\\\) for the following exercises"> </div> <br> <div class="control"> <label>Preview</label> <div class="box"> <p id="exerciseStatementText"></p> </div> </div> </div>', '', '', function(opts) {
+riot.tag2('exercise-statement', '<div class="field"> <label class="label">Exercises\' Statement</label> <div class="control"> <input id="exerciseStatement" class="input mathContent" type="text" placeholder="e.g. Solve for \\\\(y\\\\) for the following exercises"> </div> <br> <div class="control"> <label>Preview</label> <div class="box"> <p id="exerciseStatementText"></p> </div> </div> </div>', '', '', function(opts) {
     var that = this
 
   this.on('mount', function() {
@@ -121,7 +169,7 @@ riot.tag2('keywords', '<div class="field"> <label class="label">Keywords <span c
       return ($.trim(keyword) === '')
     }
 });
-riot.tag2('opening-statement', '<div class="field"> <label class="label">Opening Statement</label> <div class="control"> <textarea id="openingStatement" class="textarea"></textarea> </div> <br> <div class="control"> <label>Preview</label> <div class="box"> <p id="openingStatementText"></p> </div> </div> </div>', 'opening-statement #openingStatementText,[data-is="opening-statement"] #openingStatementText{ white-space: pre-wrap; }', '', function(opts) {
+riot.tag2('opening-statement', '<div class="field"> <label class="label">Opening Statement</label> <div class="control"> <textarea id="openingStatement" class="textarea mathContent" placeholder="a small and brief discussion of the topic being discussed"></textarea> </div> <br> <div class="control"> <label>Preview</label> <div class="box"> <p id="openingStatementText"></p> </div> </div> </div>', 'opening-statement #openingStatementText,[data-is="opening-statement"] #openingStatementText{ white-space: pre-wrap; }', '', function(opts) {
     var that = this
 
   this.on('mount', function() {
@@ -256,38 +304,46 @@ riot.tag2('table-of-contents', '<div class="field"> <label class="label">Table o
       return ($.trim(title) === '')
     }
 });
-riot.tag2('content-section', '<div class="box"> <div class="level"> <div class="level-right"> <a class="level-item" onclick="{editSection}"> <span class="icon is-small has-text-info"><i class="fa fa-pencil" aria-hidden="true"></i></span> </a> <a class="level-item" onclick="{removeSection}"> <span class="icon is-small has-text-danger"><i class="fa fa-close" aria-hidden="true"></i></span> </a> </div></div> <div class="title is-4">{sectionTitle}</div> <div class="content" id="{sectionId}"></div> </div> <div class="modal {is-active: showModal}"> <div class="modal-background"></div> <div class="modal-card"> <header class="modal-card-head"> <p class="modal-card-title">Edit Section</p> <button class="delete" aria-label="close" onclick="{closeModal}"></button> </header> <section class="modal-card-body"> <div class="field"> <div class="control"> <input type="text" id="editContentTitle" class="input" placeholder="Section Title ie) Understanding Factoring"> </div> </div> <div class="field"> <div class="control"> <textarea id="editContentSection" class="textarea" placeholder="Edit section content"></textarea> </div> <br> <div class="control"> <label>Preview</label> <div class="box"> <p id="editContentSectionText"></p> </div> </div> </div> </section> <footer class="modal-card-foot"> <button class="button is-success" onclick="{saveChanges}">Save changes</button> <button class="button" onclick="{closeModal}">Cancel</button> </footer> </div> </div>', '', '', function(opts) {
+riot.tag2('content-section', '<div class="box"> <div class="level"> <div class="level-right"> <span class="level-item moveHandle"> <span class="icon is-small"><i class="fa fa-bars" aria-hidden="true"></i></span> </span> <a class="level-item" onclick="{editSection}"> <span class="icon is-small has-text-info"><i class="fa fa-pencil" aria-hidden="true"></i></span> </a> <a class="level-item" onclick="{removeSection}"> <span class="icon is-small has-text-danger"><i class="fa fa-close" aria-hidden="true"></i></span> </a> </div></div> <div class="title is-4">{sectionTitle}</div> <div class="content" id="{sectionId}"></div> </div> <div class="modal {is-active: showModal}"> <div class="modal-background"></div> <div class="modal-card"> <header class="modal-card-head"> <p class="modal-card-title">Edit Section</p> <button class="delete" aria-label="close" onclick="{closeModal}"></button> </header> <section class="modal-card-body"> <div class="field"> <div class="control"> <input type="text" id="{editContentTitleId}" class="input mathContent" placeholder="Section Title ie) Understanding Factoring"> </div> </div> <div class="field"> <div class="control"> <textarea id="{editContentSectionId}" class="textarea mathContent" placeholder="Edit section content"></textarea> </div> <br> <div class="control"> <label>Preview</label> <div class="box"> <p id="{editContentSectionTextId}"></p> </div> </div> </div> </section> <footer class="modal-card-foot"> <button class="button is-success" onclick="{saveChanges}">Save changes</button> <button class="button" onclick="{closeModal}">Cancel</button> </footer> </div> </div>', '', '', function(opts) {
 console.log(this.opts)
+var that = this
 this.showModal = false
 this.sectionId = 'content_' + this.opts.id
 this.sectionTitle = this.opts.sectionTitle
+this.sectionContent = this.opts.sectionContent
+this.sectionText = this.opts.sectionText
+
+this.editContentTitleId =  'editContentTitle' + '_' + this.opts.id
+this.editContentSectionId = 'editContentSection' + '_' + this.opts.id
+this.editContentSectionTextId = 'editContentSectionText' + '_' + this.opts.id
 
 this.on('mount', function() {
-  $('#'+this.sectionId).html(this.opts.sectionContent)
+  $('#'+this.sectionId).html(this.sectionContent)
 
-  $('#editContentSection').on('input', function(e) {
-      var osText = $('#editContentSection').val()
-      console.log('editOsText', osText)
-      $('#editContentSectionText').html(osText)
-      MathJax.Hub.Queue(['Typeset', MathJax.Hub, 'editContentSectionText'])
+  $('#'+this.editContentSectionId).on('input', function(e) {
+      var osText = $('#'+that.editContentSectionId).val()
+      console.log('$(#this.editContentSectionId).val()', $('#'+that.editContentSectionId))
+      console.log('EDIT CONTENT SECTION TEXT', osText)
+      $('#'+that.editContentSectionTextId).html(osText)
+      MathJax.Hub.Queue(['Typeset', MathJax.Hub, that.editContentSectionTextId])
     });
 
 })
 
 this.editSection = function(){
   this.showModal = true
-  $('#editContentTitle').val(this.sectionTitle)
-  $('#editContentSection').val(this.opts.sectionText)
-  $('#editContentSectionText').html(this.opts.sectionContent)
+  $('#'+this.editContentTitleId).val(this.sectionTitle)
+  $('#'+this.editContentSectionId).val(this.sectionText)
+  $('#'+this.editContentSectionTextId).html(this.sectionContent)
 }.bind(this)
 
 this.saveChanges = function(){
   var confirmChanges = confirm('Would you like to confirm these changes ?')
   if (confirmChanges){
-    this.sectionTitle = $('#editContentTitle').val()
-    this.opts.sectionText = $('#editContentSection').val()
-    this.opts.sectionContent = $('#editContentSectionText').html()
-    $('#'+this.sectionId).html(this.opts.sectionContent)
+    this.sectionTitle = $('#'+this.editContentTitleId).val()
+    this.sectionText = $('#'+this.editContentSectionId).val()
+    this.sectionContent = $('#'+this.editContentSectionTextId).html()
+    $('#'+this.sectionId).html(this.sectionContent)
     this.closeModal()
   }
 }.bind(this)
@@ -298,6 +354,71 @@ this.closeModal = function(){
 
 this.removeSection = function(){
   var confirmChanges = confirm('Are you sure you want to delete the chosen section ?')
+  if (confirmChanges){
+    this.unmount(true)
+    $('#'+this.opts.id).remove()
+  }
+}.bind(this)
+});
+riot.tag2('exercise-section', '<div class="box"> <div class="level"> <div class="level-right"> <span class="level-item moveHandle"> <span class="icon is-small"><i class="fa fa-bars" aria-hidden="true"></i></span> </span> <a class="level-item" onclick="{editSection}"> <span class="icon is-small has-text-info"><i class="fa fa-pencil" aria-hidden="true"></i></span> </a> <a class="level-item" onclick="{removeSection}"> <span class="icon is-small has-text-danger"><i class="fa fa-close" aria-hidden="true"></i></span> </a> </div></div> <div class="exercise" id="{exerciseQuestionId}"></div> <div class="exercise" id="{exerciseAnswerId}"></div> </div> <div class="modal {is-active: showModal}"> <div class="modal-background"></div> <div class="modal-card"> <header class="modal-card-head"> <p class="modal-card-title">Edit Exercise</p> <button class="delete" aria-label="close" onclick="{closeModal}"></button> </header> <section class="modal-card-body"> <div class="field"> <div class="control"> <input type="text" id="{editExerciseQuestionId}" class="input mathContent" placeholder="edit exercise question"> </div> </div> <div class="field"> <div class="control"> <textarea id="{editExerciseAnswerId}" class="textarea mathContent" placeholder="edit exercise answer"></textarea> </div> <br> <div class="control"> <label>Question Preview</label> <div class="box"> <p id="{editExerciseQuestionTextId}"></p> </div> </div> <div class="control"> <label>Answer Preview</label> <div class="box"> <p id="{editExerciseAnswerTextId}"></p> </div> </div> </div> </section> <footer class="modal-card-foot"> <button class="button is-success" onclick="{saveChanges}">Save changes</button> <button class="button" onclick="{closeModal}">Cancel</button> </footer> </div> </div>', '', '', function(opts) {
+var that = this
+console.log(this.opts)
+this.showModal = false
+this.exerciseAnswerId = 'exerciseAnswer_' + this.opts.id
+this.exerciseQuestionId = 'exerciseQuestion_' + this.opts.id
+
+this.editExerciseQuestionId = 'editExerciseQuestion' + '_' + this.opts.id
+this.editExerciseQuestionTextId = 'editExerciseQuestionText' + '_' + this.opts.id
+
+this.editExerciseAnswerId = 'editExerciseAnswer' + '_' + this.opts.id
+this.editExerciseAnswerTextId = 'editExerciseAnswerText' + '_' + this.opts.id
+
+this.on('mount', function() {
+  $('#'+this.exerciseAnswerId).html(this.opts.exerciseAnswer)
+  $('#'+this.exerciseQuestionId).html(this.opts.exerciseQuestion)
+
+  $('#'+this.editExerciseQuestionId).on('input', function(e) {
+      var osText = $('#'+that.editExerciseQuestionId).val()
+      $('#'+that.editExerciseQuestionTextId).html(osText)
+      MathJax.Hub.Queue(['Typeset', MathJax.Hub, '#'+that.editExerciseQuestionTextId])
+    });
+  $('#'+this.editExerciseAnswerId).on('input', function(e) {
+      var osText = $('#'+that.editExerciseAnswerId).val()
+      $('#'+that.editExerciseAnswerTextId).html(osText)
+      MathJax.Hub.Queue(['Typeset', MathJax.Hub, '#'+that.editExerciseAnswerTextId])
+    });
+
+})
+
+this.editSection = function(){
+  this.showModal = true
+  $('#'+this.editExerciseQuestionId).val(this.opts.exerciseQuestion)
+  $('#'+this.editExerciseQuestionTextId).html(this.opts.exerciseQuestionText)
+
+  $('#'+this.editExerciseAnswerId).val(this.opts.exerciseAnswer)
+  $('#'+this.editExerciseAnswerTextId).html(this.opts.exerciseAnswerText)
+}.bind(this)
+
+this.saveChanges = function(){
+  var confirmChanges = confirm('Would you like to confirm these changes ?')
+  if (confirmChanges){
+    this.opts.exerciseQuestion = $('#'+this.editExerciseQuestionId).val()
+    this.opts.exerciseQuestionText = $('#'+this.editExerciseQuestionTextId).html()
+
+    this.opts.exerciseAnswer = $('#'+this.editExerciseAnswerId).val()
+    this.opts.exerciseAnswerText = $('#'+this.editExerciseAnswerTextId).html()
+    $('#'+this.exerciseQuestionId).html(this.opts.exerciseQuestionText)
+    $('#'+this.exerciseAnswerId).html(this.opts.exerciseAnswerText)
+    this.closeModal()
+  }
+}.bind(this)
+
+this.closeModal = function(){
+  this.showModal = false
+}.bind(this)
+
+this.removeSection = function(){
+  var confirmChanges = confirm('Are you sure you want to delete the chosen exercise ?')
   if (confirmChanges){
     this.unmount(true)
     $('#'+this.opts.id).remove()
