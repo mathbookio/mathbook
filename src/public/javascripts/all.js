@@ -32,8 +32,10 @@ riot.tag2('builder', '<section class="section"> <div class="tabs is-centered is-
 riot.tag2('configuration', '<section class="section"> <div class="container"> <h5 class="title">Configuration</h5> <subject></subject> <br> <config-title></config-title> <br> <opening-statement></opening-statement> <br> <pre-req></pre-req> <br> <table-of-contents></table-of-contents> <br> <exercise-statement></exercise-statement> <br> <resources></resources> <br> <keywords></keywords> </section>', '', '', function(opts) {
 });
 
-riot.tag2('content', '<section class="section"> <div id="contentContainer" class="container"> <h5 class="title">Content</h5> <h6 class="subtitle">The content explains the \'What\', \'Why\' and \'How\'</h6> <div class="field"> <div class="control"> <input type="text" id="contentTitle" class="input mathContent" placeholder="Section Title ie) Understanding Factoring"> </div> </div> <div class="field"> <div class="control"> <textarea id="contentSection" class="textarea mathContent" placeholder="section content..."></textarea> </div> <br> <div class="control"> <label>Preview</label> <div class="box"> <p id="contentSectionText"></p> </div> </div> </div> <div class="control"> <a class="button is-info" onclick="{saveSection}">Save Section</a> </div> <br> <div id="sectionList"></div> </div> </section>', 'content #contentSectionText,[data-is="content"] #contentSectionText{ white-space: pre-wrap; }', '', function(opts) {
+riot.tag2('content', '<section class="section"> <div id="contentContainer" class="container"> <h5 class="title">Content</h5> <h6 class="subtitle">The content explains the \'What\', \'Why\' and \'How\'</h6> <div class="field"> <div class="control"> <input type="text" id="contentTitle" class="input mathContent {is-danger: isTitleEmpty}" placeholder="Section Title ie) Understanding Factoring"> <p show="{isTitleEmpty}" class="help is-danger">Title can\'t be empty</p> </div> </div> <div class="field"> <div class="control"> <textarea id="contentSection" class="textarea mathContent {is-danger: isContentEmpty}" placeholder="section content..."></textarea> <p show="{isContentEmpty}" class="help is-danger">The content section can\'t be empty</p> </div> <br> <div class="control"> <label>Preview</label> <div class="box"> <p id="contentSectionText"></p> </div> </div> </div> <div class="control"> <a class="button is-info" onclick="{saveSection}">Save Section</a> </div> <br> <div id="sectionList"></div> </div> </section>', 'content #contentSectionText,[data-is="content"] #contentSectionText{ white-space: pre-wrap; }', '', function(opts) {
     var that = this
+    this.isTitleEmpty = false
+    this.isContentEmpty = false
 
   this.on('mount', function() {
     that.initSortable()
@@ -57,6 +59,13 @@ riot.tag2('content', '<section class="section"> <div id="contentContainer" class
     var sectionTitle = $('#contentTitle').val()
     var sectionText = $('#contentSection').val()
     var sectionContent = $('#contentSectionText').html()
+
+    this.isTitleEmpty = this.isTextEmpty(sectionTitle)
+    this.isContentEmpty = this.isTextEmpty(sectionText)
+    if (this.isTitleEmpty || this.isContentEmpty){
+      return
+    }
+
     $('#sectionList').append('<content-section id="'+sectionId+'"></content-section>')
     riot.mount('#'+sectionId, { sectionTitle: sectionTitle, sectionContent: sectionContent, sectionText: sectionText })
     this.cleanupFields()
@@ -68,13 +77,19 @@ riot.tag2('content', '<section class="section"> <div id="contentContainer" class
     $('#contentSectionText').html('')
   }.bind(this)
 
+  this.isTextEmpty = function(text){
+    return ($.trim(text) === '')
+  }.bind(this)
+
   this.uniqueId = function() {
     return Math.random().toString(36).substr(2, 10);
   }.bind(this);
 
 });
-riot.tag2('exercises', '<section class="section"> <div id="exerciseContainer" class="container"> <h5 class="title">Exercises</h5> <h6 class="subtitle">Create a minimum of 3 exercises that range in difficulty</h6> <div class="field"> <div class="control"> <input type="text" id="exerciseQuestion" class="input mathContent" placeholder="question"> </div> </div> <div class="field"> <div class="control"> <textarea id="exerciseAnswer" class="textarea mathContent" placeholder="the answer..."></textarea> </div> <br> <div class="control"> <label>Question Preview</label> <div class="box"> <p id="exerciseQuestionText"></p> </div> </div> <div class="control"> <label>Answer Preview</label> <div class="box"> <p id="exerciseAnswerText"></p> </div> </div> </div> <div class="control"> <a class="button is-info" onclick="{saveSection}">Save Section</a> </div> <br> <div id="exerciseList"> </div> </div> </section>', 'exercises #exerciseAnswerText,[data-is="exercises"] #exerciseAnswerText{ white-space: pre-wrap; }', '', function(opts) {
+riot.tag2('exercises', '<section class="section"> <div id="exerciseContainer" class="container"> <h5 class="title">Exercises</h5> <h6 class="subtitle">Create a minimum of 3 exercises that range in difficulty</h6> <div class="field"> <div class="control"> <input type="text" id="exerciseQuestion" class="input mathContent {is-danger: isQuestionInvalid}" placeholder="question"> <p show="{isQuestionInvalid}" class="help is-danger">Question can\'t be empty</p> </div> </div> <div class="field"> <div class="control"> <textarea id="exerciseAnswer" class="textarea mathContent {is-danger: isAnswerInvalid}" placeholder="the answer..."></textarea> <p show="{isAnswerInvalid}" class="help is-danger">Answer can\'t be empty</p> </div> <br> <div class="control"> <label>Question Preview</label> <div class="box"> <p id="exerciseQuestionText"></p> </div> </div> <div class="control"> <label>Answer Preview</label> <div class="box"> <p id="exerciseAnswerText"></p> </div> </div> </div> <div class="control"> <a class="button is-info" onclick="{saveSection}">Save Section</a> </div> <br> <div id="exerciseList"> </div> </div> </section>', 'exercises #exerciseAnswerText,[data-is="exercises"] #exerciseAnswerText{ white-space: pre-wrap; }', '', function(opts) {
     var that = this
+    this.isQuestionInvalid = false
+    this.isAnswerInvalid = false
 
   this.on('mount', function() {
     that.initSortable()
@@ -104,6 +119,12 @@ riot.tag2('exercises', '<section class="section"> <div id="exerciseContainer" cl
 
     var answer = $('#exerciseAnswer').val()
     var answerText = $('#exerciseAnswerText').html()
+
+    this.isQuestionInvalid = this.isTextInvalid(questionText)
+    this.isAnswerInvalid = this.isTextInvalid(answerText)
+    if(this.isQuestionInvalid || this.isAnswerInvalid){
+      return
+    }
     $('#exerciseList').append('<exercise-section id="'+exerciseId+'"></exercise-section>')
     riot.mount('#'+exerciseId,
     {
@@ -112,6 +133,10 @@ riot.tag2('exercises', '<section class="section"> <div id="exerciseContainer" cl
       answerText: answerText,
       answer: answer })
     this.cleanupFields()
+  }.bind(this)
+
+  this.isTextInvalid = function(text){
+    return ($.trim(text) === '')
   }.bind(this)
 
   this.cleanupFields = function(){
@@ -315,70 +340,6 @@ riot.tag2('table-of-contents', '<div class="field"> <label class="label">Table o
       return ($.trim(title) === '')
     }
 });
-riot.tag2('content-section', '<div class="box"> <div class="level"> <div class="level-right"> <span class="level-item moveHandle"> <span class="icon is-small"><i class="fa fa-bars" aria-hidden="true"></i></span> </span> <a class="level-item" onclick="{editSection}"> <span class="icon is-small has-text-info"><i class="fa fa-pencil" aria-hidden="true"></i></span> </a> <a class="level-item" onclick="{removeSection}"> <span class="icon is-small has-text-danger"><i class="fa fa-close" aria-hidden="true"></i></span> </a> </div></div> <div class="title is-4">{sectionTitle}</div> <div class="content" id="{sectionId}"></div> </div> <div class="modal {is-active: showModal}"> <div class="modal-background"></div> <div class="modal-card"> <header class="modal-card-head"> <p class="modal-card-title">Edit Section</p> <button class="delete" aria-label="close" onclick="{closeModal}"></button> </header> <section class="modal-card-body"> <div class="field"> <div class="control"> <input type="text" id="{editTitleId}" class="input mathContent" placeholder="Section Title ie) Understanding Factoring"> </div> </div> <div class="field"> <div class="control"> <textarea id="{editSectionId}" class="textarea mathContent" placeholder="Edit section content"></textarea> </div> <br> <div class="control"> <label>Preview</label> <div class="box"> <p id="{editSectionTextId}"></p> </div> </div> </div> </section> <footer class="modal-card-foot"> <button class="button is-success" onclick="{saveChanges}">Save changes</button> <button class="button" onclick="{closeModal}">Cancel</button> </footer> </div> </div>', '', '', function(opts) {
-console.log(this.opts)
-var that = this
-this.showModal = false
-this.sectionId = 'content_' + this.opts.id
-this.sectionTitle = this.opts.sectionTitle
-this.sectionContent = this.opts.sectionContent
-this.sectionText = this.opts.sectionText
-
-this.editTitleId =  'editContentTitle_' + this.opts.id
-this.editSectionId = 'editContentSection_' + this.opts.id
-this.editSectionTextId = 'editContentSectionText_' + this.opts.id
-
-this.on('mount', function() {
-
-  this.$('sectionId').html(this.sectionContent)
-
-  this.$('editSectionId').on('input', function(e) {
-      var contentVal = that.$('editSectionId').val()
-      that.$('editSectionTextId').html(contentVal)
-      MathJax.Hub.Queue(['Typeset', MathJax.Hub, that.editSectionTextId])
-    });
-
-})
-
-this.editSection = function(){
-  this.showModal = true
-
-  this.$('editTitleId').val(this.sectionTitle)
-  this.$('editSectionId').val(this.sectionText)
-  this.$('editSectionTextId').html(this.sectionContent)
-}.bind(this)
-
-this.saveChanges = function(){
-  var confirmChanges = confirm('Would you like to confirm these changes ?')
-  if (confirmChanges){
-    this.updateContent()
-    this.closeModal()
-  }
-}.bind(this)
-
-this.updateContent = function(){
-  this.sectionTitle = this.$('editTitleId').val()
-  this.sectionText = this.$('editSectionId').val()
-  this.sectionContent = this.$('editSectionTextId').html()
-  this.$('sectionId').html(this.sectionContent)
-}.bind(this)
-
-this.closeModal = function(){
-  this.showModal = false
-}.bind(this)
-
-this.removeSection = function(){
-  var confirmChanges = confirm('Are you sure you want to delete the chosen section ?')
-  if (confirmChanges){
-    this.unmount(true)
-    $('#'+this.opts.id).remove()
-  }
-}.bind(this)
-
-this.$ = function(val){
-  return $('#'+this[val])
-}.bind(this)
-});
 riot.tag2('exercise-section', '<div class="box"> <div class="level"> <div class="level-right"> <span class="level-item moveHandle"> <span class="icon is-small"><i class="fa fa-bars" aria-hidden="true"></i></span> </span> <a class="level-item" onclick="{editExercise}"> <span class="icon is-small has-text-info"><i class="fa fa-pencil" aria-hidden="true"></i></span> </a> <a class="level-item" onclick="{removeExercise}"> <span class="icon is-small has-text-danger"><i class="fa fa-close" aria-hidden="true"></i></span> </a> </div></div> <div class="exercise" id="{questionId}"></div> <div class="exercise" id="{answerId}"></div> </div> <div class="modal {is-active: showModal}"> <div class="modal-background"></div> <div class="modal-card"> <header class="modal-card-head"> <p class="modal-card-title">Edit Exercise</p> <button class="delete" aria-label="close" onclick="{closeModal}"></button> </header> <section class="modal-card-body"> <div class="field"> <div class="control"> <input type="text" id="{editQuestionId}" class="input mathContent" placeholder="edit exercise question"> </div> </div> <div class="field"> <div class="control"> <textarea id="{editAnswerId}" class="textarea mathContent" placeholder="edit exercise answer"></textarea> </div> <br> <div class="control"> <label>Question Preview</label> <div class="box"> <p id="{editQuestionTextId}"></p> </div> </div> <div class="control"> <label>Answer Preview</label> <div class="box"> <p id="{editAnswerTextId}"></p> </div> </div> </div> </section> <footer class="modal-card-foot"> <button class="button is-success" onclick="{saveChanges}">Save changes</button> <button class="button" onclick="{closeModal}">Cancel</button> </footer> </div> </div>', '', '', function(opts) {
 var that = this
 console.log(this.opts)
@@ -452,6 +413,70 @@ this.removeExercise = function(){
   if (confirmChanges){
     this.unmount(true)
     $(this.opts.id).remove()
+  }
+}.bind(this)
+
+this.$ = function(val){
+  return $('#'+this[val])
+}.bind(this)
+});
+riot.tag2('content-section', '<div class="box"> <div class="level"> <div class="level-right"> <span class="level-item moveHandle"> <span class="icon is-small"><i class="fa fa-bars" aria-hidden="true"></i></span> </span> <a class="level-item" onclick="{editSection}"> <span class="icon is-small has-text-info"><i class="fa fa-pencil" aria-hidden="true"></i></span> </a> <a class="level-item" onclick="{removeSection}"> <span class="icon is-small has-text-danger"><i class="fa fa-close" aria-hidden="true"></i></span> </a> </div></div> <div class="title is-4">{sectionTitle}</div> <div class="content" id="{sectionId}"></div> </div> <div class="modal {is-active: showModal}"> <div class="modal-background"></div> <div class="modal-card"> <header class="modal-card-head"> <p class="modal-card-title">Edit Section</p> <button class="delete" aria-label="close" onclick="{closeModal}"></button> </header> <section class="modal-card-body"> <div class="field"> <div class="control"> <input type="text" id="{editTitleId}" class="input mathContent" placeholder="Section Title ie) Understanding Factoring"> </div> </div> <div class="field"> <div class="control"> <textarea id="{editSectionId}" class="textarea mathContent" placeholder="Edit section content"></textarea> </div> <br> <div class="control"> <label>Preview</label> <div class="box"> <p id="{editSectionTextId}"></p> </div> </div> </div> </section> <footer class="modal-card-foot"> <button class="button is-success" onclick="{saveChanges}">Save changes</button> <button class="button" onclick="{closeModal}">Cancel</button> </footer> </div> </div>', '', '', function(opts) {
+console.log(this.opts)
+var that = this
+this.showModal = false
+this.sectionId = 'content_' + this.opts.id
+this.sectionTitle = this.opts.sectionTitle
+this.sectionContent = this.opts.sectionContent
+this.sectionText = this.opts.sectionText
+
+this.editTitleId =  'editContentTitle_' + this.opts.id
+this.editSectionId = 'editContentSection_' + this.opts.id
+this.editSectionTextId = 'editContentSectionText_' + this.opts.id
+
+this.on('mount', function() {
+
+  this.$('sectionId').html(this.sectionContent)
+
+  this.$('editSectionId').on('input', function(e) {
+      var contentVal = that.$('editSectionId').val()
+      that.$('editSectionTextId').html(contentVal)
+      MathJax.Hub.Queue(['Typeset', MathJax.Hub, that.editSectionTextId])
+    });
+
+})
+
+this.editSection = function(){
+  this.showModal = true
+
+  this.$('editTitleId').val(this.sectionTitle)
+  this.$('editSectionId').val(this.sectionText)
+  this.$('editSectionTextId').html(this.sectionContent)
+}.bind(this)
+
+this.saveChanges = function(){
+  var confirmChanges = confirm('Would you like to confirm these changes ?')
+  if (confirmChanges){
+    this.updateContent()
+    this.closeModal()
+  }
+}.bind(this)
+
+this.updateContent = function(){
+  this.sectionTitle = this.$('editTitleId').val()
+  this.sectionText = this.$('editSectionId').val()
+  this.sectionContent = this.$('editSectionTextId').html()
+  this.$('sectionId').html(this.sectionContent)
+}.bind(this)
+
+this.closeModal = function(){
+  this.showModal = false
+}.bind(this)
+
+this.removeSection = function(){
+  var confirmChanges = confirm('Are you sure you want to delete the chosen section ?')
+  if (confirmChanges){
+    this.unmount(true)
+    $('#'+this.opts.id).remove()
   }
 }.bind(this)
 

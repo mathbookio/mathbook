@@ -10,12 +10,14 @@
       <h6 class="subtitle">Create a minimum of 3 exercises that range in difficulty</h6>
 <div class="field">
     <div class="control">
-      <input type="text" id="exerciseQuestion" class="input mathContent" placeholder="question"/>
+      <input type="text" id="exerciseQuestion" class="input mathContent {is-danger: isQuestionInvalid}" placeholder="question"/>
+      <p show={ isQuestionInvalid } class="help is-danger">Question can't be empty</p>
     </div>
   </div>
   <div class="field">
     <div class="control">
-      <textarea id="exerciseAnswer" class="textarea mathContent" placeholder="the answer..."></textarea>
+      <textarea id="exerciseAnswer" class="textarea mathContent {is-danger: isAnswerInvalid}" placeholder="the answer..."></textarea>
+      <p show={ isAnswerInvalid } class="help is-danger">Answer can't be empty</p>
     </div>
     <br/>
     <div class="control">
@@ -43,7 +45,8 @@
   
   <script>
     var that = this
-    
+    this.isQuestionInvalid = false
+    this.isAnswerInvalid = false
 
   this.on('mount', function() {
     that.initSortable()
@@ -73,6 +76,12 @@
 
     var answer = $('#exerciseAnswer').val()
     var answerText = $('#exerciseAnswerText').html()
+
+    this.isQuestionInvalid = this.isTextInvalid(questionText)
+    this.isAnswerInvalid = this.isTextInvalid(answerText)
+    if(this.isQuestionInvalid || this.isAnswerInvalid){
+      return
+    }
     $('#exerciseList').append('<exercise-section id="'+exerciseId+'"></exercise-section>')
     riot.mount('#'+exerciseId, 
     { 
@@ -81,6 +90,10 @@
       answerText: answerText, 
       answer: answer })
     this.cleanupFields()
+  }
+
+  isTextInvalid(text){
+    return ($.trim(text) === '')
   }
 
   cleanupFields(){

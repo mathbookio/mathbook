@@ -11,12 +11,14 @@
   
   <div class="field">
     <div class="control">
-      <input type="text" id="contentTitle" class="input mathContent" placeholder="Section Title ie) Understanding Factoring"/>
+      <input type="text" id="contentTitle" class="input mathContent {is-danger: isTitleEmpty}" placeholder="Section Title ie) Understanding Factoring"/>
+       <p show={ isTitleEmpty } class="help is-danger">Title can't be empty</p>
     </div>
   </div>
   <div class="field">
     <div class="control">
-      <textarea id="contentSection" class="textarea mathContent" placeholder="section content..."></textarea>
+      <textarea id="contentSection" class="textarea mathContent {is-danger: isContentEmpty}" placeholder="section content..."></textarea>
+       <p show={ isContentEmpty } class="help is-danger">The content section can't be empty</p>
     </div>
     <br/>
     <div class="control">
@@ -36,6 +38,8 @@
   
   <script>
     var that = this
+    this.isTitleEmpty = false
+    this.isContentEmpty = false
 
   this.on('mount', function() {
     that.initSortable()
@@ -59,6 +63,13 @@
     var sectionTitle = $('#contentTitle').val()
     var sectionText = $('#contentSection').val()
     var sectionContent = $('#contentSectionText').html()
+
+    this.isTitleEmpty = this.isTextEmpty(sectionTitle)
+    this.isContentEmpty = this.isTextEmpty(sectionText)
+    if (this.isTitleEmpty || this.isContentEmpty){
+      return
+    }
+
     $('#sectionList').append('<content-section id="'+sectionId+'"></content-section>')
     riot.mount('#'+sectionId, { sectionTitle: sectionTitle, sectionContent: sectionContent, sectionText: sectionText })
     this.cleanupFields()
@@ -68,6 +79,10 @@
     $('#contentTitle').val('')
     $('#contentSection').val('')
     $('#contentSectionText').html('')
+  }
+
+  isTextEmpty(text){
+    return ($.trim(text) === '')
   }
 
   uniqueId() {
