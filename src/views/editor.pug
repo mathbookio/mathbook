@@ -1,2 +1,13 @@
-block editor
-  p HELLO! Welcome to the editor page
+extends ./layout
+
+block content
+  section.hero.is-info
+    .hero-body.has-text-centered
+      h3.title Tutorial Builder
+  section.section
+    .container
+      .content
+        p Welcome to the tutorial builder. Please build out the tutorial in the order presented.
+  builder
+  script(type="text/javascript" src="/js/all.js")
+  script(type="text/javascript" src="/js/riotInit.js")
