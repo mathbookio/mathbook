@@ -34,11 +34,10 @@
     </div>
   </div>
   <div class="control">
-    <a class="button is-info" onclick={ saveSection }>Save Section</a>
+    <a class="button is-info" onclick={ saveSection }>Add Exercise</a>
   </div>
   <br/>
     <div id="exerciseList">
-    
     </div>
     </div>
   </section>

@@ -8,7 +8,6 @@
     <div id="contentContainer" class="container">
       <h5 class="title">Content</h5>
       <h6 class="subtitle">The content explains the 'What', 'Why' and 'How'</h6>
-  
   <div class="field">
     <div class="control">
       <input type="text" id="contentTitle" class="input mathContent {is-danger: isTitleEmpty}" placeholder="Section Title ie) Understanding Factoring"/>
@@ -29,7 +28,7 @@
     </div>
   </div>
   <div class="control">
-    <a class="button is-info" onclick={ saveSection }>Save Section</a>
+    <a class="button is-info" onclick={ saveSection }>Add Section</a>
   </div>
   <br/>
     <div id="sectionList"></div>

@@ -27,15 +27,24 @@
       </li>
     </ul>
   </div>
-  <configuration id="config"></configuration>
-  <content id="content"></content>
-  <exercises id="exercises"></exercises>
+  <configuration id="config" refs="configData"></configuration>
+  <content id="content" refs="contentData"></content>
+  <exercises id="exercises" refs="exerciseData"></exercises>
+  <div class="container">
+    <div class="level">
+    <div class="level-item level-right">
+      <button class="button is-success">Save Current Tutorial State</div>
+    </div>
+  </div>
+  </div>
 </section>
   <script>
     this.on('mount', function() {
       this.pickConfiguration();
+      console.log('configData', this.tags.configuration)
+      console.log('contentData', this.tags.content)
+      console.log('exerciseData', this.tags.exercises)
     })
-    
     pickConfiguration(){
       $("#configTab").addClass("is-active")
       $("#contentTab").removeClass("is-active")
