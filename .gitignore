@@ -2,3 +2,4 @@
 node_modules
 npm-debug.log
 src/public/tags/
+src/public/javascript/all.js
