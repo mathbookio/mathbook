@@ -48,3 +48,19 @@ body{
   color:#FF3860;
 }
 
+.submit{
+  color: #23d160;
+}
+
+.edit{
+  color:#276CDA;
+}
+
+.delete-button{
+  color: #ff2b56;
+}
+
+.is-full-width{
+  width: 100%;
+  padding: 0.75rem;
+}

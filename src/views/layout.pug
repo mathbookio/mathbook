@@ -9,6 +9,8 @@ html
     link(rel='stylesheet', href='/stylesheets/style.css')
     link(rel='stylesheet', href='/stylesheets/layout.css')
     link(rel='stylesheet', href='/stylesheets/components/topic-box.css')
+    script(type="text/javascript" src="/qs")
+    script(type="text/javascript" src="/moment/moment.js")
     script(type="text/javascript" src="/sortable/Sortable.min.js")
     script(type="text/javascript" src="/mathjax/MathJax.js?config=TeX-AMS_HTML")
     script(type="text/javascript" src="/jquery/dist/jquery.min.js")
@@ -32,6 +34,8 @@ html
             | Documentation
           a.nav-item(href='/contribute')
             | Contribute
+          a.nav-item(href='/login')
+            | Login
     #loading-wrapper
       include ./components/loading-view
     #wrapper.my-wrapper

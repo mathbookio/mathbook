@@ -8,9 +8,9 @@ const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
 
 const router = require('./routes/index')
-
 const app = express()
 
+const apis = require('./apis')
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'pug')
@@ -21,10 +21,13 @@ app.use(logger('dev'))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser())
+
 app.use('/js', express.static(path.join(__dirname, 'public/javascripts')))
 app.use('/stylesheets', express.static(path.join(__dirname, 'public/stylesheets')))
 app.use('/images', express.static(path.join(__dirname, 'public/images')))
 app.use('/tags', express.static(path.join(__dirname, 'public/tags')))
+app.use('/qs', express.static(path.resolve(__dirname, '..', 'node_modules/query-string/index.js')))
+app.use('/moment', express.static(path.resolve(__dirname, '..', 'node_modules/moment/')))
 app.use('/sortable', express.static(path.resolve(__dirname, '..', 'node_modules/sortablejs/')))
 app.use('/bulma', express.static(path.resolve(__dirname, '..', 'node_modules/bulma/css/')))
 app.use('/mathjax', express.static(path.resolve(__dirname, '..', 'node_modules/mathjax/')))
@@ -32,11 +35,13 @@ app.use('/jquery', express.static(path.resolve(__dirname, '..', 'node_modules/jq
 app.use('/highlight', express.static(path.resolve(__dirname, '..', 'node_modules/highlight.js/')))
 app.use('/riot', express.static(path.resolve(__dirname, '..', 'node_modules/riot/')))
 
+app.use('/v1', apis)
 app.use('/', router.router)
 app.use('/contribute', router.contributeRouter)
 app.use('/editor', router.editorRouter)
 app.use('/ele-algebra', router.eleAlgebraRouter)
-
+app.use('/login', router.authRouter)
+app.use('/dashboard', router.dashboardRouter)
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   const err = new Error('Not Found')
