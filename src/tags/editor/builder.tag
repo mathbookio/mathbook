@@ -27,13 +27,13 @@
       </li>
     </ul>
   </div>
-  <configuration id="config" refs="configData"></configuration>
-  <content id="content" refs="contentData"></content>
-  <exercises id="exercises" refs="exerciseData"></exercises>
+  <configuration id="config"></configuration>
+  <content id="content"></content>
+  <exercises id="exercises"></exercises>
   <div class="container">
     <div class="level">
     <div class="level-item level-right">
-      <button class="button is-success">Save Current Tutorial State</div>
+      <button class="button is-success" onclick={saveState}>Save Current Tutorial State</div>
     </div>
   </div>
   </div>
@@ -68,6 +68,13 @@
       $("#content").hide();
       $("#exercises").show();
       $("#config").hide();
+    }
+
+    saveState(){
+      console.log("CONFIG DATA", this.tags.configuration.get())
+      console.log("CONTENT DATA", this.tags.content.get())
+      console.log("EXERCISE DATA", this.tags.exercises.get())
+
     }
   </script>
 </builder>

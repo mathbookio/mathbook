@@ -6,7 +6,7 @@
   </style>
   <section class="section">
     <div class="container">
-      <a class="button is-success" onclick={createTutorial}>Create Tutorial</a>
+      <a class="button is-success" href="/editor">Create Tutorial</a>
       <div class="columns">
         <div class="column">
           <div class="card">

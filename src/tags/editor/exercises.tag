@@ -44,11 +44,22 @@
   
   <script>
     var that = this
+    this.exerciseMap = {}
     this.isQuestionInvalid = false
     this.isAnswerInvalid = false
+    this.exerciseObservable = riot.observable()
 
   this.on('mount', function() {
     that.initSortable()
+
+    this.exerciseObservable.on('createdExercise', function(exerciseId, exerciseObj) {
+      that.exerciseMap[exerciseId] = exerciseObj
+    })
+    
+    this.exerciseObservable.on('deletedExercise', function(exerciseId) {
+      delete that.exerciseMap[exerciseId]
+    })
+
     $('#exerciseQuestion').on('input', function(e) {
       var questionVal = $('#exerciseQuestion').val()
       $('#exerciseQuestionText').html(questionVal)
@@ -83,7 +94,7 @@
     }
     $('#exerciseList').append('<exercise-section id="'+exerciseId+'"></exercise-section>')
     riot.mount('#'+exerciseId, 
-    { 
+    { exerciseObservable: this.exerciseObservable,
       question: question, 
       questionText: questionText, 
       answerText: answerText, 
@@ -105,6 +116,16 @@
   uniqueId() {
     return Math.random().toString(36).substr(2, 10);
   };
+
+  get(){
+    const exerciseList = []
+    console.log('exerciseMap', this.exerciseMap)
+    for (var exerciseId in this.exerciseMap){
+      var exercise = this.exerciseMap[exerciseId].get()
+      exerciseList.push(exercise)
+    }
+    return exerciseList
+  }
 
   </script>
 </exercises>

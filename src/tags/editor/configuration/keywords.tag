@@ -57,5 +57,9 @@
     function isKeywordInvalid(keyword) {
       return ($.trim(keyword) === '')
     }
+
+    get(){
+      return this.keywords
+    }
   </script>
 </keywords>

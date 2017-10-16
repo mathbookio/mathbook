@@ -37,17 +37,28 @@
   
   <script>
     var that = this
+    this.contentMap = {}
     this.isTitleEmpty = false
     this.isContentEmpty = false
+    this.contentObservable = riot.observable()
 
   this.on('mount', function() {
     that.initSortable()
+    
+    this.contentObservable.on('createdContentSection', function(contentId, contentObj) {
+      that.contentMap[contentId] = contentObj
+    })
+    
+    this.contentObservable.on('deletedContentSection', function(contentId) {
+      delete that.contentMap[contentId]
+    })
 
     $('#contentSection').on('input', function(e) {
       var contentVal = $('#contentSection').val()
       $('#contentSectionText').html(contentVal)
       MathJax.Hub.Queue(['Typeset', MathJax.Hub, 'contentSectionText'])
     });
+
   })
 
   initSortable(){
@@ -69,15 +80,17 @@
       return
     }
 
-    $('#sectionList').append('<content-section id="'+sectionId+'"></content-section>')
-    riot.mount('#'+sectionId, { sectionTitle: sectionTitle, sectionContent: sectionContent, sectionText: sectionText })
+    $('#sectionList').append('<content-section ref="'+sectionId+'" id="'+sectionId+'"></content-section>')
+    riot.mount('#'+sectionId, 'content-section', { contentObservable: this.contentObservable, sectionTitle: sectionTitle, sectionContent: sectionContent, sectionText: sectionText })[0]
     this.cleanupFields()
+    this.update()
   }
 
   cleanupFields(){
     $('#contentTitle').val('')
     $('#contentSection').val('')
     $('#contentSectionText').html('')
+
   }
 
   isTextEmpty(text){
@@ -87,6 +100,15 @@
   uniqueId() {
     return Math.random().toString(36).substr(2, 10);
   };
+
+  get(){
+    const contentList = []
+    for (var contentId in this.contentMap){
+      var content = this.contentMap[contentId].get()
+      contentList.push(content)
+    }
+    return contentList
+  }
 
   </script>
 </content>
