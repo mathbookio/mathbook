@@ -4,8 +4,9 @@ const express = require('express')
 const router = express.Router()
 
 // define the home page route
-router.get('/', function (req, res) {
-  res.render('editor')
+router.get('/:tutorialName', function (req, res) {
+  const tutorialName = req.params.tutorialName
+  res.render('editor', { tutorialName })
 })
 
 module.exports = router

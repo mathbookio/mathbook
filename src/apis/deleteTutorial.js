@@ -2,27 +2,28 @@
 const github = require('../github-client')
 
 module.exports = function (req, res) {
+  const tutorialName = req.body.tutorialName
   // get authenticated user
   return github.users.get({})
   .then((result) => {
-    console.log('result', result.data)
     const login = result.data.login
     console.log('login', login)
     return login
   })
   .then((username) => {
     const repo = 'testing'
-    return github.repos.getBranches({
+    return github.gitdata.deleteReference({
       owner: username,
-      repo: repo
+      repo: repo,
+      ref: `heads/tutorial/${tutorialName}`
     })
   })
-  .then((branches) => {
-    console.log('branches', branches)
-    res.send({ tutorials: branches.data.filter((branch) => branch.name !== 'master').map((branch) => ({ name: branch.name.replace('tutorial/', '') })) })
+  .then((deleteResult) => {
+    console.log({ deleteResult })
+    res.send({ deleted: true, tutorial: tutorialName })
   })
   .catch((err) => {
-    console.log('error getting branches/tutorials', err)
+    console.log('error deleting branches/tutorials', err)
     res.send(err)
   })
 }

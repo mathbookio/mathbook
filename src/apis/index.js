@@ -3,6 +3,8 @@
 const github = require('../github-client')
 const _ = require('lodash')
 const forkRepo = require('./fork-repo')
+const deleteTutorial = require('./deleteTutorial')
+const submitTutorial = require('./submitTutorial')
 const getTutorials = require('./getTutorials')
 const express = require('express')
 const apiRouter = express.Router()
@@ -21,6 +23,8 @@ apiRouter.use((req, res, next) => {
 })
 
 apiRouter.post('/fork', forkRepo)
+apiRouter.put('/submit/tutorial', submitTutorial)
+apiRouter.delete('/remove/tutorial', deleteTutorial)
 apiRouter.get('/tutorials', getTutorials)
 
 module.exports = apiRouter

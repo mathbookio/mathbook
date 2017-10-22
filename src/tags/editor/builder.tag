@@ -41,9 +41,9 @@
   <script>
     this.on('mount', function() {
       this.pickConfiguration();
-      console.log('configData', this.tags.configuration)
-      console.log('contentData', this.tags.content)
-      console.log('exerciseData', this.tags.exercises)
+//      console.log('configData', this.tags.configuration)
+ //     console.log('contentData', this.tags.content)
+  //    console.log('exerciseData', this.tags.exercises)
     })
     pickConfiguration(){
       $("#configTab").addClass("is-active")
