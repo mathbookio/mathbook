@@ -1,12 +1,13 @@
 'use strict'
 const _ = require('lodash')
 const github = require('../github-client')
+const Base64 = require('js-base64').Base64
 
 module.exports = function (req, res) {
   const branchName = _.get(req, 'body.branchName')
   console.log({ branchName })
   const repo = 'testing'
-  const referenceSHA = 'f5f9aa2666a54e3ad619a550efbdf5179f06aec3'
+  const referenceSHA = 'f085ad6a48d783f524eeca63b4d67466bdc83527'
   return getUsername()
   .then((username) => {
     return isRepoForked(username)
@@ -15,7 +16,7 @@ module.exports = function (req, res) {
         return username
       }
       return github.repos.fork({
-        owner: username,
+        owner: 'JetJet13',
         repo: repo
       })
       .then((forkResult) => username)
@@ -24,6 +25,7 @@ module.exports = function (req, res) {
   .then((username) => {
     console.log('user', username)
     const ref = `refs/heads/tutorial/${branchName}`
+    const branch = `tutorial/${branchName}`
     return isBranchExist(username, repo, ref)
     .then((isBranch) => {
       if (isBranch) {
@@ -39,7 +41,34 @@ module.exports = function (req, res) {
       })
       .then((branchResult) => {
         console.log('created a new branch')
-        res.send({ username, isBranch })
+        return github.repos.getContent({
+          owner: username,
+          repo: repo,
+          path: 'contributors.md',
+          ref: branch
+        })
+        .then((contributorFile) => {
+          console.dir({ title: 'got the contributor file', contributorFile }, {depth: 10})
+          const sha = contributorFile.data.sha
+          const content = Base64.decode(contributorFile.data.content)
+          console.log('decoded content', content)
+          console.log(content + `- ${username}`)
+          const updatedContent = Base64.encode(content + `- ${username}`)
+          console.log('encoded updated content', updatedContent)
+          return github.repos.updateFile({
+            owner: username,
+            repo: repo,
+            path: 'contributors.md',
+            message: `added ${username} to the contributors list`,
+            sha: sha,
+            content: updatedContent,
+            branch: branch
+          })
+          .then((updateFileResult) => {
+            console.dir({ updateFileResult }, { depth: 10 })
+            res.send({ username, isBranch })
+          })
+        })
       })
     })
   })
@@ -65,7 +94,7 @@ function isRepoForked (username) {
     return true
   })
   .catch((err) => {
-    console.log('error getting tutorials', err)
+    console.log('isRepoForked err', err)
     return false
   })
 }

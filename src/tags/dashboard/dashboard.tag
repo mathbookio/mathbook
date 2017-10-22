@@ -3,6 +3,9 @@
     .button-padding {
       padding-right: 12px;
     }
+    .lastEdited{
+      cursor: help;
+    }
   </style>
   <section class="section">
     <div class="container">
@@ -22,16 +25,20 @@
               </div>
               <div class="level-right">
                 <div class="level-item">
-                  <span class="tag is-primary">Status</span>
+                  <span show={ isSubmitted } class="tag is-info">Submitted</span>
+                  <span show={ !isSubmitted } class="tag is-primary">In Progress</span>
                 </div>
                 <div class="level-item">
-                  <p class="content"><span class="icon is-small"><i class="fa fa-clock-o"></i></span> Last Edited Date</p>                  
+                  <p class="content lastEdited" title={ formatDate(lastEdited) }><span class="icon is-small"><i class="fa fa-clock-o"></i></span> { formatDateFromNow(lastEdited) }</p>                  
                 </div>
               </div>
             </div>
             </header>
             <footer class="card-footer">
-              <a class="card-footer-item" onclick="{ parent.openSubmitTutorialModal }">
+              <div show={ isSubmitted } class="card-footer-item has-text-grey">
+                <span class="icon is-small"><i class="fa fa-send"></i></span>
+              </div>
+              <a show={ !isSubmitted } class="card-footer-item" onclick="{ parent.openSubmitTutorialModal }">
                 <span class="icon is-small"><i class="fa fa-send"></i></span>
               </a>
               <a class="card-footer-item edit" onclick="{ parent.editTutorial }">
@@ -205,8 +212,13 @@
        this.showCreateTutorialModel = false
     }
 
+    formatDateFromNow(timestamp) {
+      console.log('timestamp', timestamp)
+      return moment(timestamp).fromNow()
+    }
     formatDate(timestamp) {
-      return moment.unix(timestamp).format('MMMM DD, YYYY HH:mm:ss')
+      console.log('timestamp', timestamp)
+      return moment(timestamp).format('MMMM DD, YYYY HH:mm:ss')
     }
   </script>
 </dashboard>
