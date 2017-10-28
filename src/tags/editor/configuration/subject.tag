@@ -3,7 +3,7 @@
     <label class="label">Subject</label>
     <div class="control">
       <div class="select">
-      <select>
+      <select id="subjectSelect">
         <option>Elementary Algebra</option>
         <option>Calculus</option>
         <option>Linear Algebra</option>
@@ -14,4 +14,9 @@
       </div>
     </div>
   </div>
+  <script>
+  get(){
+    return $("#subjectSelect option:selected" ).text();
+  }
+  </script>
 </subject>

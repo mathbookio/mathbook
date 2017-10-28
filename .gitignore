@@ -1,5 +1,7 @@
 # vscode
+.vscode/
 node_modules
 npm-debug.log
 src/public/tags/
 src/public/javascripts/all.js
+config/

@@ -18,4 +18,18 @@
       <br/>
       <keywords></keywords>
   </section>
+  <script>
+    get(){
+      return {
+        subject: this.tags['subject'].get(),
+        title: this.tags['config-title'].get(),
+        openingStatement: this.tags['opening-statement'].get(),
+        preReqs: this.tags['pre-req'].get(),
+        tableOfContents: this.tags['table-of-contents'].get(),
+        exerciseStatement: this.tags['exercise-statement'].get(),
+        resources: this.tags['resources'].get(),
+        keywords: this.tags['keywords'].get()
+      }
+    }
+  </script>
 </configuration>

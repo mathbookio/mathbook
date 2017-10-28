@@ -31,5 +31,9 @@
     });
   })
 
+  get(){
+    return $('#openingStatementText').html()
+  }
+
   </script>
 </opening-statement>

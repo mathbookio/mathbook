@@ -57,5 +57,9 @@
     function isTitleInvalid(title) {
       return ($.trim(title) === '')
     }
+
+    get(){
+      return this.tableOfContents
+    }
   </script>
 </table-of-contents>

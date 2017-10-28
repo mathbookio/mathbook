@@ -26,5 +26,9 @@
     });
   })
 
+  get(){
+    return $('#exerciseStatementText').html()
+  }
+
   </script>
 </exercise-statement>

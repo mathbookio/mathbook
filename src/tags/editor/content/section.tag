@@ -64,6 +64,7 @@ this.editSectionTextId = 'editContentSectionText_' + this.opts.id
 
 this.on('mount', function() {
 
+  this.opts.contentObservable.trigger('createdContentSection', this.opts.id, this)
   // bind section content
   this.$('sectionId').html(this.sectionContent)
   
@@ -75,7 +76,6 @@ this.on('mount', function() {
     });
 
 })
-
 
 editSection(){
   this.showModal = true
@@ -107,8 +107,16 @@ closeModal(){
 removeSection(){
   var confirmChanges = confirm('Are you sure you want to delete the chosen section ?')
   if (confirmChanges){
+    this.opts.contentObservable.trigger('deletedContentSection', this.opts.id)
     this.unmount(true)
     $('#'+this.opts.id).remove()
+  }
+}
+
+get(){
+  return {
+    title: this.sectionTitle,
+    content: this.sectionContent
   }
 }
 

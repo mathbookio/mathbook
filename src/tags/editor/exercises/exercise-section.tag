@@ -70,8 +70,8 @@ this.editAnswerId = 'editAnswer_' + this.opts.id
 this.editAnswerTextId = 'editAnswerText_' + this.opts.id
 
 this.on('mount', function() {
+  this.opts.exerciseObservable.trigger('createdExercise', this.opts.id, this)
   that.bindExerciseValues()
-
   // preview question text
   that.$('editQuestionId').on('input', function(e) {
       var questionVal = that.$('editQuestionId').val()
@@ -128,8 +128,16 @@ closeModal(){
 removeExercise(){
   var confirmChanges = confirm('Are you sure you want to delete the chosen exercise ?')
   if (confirmChanges){
+    this.opts.exerciseObservable.trigger('deletedExercise', this.opts.id, this)
     this.unmount(true)
     $(this.opts.id).remove()
+  }
+}
+
+get(){
+  return {
+    question: this.opts.questionText,
+    answer: this.opts.answerText
   }
 }
 

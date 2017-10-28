@@ -62,5 +62,9 @@
       var urlPattern = new RegExp(/^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/gm)
       return (!urlPattern.test(url))
     }
+
+    get(){
+      return this.preRequisites
+    }
   </script>
 </pre-req>
