@@ -43,6 +43,10 @@
   </section>
   
   <script>
+  // TODO
+// When a user reorders exercises, we need to reorder the exercises in the list itself
+
+
     var that = this
     this.exerciseMap = {}
     this.isQuestionInvalid = false
@@ -92,6 +96,11 @@
     if(this.isQuestionInvalid || this.isAnswerInvalid){
       return
     }
+    this.generateExercise(exerciseId, question, questionText, answer, answerText)
+    this.cleanupFields()
+  }
+
+  generateExercise(exerciseId, question, questionText, answer, answerText){
     $('#exerciseList').append('<exercise-section id="'+exerciseId+'"></exercise-section>')
     riot.mount('#'+exerciseId, 
     { exerciseObservable: this.exerciseObservable,
@@ -99,7 +108,6 @@
       questionText: questionText, 
       answerText: answerText, 
       answer: answer })
-    this.cleanupFields()
   }
 
   isTextInvalid(text){
@@ -128,7 +136,15 @@
   }
 
   set(data){
-    
+    for(var i in data){
+      console.log('set::exercise', data[i])
+      const exerciseId = data[i].id
+      const question = data[i].question
+      const questionText = data[i].questionText
+      const answer = data[i].answer
+      const answerText = data[i].answerText
+      this.generateExercise(exerciseId, question, questionText, answer, answerText)
+    }
   }
 
   </script>

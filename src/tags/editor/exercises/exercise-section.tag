@@ -55,6 +55,7 @@
   </div>
 </div>
 <script>
+
 var that = this
 console.log(this.opts)
 this.showModal = false
@@ -85,11 +86,13 @@ this.on('mount', function() {
       that.$('editAnswerTextId').html(answerVal)
       MathJax.Hub.Queue(['Typeset', MathJax.Hub, '#'+that.editAnswerTextId])
     });
+
+  
 })
 
 bindExerciseValues(){
-  this.$('questionId').html(this.opts.question)
-  this.$('answerId').html(this.opts.answer)
+  this.$('questionId').html(this.opts.questionText)
+  this.$('answerId').html(this.opts.answerText)
 }
 
 editExercise(){
@@ -136,8 +139,11 @@ removeExercise(){
 
 get(){
   return {
+    id: this.opts.id,
     question: this.opts.question,
-    answer: this.opts.answer
+    questionText: this.opts.questionText,
+    answer: this.opts.answer,
+    answerText: this.opts.answerText
   }
 }
 
