@@ -82,9 +82,9 @@ module.exports = function (req, res) {
               return github.repos.createFile({
                 owner: username,
                 repo: repo,
-                path: `${branch}/content.html`,
-                message: `created content.html file for tutorial ${branchName}`,
-                content: Base64.encode('<div>Hello World</div>'),
+                path: `${branch}/content.json`,
+                message: `created content.json file for tutorial ${branchName}`,
+                content: Base64.encode('[]'),
                 branch: branch
               })
               .then((createContentFileResult) => {
