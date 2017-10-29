@@ -79,7 +79,10 @@
     if (this.isTitleEmpty || this.isContentEmpty){
       return
     }
+    this.generateSection(sectionId, sectionTitle, sectionText, sectionContent)
+  }
 
+  generateSection(sectionId, sectionTitle, sectionText, sectionContent){
     $('#sectionList').append('<content-section ref="'+sectionId+'" id="'+sectionId+'"></content-section>')
     riot.mount('#'+sectionId, 'content-section', { contentObservable: this.contentObservable, sectionTitle: sectionTitle, sectionContent: sectionContent, sectionText: sectionText })[0]
     this.cleanupFields()
@@ -111,7 +114,14 @@
   }
 
   set(data){
-
+    for(var i in data){
+      console.log('set::section', data[i])
+      const sectionId = data[i].id
+      const sectionTitle = data[i].title
+      const sectionText = data[i].text
+      const sectionContent = data[i].content
+      this.generateSection(sectionId, sectionTitle, sectionText, sectionContent)
+    }
   }
 
   </script>

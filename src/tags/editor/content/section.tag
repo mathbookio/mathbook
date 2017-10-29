@@ -115,8 +115,10 @@ removeSection(){
 
 get(){
   return {
+    id: this.opts.id,
     title: this.sectionTitle,
-    content: this.sectionText
+    text: this.sectionText,
+    content: this.sectionContent
   }
 }
 
