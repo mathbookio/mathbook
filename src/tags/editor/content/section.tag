@@ -116,7 +116,7 @@ removeSection(){
 get(){
   return {
     title: this.sectionTitle,
-    content: this.sectionContent
+    content: this.sectionText
   }
 }
 

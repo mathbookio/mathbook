@@ -136,8 +136,8 @@ removeExercise(){
 
 get(){
   return {
-    question: this.opts.questionText,
-    answer: this.opts.answerText
+    question: this.opts.question,
+    answer: this.opts.answer
   }
 }
 

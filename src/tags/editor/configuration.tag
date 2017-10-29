@@ -31,5 +31,15 @@
         keywords: this.tags['keywords'].get()
       }
     }
+    set(data){
+        this.tags['subject'].set(data['subject'])
+        this.tags['config-title'].set(data['title'])
+        this.tags['opening-statement'].set(data['openingStatement'])
+        this.tags['pre-req'].set(data['preReqs'])
+        this.tags['table-of-contents'].set(data['tableOfContents'])
+        this.tags['exercise-statement'].set(data['exerciseStatement'])
+        this.tags['resources'].set(data['resources'])
+        this.tags['keywords'].set(data['keywords'])
+    }
   </script>
 </configuration>

@@ -110,5 +110,9 @@
     return contentList
   }
 
+  set(data){
+
+  }
+
   </script>
 </content>

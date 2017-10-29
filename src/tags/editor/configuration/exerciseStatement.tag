@@ -27,7 +27,11 @@
   })
 
   get(){
-    return $('#exerciseStatementText').html()
+    return $('#exerciseStatement').val()
+  }
+  set(statement){
+    $('#exerciseStatement').val(statement)
+    $('#exerciseStatement').trigger('input')
   }
 
   </script>

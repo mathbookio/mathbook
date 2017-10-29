@@ -127,5 +127,9 @@
     return exerciseList
   }
 
+  set(data){
+    
+  }
+
   </script>
 </exercises>

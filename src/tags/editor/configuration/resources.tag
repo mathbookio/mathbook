@@ -66,5 +66,9 @@
     get(){
       return this.resources
     }
+
+    set(resources){
+      this.resources = resources
+    }
   </script>
 </resources>

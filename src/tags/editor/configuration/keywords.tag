@@ -61,5 +61,8 @@
     get(){
       return this.keywords
     }
+    set(keywords){
+      this.keywords = keywords
+    }
   </script>
 </keywords>

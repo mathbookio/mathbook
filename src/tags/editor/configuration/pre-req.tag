@@ -66,5 +66,10 @@
     get(){
       return this.preRequisites
     }
+
+    set(preReqs){
+      this.preRequisites = preReqs
+    }
+
   </script>
 </pre-req>

@@ -61,5 +61,9 @@
     get(){
       return this.tableOfContents
     }
+    set(tableOfContents){
+      console.log('tableOfContents', tableOfContents)
+      this.tableOfContents = tableOfContents
+    }
   </script>
 </table-of-contents>

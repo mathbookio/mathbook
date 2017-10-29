@@ -56,14 +56,23 @@
   </section>
   <script>
     var that = this
+    this.tutorialName = ''
     this.isSavingTutorial = false
     this.saveTutorialSuccess = false
     this.saveTutorialFailed = false
     this.on('mount', function () {
+      const urlPaths = window.location.href.split('/')
+      console.log('url paths', urlPaths)
+      this.tutorialName = urlPaths.pop()
       this.pickConfiguration();
-      //      console.log('configData', this.tags.configuration)
-      //     console.log('contentData', this.tags.content)
-      //    console.log('exerciseData', this.tags.exercises)
+      const url = '/v1/tutorial/' + this.tutorialName
+      $.get(url, function(result) {
+        console.log('getTutorialData result', result)
+        that.tags.configuration.set(result.config),
+        that.tags.content.set(result.content),
+        that.tags.exercises.set(result.exercises)
+        that.update()
+      })
     })
     pickConfiguration() {
       $("#configTab").addClass("is-active")
@@ -94,11 +103,8 @@
       this.isSavingTutorial = true
       this.saveTutorialSuccess = false
       this.saveTutorialFailed = false
-      const urlPaths = window.location.href.split('/')
-      console.log('url paths', urlPaths)
-      const tutorialName = urlPaths.pop()
       const data = {
-        tutorialName: tutorialName,
+        tutorialName: this.tutorialName,
         config: this.tags.configuration.get(),
         content: this.tags.content.get(),
         exercises: this.tags.exercises.get()
