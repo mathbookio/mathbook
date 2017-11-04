@@ -75,6 +75,41 @@ this.on('mount', function() {
       MathJax.Hub.Queue(['Typeset', MathJax.Hub, that.editSectionTextId])
     });
 
+    that.opts.contentObservable.on('deletedContentSection', function(contentId, contentIndex) {
+    console.log('content obeservable deletedContentSection triggered', { contentId: contentId, contentIndex: contentIndex })
+      if(contentIndex < that.opts.contentIndex){
+       console.log('an content was deleted before', that.sectionTitle, that.opts.contentIndex)
+       that.opts.contentIndex -= 1
+       console.log('an content was deleted after', that.sectionTitle, that.opts.contentIndex)
+
+      }
+  })
+
+  that.opts.contentObservable.on('contentOrderUpdate', function(oldIndex, newIndex){
+    console.log('contentOrderUpdate triggered', { oldIndex: oldIndex, newIndex: newIndex })
+    if (oldIndex === that.opts.contentIndex){
+      console.log('oldIndex === contentIndex')
+      that.opts.contentIndex = newIndex
+      console.log('after oldIndex === contentIndex',that.sectionTitle, that.opts.contentIndex)
+      return
+    }
+
+    // an content was moved up the list
+    if (oldIndex > newIndex && newIndex <= that.opts.contentIndex && oldIndex > that.opts.contentIndex){
+      console.log('an content was moved up the list before', that.sectionTitle, that.opts.contentIndex)
+      that.opts.contentIndex += 1
+      console.log('an content was moved up the list after', that.sectionTitle, that.opts.contentIndex)
+    }
+    // an content was moved down the list
+    else if (oldIndex < newIndex && newIndex >= that.opts.contentIndex && oldIndex < that.opts.contentIndex){
+      console.log('an content was moved down the list before', that.sectionTitle, that.opts.contentIndex)
+      that.opts.contentIndex -= 1
+      console.log('an content was moved down the list after', that.sectionTitle, that.opts.contentIndex)
+    } 
+    else{
+      console.log('nothing happened for', that.sectionTitle, that.opts.contentIndex)
+    }
+  })
 })
 
 editSection(){
@@ -107,7 +142,7 @@ closeModal(){
 removeSection(){
   var confirmChanges = confirm('Are you sure you want to delete the chosen section ?')
   if (confirmChanges){
-    this.opts.contentObservable.trigger('deletedContentSection', this.opts.id)
+    this.opts.contentObservable.trigger('deletedContentSection', this.opts.id, this.opts.contentIndex)
     this.unmount(true)
     $('#'+this.opts.id).remove()
   }
@@ -116,6 +151,7 @@ removeSection(){
 get(){
   return {
     id: this.opts.id,
+    contentIndex: this.opts.contentIndex,
     title: this.sectionTitle,
     text: this.sectionText,
     content: this.sectionContent

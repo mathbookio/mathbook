@@ -63,7 +63,15 @@
 
   initSortable(){
     var sectionList = document.getElementById('sectionList')
-    Sortable.create(sectionList, { handle: '.moveHandle' });
+    Sortable.create(sectionList, { 
+      handle: '.moveHandle',
+      onUpdate: function(e){
+        console.log('onUpdate triggered', e)
+        console.log('old index', e.oldIndex)
+        console.log('new index', e.newIndex)
+        that.contentObservable.trigger('contentOrderUpdate', e.oldIndex, e.newIndex)
+
+      } });
   }
 
   saveSection(){
@@ -83,8 +91,10 @@
   }
 
   generateSection(sectionId, sectionTitle, sectionText, sectionContent){
+    const contentIndex = $('content-section').length
+    console.log('contentIndex', contentIndex)
     $('#sectionList').append('<content-section ref="'+sectionId+'" id="'+sectionId+'"></content-section>')
-    riot.mount('#'+sectionId, 'content-section', { contentObservable: this.contentObservable, sectionTitle: sectionTitle, sectionContent: sectionContent, sectionText: sectionText })[0]
+    riot.mount('#'+sectionId, 'content-section', { contentObservable: this.contentObservable, contentIndex: contentIndex, sectionTitle: sectionTitle, sectionContent: sectionContent, sectionText: sectionText })[0]
     this.cleanupFields()
     this.update()
   }
@@ -108,7 +118,7 @@
     const contentList = []
     for (var contentId in this.contentMap){
       var content = this.contentMap[contentId].get()
-      contentList.push(content)
+      contentList[content.contentIndex] = content
     }
     return contentList
   }

@@ -41,8 +41,7 @@
     </div>
     </div>
   </section>
-  
-  <script>
+<script>
   // TODO
 // When a user reorders exercises, we need to reorder the exercises in the list itself
 
@@ -59,7 +58,7 @@
     this.exerciseObservable.on('createdExercise', function(exerciseId, exerciseObj) {
       that.exerciseMap[exerciseId] = exerciseObj
     })
-    
+   
     this.exerciseObservable.on('deletedExercise', function(exerciseId) {
       delete that.exerciseMap[exerciseId]
     })
@@ -78,7 +77,15 @@
 
   initSortable(){
     var exerciseList = document.getElementById('exerciseList')
-    Sortable.create(exerciseList, { handle: '.moveHandle' });
+    Sortable.create(exerciseList, { 
+      handle: '.moveHandle', 
+      onUpdate: function(e){
+        console.log('onUpdate triggered', e)
+        console.log('old index', e.oldIndex)
+        console.log('new index', e.newIndex)
+        that.exerciseObservable.trigger('exerciseOrderUpdate', e.oldIndex, e.newIndex)
+
+      } });
   }
 
   saveSection(){
@@ -101,9 +108,12 @@
   }
 
   generateExercise(exerciseId, question, questionText, answer, answerText){
+    const exerciseIndex = $('exercise-section').length
+    console.log('exerciseIndex', exerciseIndex)
     $('#exerciseList').append('<exercise-section id="'+exerciseId+'"></exercise-section>')
     riot.mount('#'+exerciseId, 
     { exerciseObservable: this.exerciseObservable,
+      exerciseIndex: exerciseIndex,
       question: question, 
       questionText: questionText, 
       answerText: answerText, 
@@ -130,7 +140,7 @@
     console.log('exerciseMap', this.exerciseMap)
     for (var exerciseId in this.exerciseMap){
       var exercise = this.exerciseMap[exerciseId].get()
-      exerciseList.push(exercise)
+      exerciseList[exercise.exerciseIndex] = exercise
     }
     return exerciseList
   }
