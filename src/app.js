@@ -42,6 +42,7 @@ app.use('/editor', router.editorRouter)
 app.use('/ele-algebra', router.eleAlgebraRouter)
 app.use('/login', router.authRouter)
 app.use('/dashboard', router.dashboardRouter)
+app.use('/preview', router.previewRouter)
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   const err = new Error('Not Found')
