@@ -35,13 +35,14 @@
       <div class="level">
         <div class="level-left">
           <div class="level-item">
-            <button class="button is-success { is-loading: isSavingTutorial }" onclick={saveState}>Save Current Tutorial State</div>
+            <button class="button is-success { is-loading: isSavingTutorial }" onclick={saveState}>Save Current Tutorial State</button>
+          </div>
           <div class="level-item">
             <p show={ saveTutorialSuccess } class="help has-text-grey">
               <span class="icon is-small has-text-success">
                 <i class="fa fa-check"></i>
               </span>
-              Tutorial State Saved
+              Tutorial State Saved - { currentTime }
             </p>
             <p show={ saveTutorialFailed } class="help has-text-grey">
               <span class="icon is-small has-text-danger">
@@ -51,12 +52,18 @@
             </p>
           </div>
         </div>
+        <div class="level-right">
+          <div class="level-item">
+              <a class="button is-info" onclick={ previewTutorial }>Preview Tutorial</a>
+          </div>
+        </div>
       </div>
     </div>
   </section>
   <script>
     var that = this
     this.tutorialName = ''
+    this.currentTime = ''
     this.isSavingTutorial = false
     this.saveTutorialSuccess = false
     this.saveTutorialFailed = false
@@ -99,6 +106,10 @@
       $("#config").hide();
     }
 
+    previewTutorial(){
+      window.location.href = '/preview/' + this.tutorialName
+    }
+
     saveState() {
       this.isSavingTutorial = true
       this.saveTutorialSuccess = false
@@ -120,6 +131,7 @@
           that.isSavingTutorial = false
           that.saveTutorialSuccess = true
           that.saveTutorialFailed = false
+          that.currentTime = new Date().toLocaleTimeString()
           that.update()
         },
         error: function (xhr, textStatus, errorThrown) {
