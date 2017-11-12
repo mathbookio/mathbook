@@ -32,7 +32,12 @@
   })
 
   get(){
-    return $('#openingStatementText').html()
+    return $('#openingStatement').val()
+  }
+
+  set(openingStatement) {
+    $('#openingStatement').val(openingStatement)
+    $('#openingStatement').trigger('input')
   }
 
   </script>

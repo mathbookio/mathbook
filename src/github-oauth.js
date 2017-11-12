@@ -6,7 +6,7 @@ const githubOAuth = require('github-oauth')({
   githubSecret: CLIENT_SECRET,
   baseURL: 'http://localhost:4000',
   loginURI: '/login/authenticate',
-  callbackURI: '/dashboard',
+  callbackURI: '/login/success',
   scope: 'user%20repo' // optional, default scope is set to user
 })
 

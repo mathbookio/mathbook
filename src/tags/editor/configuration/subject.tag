@@ -4,12 +4,12 @@
     <div class="control">
       <div class="select">
       <select id="subjectSelect">
-        <option>Elementary Algebra</option>
-        <option>Calculus</option>
-        <option>Linear Algebra</option>
-        <option>Number Theory</option>
-        <option>Geometry</option>
-        <option>Combinatorics</option>
+        <option value="Elementary Algebra">Elementary Algebra</option>
+        <option value="Calculus">Calculus</option>
+        <option value="Linear Algebra">Linear Algebra</option>
+        <option value="Number Theory">Number Theory</option>
+        <option value="Geometry">Geometry</option>
+        <option value="Combinatorics">Combinatorics</option>
       </select>
       </div>
     </div>
@@ -17,6 +17,10 @@
   <script>
   get(){
     return $("#subjectSelect option:selected" ).text();
+  }
+  set(subject){
+    console.log('subjectTag::subject', subject)
+    $('#subjectSelect').val(subject)
   }
   </script>
 </subject>

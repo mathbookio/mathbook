@@ -55,6 +55,7 @@
   </div>
 </div>
 <script>
+
 var that = this
 console.log(this.opts)
 this.showModal = false
@@ -85,11 +86,50 @@ this.on('mount', function() {
       that.$('editAnswerTextId').html(answerVal)
       MathJax.Hub.Queue(['Typeset', MathJax.Hub, '#'+that.editAnswerTextId])
     });
+
+  that.opts.exerciseObservable.on('deletedExercise', function(exerciseId, exerciseIndex) {
+    console.log('exercise obeservable deletedExercise triggered', { exerciseId: exerciseId, exerciseIndex: exerciseIndex })
+      if(exerciseIndex < that.opts.exerciseIndex){
+       console.log('an exercise was deleted before', that.opts.question, that.opts.exerciseIndex)
+       that.opts.exerciseIndex -= 1
+       console.log('an exercise was deleted after', that.opts.question, that.opts.exerciseIndex)
+
+      }
+  })
+
+  that.opts.exerciseObservable.on('exerciseOrderUpdate', function(oldIndex, newIndex){
+    console.log('exerciseOrderUpdate triggered', { oldIndex: oldIndex, newIndex: newIndex })
+    if (oldIndex === that.opts.exerciseIndex){
+      console.log('oldIndex === exerciseIndex')
+      that.opts.exerciseIndex = newIndex
+      console.log('after oldIndex === exerciseIndex',that.opts.question, that.opts.exerciseIndex)
+      return
+    }
+
+    // an exercise was moved up the list
+    if (oldIndex > newIndex && newIndex <= that.opts.exerciseIndex && oldIndex > that.opts.exerciseIndex){
+      console.log('an exercise was moved up the list before', that.opts.question, that.opts.exerciseIndex)
+      that.opts.exerciseIndex += 1
+      console.log('an exercise was moved up the list after', that.opts.question, that.opts.exerciseIndex)
+    }
+    // an exercise was moved down the list
+    else if (oldIndex < newIndex && newIndex >= that.opts.exerciseIndex && oldIndex < that.opts.exerciseIndex){
+      console.log('an exercise was moved down the list before', that.opts.question, that.opts.exerciseIndex)
+      that.opts.exerciseIndex -= 1
+      console.log('an exercise was moved down the list after', that.opts.question, that.opts.exerciseIndex)
+    } 
+    else{
+      console.log('nothing happened for', that.opts.question, that.opts.exerciseIndex)
+    }
+
+
+  })
+  
 })
 
 bindExerciseValues(){
-  this.$('questionId').html(this.opts.question)
-  this.$('answerId').html(this.opts.answer)
+  this.$('questionId').html(this.opts.questionText)
+  this.$('answerId').html(this.opts.answerText)
 }
 
 editExercise(){
@@ -128,7 +168,7 @@ closeModal(){
 removeExercise(){
   var confirmChanges = confirm('Are you sure you want to delete the chosen exercise ?')
   if (confirmChanges){
-    this.opts.exerciseObservable.trigger('deletedExercise', this.opts.id, this)
+    this.opts.exerciseObservable.trigger('deletedExercise', this.opts.id, this.opts.exerciseIndex)
     this.unmount(true)
     $(this.opts.id).remove()
   }
@@ -136,8 +176,12 @@ removeExercise(){
 
 get(){
   return {
-    question: this.opts.questionText,
-    answer: this.opts.answerText
+    id: this.opts.id,
+    question: this.opts.question,
+    questionText: this.opts.questionText,
+    answer: this.opts.answer,
+    answerText: this.opts.answerText,
+    exerciseIndex: this.opts.exerciseIndex
   }
 }
 

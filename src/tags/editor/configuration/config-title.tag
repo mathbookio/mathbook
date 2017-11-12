@@ -8,7 +8,11 @@
   <script>
   var that = this
   get(){
-    return that.refs.tutorialTitle.value
+    return this.refs.tutorialTitle.value
+  }
+  set(title){
+    console.log('configTitle::set', title)
+    this.refs.tutorialTitle.value = title
   }
 
   </script>

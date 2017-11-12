@@ -1,4 +1,5 @@
 'use strict'
+const Promise = require('bluebird')
 const _ = require('lodash')
 const github = require('../github-client')
 const Base64 = require('js-base64').Base64
@@ -66,6 +67,45 @@ module.exports = function (req, res) {
           })
           .then((updateFileResult) => {
             console.dir({ updateFileResult }, { depth: 10 })
+            const createConfigFile = github.repos.createFile({
+              owner: username,
+              repo: repo,
+              path: `${branch}/config.json`,
+              message: `created config file for tutorial ${branchName}`,
+              content: Base64.encode('{ "title": "NA"}'),
+              branch: branch
+            })
+
+            return createConfigFile
+            .then((createConfigFileResult) => {
+              console.log({ createConfigFileResult }, { depth: 10 })
+              return github.repos.createFile({
+                owner: username,
+                repo: repo,
+                path: `${branch}/content.json`,
+                message: `created content.json file for tutorial ${branchName}`,
+                content: Base64.encode('[]'),
+                branch: branch
+              })
+              .then((createContentFileResult) => {
+                console.dir({ createContentFileResult }, { depth: 10 })
+                return github.repos.createFile({
+                  owner: username,
+                  repo: repo,
+                  path: `${branch}/exercises.json`,
+                  message: `created exercises file for tutorial ${branchName}`,
+                  content: Base64.encode('[]'),
+                  branch: branch
+                })
+                .then((createExercisesFile) => {
+                  console.dir({ createExercisesFile }, { depth: 10 })
+                  return updateFileResult
+                })
+              })
+            })
+          })
+          .then((updateFileResult) => {
+            console.log('Money', updateFileResult)
             res.send({ username, isBranch })
           })
         })

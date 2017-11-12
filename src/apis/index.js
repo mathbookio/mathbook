@@ -5,7 +5,9 @@ const _ = require('lodash')
 const forkRepo = require('./fork-repo')
 const deleteTutorial = require('./deleteTutorial')
 const submitTutorial = require('./submitTutorial')
+const saveTutorial = require('./saveTutorial')
 const getTutorials = require('./getTutorials')
+const getTutorialData = require('./getTutorialData')
 const express = require('express')
 const apiRouter = express.Router()
 
@@ -24,7 +26,9 @@ apiRouter.use((req, res, next) => {
 
 apiRouter.post('/fork', forkRepo)
 apiRouter.put('/submit/tutorial', submitTutorial)
+apiRouter.put('/save/tutorial', saveTutorial)
 apiRouter.delete('/remove/tutorial', deleteTutorial)
 apiRouter.get('/tutorials', getTutorials)
+apiRouter.get('/tutorial/:branch', getTutorialData)
 
 module.exports = apiRouter

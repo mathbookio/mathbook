@@ -41,8 +41,11 @@
     </div>
     </div>
   </section>
-  
-  <script>
+<script>
+  // TODO
+// When a user reorders exercises, we need to reorder the exercises in the list itself
+
+
     var that = this
     this.exerciseMap = {}
     this.isQuestionInvalid = false
@@ -55,7 +58,7 @@
     this.exerciseObservable.on('createdExercise', function(exerciseId, exerciseObj) {
       that.exerciseMap[exerciseId] = exerciseObj
     })
-    
+   
     this.exerciseObservable.on('deletedExercise', function(exerciseId) {
       delete that.exerciseMap[exerciseId]
     })
@@ -74,7 +77,15 @@
 
   initSortable(){
     var exerciseList = document.getElementById('exerciseList')
-    Sortable.create(exerciseList, { handle: '.moveHandle' });
+    Sortable.create(exerciseList, { 
+      handle: '.moveHandle', 
+      onUpdate: function(e){
+        console.log('onUpdate triggered', e)
+        console.log('old index', e.oldIndex)
+        console.log('new index', e.newIndex)
+        that.exerciseObservable.trigger('exerciseOrderUpdate', e.oldIndex, e.newIndex)
+
+      } });
   }
 
   saveSection(){
@@ -92,14 +103,21 @@
     if(this.isQuestionInvalid || this.isAnswerInvalid){
       return
     }
+    this.generateExercise(exerciseId, question, questionText, answer, answerText)
+    this.cleanupFields()
+  }
+
+  generateExercise(exerciseId, question, questionText, answer, answerText){
+    const exerciseIndex = $('exercise-section').length
+    console.log('exerciseIndex', exerciseIndex)
     $('#exerciseList').append('<exercise-section id="'+exerciseId+'"></exercise-section>')
     riot.mount('#'+exerciseId, 
     { exerciseObservable: this.exerciseObservable,
+      exerciseIndex: exerciseIndex,
       question: question, 
       questionText: questionText, 
       answerText: answerText, 
       answer: answer })
-    this.cleanupFields()
   }
 
   isTextInvalid(text){
@@ -122,9 +140,21 @@
     console.log('exerciseMap', this.exerciseMap)
     for (var exerciseId in this.exerciseMap){
       var exercise = this.exerciseMap[exerciseId].get()
-      exerciseList.push(exercise)
+      exerciseList[exercise.exerciseIndex] = exercise
     }
     return exerciseList
+  }
+
+  set(data){
+    for(var i in data){
+      console.log('set::exercise', data[i])
+      const exerciseId = data[i].id
+      const question = data[i].question
+      const questionText = data[i].questionText
+      const answer = data[i].answer
+      const answerText = data[i].answerText
+      this.generateExercise(exerciseId, question, questionText, answer, answerText)
+    }
   }
 
   </script>
