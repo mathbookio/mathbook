@@ -3,12 +3,16 @@
   <intro></intro>
   <pre-reqs></pre-reqs>
   <table-contents></table-contents>
+  <tutorial-sections></tutorial-sections>
+  <tutorial-exercises></tutorial-exercises>
   <resource-list></resource-list>
   <!--  TODO - ADD KEYWORDS META DATA FOR SEO PURPOSES  -->
   <script>
     var that = this
     this.tutorialName = ''
     this.config = {}
+    this.sections = []
+    this.exercises = []
     this.on('mount', function () {
       const urlPaths = window.location.href.split('/')
       console.log('url paths', urlPaths)
@@ -31,9 +35,10 @@
           fragment: '#resources'
         })
         that.formatConfig(result.config),
-          // that.formatContent(result.content),
-          // that.formatExercises(result.exercises)
-          that.update()
+        that.formatContent(result.content),
+        that.formatExercises(result.exercises, result.config.exerciseStatement)
+        that.update()
+        MathJax.Hub.Queue(['Typeset', MathJax.Hub])
       })
     })
 
@@ -48,9 +53,6 @@
         }
       ]
 
-      console.log('config', config)
-
-      this.config = config
       this.tags['topic-title'].set(config)
       this.tags['intro'].set(config)
       this.tags['pre-reqs'].set(config)
@@ -59,8 +61,23 @@
 
     }
 
+    formatContent(sections){
+      for(var section of sections){
+        section['fragment'] = that.toSnakeCase(section.title)
+      }
+      this.tags['tutorial-sections'].set(sections)
+    }
+
+    formatExercises(exercises, exerciseStatement){
+      for(var exercise of exercises){
+        exercise['showAnswer'] = false
+      }
+      this.tags['tutorial-exercises'].set({ exercises: exercises, exerciseStatement: exerciseStatement })
+    }
+
     toSnakeCase(text) {
-      return text.replace(/\s+/g, '-').toLowerCase()
+      const txt = text || ''
+      return txt.replace(/\s+/g, '-').toLowerCase()
     }
   </script>
 </preview-tutorial>

@@ -64,6 +64,15 @@
                   <i class="fa fa-pencil"></i>
                 </span>
               </a>
+              <a class="card-footer-item edit" onclick="{ parent.previewTutorial }">
+                <span class="icon is-small">
+                  <i class="fa fa-file"></i>
+                </span>
+                <span> </span>
+                <span class="icon is-small">
+                  <i class="fa fa-search"></i>
+                </span>
+              </a>
               <a class="card-footer-item delete-button" onclick={ openDeleteTutorialModal }>
                 <span class="icon is-small">
                   <i class="fa fa-times"></i>
@@ -287,6 +296,11 @@
     editTutorial(e) {
       console.log('editing tutorial with id', e.item)
       window.location.href = '/editor/' + e.item.name
+    }
+
+    previewTutorial(e){
+      console.log('editing tutorial with id', e.item)
+      window.location.href = '/preview/' + e.item.name 
     }
 
     deleteTutorial() {

@@ -54,7 +54,11 @@
         </div>
         <div class="level-right">
           <div class="level-item">
+            <p>
               <a class="button is-info" onclick={ previewTutorial }>Preview Tutorial</a>
+              <br/>
+              <span class="help has-text-grey">Make sure to Save Current Tutorial State before Previewing.</span>
+            </p>
           </div>
         </div>
       </div>
@@ -64,6 +68,7 @@
     var that = this
     this.tutorialName = ''
     this.currentTime = ''
+    this.showedPreviewConfirmation = false
     this.isSavingTutorial = false
     this.saveTutorialSuccess = false
     this.saveTutorialFailed = false
@@ -107,7 +112,7 @@
     }
 
     previewTutorial(){
-      window.location.href = '/preview/' + this.tutorialName
+        window.location.href = '/preview/' + this.tutorialName
     }
 
     saveState() {
