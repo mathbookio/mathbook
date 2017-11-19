@@ -23,7 +23,7 @@
     <div class="control">
     <label>Preview</label>
       <div class="box">
-        <p id='contentSectionText'></p>
+        <p id='contentSectionText' class="previewText"></p>
       </div>
     </div>
   </div>
@@ -56,7 +56,8 @@
     $('#contentSection').on('input', function(e) {
       var contentVal = $('#contentSection').val()
       $('#contentSectionText').html(contentVal)
-      MathJax.Hub.Queue(['Typeset', MathJax.Hub, 'contentSectionText'])
+      renderMathInElement(document.getElementById('contentSectionText'))
+      // MathJax.Hub.Queue(['Typeset', // MathJax.Hub, 'contentSectionText'])
     });
 
   })

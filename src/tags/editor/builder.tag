@@ -6,6 +6,7 @@
 
     .moveHandle {
       cursor: move;
+      cursor: -webkit-grabbing;
     }
   </style>
   <section class="section">
@@ -35,7 +36,7 @@
       <div class="level">
         <div class="level-left">
           <div class="level-item">
-            <button class="button is-success { is-loading: isSavingTutorial }" onclick={saveState}>Save Current Tutorial State</button>
+            <button class="button is-success { is-loading: isSavingTutorial }" onclick={saveTutorial}>Save Current Tutorial State</button>
           </div>
           <div class="level-item">
             <p show={ saveTutorialSuccess } class="help has-text-grey">
@@ -55,9 +56,7 @@
         <div class="level-right">
           <div class="level-item">
             <p>
-              <a class="button is-info" onclick={ previewTutorial }>Preview Tutorial</a>
-              <br/>
-              <span class="help has-text-grey">Make sure to Save Current Tutorial State before Previewing.</span>
+              <a class="button is-info" onclick={ previewTutorial }>Save & Preview</a>
             </p>
           </div>
         </div>
@@ -112,10 +111,24 @@
     }
 
     previewTutorial(){
-        window.location.href = '/preview/' + this.tutorialName
+      return this.saveState(function(err, result) {
+        if (err){
+          const skipSaving = confirm('Unfortunately, we were unable to save the current state of the tutorial. Would you like to preview your last saved state ? \n Note that your current changes will be lost.')
+          if(skipSaving){
+            window.location.href = '/preview/' + that.tutorialName
+          }
+          return
+        }
+        window.location.href = '/preview/' + that.tutorialName
+        
+      })
     }
 
-    saveState() {
+    saveTutorial(){
+      this.saveState()
+    }
+
+    saveState(callback) {
       this.isSavingTutorial = true
       this.saveTutorialSuccess = false
       this.saveTutorialFailed = false
@@ -138,6 +151,9 @@
           that.saveTutorialFailed = false
           that.currentTime = new Date().toLocaleTimeString()
           that.update()
+          if (callback){
+            callback(null, { status: 200 })
+          }
         },
         error: function (xhr, textStatus, errorThrown) {
           that.isSavingTutorial = false
@@ -145,6 +161,9 @@
           that.saveTutorialFailed = true
           that.update()
           console.log(errorThrown)
+          if (callback){
+            callback(errorThrown, null)
+          }
         }
       })
     }

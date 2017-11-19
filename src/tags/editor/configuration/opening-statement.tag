@@ -13,7 +13,7 @@
     <div class="control">
     <label>Preview</label>
       <div class="box">
-        <p id='openingStatementText'></p>
+        <p id='openingStatementText' class="previewText"></p>
       </div>
     </div>
   </div>
@@ -27,7 +27,8 @@
       var osText = $('#openingStatement').val()
       console.log('osText', osText)
       $('#openingStatementText').html(osText)
-      MathJax.Hub.Queue(['Typeset', MathJax.Hub, 'openingStatementText'])
+      renderMathInElement(document.getElementById('openingStatementText'))
+      // MathJax.Hub.Queue(['Typeset', // MathJax.Hub, 'openingStatementText'])
     });
   })
 

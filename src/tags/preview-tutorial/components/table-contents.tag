@@ -2,7 +2,7 @@
   <section class="section my-section-margin">
     <div class="title is-4">Contents</div>
     <div class="content">
-      <ol>
+      <ol class="sans">
         <li each={ contentsList }>
           <a href={ fragment }>{ title }</a>
         </li>

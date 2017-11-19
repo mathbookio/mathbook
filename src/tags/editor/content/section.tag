@@ -13,7 +13,7 @@
      </a>
      </div></div>
      <div class="title is-4">{ sectionTitle }</div>
-     <div class="content" id="{ sectionId }"></div>
+     <div class="content"><p id="{ sectionId }" class="previewText"></p></div>
 </div>
 <div class="modal {is-active: showModal}">
   <div class="modal-background"></div>
@@ -36,7 +36,7 @@
         <div class="control">
         <label>Preview</label>
           <div class="box">
-            <p id="{ editSectionTextId }"></p>
+            <p id="{ editSectionTextId }" class="previewText"></p>
           </div>
         </div>
       </div>
@@ -72,7 +72,8 @@ this.on('mount', function() {
   this.$('editSectionId').on('input', function(e) {
       var contentVal = that.$('editSectionId').val()
       that.$('editSectionTextId').html(contentVal)
-      MathJax.Hub.Queue(['Typeset', MathJax.Hub, that.editSectionTextId])
+       renderMathInElement(document.getElementById(that.editSectionTextId))
+      // MathJax.Hub.Queue(['Typeset', // MathJax.Hub, that.editSectionTextId])
     });
 
     that.opts.contentObservable.on('deletedContentSection', function(contentId, contentIndex) {
@@ -136,7 +137,10 @@ updateContent(){
 }
 
 closeModal(){
-  this.showModal = false
+  var confirmClose = confirm('Are you sure you want to close this edit view ? Any unsaved changes will be discarded.')
+  if (confirmClose){
+    this.showModal = false
+  }
 }
 
 removeSection(){

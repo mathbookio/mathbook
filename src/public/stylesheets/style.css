@@ -64,3 +64,37 @@ body{
   width: 100%;
   padding: 0.75rem;
 }
+
+section.section.my-section-margin > div.content{
+  font-family: 'Merriweather', sans-serif;
+}
+
+p.previewText{
+  white-space: pre-wrap;
+  font-family: 'Merriweather', sans-serif;
+}
+
+.sans{
+  font-family: 'Roboto', Arial, sans-serif !important;
+}
+
+.serif{
+  font-family: 'Merriweather', sans-serif;
+}
+
+.preWrap {
+  white-space: pre-wrap;
+}
+
+.sortable-chosen{
+  opacity: 0.1;
+}
+.sortable-ghost{
+  opacity: 0.1;
+}
+content-section{
+  position: relative;
+}
+exercise-section{
+  position: relative;
+}

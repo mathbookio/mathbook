@@ -2,18 +2,20 @@
 <div class="box">
 <div class="level">
      <div class="level-right">
-     <span class="level-item moveHandle" >
-     <span class="icon is-small"><i class="fa fa-bars" aria-hidden="true"></i></span>
-     </span>
-     <a class="level-item" onclick={ editExercise }>
-     <span class="icon is-small has-text-info"><i class="fa fa-pencil" aria-hidden="true"></i></span>
-     </a>
-     <a class="level-item" onclick={ removeExercise }>
-     <span class="icon is-small has-text-danger"><i class="fa fa-close" aria-hidden="true"></i></span>
-     </a>
-     </div></div>
-     <div class="exercise" id="{ questionId }"></div>
-     <div class="exercise" id="{ answerId }"></div>
+      <span class="level-item" >
+      <span class="icon is-small moveHandle"><i class="fa fa-bars" aria-hidden="true"></i></span>
+      </span>
+      <a class="level-item" onclick={ editExercise }>
+      <span class="icon is-small has-text-info"><i class="fa fa-pencil" aria-hidden="true"></i></span>
+      </a>
+      <a class="level-item" onclick={ removeExercise }>
+      <span class="icon is-small has-text-danger"><i class="fa fa-close" aria-hidden="true"></i></span>
+      </a>
+      </div>
+     </div>
+     <div class="exercise"><p id="{ questionId }" class="previewText"></p></div>
+     <br/>
+     <div class="exercise"><p id="{ answerId }" class="previewText"></p></div>
 </div>
 <!--  MODAL TO EDIT EXERCISE  -->
 <div class="modal {is-active: showModal}">
@@ -37,13 +39,13 @@
         <div class="control">
         <label>Question Preview</label>
           <div class="box">
-            <p id='{ editQuestionTextId }'></p>
+            <p id='{ editQuestionTextId }' class="previewText"></p>
           </div>
         </div>
         <div class="control">
         <label>Answer Preview</label>
           <div class="box">
-            <p id='{ editAnswerTextId }'></p>
+            <p id='{ editAnswerTextId }' class="previewText"></p>
           </div>
         </div>
       </div>
@@ -77,14 +79,17 @@ this.on('mount', function() {
   that.$('editQuestionId').on('input', function(e) {
       var questionVal = that.$('editQuestionId').val()
       that.$('editQuestionTextId').html(questionVal)
-      MathJax.Hub.Queue(['Typeset', MathJax.Hub, '#'+that.editQuestionTextId])
+      renderMathInElement(document.getElementById(that.editQuestionTextId))
+      // MathJax.Hub.Queue(['Typeset', // MathJax.Hub, '#'+that.editQuestionTextId])
     });
 
   // preview answer text
   that.$('editAnswerId').on('input', function(e) {
       var answerVal = that.$('editAnswerId').val()
       that.$('editAnswerTextId').html(answerVal)
-      MathJax.Hub.Queue(['Typeset', MathJax.Hub, '#'+that.editAnswerTextId])
+      renderMathInElement(document.body)
+      renderMathInElement(document.getElementById(that.editAnswerTextId))
+      // MathJax.Hub.Queue(['Typeset', // MathJax.Hub, '#'+that.editAnswerTextId])
     });
 
   that.opts.exerciseObservable.on('deletedExercise', function(exerciseId, exerciseIndex) {
@@ -130,6 +135,8 @@ this.on('mount', function() {
 bindExerciseValues(){
   this.$('questionId').html(this.opts.questionText)
   this.$('answerId').html(this.opts.answerText)
+  renderMathInElement(document.getElementById(that.questionId))
+  renderMathInElement(document.getElementById(that.answerId))
 }
 
 editExercise(){
@@ -162,7 +169,10 @@ updateExercise(){
 }
 
 closeModal(){
-  this.showModal = false
+  var confirmClose = confirm('Are you sure you want to close this edit view ? Any unsaved changes will be discarded.')
+  if (confirmClose){
+    this.showModal = false
+  }
 }
 
 removeExercise(){

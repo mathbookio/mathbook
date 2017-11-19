@@ -34,6 +34,7 @@ app.use('/mathjax', express.static(path.resolve(__dirname, '..', 'node_modules/m
 app.use('/jquery', express.static(path.resolve(__dirname, '..', 'node_modules/jquery/')))
 app.use('/highlight', express.static(path.resolve(__dirname, '..', 'node_modules/highlight.js/')))
 app.use('/riot', express.static(path.resolve(__dirname, '..', 'node_modules/riot/')))
+app.use('/katex', express.static(path.resolve(__dirname, '..', 'node_modules/katex/dist')))
 
 app.use('/v1', apis)
 app.use('/', router.router)
