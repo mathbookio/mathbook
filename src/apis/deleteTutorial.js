@@ -10,14 +10,14 @@ module.exports = function (req, res) {
     console.log('login', login)
     return login
   })
-  .then((username) => {
+  .then((username) => {ß
     const repo = 'testing'
     return github.gitdata.deleteReference({
       owner: username,
       repo: repo,
       ref: `heads/tutorial/${tutorialName}`
     })
-  })
+  })                                  
   .then((deleteResult) => {
     console.log({ deleteResult })
     res.send({ deleted: true, tutorial: tutorialName })

@@ -6,7 +6,7 @@
   <tutorial-sections></tutorial-sections>
   <tutorial-exercises></tutorial-exercises>
   <resource-list></resource-list>
-  <!--  TODO - ADD KEYWORDS META DATA FOR SEO PURPOSES  -->
+  <meta-keywords></meta-keywords>
   <script>
     var that = this
     this.tutorialName = ''
@@ -59,6 +59,7 @@
       this.tags['pre-reqs'].set(config)
       this.tags['table-contents'].set(config)
       this.tags['resource-list'].set(config)
+      this.tags['meta-keywords'].set(config)
 
     }
 
