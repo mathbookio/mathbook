@@ -8,7 +8,7 @@
     <div class="control">
       <label>Preview</label>
       <div class="box">
-        <p id='exerciseStatementText'></p>
+        <p id='exerciseStatementText' class="previewText"></p>
       </div>
     </div>
   </div>
@@ -22,7 +22,7 @@
       var osText = $('#exerciseStatement').val()
       console.log('osText', osText)
       $('#exerciseStatementText').html(osText)
-      MathJax.Hub.Queue(['Typeset', MathJax.Hub, 'exerciseStatementText'])
+      renderMathInElement(document.getElementById('exerciseStatementText'))
     });
   })
 

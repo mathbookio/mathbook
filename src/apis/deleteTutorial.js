@@ -17,7 +17,7 @@ module.exports = function (req, res) {
       repo: repo,
       ref: `heads/tutorial/${tutorialName}`
     })
-  })
+  })                                  
   .then((deleteResult) => {
     console.log({ deleteResult })
     res.send({ deleted: true, tutorial: tutorialName })

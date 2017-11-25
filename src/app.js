@@ -34,6 +34,7 @@ app.use('/mathjax', express.static(path.resolve(__dirname, '..', 'node_modules/m
 app.use('/jquery', express.static(path.resolve(__dirname, '..', 'node_modules/jquery/')))
 app.use('/highlight', express.static(path.resolve(__dirname, '..', 'node_modules/highlight.js/')))
 app.use('/riot', express.static(path.resolve(__dirname, '..', 'node_modules/riot/')))
+app.use('/katex', express.static(path.resolve(__dirname, '..', 'node_modules/katex/dist')))
 
 app.use('/v1', apis)
 app.use('/', router.router)
@@ -42,6 +43,7 @@ app.use('/editor', router.editorRouter)
 app.use('/ele-algebra', router.eleAlgebraRouter)
 app.use('/login', router.authRouter)
 app.use('/dashboard', router.dashboardRouter)
+app.use('/preview', router.previewRouter)
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   const err = new Error('Not Found')

@@ -23,13 +23,13 @@
     <div class="control">
     <label>Question Preview</label>
       <div class="box">
-        <p id='exerciseQuestionText'></p>
+        <p id='exerciseQuestionText' class="previewText"></p>
       </div>
     </div>
     <div class="control">
     <label>Answer Preview</label>
       <div class="box">
-        <p id='exerciseAnswerText'></p>
+        <p id='exerciseAnswerText' class="previewText"></p>
       </div>
     </div>
   </div>
@@ -42,9 +42,6 @@
     </div>
   </section>
 <script>
-  // TODO
-// When a user reorders exercises, we need to reorder the exercises in the list itself
-
 
     var that = this
     this.exerciseMap = {}
@@ -66,19 +63,19 @@
     $('#exerciseQuestion').on('input', function(e) {
       var questionVal = $('#exerciseQuestion').val()
       $('#exerciseQuestionText').html(questionVal)
-      MathJax.Hub.Queue(['Typeset', MathJax.Hub, 'exerciseQuestionText'])
+       renderMathInElement(document.getElementById('exerciseQuestionText'))
     });
     $('#exerciseAnswer').on('input', function(e) {
       var answerVal = $('#exerciseAnswer').val()
       $('#exerciseAnswerText').html(answerVal)
-      MathJax.Hub.Queue(['Typeset', MathJax.Hub, 'exerciseAnswerText'])
+       renderMathInElement(document.getElementById('exerciseAnswerText'))
     });
   })
 
   initSortable(){
     var exerciseList = document.getElementById('exerciseList')
     Sortable.create(exerciseList, { 
-      handle: '.moveHandle', 
+      handle: '.moveHandle',
       onUpdate: function(e){
         console.log('onUpdate triggered', e)
         console.log('old index', e.oldIndex)
