@@ -57,7 +57,6 @@
       var contentVal = $('#contentSection').val()
       $('#contentSectionText').html(contentVal)
       renderMathInElement(document.getElementById('contentSectionText'))
-      // MathJax.Hub.Queue(['Typeset', // MathJax.Hub, 'contentSectionText'])
     });
 
   })

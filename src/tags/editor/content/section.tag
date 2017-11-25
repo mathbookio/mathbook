@@ -73,7 +73,6 @@ this.on('mount', function() {
       var contentVal = that.$('editSectionId').val()
       that.$('editSectionTextId').html(contentVal)
        renderMathInElement(document.getElementById(that.editSectionTextId))
-      // MathJax.Hub.Queue(['Typeset', // MathJax.Hub, that.editSectionTextId])
     });
 
     that.opts.contentObservable.on('deletedContentSection', function(contentId, contentIndex) {

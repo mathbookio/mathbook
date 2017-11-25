@@ -23,7 +23,6 @@
       console.log('osText', osText)
       $('#exerciseStatementText').html(osText)
       renderMathInElement(document.getElementById('exerciseStatementText'))
-      // MathJax.Hub.Queue(['Typeset', // MathJax.Hub, 'exerciseStatementText'])
     });
   })
 

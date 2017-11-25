@@ -80,7 +80,6 @@ this.on('mount', function() {
       var questionVal = that.$('editQuestionId').val()
       that.$('editQuestionTextId').html(questionVal)
       renderMathInElement(document.getElementById(that.editQuestionTextId))
-      // MathJax.Hub.Queue(['Typeset', // MathJax.Hub, '#'+that.editQuestionTextId])
     });
 
   // preview answer text
@@ -89,7 +88,6 @@ this.on('mount', function() {
       that.$('editAnswerTextId').html(answerVal)
       renderMathInElement(document.body)
       renderMathInElement(document.getElementById(that.editAnswerTextId))
-      // MathJax.Hub.Queue(['Typeset', // MathJax.Hub, '#'+that.editAnswerTextId])
     });
 
   that.opts.exerciseObservable.on('deletedExercise', function(exerciseId, exerciseIndex) {

@@ -42,9 +42,6 @@
     </div>
   </section>
 <script>
-  // TODO
-// When a user reorders exercises, we need to reorder the exercises in the list itself
-
 
     var that = this
     this.exerciseMap = {}
@@ -67,13 +64,11 @@
       var questionVal = $('#exerciseQuestion').val()
       $('#exerciseQuestionText').html(questionVal)
        renderMathInElement(document.getElementById('exerciseQuestionText'))
-      // MathJax.Hub.Queue(['Typeset', // MathJax.Hub, 'exerciseQuestionText'])
     });
     $('#exerciseAnswer').on('input', function(e) {
       var answerVal = $('#exerciseAnswer').val()
       $('#exerciseAnswerText').html(answerVal)
        renderMathInElement(document.getElementById('exerciseAnswerText'))
-      // MathJax.Hub.Queue(['Typeset', // MathJax.Hub, 'exerciseAnswerText'])
     });
   })
 

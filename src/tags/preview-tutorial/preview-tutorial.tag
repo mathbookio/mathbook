@@ -39,7 +39,6 @@
         that.formatExercises(result.exercises, result.config.exerciseStatement)
         that.update()
         renderMathInElement(document.body)
-        // MathJax.Hub.Queue(['Typeset', // MathJax.Hub])
       })
     })
 

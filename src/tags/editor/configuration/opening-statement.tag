@@ -28,7 +28,6 @@
       console.log('osText', osText)
       $('#openingStatementText').html(osText)
       renderMathInElement(document.getElementById('openingStatementText'))
-      // MathJax.Hub.Queue(['Typeset', // MathJax.Hub, 'openingStatementText'])
     });
   })
 
