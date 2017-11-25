@@ -10,7 +10,7 @@ module.exports = function (req, res) {
     console.log('login', login)
     return login
   })
-  .then((username) => {ß
+  .then((username) => {
     const repo = 'testing'
     return github.gitdata.deleteReference({
       owner: username,
