@@ -143,6 +143,7 @@
   }
 
   set(data){
+    console.log(data)
     for(var i in data){
       console.log('set::exercise', data[i])
       const exerciseId = data[i].id
@@ -151,7 +152,7 @@
       const answer = data[i].answer
       const answerText = data[i].answerText
       this.generateExercise(exerciseId, question, questionText, answer, answerText)
-    }
+   }
   }
 
   </script>

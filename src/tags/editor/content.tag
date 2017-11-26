@@ -124,6 +124,7 @@
   }
 
   set(data){
+    console.log(data)
     for(var i in data){
       console.log('set::section', data[i])
       const sectionId = data[i].id

@@ -8,7 +8,7 @@
     <div id="exercises" class="title is-4">Exercises</div>
     <div class="content">
       <p>{ exerciseStatement }</p>
-      <div class="content" each={ exercises }>
+      <div class="content is-exercise" each={ exercises }>
         <p id={"q_"+exerciseIndex} class="preWrap"> 
           <span class="serif">{ exerciseIndex + 1 })</span> \(\quad\) {question} \(\quad\)
         </p>

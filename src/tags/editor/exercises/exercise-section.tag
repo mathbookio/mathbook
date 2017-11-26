@@ -79,15 +79,14 @@ this.on('mount', function() {
   that.$('editQuestionId').on('input', function(e) {
       var questionVal = that.$('editQuestionId').val()
       that.$('editQuestionTextId').html(questionVal)
-      renderMathInElement(document.getElementById(that.editQuestionTextId))
+      that.render(that.editQuestionTextId)
     });
 
   // preview answer text
   that.$('editAnswerId').on('input', function(e) {
       var answerVal = that.$('editAnswerId').val()
       that.$('editAnswerTextId').html(answerVal)
-      renderMathInElement(document.body)
-      renderMathInElement(document.getElementById(that.editAnswerTextId))
+      that.render(that.editAnswerTextId)
     });
 
   that.opts.exerciseObservable.on('deletedExercise', function(exerciseId, exerciseIndex) {
@@ -131,20 +130,22 @@ this.on('mount', function() {
 })
 
 bindExerciseValues(){
-  this.$('questionId').html(this.opts.questionText)
-  this.$('answerId').html(this.opts.answerText)
-  renderMathInElement(document.getElementById(that.questionId))
-  renderMathInElement(document.getElementById(that.answerId))
+  this.$('questionId').html(this.opts.question)
+  this.$('answerId').html(this.opts.answer)
+  that.render(that.questionId)
+  that.render(that.answerId)
 }
 
 editExercise(){
   this.showModal = true
   // when the modal opens, we want the question and answer values to carry over
   this.$('editQuestionId').val(this.opts.question)
-  this.$('editQuestionTextId').html(this.opts.questionText)
+  this.$('editQuestionTextId').html(this.opts.question)
+  that.render(this.editQuestionTextId)
 
   this.$('editAnswerId').val(this.opts.answer)
-  this.$('editAnswerTextId').html(this.opts.answerText)
+  this.$('editAnswerTextId').html(this.opts.answer)
+  that.render(this.editAnswerTextId)
 }
 
 saveChanges(){
@@ -186,10 +187,16 @@ get(){
   return {
     id: this.opts.id,
     question: this.opts.question,
-    questionText: this.opts.questionText,
     answer: this.opts.answer,
-    answerText: this.opts.answerText,
     exerciseIndex: this.opts.exerciseIndex
+  }
+}
+
+render(id){
+  try{
+    renderMathInElement(document.getElementById(id))
+  }
+  catch(err){
   }
 }
 

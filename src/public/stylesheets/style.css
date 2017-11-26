@@ -98,3 +98,6 @@ content-section{
 exercise-section{
   position: relative;
 }
+.comment-textarea{
+  min-height: 50px !important;
+}

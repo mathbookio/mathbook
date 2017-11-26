@@ -3,11 +3,12 @@
 const _ = require('lodash')
 const github = require('../github-client')
 const Base64 = require('js-base64').Base64
+const jsonBeautify = require('json-beautify')
 module.exports = function (req, res) {
   console.dir({ body: req.body }, { depth: 10 })
   const data = JSON.parse(req.body.data)
   const configData = _.get(data, 'config', {})
-  const contentData = _.get(data, 'content', '<div>Empty</div>')
+  const contentData = _.get(data, 'content', [])
   const exerciseData = _.get(data, 'exercises', [])
   const branchName = _.get(data, 'tutorialName')
   const repo = 'testing'
@@ -30,7 +31,7 @@ module.exports = function (req, res) {
       const sha = configFile.data.sha
       const configDecoded = Base64.decode(configFile.data.content)
       console.log('decoded config', configDecoded)
-      const updatedContent = Base64.encode(JSON.stringify(configData))
+      const updatedContent = Base64.encode(jsonBeautify(configData))
       console.log('encoded updated config', updatedContent)
       return github.repos.updateFile({
         owner: username,
@@ -53,7 +54,7 @@ module.exports = function (req, res) {
           const sha = contentFile.data.sha
           const contentDecoded = Base64.decode(contentFile.data.content)
           console.log('decoded content file', contentDecoded)
-          const updatedContent = Base64.encode(JSON.stringify(contentData))
+          const updatedContent = Base64.encode(jsonBeautify(contentData))
           console.log('encoded updated content', updatedContent)
           return github.repos.updateFile({
             owner: username,
@@ -79,7 +80,7 @@ module.exports = function (req, res) {
           const sha = exercisesFile.data.sha
           const contentDecoded = Base64.decode(exercisesFile.data.content)
           console.log('decoded exercise file', contentDecoded)
-          const updatedContent = Base64.encode(JSON.stringify(exerciseData))
+          const updatedContent = Base64.encode(jsonBeautify(exerciseData))
           console.log('encoded updated exercise', updatedContent)
           return github.repos.updateFile({
             owner: username,

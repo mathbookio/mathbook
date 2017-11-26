@@ -66,13 +66,14 @@ this.on('mount', function() {
 
   this.opts.contentObservable.trigger('createdContentSection', this.opts.id, this)
   // bind section content
-  this.$('sectionId').html(this.sectionContent)
+  this.$('sectionId').html(this.sectionText)
+  that.render(this.sectionId)
   
   // preview section content edits/changes in modal view
   this.$('editSectionId').on('input', function(e) {
       var contentVal = that.$('editSectionId').val()
       that.$('editSectionTextId').html(contentVal)
-       renderMathInElement(document.getElementById(that.editSectionTextId))
+       that.render(that.editSectionTextId)
     });
 
     that.opts.contentObservable.on('deletedContentSection', function(contentId, contentIndex) {
@@ -117,7 +118,11 @@ editSection(){
   // when the modal opens, we want the section title and content values to carry over
   this.$('editTitleId').val(this.sectionTitle)
   this.$('editSectionId').val(this.sectionText)
-  this.$('editSectionTextId').html(this.sectionContent)
+  this.$('editSectionTextId').html(this.sectionText)
+  try{
+    that.render(this.editSectionTextId)
+  }
+  catch(err){}
 }
 
 saveChanges(){
@@ -132,7 +137,8 @@ updateContent(){
   this.sectionTitle = this.$('editTitleId').val()
   this.sectionText = this.$('editSectionId').val()
   this.sectionContent = this.$('editSectionTextId').html()
-  this.$('sectionId').html(this.sectionContent)
+  this.$('sectionId').html(this.sectionText)
+  that.render(this.sectionId)
 }
 
 closeModal(){
@@ -156,8 +162,16 @@ get(){
     id: this.opts.id,
     contentIndex: this.opts.contentIndex,
     title: this.sectionTitle,
-    text: this.sectionText,
-    content: this.sectionContent
+    text: this.sectionText 
+  }
+}
+
+// renderMathInElement alias
+render(id){
+  try{
+    renderMathInElement(document.getElementById(id))
+  }
+  catch(err){
   }
 }
 
