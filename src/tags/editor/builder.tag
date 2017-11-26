@@ -65,16 +65,13 @@
   </section>
   <script>
     var that = this
-    this.tutorialName = ''
+    this.tutorialName = this.opts.tutorialName
     this.currentTime = ''
     this.showedPreviewConfirmation = false
     this.isSavingTutorial = false
     this.saveTutorialSuccess = false
     this.saveTutorialFailed = false
     this.on('mount', function () {
-      const urlPaths = window.location.href.split('/')
-      console.log('url paths', urlPaths)
-      this.tutorialName = urlPaths.pop()
       this.pickConfiguration();
       const url = '/v1/tutorial/' + this.tutorialName
       $.get(url, function(data) {

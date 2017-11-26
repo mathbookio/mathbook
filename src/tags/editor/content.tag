@@ -80,21 +80,20 @@
 
     var sectionTitle = $('#contentTitle').val()
     var sectionText = $('#contentSection').val()
-    var sectionContent = $('#contentSectionText').html()
 
     this.isTitleEmpty = this.isTextEmpty(sectionTitle)
     this.isContentEmpty = this.isTextEmpty(sectionText)
     if (this.isTitleEmpty || this.isContentEmpty){
       return
     }
-    this.generateSection(sectionId, sectionTitle, sectionText, sectionContent)
+    this.generateSection(sectionId, sectionTitle, sectionText)
   }
 
-  generateSection(sectionId, sectionTitle, sectionText, sectionContent){
+  generateSection(sectionId, sectionTitle, sectionText){
     const contentIndex = $('content-section').length
     console.log('contentIndex', contentIndex)
     $('#sectionList').append('<content-section ref="'+sectionId+'" id="'+sectionId+'"></content-section>')
-    riot.mount('#'+sectionId, 'content-section', { contentObservable: this.contentObservable, contentIndex: contentIndex, sectionTitle: sectionTitle, sectionContent: sectionContent, sectionText: sectionText })[0]
+    riot.mount('#'+sectionId, 'content-section', { contentObservable: this.contentObservable, contentIndex: contentIndex, sectionTitle: sectionTitle, sectionText: sectionText })[0]
     this.cleanupFields()
     this.update()
   }
@@ -125,13 +124,14 @@
 
   set(data){
     console.log(data)
-    for(var i in data){
-      console.log('set::section', data[i])
-      const sectionId = data[i].id
-      const sectionTitle = data[i].title
-      const sectionText = data[i].text
-      const sectionContent = data[i].content
-      this.generateSection(sectionId, sectionTitle, sectionText, sectionContent)
+    if(Array.isArray(data)){
+      for(var i in data){
+        console.log('set::section', data[i])
+        const sectionId = data[i].id
+        const sectionTitle = data[i].title
+        const sectionText = data[i].text
+        this.generateSection(sectionId, sectionTitle, sectionText)
+      }
     }
   }
 

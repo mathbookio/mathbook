@@ -53,7 +53,6 @@ var that = this
 this.showModal = false
 this.sectionId = 'content_' + this.opts.id
 this.sectionTitle = this.opts.sectionTitle
-this.sectionContent = this.opts.sectionContent
 this.sectionText = this.opts.sectionText
 
 //generate Id's
@@ -67,7 +66,7 @@ this.on('mount', function() {
   this.opts.contentObservable.trigger('createdContentSection', this.opts.id, this)
   // bind section content
   this.$('sectionId').html(this.sectionText)
-  that.render(this.sectionId)
+  this.render(this.sectionId)
   
   // preview section content edits/changes in modal view
   this.$('editSectionId').on('input', function(e) {
@@ -119,10 +118,7 @@ editSection(){
   this.$('editTitleId').val(this.sectionTitle)
   this.$('editSectionId').val(this.sectionText)
   this.$('editSectionTextId').html(this.sectionText)
-  try{
-    that.render(this.editSectionTextId)
-  }
-  catch(err){}
+  this.render(this.editSectionTextId)
 }
 
 saveChanges(){
@@ -137,9 +133,8 @@ saveChanges(){
 updateContent(){
   this.sectionTitle = this.$('editTitleId').val()
   this.sectionText = this.$('editSectionId').val()
-  this.sectionContent = this.$('editSectionTextId').html()
   this.$('sectionId').html(this.sectionText)
-  that.render(this.sectionId)
+  this.render(this.sectionId)
 }
 
 close(){
