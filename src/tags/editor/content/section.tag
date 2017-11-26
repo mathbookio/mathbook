@@ -20,7 +20,7 @@
   <div class="modal-card">
     <header class="modal-card-head">
       <p class="modal-card-title">Edit Section</p>
-      <button class="delete" aria-label="close" onclick={ closeModal }></button>
+      <button class="delete" aria-label="close" onclick={ close }></button>
     </header>
     <section class="modal-card-body">
       <div class="field">
@@ -43,7 +43,7 @@
     </section>
     <footer class="modal-card-foot">
       <button class="button is-success" onclick={ saveChanges }>Save changes</button>
-      <button class="button" onclick={ closeModal }>Cancel</button>
+      <button class="button" onclick={ close }>Cancel</button>
     </footer>
   </div>
 </div>
@@ -129,7 +129,8 @@ saveChanges(){
   var confirmChanges = confirm('Would you like to confirm these changes ?')
   if (confirmChanges){
     this.updateContent()
-    this.closeModal()
+    const showPrompt = false
+    this.closeModal(false)
   }
 }
 
@@ -141,9 +142,19 @@ updateContent(){
   that.render(this.sectionId)
 }
 
-closeModal(){
-  var confirmClose = confirm('Are you sure you want to close this edit view ? Any unsaved changes will be discarded.')
-  if (confirmClose){
+close(){
+  const showPrompt = true
+  this.closeModal(showPrompt)
+}
+
+closeModal(showPrompt){
+  if (showPrompt){
+    var confirmClose = confirm('Are you sure you want to close this edit view ? Any unsaved changes will be discarded.')
+    if (confirmClose){
+      this.showModal = false
+    }
+  }
+  else{
     this.showModal = false
   }
 }
