@@ -3,7 +3,6 @@
 const _ = require('lodash')
 const github = require('../github-client')
 const Base64 = require('js-base64').Base64
-const jsonBeautify = require('json-beautify')
 module.exports = function (req, res) {
   console.dir({ body: req.body }, { depth: 10 })
   const data = JSON.parse(req.body.data)
@@ -31,7 +30,7 @@ module.exports = function (req, res) {
       const sha = configFile.data.sha
       const configDecoded = Base64.decode(configFile.data.content)
       console.log('decoded config', configDecoded)
-      const updatedContent = Base64.encode(jsonBeautify(configData))
+      const updatedContent = Base64.encode(JSON.stringify(configData))
       console.log('encoded updated config', updatedContent)
       return github.repos.updateFile({
         owner: username,
@@ -54,7 +53,7 @@ module.exports = function (req, res) {
           const sha = contentFile.data.sha
           const contentDecoded = Base64.decode(contentFile.data.content)
           console.log('decoded content file', contentDecoded)
-          const updatedContent = Base64.encode(jsonBeautify(contentData))
+          const updatedContent = Base64.encode(JSON.stringify(contentData))
           console.log('encoded updated content', updatedContent)
           return github.repos.updateFile({
             owner: username,
@@ -80,7 +79,7 @@ module.exports = function (req, res) {
           const sha = exercisesFile.data.sha
           const contentDecoded = Base64.decode(exercisesFile.data.content)
           console.log('decoded exercise file', contentDecoded)
-          const updatedContent = Base64.encode(jsonBeautify(exerciseData))
+          const updatedContent = Base64.encode(JSON.stringify(exerciseData))
           console.log('encoded updated exercise', updatedContent)
           return github.repos.updateFile({
             owner: username,
