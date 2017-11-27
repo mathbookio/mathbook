@@ -2,9 +2,12 @@
 const _ = require('lodash')
 const github = require('../github-client')
 const Promise = require('bluebird')
+const constants = require('../../config/constants.json')
+const branchPrefix = constants.BRANCH_PREFIX
+const repoName = constants.REPO
+const repoOwner = constants.OWNER
 module.exports = function (req, res) {
   // get authenticated user
-  const repo = 'testing'
   return github.users.get({})
   .then((result) => {
     const login = result.data.login
@@ -13,7 +16,7 @@ module.exports = function (req, res) {
   .then((username) => {
     return github.repos.getBranches({
       owner: username,
-      repo: repo
+      repo: repoName
     })
     .then((branches) => {
       console.dir({ branches }, {depth: 10})
@@ -25,10 +28,10 @@ module.exports = function (req, res) {
       if (branch.name === 'master') {
         return
       }
-      const name = branch.name.replace('tutorial/', '')
+      const name = branch.name.replace(`${branchPrefix}/`, '')
       return github.repos.getBranch({
         owner: username,
-        repo: repo,
+        repo: repoName,
         branch: branch.name
       })
       .then((branchData) => {
@@ -54,8 +57,8 @@ module.exports = function (req, res) {
 
 function getTutorialState (branch) {
   return github.pullRequests.getAll({
-    owner: 'JetJet13',
-    repo: 'testing',
+    owner: repoOwner,
+    repo: repoName,
     head: branch,
     state: 'all'
   })
@@ -68,8 +71,8 @@ function getTutorialState (branch) {
     const isMerged = _.get(prResult, 'data.0.merged_at') !== null ? true : false
     const pullRequestUrl = _.get(prResult, 'data.0.html_url', null)
     return github.pullRequests.getReviews({
-      owner: 'JetJet13',
-      repo: 'testing',
+      owner: repoOwner,
+      repo: repoName,
       number: pullRequestNumber
     })
     .then((prReviews) => {

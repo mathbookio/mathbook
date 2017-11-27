@@ -3,22 +3,26 @@
 const _ = require('lodash')
 const github = require('../github-client')
 const Base64 = require('js-base64').Base64
+const constants = require('../../config/constants.json')
+const branchPrefix = constants.BRANCH_PREFIX
+const repoOwner = constants.OWNER
+const repoName = constants.REPO
+const basePath = constants.TUTORIALS_PATH
+
 module.exports = function (req, res) {
   const user = _.get(req, 'params.user', '')
   const tutorialName = _.get(req, 'params.tutorialName', '')
-  const branch = `tutorial/${tutorialName}`
-  const owner = 'JetJet13'
-  const repo = 'testing'
-  const head = `${user}:tutorial/${tutorialName}`
-  const configPath = `${branch}/config.json`
-  const contentPath = `${branch}/content.json`
-  const exercisesPath = `${branch}/exercises.json`
+  const branch = `${branchPrefix}/${tutorialName}`
+  const head = `${user}:${branchPrefix}/${tutorialName}`
+  const configPath = `${basePath}/${tutorialName}/config.json`
+  const contentPath = `${basePath}/${tutorialName}/content.json`
+  const exercisesPath = `${basePath}/${tutorialName}/exercises.json`
   console.log({
     head
   })
   return github.pullRequests.getAll({
-      owner: owner,
-      repo: repo,
+      owner: repoOwner,
+      repo: repoName,
       state: 'open',
       head: head
     })
@@ -32,7 +36,7 @@ module.exports = function (req, res) {
       console.dir({ result }, { depth: 100 })
       return github.repos.getContent({
           owner: user,
-          repo: repo,
+          repo: repoName,
           path: configPath,
           ref: branch
         })
@@ -45,7 +49,7 @@ module.exports = function (req, res) {
           })
           return github.repos.getContent({
               owner: user,
-              repo: repo,
+              repo: repoName,
               path: contentPath,
               ref: branch
             })
@@ -58,7 +62,7 @@ module.exports = function (req, res) {
               })
               return github.repos.getContent({
                   owner: user,
-                  repo: repo,
+                  repo: repoName,
                   path: exercisesPath,
                   ref: branch
                 })

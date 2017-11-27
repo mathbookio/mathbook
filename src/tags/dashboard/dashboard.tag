@@ -13,7 +13,7 @@
       <div class="content">
         <a class="button is-success" onclick={ openCreateTutorialModal }>Create Tutorial</a>
       </div>
-      <div show={ tutorials.length === 0 } class="column has-text-centered has-text-grey">
+      <div show={ noTutorialsFound } class="column has-text-centered has-text-grey">
         <p>
           No Tutorials found! You should create one 
           <span class="icon is-small">
@@ -104,14 +104,22 @@
     var that = this
     this.dashboardObservable = riot.observable()
     this.loadingTutorials = false
-    this.tutorials
+    this.noTutorialsFound = false
+    this.tutorials = []
     $(document).ready(function() {
       that.loadingTutorials = true
       that.update()
       $.get('/v1/tutorials', function (result) {
         console.log('result from /v1/tutorials', result)
         that.loadingTutorials = false
+        if(Array.isArray(result.tutorials) && result.tutorials.length === 0){
+          that.noTutorialsFound = true
+        }
+        else{
+          that.noTutorialsFound = false
+        }
         that.tutorials = result.tutorials
+
         that.update()
       })
     })

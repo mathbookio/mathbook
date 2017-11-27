@@ -2,15 +2,17 @@
 const _ = require('lodash')
 const github = require('../github-client')
 const Base64 = require('js-base64').Base64
-
+const constants = require('../../config/constants.json')
+const branchPrefix = constants.BRANCH_PREFIX
+const basePath = constants.TUTORIALS_PATH
+const repoName = constants.REPO
 module.exports = function (req, res) {
   // get authenticated user
   const branchName = _.get(req, 'params.branch')
-  const branch = `tutorial/${branchName}`
-  const configPath = `${branch}/config.json`
-  const contentPath = `${branch}/content.json`
-  const exercisesPath = `${branch}/exercises.json`
-  const repo = 'testing'
+  const branch = `${branchPrefix}/${branchName}`
+  const configPath = `${basePath}/${branchName}/config.json`
+  const contentPath = `${basePath}/${branchName}/content.json`
+  const exercisesPath = `${basePath}/${branchName}/exercises.json`
   return github.users.get({})
   .then((result) => {
     const login = result.data.login
@@ -19,7 +21,7 @@ module.exports = function (req, res) {
   .then((username) => {
     return github.repos.getContent({
       owner: username,
-      repo: repo,
+      repo: repoName,
       path: configPath,
       ref: branch
     })
@@ -28,7 +30,7 @@ module.exports = function (req, res) {
       console.dir({ configData }, {depth: 10})
       return github.repos.getContent({
         owner: username,
-        repo: repo,
+        repo: repoName,
         path: contentPath,
         ref: branch
       })
@@ -37,7 +39,7 @@ module.exports = function (req, res) {
         console.dir({ contentData }, {depth: 10})
         return github.repos.getContent({
           owner: username,
-          repo: repo,
+          repo: repoName,
           path: exercisesPath,
           ref: branch
         })
@@ -51,6 +53,6 @@ module.exports = function (req, res) {
   })
   .catch((err) => {
     console.log('error getting tutorial Data', err)
-    res.send(err)
+    res.status(err.code).send(err)
   })
 }

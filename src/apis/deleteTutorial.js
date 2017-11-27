@@ -1,8 +1,12 @@
 'use strict'
+const _ = require('lodash')
 const github = require('../github-client')
+const constants = require('../../config/constants.json')
+const repoName =  constants.REPO
+const branchPrefix = constants.BRANCH_PREFIX
 
 module.exports = function (req, res) {
-  const tutorialName = req.body.tutorialName
+  const tutorialName = _.get(req, 'body.tutorialName', '')
   // get authenticated user
   return github.users.get({})
   .then((result) => {
@@ -14,8 +18,8 @@ module.exports = function (req, res) {
     const repo = 'testing'
     return github.gitdata.deleteReference({
       owner: username,
-      repo: repo,
-      ref: `heads/tutorial/${tutorialName}`
+      repo: repoName,
+      ref: `heads/${branchPrefix}/${tutorialName}`
     })
   })                                  
   .then((deleteResult) => {
@@ -24,6 +28,6 @@ module.exports = function (req, res) {
   })
   .catch((err) => {
     console.log('error deleting branches/tutorials', err)
-    res.send(err)
+    res.status(500).send(err)
   })
 }
