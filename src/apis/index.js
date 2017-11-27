@@ -14,9 +14,8 @@ const apiRouter = express.Router()
 
 // middleware that is specific to this router
 apiRouter.use((req, res, next) => {
-  console.log('Time: ', Date.now(), 'using apiRouter')
-
   const authToken = _.get(req, 'cookies.accessToken')
+  console.log('Time: ', Date.now(), 'using apiRouter')
   console.log('authToken', authToken)
   github.authenticate({
     type: 'oauth',

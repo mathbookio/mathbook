@@ -26,7 +26,8 @@ module.exports = function (req, res) {
   })
   .then((prResult) => {
     console.log({ prResult })
-    res.send({ submitted: true, tutorial: tutorialName })
+    const pullRequestUrl = prResult.data['html_url']
+    res.send({ submitted: true, pullRequestUrl: pullRequestUrl, tutorial: tutorialName })
   })
   .catch((err) => {
     console.log('error submitting branches/tutorials', err)

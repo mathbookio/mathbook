@@ -65,7 +65,7 @@
   </section>
   <script>
     var that = this
-    this.tutorialName = this.opts.tutorialName
+    this.tutorialName = this.opts.tutorialName || ''
     this.currentTime = ''
     this.showedPreviewConfirmation = false
     this.isSavingTutorial = false

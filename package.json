@@ -22,7 +22,7 @@
     "katex": "^0.9.0-alpha1",
     "lodash": "^4.17.4",
     "mathjax": "^2.7.1",
-    "momentjs": "^2.0.0",
+    "moment": "^2.19.2",
     "morgan": "~1.8.1",
     "pug": "~2.0.0-beta11",
     "query-string": "^5.0.0",

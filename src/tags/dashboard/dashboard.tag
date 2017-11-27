@@ -33,11 +33,20 @@
                   <div class="level-item">
                     <p>{ name }</p>
                   </div>
+                  <div class="level-item">
+                    <a href={ pullRequestUrl } show={ state !== null } target="_blank"> 
+                      <span class="icon is-small"><i class="fa fa-external-link"></i></span>
+                    </a>
+                  </div>
                 </div>
                 <div class="level-right">
                   <div class="level-item">
-                    <span show={ isSubmitted } class="tag is-info">Submitted</span>
-                    <span show={ !isSubmitted } class="tag is-primary">In Progress</span>
+                    <span show={ state === 'open' } class="tag is-info">Submitted / Under Review</span>
+                    <span show={ state === 'changesRequested' } class="tag is-warning">Changes Requested</span>
+                    <span show={ state === 'approved' } class="tag is-success">Approved / Awaiting Merge</span>
+                    <span show={ state === 'merged' } class="tag is-success">Merged</span>
+                    <span show={ state === null } class="tag">In Progress</span>
+                    <span show={ state === 'closed' } class="tag is-danger">Closed</span>
                   </div>
                   <div class="level-item">
                     <p class="content lastEdited" title={ formatDate(lastEdited) }>
@@ -49,12 +58,7 @@
               </div>
             </header>
             <footer class="card-footer">
-              <div show={ isSubmitted } class="card-footer-item has-text-grey">
-                <span class="icon is-small">
-                  <i class="fa fa-send"></i>
-                </span>
-              </div>
-              <a show={ !isSubmitted } class="card-footer-item" onclick="{ parent.openSubmitTutorialModal }">
+              <a show={ state === null || state === 'closed' } class="card-footer-item" onclick="{ parent.openSubmitTutorialModal }">
                 <span class="icon is-small">
                   <i class="fa fa-send"></i>
                 </span>
@@ -154,7 +158,7 @@
             <span class="icon is-small has-text-success">
               <i class="fa fa-check"></i>
             </span>
-            Congratulations, your tutorial was successfully submitted.
+            Congratulations, your tutorial was successfully submitted. View it <a href={ pullRequestUrl } target="_blank">here</a>
           </p>
         </footer>
       </div>
@@ -211,6 +215,7 @@
     this.showDeleteTutorialModal = false
     this.isDeletingTutorial = false
 
+    this.pullRequestUrl = ''
     this.tutorials = []
     $(document).ready(() => {
       $.get('/v1/tutorials', function (result) {
@@ -289,6 +294,7 @@
           that.isSubmittingTutorial = false
           that.submitTutorialSuccess = true
           that.submitTutorialItem.isSubmitted = true
+          that.pullRequestUrl = result.pullRequestUrl
           that.update()
         }
       })
