@@ -21,6 +21,13 @@
           </span>
         </p>
       </div>
+      <div show={ loadingTutorials } class="column has-text-centered has-text-grey">
+        <p> Locating your Tutorials 
+          <span class="icon is-medium">
+            <i class="fa fa-cog fa-spin"></i>
+          </span>
+        </p>
+      </div>
       <div class="columns" each={ tutorials }>
         <div class="column">
           <div class="card">
@@ -96,11 +103,14 @@
   <script>
     var that = this
     this.dashboardObservable = riot.observable()
-
-    this.tutorials = []
+    this.loadingTutorials = false
+    this.tutorials
     $(document).ready(function() {
+      that.loadingTutorials = true
+      that.update()
       $.get('/v1/tutorials', function (result) {
         console.log('result from /v1/tutorials', result)
+        that.loadingTutorials = false
         that.tutorials = result.tutorials
         that.update()
       })
