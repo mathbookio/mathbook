@@ -80,7 +80,7 @@
     }
 
     set(preReqs){
-      this.preRequisites = preReqs
+      this.preRequisites = preReqs || []
     }
 
   </script>

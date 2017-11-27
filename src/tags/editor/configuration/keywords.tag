@@ -62,7 +62,7 @@
       return this.keywords
     }
     set(keywords){
-      this.keywords = keywords
+      this.keywords = keywords || []
     }
   </script>
 </keywords>
