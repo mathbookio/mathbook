@@ -9,7 +9,13 @@ module.exports = function (req, res) {
   console.log({ branchName })
   const repo = 'testing'
   const referenceSHA = 'f085ad6a48d783f524eeca63b4d67466bdc83527'
-  return getUsername()
+  return isTutorialNameAvailable(branchName)
+  .then((isAvailable) => {
+   if (isAvailable){
+     return getUsername()
+   } 
+   return Promise.reject('branch name is taken. please select a new branch name')
+  })
   .then((username) => {
     return isRepoForked(username)
     .then((isForked) => {
@@ -114,7 +120,7 @@ module.exports = function (req, res) {
   })
   .catch((err) => {
     console.log('error /v1/fork', err)
-    res.render('error', err)
+    res.status(401).send({ code: 'UnavailableBranchName', message: 'the branch name is taken' })
   })
 }
 
@@ -152,5 +158,21 @@ function isBranchExist (owner, repo, branch) {
   .catch((err) => {
     console.log({ title: 'isBranchExist failed for the following reason', err })
     return false
+  })
+}
+
+function isTutorialNameAvailable(tutorialName){
+  return github.repos.getContent({
+    owner: 'JetJet13',
+    repo: 'testing',
+    path: `tutorial/${tutorialName}`
+  })
+  .then((availResult) => {
+    console.dir({ availResult }, { depth: 10 })
+    return false
+  })
+  .catch((err) => {
+    console.error(err)
+    return true
   })
 }

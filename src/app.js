@@ -37,18 +37,19 @@ app.use('/riot', express.static(path.resolve(__dirname, '..', 'node_modules/riot
 app.use('/katex', express.static(path.resolve(__dirname, '..', 'node_modules/katex/dist')))
 
 app.use('/v1', apis)
-app.use('/', router.router)
 app.use('/contribute', router.contributeRouter)
 app.use('/editor', router.editorRouter)
 app.use('/ele-algebra', router.eleAlgebraRouter)
 app.use('/login', router.authRouter)
 app.use('/dashboard', router.dashboardRouter)
 app.use('/preview', router.previewRouter)
+app.use('/review', router.reviewRouter)
+app.use('/', router.router)
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   const err = new Error('Not Found')
   err.status = 404
-  next(err)
+  res.render('404')
 })
 
 // error handler

@@ -1,5 +1,6 @@
 'use strict'
 
+const moment = require('moment')
 const _ = require('lodash')
 const github = require('../github-client')
 const Base64 = require('js-base64').Base64
@@ -7,11 +8,12 @@ module.exports = function (req, res) {
   console.dir({ body: req.body }, { depth: 10 })
   const data = JSON.parse(req.body.data)
   const configData = _.get(data, 'config', {})
-  const contentData = _.get(data, 'content', '<div>Empty</div>')
+  const contentData = _.get(data, 'content', [])
   const exerciseData = _.get(data, 'exercises', [])
   const branchName = _.get(data, 'tutorialName')
   const repo = 'testing'
   console.log({ configData, contentData, exerciseData, branchName })
+  const currentDate = moment().format('MMMM Do YYYY, h:mm:ss a')
   return github.users.get({})
   .then((result) => {
     const login = result.data.login
@@ -37,7 +39,7 @@ module.exports = function (req, res) {
         repo: repo,
         path: `tutorial/${branchName}/config.json`,
         branch: `tutorial/${branchName}`,
-        message: `updated config file`,
+        message: `${currentDate} - updated config file`,
         sha: sha,
         content: updatedContent
       })
@@ -60,7 +62,7 @@ module.exports = function (req, res) {
             repo: repo,
             path: `tutorial/${branchName}/content.json`,
             branch: `tutorial/${branchName}`,
-            message: `updated content file`,
+            message: `${currentDate} - updated content file`,
             sha: sha,
             content: updatedContent
           })
@@ -86,7 +88,7 @@ module.exports = function (req, res) {
             repo: repo,
             path: `tutorial/${branchName}/exercises.json`,
             branch: `tutorial/${branchName}`,
-            message: `updated exercises file`,
+            message: `${currentDate} - updated exercises file`,
             sha: sha,
             content: updatedContent
           })

@@ -112,8 +112,6 @@
     { exerciseObservable: this.exerciseObservable,
       exerciseIndex: exerciseIndex,
       question: question, 
-      questionText: questionText, 
-      answerText: answerText, 
       answer: answer })
   }
 
@@ -143,14 +141,17 @@
   }
 
   set(data){
-    for(var i in data){
-      console.log('set::exercise', data[i])
-      const exerciseId = data[i].id
-      const question = data[i].question
-      const questionText = data[i].questionText
-      const answer = data[i].answer
-      const answerText = data[i].answerText
-      this.generateExercise(exerciseId, question, questionText, answer, answerText)
+    console.log(data)
+    if(Array.isArray){
+      for(var i in data){
+        console.log('set::exercise', data[i])
+        const exerciseId = data[i].id
+        const question = data[i].question
+        const questionText = data[i].questionText
+        const answer = data[i].answer
+        const answerText = data[i].answerText
+        this.generateExercise(exerciseId, question, questionText, answer, answerText)
+      }
     }
   }
 

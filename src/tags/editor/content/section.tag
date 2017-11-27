@@ -20,7 +20,7 @@
   <div class="modal-card">
     <header class="modal-card-head">
       <p class="modal-card-title">Edit Section</p>
-      <button class="delete" aria-label="close" onclick={ closeModal }></button>
+      <button class="delete" aria-label="close" onclick={ close }></button>
     </header>
     <section class="modal-card-body">
       <div class="field">
@@ -43,7 +43,7 @@
     </section>
     <footer class="modal-card-foot">
       <button class="button is-success" onclick={ saveChanges }>Save changes</button>
-      <button class="button" onclick={ closeModal }>Cancel</button>
+      <button class="button" onclick={ close }>Cancel</button>
     </footer>
   </div>
 </div>
@@ -53,7 +53,6 @@ var that = this
 this.showModal = false
 this.sectionId = 'content_' + this.opts.id
 this.sectionTitle = this.opts.sectionTitle
-this.sectionContent = this.opts.sectionContent
 this.sectionText = this.opts.sectionText
 
 //generate Id's
@@ -66,13 +65,14 @@ this.on('mount', function() {
 
   this.opts.contentObservable.trigger('createdContentSection', this.opts.id, this)
   // bind section content
-  this.$('sectionId').html(this.sectionContent)
+  this.$('sectionId').html(this.sectionText)
+  this.render(this.sectionId)
   
   // preview section content edits/changes in modal view
   this.$('editSectionId').on('input', function(e) {
       var contentVal = that.$('editSectionId').val()
       that.$('editSectionTextId').html(contentVal)
-       renderMathInElement(document.getElementById(that.editSectionTextId))
+       that.render(that.editSectionTextId)
     });
 
     that.opts.contentObservable.on('deletedContentSection', function(contentId, contentIndex) {
@@ -117,27 +117,39 @@ editSection(){
   // when the modal opens, we want the section title and content values to carry over
   this.$('editTitleId').val(this.sectionTitle)
   this.$('editSectionId').val(this.sectionText)
-  this.$('editSectionTextId').html(this.sectionContent)
+  this.$('editSectionTextId').html(this.sectionText)
+  this.render(this.editSectionTextId)
 }
 
 saveChanges(){
   var confirmChanges = confirm('Would you like to confirm these changes ?')
   if (confirmChanges){
     this.updateContent()
-    this.closeModal()
+    const showPrompt = false
+    this.closeModal(false)
   }
 }
 
 updateContent(){
   this.sectionTitle = this.$('editTitleId').val()
   this.sectionText = this.$('editSectionId').val()
-  this.sectionContent = this.$('editSectionTextId').html()
-  this.$('sectionId').html(this.sectionContent)
+  this.$('sectionId').html(this.sectionText)
+  this.render(this.sectionId)
 }
 
-closeModal(){
-  var confirmClose = confirm('Are you sure you want to close this edit view ? Any unsaved changes will be discarded.')
-  if (confirmClose){
+close(){
+  const showPrompt = true
+  this.closeModal(showPrompt)
+}
+
+closeModal(showPrompt){
+  if (showPrompt){
+    var confirmClose = confirm('Are you sure you want to close this edit view ? Any unsaved changes will be discarded.')
+    if (confirmClose){
+      this.showModal = false
+    }
+  }
+  else{
     this.showModal = false
   }
 }
@@ -156,8 +168,16 @@ get(){
     id: this.opts.id,
     contentIndex: this.opts.contentIndex,
     title: this.sectionTitle,
-    text: this.sectionText,
-    content: this.sectionContent
+    text: this.sectionText 
+  }
+}
+
+// renderMathInElement alias
+render(id){
+  try{
+    renderMathInElement(document.getElementById(id))
+  }
+  catch(err){
   }
 }
 

@@ -65,23 +65,20 @@
   </section>
   <script>
     var that = this
-    this.tutorialName = ''
+    this.tutorialName = this.opts.tutorialName || ''
     this.currentTime = ''
     this.showedPreviewConfirmation = false
     this.isSavingTutorial = false
     this.saveTutorialSuccess = false
     this.saveTutorialFailed = false
     this.on('mount', function () {
-      const urlPaths = window.location.href.split('/')
-      console.log('url paths', urlPaths)
-      this.tutorialName = urlPaths.pop()
       this.pickConfiguration();
       const url = '/v1/tutorial/' + this.tutorialName
-      $.get(url, function(result) {
-        console.log('getTutorialData result', result)
-        that.tags.configuration.set(result.config),
-        that.tags.content.set(result.content),
-        that.tags.exercises.set(result.exercises)
+      $.get(url, function(data) {
+        console.log('getTutorialData data', data)
+        that.tags.configuration.set(data.config),
+        that.tags.content.set(data.content),
+        that.tags.exercises.set(data.exercises)
         that.update()
       })
     })

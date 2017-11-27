@@ -35,9 +35,9 @@ module.exports = function (req, res) {
         console.dir({ branchData }, { depth: 10 })
         const lastEdited = _.get(branchData, 'data.commit.commit.committer.date')
         console.log('lastEdited', lastEdited)
-        return isSubmitted(`${username}:${branch.name}`)
+        return getTutorialState(`${username}:${branch.name}`)
         .then((submitResult) => {
-          return { name, isSubmitted: submitResult, lastEdited }
+          return { name, state: submitResult.state, pullRequestUrl: submitResult.pullRequestUrl, lastEdited }
         })
       })
     })
@@ -52,24 +52,45 @@ module.exports = function (req, res) {
   })
 }
 
-function isSubmitted (branch) {
+function getTutorialState (branch) {
   return github.pullRequests.getAll({
     owner: 'JetJet13',
     repo: 'testing',
     head: branch,
-    state: 'open'
+    state: 'all'
   })
   .then((prResult) => {
-    console.dir({ prResult }, { depth: 10 })
-    if (_.isEmpty(prResult.data)) {
-      return false
-    } else if (prResult.data[0].state === 'open') {
-      return true
+    if (_.isEmpty(prResult.data)){
+      return { state: null, pullRequestUrl: null }
     }
-    return false
+    const pullRequestNumber = _.get(prResult, 'data.0.number', null)
+    let state = _.get(prResult, 'data.0.state', null)
+    const isMerged = _.get(prResult, 'data.0.merged_at') !== null ? true : false
+    const pullRequestUrl = _.get(prResult, 'data.0.html_url', null)
+    return github.pullRequests.getReviews({
+      owner: 'JetJet13',
+      repo: 'testing',
+      number: pullRequestNumber
+    })
+    .then((prReviews) => {
+      if (prReviews.data.length > 0){
+        const latestReview = _.last(prReviews.data)
+        if (latestReview.state === 'CHANGES_REQUESTED'){
+          state = 'changesRequested'
+        }
+        else if (latestReview.state === 'APPROVED'){
+          state = 'approved'
+        }
+      }
+      return { 
+        state: isMerged ? 'merged' : state,
+        pullRequestUrl: pullRequestUrl 
+      }
+    })
   })
   .catch((err) => {
     console.log({err, title: `isSubmitted for branch ${branch} threw an error`})
     return false
   })
 }
+

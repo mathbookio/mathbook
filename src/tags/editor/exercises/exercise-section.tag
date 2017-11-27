@@ -23,7 +23,7 @@
   <div class="modal-card">
     <header class="modal-card-head">
       <p class="modal-card-title">Edit Exercise</p>
-      <button class="delete" aria-label="close" onclick={ closeModal }></button>
+      <button class="delete" aria-label="close" onclick={ close }></button>
     </header>
     <section class="modal-card-body">
       <div class="field">
@@ -52,7 +52,7 @@
     </section>
     <footer class="modal-card-foot">
       <button class="button is-success" onclick={ saveChanges }>Save changes</button>
-      <button class="button" onclick={ closeModal }>Cancel</button>
+      <button class="button" onclick={ close }>Cancel</button>
     </footer>
   </div>
 </div>
@@ -79,15 +79,14 @@ this.on('mount', function() {
   that.$('editQuestionId').on('input', function(e) {
       var questionVal = that.$('editQuestionId').val()
       that.$('editQuestionTextId').html(questionVal)
-      renderMathInElement(document.getElementById(that.editQuestionTextId))
+      that.render(that.editQuestionTextId)
     });
 
   // preview answer text
   that.$('editAnswerId').on('input', function(e) {
       var answerVal = that.$('editAnswerId').val()
       that.$('editAnswerTextId').html(answerVal)
-      renderMathInElement(document.body)
-      renderMathInElement(document.getElementById(that.editAnswerTextId))
+      that.render(that.editAnswerTextId)
     });
 
   that.opts.exerciseObservable.on('deletedExercise', function(exerciseId, exerciseIndex) {
@@ -131,27 +130,30 @@ this.on('mount', function() {
 })
 
 bindExerciseValues(){
-  this.$('questionId').html(this.opts.questionText)
-  this.$('answerId').html(this.opts.answerText)
-  renderMathInElement(document.getElementById(that.questionId))
-  renderMathInElement(document.getElementById(that.answerId))
+  this.$('questionId').html(this.opts.question)
+  this.$('answerId').html(this.opts.answer)
+  that.render(that.questionId)
+  that.render(that.answerId)
 }
 
 editExercise(){
   this.showModal = true
   // when the modal opens, we want the question and answer values to carry over
   this.$('editQuestionId').val(this.opts.question)
-  this.$('editQuestionTextId').html(this.opts.questionText)
+  this.$('editQuestionTextId').html(this.opts.question)
+  that.render(this.editQuestionTextId)
 
   this.$('editAnswerId').val(this.opts.answer)
-  this.$('editAnswerTextId').html(this.opts.answerText)
+  this.$('editAnswerTextId').html(this.opts.answer)
+  that.render(this.editAnswerTextId)
 }
 
 saveChanges(){
   var confirmChanges = confirm('Would you like to confirm these changes ?')
   if (confirmChanges){
     this.updateExercise()
-    this.closeModal()
+    const showPrompt = false
+    this.closeModal(showPrompt)
   }
 }
 
@@ -166,9 +168,19 @@ updateExercise(){
     this.$('answerId').html(this.opts.answerText)
 }
 
-closeModal(){
-  var confirmClose = confirm('Are you sure you want to close this edit view ? Any unsaved changes will be discarded.')
-  if (confirmClose){
+close(){
+  const showPrompt = true
+  this.closeModal(showPrompt)
+}
+
+closeModal(showPrompt){
+  if (showPrompt){
+    var confirmClose = confirm('Are you sure you want to close this edit view ? Any unsaved changes will be discarded.')
+    if (confirmClose){
+      this.showModal = false
+    }
+  }
+  else{
     this.showModal = false
   }
 }
@@ -186,10 +198,16 @@ get(){
   return {
     id: this.opts.id,
     question: this.opts.question,
-    questionText: this.opts.questionText,
     answer: this.opts.answer,
-    answerText: this.opts.answerText,
     exerciseIndex: this.opts.exerciseIndex
+  }
+}
+
+render(id){
+  try{
+    renderMathInElement(document.getElementById(id))
+  }
+  catch(err){
   }
 }
 

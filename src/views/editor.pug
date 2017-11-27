@@ -6,9 +6,10 @@ block content
       h3.title Tutorial Builder
   section.section
     .container
+      .title.is-5 Tutorial: #{ tutorialName }
       .content
         p Welcome to the tutorial builder. Please build out the tutorial in the order presented.
         a(class="button is-info is-pulled-right" href="/dashboard") Return to Dashboard
-  builder
+  builder( tutorial-name=tutorialName)
   script(type="text/javascript" src="/js/all.js")
   script(type="text/javascript" src="/js/riotInit.js")
