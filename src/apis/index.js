@@ -32,4 +32,9 @@ apiRouter.get('/tutorials', getTutorials)
 apiRouter.get('/review/:user/:tutorialName', reviewTutorial)
 apiRouter.get('/tutorial/:branch', getTutorialData)
 
+apiRouter.use(function(req, res, next) {
+  console.log('the client requested an invalid url')
+  res.status(400).send({ code: 'BadRequest', message: 'the url requested does not exist' })
+})
+
 module.exports = apiRouter

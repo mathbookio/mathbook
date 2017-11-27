@@ -2,6 +2,7 @@
 const github = require('../github-client')
 
 module.exports = function (req, res) {
+  console.log("YOU HIT /v1/submit/tutorial")
   const tutorialName = req.body.tutorialName
   let submitDescription = req.body.submitDescription
   // get authenticated user
@@ -31,6 +32,6 @@ module.exports = function (req, res) {
   })
   .catch((err) => {
     console.log('error submitting branches/tutorials', err)
-    res.send(err)
+    res.status(400).send(err)
   })
 }
