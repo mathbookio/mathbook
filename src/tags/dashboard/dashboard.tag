@@ -79,7 +79,7 @@
               </a>
               <a class="card-footer-item delete-button" onclick={ openDeleteTutorialModal }>
                 <span class="icon is-small">
-                  <i class="fa fa-times"></i>
+                  <i class="fa fa-trash-o"></i>
                 </span>
               </a>
             </footer>
@@ -126,6 +126,12 @@
                 <i class="fa fa-check"></i>
               </span>
               Congratulations, your tutorial was successfully created. You will be redirected momentarily.
+            </p>
+            <p show={ createTutorialFailed } class="help">
+              <span class="icon is-small has-text-danger">
+                <i class="fa fa-times"></i>
+              </span>
+              Unfortunately, we were unable to create the tutorial for the following reason, <strong>{ createTutorialFailedMessage }</strong>
             </p>
           </footer>
         </div>
@@ -206,6 +212,9 @@
     this.invalidTutorialName = false
     this.isCreatingTutorial = false
     this.createTutorialComplete = false
+    this.createTutorialFailed = false
+    this.createTutorialFailedMessage = ''
+
     this.submitTutorialItem
     this.isSubmittingTutorial = false
     this.submitTutorialComplete = false
@@ -256,6 +265,8 @@
       this.invalidTutorialName = false
       this.createTutorialComplete = false
       this.isCreatingTutorial = true
+      this.createTutorialFailed = false
+      this.createTutorialFailedMessage = ''
       const url = '/v1/fork'
       $.post(url, {
         'branchName': tutorialName
@@ -268,6 +279,16 @@
           console.log("tutorial created successfully")
           window.location.href = '/editor/' + tutorialName
         }, 2500)
+      })
+      .fail(function(error) {
+        console.log(error)
+        if (error.status === 401){
+          console.log('the name of tutorial you entered is unavailable.')
+          that.createTutorialFailed = true
+          that.createTutorialFailedMessage = 'The tutorial name is taken. Please choose a different name.'
+          that.isCreatingTutorial = false
+        }
+        that.update()
       })
     }
 
@@ -326,6 +347,9 @@
           setTimeout(function () {
             window.location.reload()
           }, 2500)
+        },
+        error: function(err) {
+          console.log('there was an error deleting a tutorial', err)
         }
       })
     }
