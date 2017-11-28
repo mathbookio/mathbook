@@ -7,6 +7,7 @@ const Base64 = require('js-base64').Base64
 const constants = require('../../config/constants.json')
 const branchPrefix = constants.BRANCH_PREFIX
 const basePath = constants.TUTORIALS_PATH
+const repoName = constants.REPO
 
 module.exports = function (req, res) {
   console.dir({ body: req.body }, { depth: 10 })
@@ -15,7 +16,6 @@ module.exports = function (req, res) {
   const contentData = _.get(data, 'content', [])
   const exerciseData = _.get(data, 'exercises', [])
   const branchName = _.get(data, 'tutorialName')
-  const repo = 'testing'
   console.log({ configData, contentData, exerciseData, branchName })
   const currentDate = moment().format('MMMM Do YYYY, h:mm:ss a')
   return github.users.get({})
@@ -27,7 +27,7 @@ module.exports = function (req, res) {
   .then((username) => {
     return github.repos.getContent({
       owner: username,
-      repo: repo,
+      repo: repoName,
       path: `${basePath}/${branchName}/config.json`,
       ref: `${branchPrefix}/${branchName}`
     })
@@ -40,7 +40,7 @@ module.exports = function (req, res) {
       console.log('encoded updated config', updatedContent)
       return github.repos.updateFile({
         owner: username,
-        repo: repo,
+        repo: repoName,
         path: `${basePath}/${branchName}/config.json`,
         branch: `${branchPrefix}/${branchName}`,
         message: `${currentDate} - updated config file`,
@@ -50,7 +50,7 @@ module.exports = function (req, res) {
       .then((updatedConfigFile) => {
         return github.repos.getContent({
           owner: username,
-          repo: repo,
+          repo: repoName,
           path: `${basePath}/${branchName}/content.json`,
           ref: `${branchPrefix}/${branchName}`
         })
@@ -63,7 +63,7 @@ module.exports = function (req, res) {
           console.log('encoded updated content', updatedContent)
           return github.repos.updateFile({
             owner: username,
-            repo: repo,
+            repo: repoName,
             path: `${basePath}/${branchName}/content.json`,
             branch: `${branchPrefix}/${branchName}`,
             message: `${currentDate} - updated content file`,
@@ -76,7 +76,7 @@ module.exports = function (req, res) {
         console.dir({ updateContentFile })
         return github.repos.getContent({
           owner: username,
-          repo: repo,
+          repo: repoName,
           path: `${basePath}/${branchName}/exercises.json`,
           ref: `${branchPrefix}/${branchName}`
         })
@@ -89,7 +89,7 @@ module.exports = function (req, res) {
           console.log('encoded updated exercise', updatedContent)
           return github.repos.updateFile({
             owner: username,
-            repo: repo,
+            repo: repoName,
             path: `${basePath}/${branchName}/exercises.json`,
             branch: `${branchPrefix}/${branchName}`,
             message: `${currentDate} - updated exercises file`,
@@ -106,6 +106,6 @@ module.exports = function (req, res) {
   })
   .catch((err) => {
     console.dir({ title: 'error occured for save tutorial', err })
-    res.send(err)
+    res.status(400).send(err)
   })
 }

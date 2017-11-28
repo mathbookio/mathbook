@@ -25,7 +25,8 @@
             <span class="icon is-small has-text-success">
               <i class="fa fa-check"></i>
             </span>
-            Congratulations, your tutorial was successfully submitted. View it <a href={ pullRequestUrl } target="_blank">here</a>
+            Congratulations, your tutorial was successfully submitted. You can view the submission <a href={ pullRequestUrl } target="_blank">here</a>
+            This page will now refresh in a moment.
           </p>
           <p show={ submitFailed } class="help">
             <span class="icon is-small has-text-danger">
@@ -74,6 +75,9 @@
           const pullRequestUrl = result.pullRequestUrl
           that.submitTutorialSucceeded(pullRequestUrl)
           that.update()
+          setTimeout(function () {
+            window.location.reload()
+          }, 4500)
         }
       })
       .fail(function(error) {
@@ -84,7 +88,6 @@
     }
 
     submitTutorialSucceeded(pullRequestUrl){
-      this.observable.trigger('updateTutorialState', {name: this.tutorialName, newState: 'submitted'})
       this.submitSuccess = true
       this.submitFailed = false
       this.isSubmitting = false

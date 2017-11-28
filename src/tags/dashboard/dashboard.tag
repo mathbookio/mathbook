@@ -112,20 +112,6 @@
     this.noTutorialsFound = false
     this.tutorials = []
 
-    this.on('mount', function() {
-      this.dashboardObservable.on('updateTutorialState', function(data) {
-        const tutorialName = data.name
-        const newState = data.newState
-        // let's find the tutorial with the name and update its state.
-        for(var tut of that.tutorials){
-          if (tut.name === tutorialName){
-            tut.state = newState
-          }
-        }
-        that.update()
-      })
-    })
-
     $(document).ready(function() {
       that.loadingTutorials = true
       that.update()

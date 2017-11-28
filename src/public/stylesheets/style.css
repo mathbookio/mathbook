@@ -101,3 +101,7 @@ exercise-section{
 .comment-textarea{
   min-height: 50px !important;
 }
+
+.modal-card{
+  width: 80% !important;
+}

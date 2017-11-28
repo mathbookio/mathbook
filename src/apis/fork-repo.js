@@ -9,11 +9,22 @@ const repoOwner = constants.OWNER
 const repoName = constants.REPO
 const branchPrefix = constants.BRANCH_PREFIX
 const basePath = constants.TUTORIALS_PATH
+const baseBranch = constants.BASE_BRANCH
 
-module.exports = function (req, res) {
+module.exports = async function (req, res) {
   const branchName = _.get(req, 'body.branchName')
   console.log({ branchName })
-  const referenceSHA = 'f085ad6a48d783f524eeca63b4d67466bdc83527'
+  // const referenceSHA = 'f085ad6a48d783f524eeca63b4d67466bdc83527'
+  const referenceSHA = await github.repos.getBranch({
+    owner: repoOwner,
+    repo: repoName,
+    branch: baseBranch
+  })
+  .then((branchResult) => {
+    console.dir({ branchResult }, { depth: 10 })
+    return _.get(branchResult, 'data.commit.sha') // latest commit from base branch
+  })
+
   return isTutorialNameAvailable(branchName)
   .then((isAvailable) => getUsername())
   .then((username) => {
@@ -31,6 +42,7 @@ module.exports = function (req, res) {
   })
   .then((username) => {
     console.log('user', username)
+    console.log('referenceSha', referenceSHA)
     const ref = `refs/heads/${branchPrefix}/${branchName}`
     const branch = `${branchPrefix}/${branchName}`
     return isBranchAvailable(username, repoName, ref)
@@ -55,6 +67,12 @@ module.exports = function (req, res) {
           const content = Base64.decode(contributorFile.data.content)
           console.log('decoded content', content)
           console.log(content + `- ${username}`)
+          const contributorList = content.split('-')
+          console.log('contributorList', contributorList)
+          if (contributorList.includes(` ${username}\n`)){
+            console.log(`no need to update contributors list. The user ${username} is already on the list!`)
+            return
+          }
           const updatedContent = Base64.encode(content + `- ${username}`)
           console.log('encoded updated content', updatedContent)
           return github.repos.updateFile({
@@ -107,7 +125,7 @@ module.exports = function (req, res) {
           })
           .then((updateFileResult) => {
             console.log(updateFileResult)
-            res.send(201)
+            res.sendStatus(201)
           })
         })
       })
@@ -131,11 +149,11 @@ function isRepoForked (username) {
     repo: repoName
   })
   .then((repository) => {
-    console.log('repository', repository)
+    // console.log('repository', repository)
     return true
   })
   .catch((err) => {
-    console.log('isRepoForked err', err)
+    // console.log('isRepoForked err', err)
     return false
   })
 }
@@ -147,7 +165,7 @@ function isBranchAvailable (owner, repo, branch) {
     branch
   })
   .then((branchResult) => {
-    console.log({ branchResult })
+    // console.log({ branchResult })
     return Promise.reject({status: 401, code: 'BranchUnavailable', message: 'branch name chosen is already in use. Please select a new branch name.' })
   })
   .catch((err) => {
@@ -163,7 +181,7 @@ function isTutorialNameAvailable(tutorialName){
     path: `${basePath}/${tutorialName}`
   })
   .then((availResult) => {
-    console.dir({ availResult }, { depth: 10 })
+    // console.dir({ availResult }, { depth: 10 })
     return Promise.reject({status: 401, code: 'NameUnavailable', message: 'tutorial name chosen is already taken. please select a new branch name.'})
   })
   .catch((err) => {

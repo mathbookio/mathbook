@@ -39,7 +39,6 @@ app.use('/katex', express.static(path.resolve(__dirname, '..', 'node_modules/kat
 app.use('/v1', apis)
 app.use('/contribute', router.contributeRouter)
 app.use('/editor', router.editorRouter)
-app.use('/ele-algebra', router.eleAlgebraRouter)
 app.use('/login', router.authRouter)
 app.use('/dashboard', router.dashboardRouter)
 app.use('/preview', router.previewRouter)

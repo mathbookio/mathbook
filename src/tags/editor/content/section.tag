@@ -44,6 +44,7 @@
     <footer class="modal-card-foot">
       <button class="button is-success" onclick={ saveChanges }>Save changes</button>
       <button class="button" onclick={ close }>Cancel</button>
+      <p class="help has-text-grey">Remember to Save Tutorial State after you save your changes.</p>
     </footer>
   </div>
 </div>

@@ -1,6 +1,5 @@
 const express = require('express')
 const router = express.Router()
-const eleAlgebraRouter = require('./ele-algebra')
 const contributeRouter = require('./contribute')
 const editorRouter = require('./editor')
 const authRouter = require('./authenticate')
@@ -14,7 +13,6 @@ router.get('/', function (req, res, next) {
 
 module.exports = {
   router,
-  eleAlgebraRouter,
   contributeRouter,
   editorRouter,
   authRouter,

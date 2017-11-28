@@ -9,6 +9,7 @@ const saveTutorial = require('./saveTutorial')
 const getTutorials = require('./getTutorials')
 const getTutorial = require('./getTutorial')
 const getTutorialByUsername = require('./getTutorialByUsername')
+const getTutorialBySubject = require('./getTutorialBySubject')
 const express = require('express')
 const apiRouter = express.Router()
 
@@ -30,6 +31,7 @@ apiRouter.put('/save/tutorial', saveTutorial)
 apiRouter.delete('/remove/tutorial', deleteTutorial)
 apiRouter.get('/tutorials', getTutorials)
 apiRouter.get('/tutorial/:user/:tutorialName', getTutorialByUsername)
+apiRouter.get('/tutorial/local/:subject/:tutorialName', getTutorialBySubject)
 apiRouter.get('/tutorial/:tutorialName', getTutorial)
 
 apiRouter.use(function(req, res, next) {
