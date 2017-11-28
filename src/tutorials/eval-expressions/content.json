@@ -4,5 +4,11 @@
         "contentIndex": 0,
         "title": "Understanding expressions",
         "text": "In order to understand expressions, we have to break the expression down into its terms.\n\nA term is a group of constants (numbers) and variables (like \\(x\\)) combined together with various operators like \\(\\times\\) and \\(\\div\\).\n\nTerms are separated by binary operators \\(+\\) and \\(-\\).\n\nHere are a few examples of terms and non-terms.\n\n<div class=\"columns\">\n  <div class=\"column has-text-centered\">\n    <span class=\"icon my-green-icon\"><i class=\"fa fa-check-circle\"></i></span>\n  </div>\n  <div class=\"column has-text-centered\"><span>\\(4x\\)</span></div>\n  <div class=\"column has-text-centered\"><span>\\(12\\)</span></div>\n  <div class=\"column has-text-centered\"><span>\\(y^2\\)</span></div>\n  <div class=\"column has-text-centered\"><span>\\(\\frac{7}{12}\\)</span></div>\n</div>\n\n<div class=\"columns\">\n  <div class=\"column has-text-centered\">\n    <span class=\"icon my-red-icon\"><i class=\"fa fa-minus-circle\"></i></span>\n  </div>\n  <div class=\"column has-text-centered\"><span>\\(4 + x\\)</span></div>\n  <div class=\"column has-text-centered\"><span>\\(6 - k\\)</span></div>\n  <div class=\"column has-text-centered\"><span>\\((6 - x)x^2\\)</span></div>\n  <div class=\"column has-text-centered\"><span>\\((x-2)(x+2)\\)</span></div>\n</div>\n\n"
+    },
+    {
+        "id": "sectionBox_3wnazq7653",
+        "contentIndex": 1,
+        "title": "Examples of expressions",
+        "text": "Let's build an expression from the examples above.\n\nAll we have to do is combine the terms using \\(+\\) and/or \\(-\\)\n\n$$4x + 12 + y^2 - \\frac{7}{12}$$\n\nEasy right ? Here are a few more examples of expressions.\n\n<div class=\"columns\">\n<div class=\"column has-text-centered\">\\(x^2 - x + 1\\)</div>\n<div class=\"column has-text-centered\">\\(xy - x + 5\\)</div>\n<div class=\"column has-text-centered\">\\(0 + 23\\)</div>\n</div>"
     }
 ]
