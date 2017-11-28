@@ -1,1 +1,8 @@
-[]
+[
+    {
+        "id": "sectionBox_yt6ocaf7je",
+        "contentIndex": 0,
+        "title": "Understanding expressions",
+        "text": "In order to understand expressions, we have to break the expression down into its terms.\n\nA term is a group of constants (numbers) and variables (like \\(x\\)) combined together with various operators like \\(\\times\\) and \\(\\div\\).\n\nTerms are separated by binary operators \\(+\\) and \\(-\\).\n\nHere are a few examples of terms and non-terms.\n\n<div class=\"columns\">\n  <div class=\"column has-text-centered\">\n    <span class=\"icon my-green-icon\"><i class=\"fa fa-check-circle\"></i></span>\n    <div class=\"column has-text-centered\">\\(4x\\)</div>\n  </div>\n</div>\n\n"
+    }
+]
