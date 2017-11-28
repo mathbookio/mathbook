@@ -3,7 +3,7 @@ const _ = require('lodash')
 const getTutorialData = require('./dataHelpers/getTutorialData')
 module.exports = function (req, res) {
   // get authenticated user
-  const branchName = _.get(req, 'params.branch')
+  const branchName = _.get(req, 'params.tutorialName')
   return getTutorialData(branchName)
   .then((data) => res.send(data))
   .catch((err) => {
