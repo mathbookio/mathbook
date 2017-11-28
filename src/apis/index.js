@@ -8,7 +8,7 @@ const submitTutorial = require('./submitTutorial')
 const saveTutorial = require('./saveTutorial')
 const getTutorials = require('./getTutorials')
 const getTutorial = require('./getTutorial')
-const reviewTutorial = require('./reviewTutorial')
+const getTutorialByUsername = require('./getTutorialByUsername')
 const express = require('express')
 const apiRouter = express.Router()
 
@@ -29,7 +29,7 @@ apiRouter.put('/submit/tutorial', submitTutorial)
 apiRouter.put('/save/tutorial', saveTutorial)
 apiRouter.delete('/remove/tutorial', deleteTutorial)
 apiRouter.get('/tutorials', getTutorials)
-apiRouter.get('/review/:user/:tutorialName', reviewTutorial)
+apiRouter.get('/tutorial/:user/:tutorialName', getTutorialByUsername)
 apiRouter.get('/tutorial/:tutorialName', getTutorial)
 
 apiRouter.use(function(req, res, next) {

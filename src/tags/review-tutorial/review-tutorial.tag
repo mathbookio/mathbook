@@ -28,7 +28,7 @@
       console.log('url paths', urlPaths)
       this.tutorialName = urlPaths.pop()
       this.userName = urlPaths.pop()
-      const url = '/v1/review/'+ this.userName + '/' + this.tutorialName
+      const url = '/v1/tutorial/'+ this.userName + '/' + this.tutorialName
       $.get(url, function (result) {
         this.isError = false
         console.log('getTutorialData result', result)
