@@ -84,6 +84,7 @@
     }
 
     submitTutorialSucceeded(pullRequestUrl){
+      this.observable.trigger('updateTutorialState', {name: this.tutorialName, newState: 'submitted'})
       this.submitSuccess = true
       this.submitFailed = false
       this.isSubmitting = false

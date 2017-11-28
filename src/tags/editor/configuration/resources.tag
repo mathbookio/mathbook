@@ -80,7 +80,7 @@
     }
 
     set(resources){
-      this.resources = resources
+      this.resources = resources || []
     }
   </script>
 </resources>

@@ -1,5 +1,7 @@
 'use strict'
 const github = require('../github-client')
+const constants = require('../../config/constants.json')
+const branchPrefix = constants.BRANCH_PREFIX
 
 module.exports = function (req, res) {
   console.log("YOU HIT /v1/submit/tutorial")
@@ -21,7 +23,7 @@ module.exports = function (req, res) {
       repo: repo,
       title: `merge tutorial ${tutorialName} into master`,
       body: submitDescription,
-      head: `${username}:tutorial/${tutorialName}`,
+      head: `${username}:${branchPrefix}/${tutorialName}`,
       base: 'master'
     })
   })
@@ -31,7 +33,7 @@ module.exports = function (req, res) {
     res.send({ submitted: true, pullRequestUrl: pullRequestUrl, tutorial: tutorialName })
   })
   .catch((err) => {
-    console.log('error submitting branches/tutorials', err)
+    console.log('error submitting branches/tutorial', err)
     res.status(400).send(err)
   })
 }

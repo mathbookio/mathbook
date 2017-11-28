@@ -13,7 +13,7 @@
       <div class="content">
         <a class="button is-success" onclick={ openCreateTutorialModal }>Create Tutorial</a>
       </div>
-      <div show={ tutorials.length === 0 } class="column has-text-centered has-text-grey">
+      <div show={ noTutorialsFound } class="column has-text-centered has-text-grey">
         <p>
           No Tutorials found! You should create one 
           <span class="icon is-small">
@@ -65,6 +65,11 @@
               </div>
             </header>
             <footer class="card-footer">
+              <div show={ state === 'submitted' } class="card-footer-item has-text-grey">
+                <span class="icon is-small">
+                  <i class="fa fa-send"></i>
+                </span>
+              </div>
               <a show={ state === null || state === 'closed' } class="card-footer-item" onclick="{ parent.openSubmitTutorialModal }">
                 <span class="icon is-small">
                   <i class="fa fa-send"></i>
@@ -104,14 +109,37 @@
     var that = this
     this.dashboardObservable = riot.observable()
     this.loadingTutorials = false
-    this.tutorials
+    this.noTutorialsFound = false
+    this.tutorials = []
+
+    this.on('mount', function() {
+      this.dashboardObservable.on('updateTutorialState', function(data) {
+        const tutorialName = data.name
+        const newState = data.newState
+        // let's find the tutorial with the name and update its state.
+        for(var tut of that.tutorials){
+          if (tut.name === tutorialName){
+            tut.state = newState
+          }
+        }
+        that.update()
+      })
+    })
+
     $(document).ready(function() {
       that.loadingTutorials = true
       that.update()
       $.get('/v1/tutorials', function (result) {
         console.log('result from /v1/tutorials', result)
         that.loadingTutorials = false
+        if(Array.isArray(result.tutorials) && result.tutorials.length === 0){
+          that.noTutorialsFound = true
+        }
+        else{
+          that.noTutorialsFound = false
+        }
         that.tutorials = result.tutorials
+
         that.update()
       })
     })
