@@ -1,0 +1,20 @@
+[
+    {
+        "id": "sectionBox_yt6ocaf7je",
+        "contentIndex": 0,
+        "title": "Understanding expressions",
+        "text": "In order to understand expressions, we have to break the expression down into its terms.\n\nA term is a group of constants (numbers) and variables (like \\(x\\)) combined together with various operators like \\(\\times\\) and \\(\\div\\).\n\nTerms are separated by binary operators \\(+\\) and \\(-\\).\n\nHere are a few examples of terms and non-terms.\n\n<div class=\"columns\">\n  <div class=\"column has-text-centered\"><span class=\"icon my-green-icon\"><i class=\"fa fa-check-circle\"></i></span>Terms</div>\n  <div class=\"column has-text-centered\"><span>\\(4x\\)</span></div>\n  <div class=\"column has-text-centered\"><span>\\(12\\)</span></div>\n  <div class=\"column has-text-centered\"><span>\\(y^2\\)</span></div>\n  <div class=\"column has-text-centered\"><span>\\(\\frac{7}{12}\\)</span></div>\n</div>\n\n<div class=\"columns\">\n  <div class=\"column has-text-centered\"><span class=\"icon my-red-icon\"><i class=\"fa fa-minus-circle\"></i></span> Not Terms</div>\n  <div class=\"column has-text-centered\"><span>\\(4 + x\\)</span></div>\n  <div class=\"column has-text-centered\"><span>\\(6 - k\\)</span></div>\n  <div class=\"column has-text-centered\"><span>\\((6 - x)x^2\\)</span></div>\n  <div class=\"column has-text-centered\"><span>\\((x-2)(x+2)\\)</span></div>\n</div>\n\n"
+    },
+    {
+        "id": "sectionBox_3wnazq7653",
+        "contentIndex": 1,
+        "title": "Examples of expressions",
+        "text": "Let's build an expression from the examples above.\n\nAll we have to do is combine the terms using \\(+\\) and/or \\(-\\)\n\n$$4x + 12 + y^2 - \\frac{7}{12}$$\n\nEasy right ? Here are a few more examples of expressions.\n\n<div class=\"columns\">\n<div class=\"column has-text-centered\">\\(x^2 - x + 1\\)</div>\n<div class=\"column has-text-centered\">\\(xy - x + 5\\)</div>\n<div class=\"column has-text-centered\">\\(0 + 23\\)</div>\n</div>"
+    },
+    {
+        "id": "sectionBox_s7xp05f9g7",
+        "contentIndex": 2,
+        "title": "Evaluating Expressions",
+        "text": "Now for the fun part. For completeness, we are going to evaluate two different kinds of expressions.\n\nLet's start with an expression without variables.\n$$5 + 4\\times 2^3 - 1$$\nWhen evaluating an expression with no variables, we can simply evaluate by applying BEDMAS.\n\n$$\\begin{aligned}\n5 + 4\\times 2^3 - 1 &= 5 + 4\\times 2^3 - 1 &&\\text{Exponent}\\\\\n&= 5 + 4\\times 8 - 1 &&\\text{Multiplication}\\\\\n&= 5 + 32 - 1 &&\\text{Addition}\\\\\n&= 37 - 1 &&\\text{Subtraction}\\\\\n&= 36 &&\\text{$\\square$}\\\\\n\\end{aligned}$$\n\nGood stuff. Now let's evaluate an expression with variables.\n\n$$\\begin{aligned}\nx^2 - 5x + 8 &&\\text{at $x = 3$}\\\\\n\\end{aligned}$$\n\nWe have to perform an additional step at the start before we can evaluate, which is to substitute the value given for the variable, in this case \\(3\\) for \\(x\\). \n\nThen evaluate like a simple expression by applying BEDMAS.\n\n$$\\begin{aligned}\nx^2 - 5x + 8 &= (3)^2 - 5(3) + 8 && \\text{substitute in 3 wherever you see $x$}\\\\\n&= 3^2 - 5 \\times 3 + 8 &&\\text{Exponent}\\\\\n&= 9 - 5 \\times 3 + 8 &&\\text{Multiplication}\\\\\n&= 9 - 15 + 8 &&\\text{Subtraction (since it comes before Addition)}\\\\\n&= -6 + 8 &&\\text{Addition}\\\\\n&= 2 &&\\text{$\\square$}\\\\\n\\end{aligned}$$\n\nThat's it! Now you know how to evaluate an expression. Practice these concepts in the Exercise section below."
+    }
+]
