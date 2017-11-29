@@ -49,7 +49,7 @@
         },
         {
           title: config.subject,
-          url: '/' + this.toSnakeCase(config.subject)
+          url: '/subject/' + this.toSnakeCase(config.subject)
         }
       ]
 

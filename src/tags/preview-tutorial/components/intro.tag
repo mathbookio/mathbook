@@ -1,8 +1,10 @@
 <intro>
 <section class="section my-section-margin">
+<div class="container is-fluid">
     <div class="title is-4">Introduction</div>
-    <div class="content">
+    <div class="content serif">
       <p itemprop="description">{ openingStatement }</p>
+    </div>
     </div>
   </section>
   <script>

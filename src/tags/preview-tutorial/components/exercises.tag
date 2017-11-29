@@ -5,8 +5,9 @@
     }
   </style>
 <section class="section my-section-margin">
+<div class="container is-fluid">
     <div id="exercises" class="title is-4">Exercises</div>
-    <div class="content">
+    <div class="content serif">
       <p>{ exerciseStatement }</p>
       <div class="content is-exercise" each={ exercises }>
         <p id={"q_"+exerciseIndex} class="preWrap"> 
@@ -23,6 +24,7 @@
           </div>
         </div>
       </div>
+    </div>
     </div>
   </section>
 <script>

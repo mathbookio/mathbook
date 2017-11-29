@@ -1,5 +1,6 @@
 <topic-title>
   <section class="section my-section-margin">
+  <div class="container is-fluid">
     <div class="title" itemprop='name'>{ topicTitle }</div>
     <div class="level">
       <div class="level-left">
@@ -10,6 +11,7 @@
           <span itemprop="itemListElement"> { topicTitle } </span>
         </div>
       </div>
+    </div>
     </div>
   </section>
   <script>

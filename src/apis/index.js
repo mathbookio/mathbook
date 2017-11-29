@@ -10,6 +10,7 @@ const getTutorials = require('./getTutorials')
 const getTutorial = require('./getTutorial')
 const getTutorialByUsername = require('./getTutorialByUsername')
 const getTutorialBySubject = require('./getTutorialBySubject')
+const getSubjectTopics = require('./getSubjectTopics')
 const express = require('express')
 const apiRouter = express.Router()
 
@@ -33,6 +34,7 @@ apiRouter.get('/tutorials', getTutorials)
 apiRouter.get('/tutorial/:user/:tutorialName', getTutorialByUsername)
 apiRouter.get('/tutorial/local/:subject/:tutorialName', getTutorialBySubject)
 apiRouter.get('/tutorial/:tutorialName', getTutorial)
+apiRouter.get('/subject/:subject', getSubjectTopics)
 
 apiRouter.use(function(req, res, next) {
   console.log('the client requested an invalid url')

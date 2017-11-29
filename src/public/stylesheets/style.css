@@ -48,6 +48,15 @@ body{
   color:#FF3860;
 }
 
+.is-royal{
+  background-color:  #9c27b0;
+  color: white;
+}
+
+.is-royal:hover{
+  color: white;
+}
+
 .submit{
   color: #23d160;
 }
@@ -63,10 +72,6 @@ body{
 .is-full-width{
   width: 100%;
   padding: 0.75rem;
-}
-
-section.section.my-section-margin > div.content{
-  font-family: 'Merriweather', sans-serif;
 }
 
 p.previewText{

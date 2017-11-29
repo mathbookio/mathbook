@@ -1,5 +1,6 @@
 <table-contents>
   <section class="section my-section-margin">
+  <div class="container is-fluid">
     <div class="title is-4">Contents</div>
     <div class="content">
       <ol class="sans">
@@ -7,6 +8,7 @@
           <a href={ fragment }>{ title }</a>
         </li>
       </ol>
+    </div>
     </div>
   </section>
   <script>

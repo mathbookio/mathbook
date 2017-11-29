@@ -6,9 +6,14 @@ const authRouter = require('./authenticate')
 const previewRouter = require('./preview')
 const reviewRouter = require('./review')
 const dashboardRouter = require('./dashboard')
+const viewTutorialRouter = require('./viewTutorial')
+const subjectRouter = require('./subject')
+
+const subjectMap = require('../subjectMap.json')
+console.log({ subjectMap })
 /* GET home page. */
 router.get('/', function (req, res, next) {
-  res.render('index')
+  res.render('index', { subjects: subjectMap})
 })
 
 module.exports = {
@@ -18,5 +23,7 @@ module.exports = {
   authRouter,
   dashboardRouter,
   previewRouter,
-  reviewRouter
+  reviewRouter,
+  viewTutorialRouter,
+  subjectRouter
 }

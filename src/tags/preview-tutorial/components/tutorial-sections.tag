@@ -2,7 +2,7 @@
 <section class="section my-section-margin" each={ sections }>
     <div class="container is-fluid">
       <div id={ fragment } class="title is-4">{ title }</div>
-      <div id={'content_'+contentIndex} class="content preWrap"></div>
+      <div id={'content_'+contentIndex} class="content preWrap serif"></div>
     </div>
   </section>
 <script>

@@ -37,6 +37,8 @@ app.use('/riot', express.static(path.resolve(__dirname, '..', 'node_modules/riot
 app.use('/katex', express.static(path.resolve(__dirname, '..', 'node_modules/katex/dist')))
 
 app.use('/v1', apis)
+app.use('/tutorial', router.viewTutorialRouter)
+app.use('/subject', router.subjectRouter)
 app.use('/contribute', router.contributeRouter)
 app.use('/editor', router.editorRouter)
 app.use('/login', router.authRouter)
