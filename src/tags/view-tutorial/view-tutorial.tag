@@ -1,4 +1,4 @@
-<preview-tutorial>
+<view-tutorial>
   <topic-title></topic-title>
   <intro></intro>
   <pre-reqs></pre-reqs>
@@ -9,17 +9,20 @@
   <meta-keywords></meta-keywords>
   <script>
     var that = this
-    this.tutorialName = ''
+    console.log('this.opts', this.opts)
+    this.tutorialName = this.opts.tutorialName || ''
+    this.tutorialSubject = this.opts.subject || ''
     this.config = {}
     this.sections = []
     this.exercises = []
     this.on('mount', function () {
-      const urlPaths = window.location.href.split('/')
-      console.log('url paths', urlPaths)
-      this.tutorialName = urlPaths.pop()
-      const url = '/v1/tutorial/' + this.tutorialName
+      console.log('tutorial subject', this.tutorialSubject, 'tutorialName', this.tutorialName)
+      const url = '/v1/tutorial/local/' + this.tutorialSubject + '/' + this.tutorialName
       $.get(url, function (result) {
         console.log('getTutorialData result', result)
+        result.config = JSON.parse(result.config)
+        result.content = JSON.parse(result.content)
+        result.exercises = JSON.parse(result.exercises)
         result.config['table-contents'] = []
         for (var section of result.content){
           const sectionTitle = section['title']
@@ -81,4 +84,4 @@
       return txt.replace(/\s+/g, '-').toLowerCase()
     }
   </script>
-</preview-tutorial>
+</view-tutorial>

@@ -2,6 +2,9 @@
 const github = require('../github-client')
 const constants = require('../../config/constants.json')
 const branchPrefix = constants.BRANCH_PREFIX
+const repoOwner = constants.OWNER
+const repoName = constants.REPO
+const baseBranch =  constants.BASE_BRANCH
 
 module.exports = function (req, res) {
   console.log("YOU HIT /v1/submit/tutorial")
@@ -15,16 +18,15 @@ module.exports = function (req, res) {
     return login
   })
   .then((username) => {
-    const repo = 'testing'
     const reviewUrl = `http://localhost:4000/review/${username}/${tutorialName}`
     submitDescription += `\n\n Here is the link to preview the tutorial [${reviewUrl}](${reviewUrl})`
     return github.pullRequests.create({
-      owner: 'JetJet13',
-      repo: repo,
-      title: `merge tutorial ${tutorialName} into master`,
+      owner: repoOwner,
+      repo: repoName,
+      title: `merge tutorial ${tutorialName} into ${baseBranch}`,
       body: submitDescription,
       head: `${username}:${branchPrefix}/${tutorialName}`,
-      base: 'master'
+      base: baseBranch
     })
   })
   .then((prResult) => {
