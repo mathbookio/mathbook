@@ -21,7 +21,7 @@ module.exports = async function(req, res) {
       const error = {
         status: 401,
         code: "NameUnavailable",
-        message: "tutorial name chosen is already taken. please select a new branch name."
+        message: "Tutorial name chosen is already in use. Please create a new tutorial name."
       }
       res.status(error.status).send(error)
       return
@@ -60,11 +60,17 @@ module.exports = async function(req, res) {
     await createExercisesFile(username, branch, branchName)
     res.sendStatus(201)
   } catch (err) {
-    res.status(500).send(err)
+    console.log("failed to create a tutorial", err)
+    const error = {
+      status: 500,
+      code: "InternalServerError",
+      message: "Uh-oh, something broke on the server-side of things. Unable to create tutorial."
+    }
+    res.status(error.status).send(error)
   }
 }
 
-async function isTutorialNameAvailable(tutorialName) {
+function isTutorialNameAvailable(tutorialName) {
   return github.repos
     .getContent({
       owner: repoOwner,
@@ -75,17 +81,24 @@ async function isTutorialNameAvailable(tutorialName) {
     .catch(err => true) // available
 }
 
-async function isRepoForked(username) {
+function isRepoForked(username) {
   return github.repos
     .get({
       owner: username,
       repo: repoName
     })
     .then(repository => true) // forked
-    .catch(err => false) // not forked yet
+    .catch(err => {
+      if (err.code === 404) {
+        return false // not forked yet
+      }
+      // it failed for something not related to being forked or not.
+      err.source = "isRepoForked"
+      return Promise.reject(err)
+    })
 }
 
-async function forkRepo() {
+function forkRepo() {
   return github.repos.fork({
     owner: repoOwner,
     repo: repoName
