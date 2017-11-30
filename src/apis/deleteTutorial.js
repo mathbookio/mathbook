@@ -12,7 +12,7 @@ module.exports = async function(req, res) {
     const username = await getUsername()
     const ref = `heads/${branchPrefix}/${tutorialName}`
     await deleteBranch(username, ref)
-    res.sendStatus(201)
+    res.sendStatus(204)
   } catch (err) {
     console.log("an error occured when trying to delete tutorial", err)
     let error
