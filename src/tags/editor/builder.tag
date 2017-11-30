@@ -9,7 +9,8 @@
       cursor: -webkit-grabbing;
     }
   </style>
-  <section class="section">
+  <loading-spinner loading-flag={ isLoading } text={ loadingText }></loading-spinner>
+  <section class="section" hide={ isLoading }>
     <div class="tabs is-centered is-boxed">
       <ul>
         <li id="configTab">
@@ -65,6 +66,9 @@
   </section>
   <script>
     var that = this
+    this.loadingText = 'Retrieving last saved state. Hang on.'
+    this.isLoading = true
+
     this.tutorialName = this.opts.tutorialName || ''
     this.currentTime = ''
     this.showedPreviewConfirmation = false
@@ -79,7 +83,11 @@
         that.tags.configuration.set(data.config),
         that.tags.content.set(data.content),
         that.tags.exercises.set(data.exercises)
+        that.isLoading = false
         that.update()
+      })
+      .fail(function (error){
+        handleError(error)
       })
     })
     pickConfiguration() {

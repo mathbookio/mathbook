@@ -1,4 +1,6 @@
 <preview-tutorial>
+  <loading-spinner loading-flag={ isLoading } text={ loadingText }></loading-spinner>
+  <div hide={ isLoading }>
   <topic-title></topic-title>
   <intro></intro>
   <pre-reqs></pre-reqs>
@@ -7,8 +9,12 @@
   <tutorial-exercises></tutorial-exercises>
   <resource-list></resource-list>
   <meta-keywords></meta-keywords>
+  </div>
   <script>
     var that = this
+    this.loadingText = 'Preparing Tutorial...'
+    this.isLoading = true
+
     this.tutorialName = ''
     this.config = {}
     this.sections = []
@@ -39,6 +45,11 @@
         that.formatExercises(result.exercises, result.config.exerciseStatement)
         that.update()
         renderMathInElement(document.body)
+        that.isLoading = false
+        that.update()
+      })
+      .fail(function (error) {
+        handleError(error)
       })
     })
 

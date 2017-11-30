@@ -1,24 +1,24 @@
-.my-topic-box{
+.my-topic-box {
   margin-bottom: 20px !important;
 }
-.my-topic-none-border{
+.my-topic-none-border {
   border-top-width: 0px;
 }
-.my-topic-primary-border{
-  border-top: 2px #00B89C solid;
+.my-topic-primary-border {
+  border-top: 2px #00b89c solid;
 }
-.my-topic-info-border{
-  border-top: 2px #3273DC solid;
+.my-topic-info-border {
+  border-top: 2px #3273dc solid;
 }
-.my-topic-success-border{
-  border-top: 2px #20BC56 solid;
+.my-topic-success-border {
+  border-top: 2px #20bc56 solid;
 }
-.my-topic-warning-border{
-  border-top: 2px #FFD83D solid;
+.my-topic-warning-border {
+  border-top: 2px #ffd83d solid;
 }
-.my-topic-danger-border{
-  border-top: 2px #FF1F4B solid;
+.my-topic-danger-border {
+  border-top: 2px #ff1f4b solid;
 }
-.my-topic-royal-border{
+.my-topic-royal-border {
   border-top: 2px #aa00ff solid;
 }

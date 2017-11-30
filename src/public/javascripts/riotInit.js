@@ -1,1 +1,1 @@
-riot.mount('*')
+riot.mount("*")

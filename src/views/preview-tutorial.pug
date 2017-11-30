@@ -1,15 +1,6 @@
 extends ./layout
 
 block content
-  section.section
-    .container
-      p.has-text-centered Previewing: 
-        strong #{tutorialName}
-      br
-      .content.is-pulled-right
-        a.button.is-info(href="/editor/"+tutorialName) Return to Editor
-        <span> </span>
-        a.button(href="/dashboard") Return to Dashboard
   preview-tutorial
   section.section
     .container

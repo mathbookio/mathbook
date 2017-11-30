@@ -1,99 +1,116 @@
-'use strict'
-const _ = require('lodash')
-const github = require('../github-client')
-const Promise = require('bluebird')
-const constants = require('../../config/constants.json')
+"use strict"
+const _ = require("lodash")
+const github = require("../github-client")
+const Promise = require("bluebird")
+const constants = require("../../config/constants.json")
 const branchPrefix = constants.BRANCH_PREFIX
 const repoName = constants.REPO
 const repoOwner = constants.OWNER
-module.exports = function (req, res) {
+module.exports = async function(req, res) {
   // get authenticated user
-  return github.users.get({})
-  .then((result) => {
+  const username = await getUsername()
+  const allBranches = await getAllBranches(username)
+  return Promise.map(allBranches, async branch => {
+    const branchName = branch.name
+    if (branchName === "master") {
+      return
+    } else if (invalidTutorialBranch(branchName)) {
+      return
+    }
+    const name = branchName.replace(`${branchPrefix}/`, "")
+    const branchData = await getBranchData(username, branchName)
+    const tutorialState = await getTutorialState(`${username}:${branchName}`)
+    const lastEdited = _.get(branchData, "data.commit.commit.committer.date")
+    return {
+      name,
+      state: tutorialState.state,
+      pullRequestUrl: tutorialState.pullRequestUrl,
+      lastEdited
+    }
+  }).then(tutorials => {
+    const validTutorials = tutorials.filter(tutorial => tutorial !== undefined)
+    return res.send({ tutorials: validTutorials })
+  })
+}
+
+async function getTutorialState(branch) {
+  const pullRequestData = await getBranchPullRequest(branch)
+  if (pullRequestData === undefined) {
+    return { state: null, pullRequestUrl: null }
+  }
+
+  let isMerged = false
+  if (pullRequestData["merged_at"] !== null) {
+    isMerged = true
+  }
+
+  const pullRequestNumber = pullRequestData["number"]
+  const pullRequestUrl = pullRequestData["html_url"]
+
+  const pullRequestReviews = await getBranchPullRequestReviews(pullRequestNumber)
+
+  let state = pullRequestData["state"]
+  if (pullRequestReviews.length > 0) {
+    const latestReview = _.last(pullRequestReviews)
+    if (latestReview.state === "CHANGES_REQUESTED") {
+      state = "changesRequested"
+    } else if (latestReview.state === "APPROVED") {
+      state = "approved"
+    }
+  }
+  return {
+    state: isMerged ? "merged" : state,
+    pullRequestUrl: pullRequestUrl
+  }
+}
+
+function getUsername() {
+  return github.users.get({}).then(result => {
     const login = result.data.login
     return login
   })
-  .then((username) => {
-    return github.repos.getBranches({
+}
+
+function getAllBranches(username) {
+  return github.repos
+    .getBranches({
       owner: username,
       repo: repoName
     })
-    .then((branches) => {
-      console.dir({ branches }, {depth: 10})
-      return { branches, username }
+    .then(branches => {
+      return _.get(branches, "data", [])
     })
-  })
-  .then(({ branches, username }) => {
-    Promise.map(branches.data, (branch) => {
-      if (branch.name === 'master') {
-        return
-      }
-      const name = branch.name.replace(`${branchPrefix}/`, '')
-      return github.repos.getBranch({
-        owner: username,
-        repo: repoName,
-        branch: branch.name
-      })
-      .then((branchData) => {
-        console.dir({ branchData }, { depth: 10 })
-        const lastEdited = _.get(branchData, 'data.commit.commit.committer.date')
-        console.log('lastEdited', lastEdited)
-        return getTutorialState(`${username}:${branch.name}`)
-        .then((submitResult) => {
-          return { name, state: submitResult.state, pullRequestUrl: submitResult.pullRequestUrl, lastEdited }
-        })
-      })
-    })
-    .then((tutorials) => {
-      const validTutorials = tutorials.filter((tutorial) => tutorial !== undefined)
-      return res.send({ tutorials: validTutorials })
-    })
-  })
-  .catch((err) => {
-    console.log('error getting branches/tutorials', err)
-    res.send(err)
+}
+
+function getBranchData(username, branchName) {
+  return github.repos.getBranch({
+    owner: username,
+    repo: repoName,
+    branch: branchName
   })
 }
 
-function getTutorialState (branch) {
-  return github.pullRequests.getAll({
-    owner: repoOwner,
-    repo: repoName,
-    head: branch,
-    state: 'all'
-  })
-  .then((prResult) => {
-    if (_.isEmpty(prResult.data)){
-      return { state: null, pullRequestUrl: null }
-    }
-    const pullRequestNumber = _.get(prResult, 'data.0.number', null)
-    let state = _.get(prResult, 'data.0.state', null)
-    const isMerged = _.get(prResult, 'data.0.merged_at') !== null ? true : false
-    const pullRequestUrl = _.get(prResult, 'data.0.html_url', null)
-    return github.pullRequests.getReviews({
+function getBranchPullRequest(branch) {
+  return github.pullRequests
+    .getAll({
       owner: repoOwner,
       repo: repoName,
-      number: pullRequestNumber
+      head: branch,
+      state: "all"
     })
-    .then((prReviews) => {
-      if (prReviews.data.length > 0){
-        const latestReview = _.last(prReviews.data)
-        if (latestReview.state === 'CHANGES_REQUESTED'){
-          state = 'changesRequested'
-        }
-        else if (latestReview.state === 'APPROVED'){
-          state = 'approved'
-        }
-      }
-      return { 
-        state: isMerged ? 'merged' : state,
-        pullRequestUrl: pullRequestUrl 
-      }
-    })
-  })
-  .catch((err) => {
-    console.log({err, title: `isSubmitted for branch ${branch} threw an error`})
-    return false
-  })
+    .then(result => _.get(result, "data", [])[0])
 }
 
+function getBranchPullRequestReviews(prNumber) {
+  return github.pullRequests
+    .getReviews({
+      owner: repoOwner,
+      repo: repoName,
+      number: prNumber
+    })
+    .then(result => _.get(result, "data", []))
+}
+
+function invalidTutorialBranch(branchName) {
+  return !branchName.split("/").includes(branchPrefix)
+}

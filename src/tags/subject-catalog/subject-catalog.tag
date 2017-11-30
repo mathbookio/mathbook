@@ -57,6 +57,7 @@
       .fail(function (error) {
         console.log('failed to get anything from url', url)
         console.log(error)
+        handleError(error)
       })
     })
   </script>

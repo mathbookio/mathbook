@@ -1,112 +1,111 @@
-html{
-  min-height:100%;
-}
-body{
-  font-family: 'Roboto', Arial, sans-serif !important;
-  min-height: 100%;
-
-}
-.container{
-  font-family: 'Roboto', Arial, sans-serif !important;
+html {
   min-height: 100%;
 }
-.content{
+body {
+  font-family: "Roboto", Arial, sans-serif !important;
+  min-height: 100%;
+}
+.container {
+  font-family: "Roboto", Arial, sans-serif !important;
+  min-height: 100%;
+}
+.content {
   font-size: 16px;
   font-weight: 400;
   line-height: 28px;
 }
-.my-wrapper{
+.my-wrapper {
   min-height: 100%;
 }
-.my-section-margin{
+.my-section-margin {
   margin-top: 20px;
   margin-bottom: 20px;
 }
-.my-primary-bg{
-  background-color: #00D1B2;
+.my-primary-bg {
+  background-color: #00d1b2;
 }
-.my-purple-subject{
-  background-color:  #9c27b0;
+.my-purple-subject {
+  background-color: #9c27b0;
   color: white;
 }
-.my-purple-bg{
-  background-color: #9C27B0;
+.my-purple-bg {
+  background-color: #9c27b0;
 }
-.my-blue-bg{
-  background-color: #3273DC;
-} 
-.my-red-bg{
-  background-color: #FF3860;
+.my-blue-bg {
+  background-color: #3273dc;
 }
-.my-orange-bg{
+.my-red-bg {
+  background-color: #ff3860;
+}
+.my-orange-bg {
   background-color: orange;
 }
-.my-green-icon{
-  color:#20BC56;
+.my-green-icon {
+  color: #20bc56;
 }
-.my-red-icon{
-  color:#FF3860;
+.my-red-icon {
+  color: #ff3860;
 }
 
-.is-royal{
-  background-color:  #9c27b0;
+.is-royal {
+  background-color: #9c27b0;
   color: white;
 }
 
-.is-royal:hover{
+.is-royal:hover {
   color: white;
 }
 
-.submit{
+.submit {
   color: #23d160;
 }
 
-.edit{
-  color:#276CDA;
+.edit {
+  color: #276cda;
 }
 
-.delete-button{
+.delete-button {
   color: #ff2b56;
 }
 
-.is-full-width{
+.is-full-width {
   width: 100%;
   padding: 0.75rem;
 }
 
-p.previewText{
+p.previewText {
   white-space: pre-wrap;
-  font-family: 'Merriweather', sans-serif;
+  font-family: "Merriweather", sans-serif;
 }
 
-.sans{
-  font-family: 'Roboto', Arial, sans-serif !important;
+.sans {
+  font-family: "Roboto", Arial, sans-serif !important;
 }
 
-.serif{
-  font-family: 'Merriweather', sans-serif;
+.serif {
+  font-family: "Merriweather", sans-serif;
 }
 
 .preWrap {
   white-space: pre-wrap;
 }
 
-.sortable-chosen{
+.sortable-chosen {
   opacity: 0.1;
 }
-.sortable-ghost{
+.sortable-ghost {
   opacity: 0.1;
 }
-content-section{
+content-section {
   position: relative;
 }
-exercise-section{
+exercise-section {
   position: relative;
 }
-.comment-textarea{
+.comment-textarea {
   min-height: 50px !important;
 }
 
-.modal-card{
+.modal-card {
   width: 80% !important;
 }
