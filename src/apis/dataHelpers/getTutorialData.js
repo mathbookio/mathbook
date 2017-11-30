@@ -50,19 +50,20 @@ module.exports = async function(branchName, username = null) {
       exercises: exerciseData
     }
   } catch (err) {
-    console.log("dataHelper::error getting tutorial Data", err)
+    console.log("dataHelper::getTutorialData::catch:err", err)
+    let error
     if (err.code === 404) {
-      const error = {
+      error = {
         status: 404,
         code: "ResourceNotFound",
         message: "Uh-oh, the tutorial data could not be found."
       }
-      return Promise.reject(error)
-    }
-    const error = {
-      status: 500,
-      code: "InternalServerError",
-      message: "Uh-oh, we were unable to retrieve the data we need due to some unknown issue."
+    } else {
+      error = {
+        status: 500,
+        code: "InternalServerError",
+        message: "Uh-oh, we were unable to retrieve the data we need due to some unknown issue."
+      }
     }
     return Promise.reject(error)
   }
