@@ -50,7 +50,8 @@ module.exports = async function(branchName, username = null) {
       exercises: exerciseData
     }
   } catch (err) {
-    console.log("dataHelper::getTutorialData::catch:err", err)
+    err.source = "dataHelper::getTutorialData::catch:err"
+    console.log(err)
     let error
     if (err.code === 404) {
       error = {

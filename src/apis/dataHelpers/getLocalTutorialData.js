@@ -36,19 +36,23 @@ module.exports = async function(subject, tutorialName) {
       exercises: exerciseData
     }
   } catch (err) {
+    err.source = "dataHelper::getLocalTutorialData::catch::err"
+    console.log(err)
+    let error
     if (err.code === "ENOENT") {
-      console.log("someone requested a tutorial that is not stored locally", subject, tutorialName)
-      return Promise.reject({
+      console.log("someone requested a tutorial that is not stored locally", { subject, tutorialName })
+      error = {
         status: 404,
         code: "ResourceNotFound",
         message: "the tutorial you requested does not exist."
-      })
+      }
+    } else {
+      error = {
+        status: 500,
+        code: "InternalServerError",
+        message: "Uh-oh something broke on our side of things."
+      }
     }
-    console.log("dataHelper::error getting local tutorial Data", err)
-    return Promise.reject({
-      status: 500,
-      code: "InternalServerError",
-      message: "Uh-oh something broke on our side of things."
-    })
+    return Promise.reject(error)
   }
 }
