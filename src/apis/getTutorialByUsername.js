@@ -10,6 +10,6 @@ module.exports = function(req, res) {
     .then(data => res.send(data))
     .catch(err => {
       console.error("reviewTutorial::getTutorialData::catch::err", err)
-      res.status(err.code).send(err)
+      res.status(err.status).send(err)
     })
 }
