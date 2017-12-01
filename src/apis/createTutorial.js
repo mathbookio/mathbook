@@ -15,7 +15,7 @@ const baseBranch = constants.BASE_BRANCH
 module.exports = async function(req, res) {
   const log = req.log
   const branchName = _.get(req, "body.branchName")
-
+  let username
   try {
     const isNameAvailable = await isTutorialNameAvailable(branchName)
     if (!isNameAvailable) {
@@ -26,7 +26,7 @@ module.exports = async function(req, res) {
       return
     }
 
-    const username = await getUsername()
+    username = await getUsername()
     const isForked = await isRepoForked(username)
     if (!isForked) {
       await forkRepo()
@@ -56,6 +56,13 @@ module.exports = async function(req, res) {
     await createFile("exercises", username, branch, branchName)
     res.sendStatus(201)
   } catch (err) {
+    if (err.rollback) {
+      log.warn("failed to create files for new tutorial. Going to roll back and delete created branch.")
+      const deleteRef = `heads/${branchPrefix}/${branchName}`
+      await deleteBranch(username, deleteRef)
+        .then(result => log.info("successfully completed rollback and deleted bad branch"))
+        .catch(err => log.error({ err, details: err.details }, "failed to rollback and delete bad branch."))
+    }
     log.error({ err, details: err.details }, "failed to create a tutorial")
     const error = new errors.InternalServerError(
       "Uh-oh, something broke on the server-side of things. Unable to create tutorial."
@@ -203,6 +210,8 @@ function updateContributorFile(username, branch) {
       })
     })
     .catch(err => {
+      // we want to roll back our changes when we fail to create a file
+      err["rollback"] = true
       const source = "createTutorial::updateContributorFile::catch::err"
       const params = { username, branch }
       return Promise.reject(transformError(err, source, params))
@@ -235,8 +244,24 @@ function createFile(fileType, username, branch, branchName) {
       branch: branch
     })
     .catch(err => {
+      // we want to roll back our changes when we fail to create a file
+      err["rollback"] = true
       const source = "createTutorial::createFile::catch::err"
       const params = { fileType, username, branch, branchName }
+      return Promise.reject(transformError(err, source, params))
+    })
+}
+
+function deleteBranch(username, ref) {
+  return github.gitdata
+    .deleteReference({
+      owner: username,
+      repo: repoName,
+      ref: ref
+    })
+    .catch(err => {
+      const source = "createTutorial::deleteBranch::catch::err"
+      const params = { username, ref }
       return Promise.reject(transformError(err, source, params))
     })
 }
