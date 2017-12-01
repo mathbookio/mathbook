@@ -1,15 +1,15 @@
 [
   {
-    "id": "elementary-algebra",
-    "title": "Elementary Algebra",
-    "blurb": "Basic algebra dealing with arithmetic and polynomials.",
+    "id": "algebra",
+    "title": "Algebra",
+    "blurb": "The study of arithmetic.",
     "example": "$$ax^2 + bx + c = 0$$",
     "color": "is-primary"
   },
   {
     "id": "calculus",
     "title": "Calculus",
-    "blurb": "Foundational Calculus dealing with derivatives and integration.",
+    "blurb": "The study of continuous change.",
     "example": "$$\\frac{\\mathrm d y}{\\mathrm d x} \\left( x^2 + x - 3 \\right)$$",
     "color": "is-warning"
   },
@@ -37,7 +37,7 @@
   {
     "id": "combinatorics",
     "title": "Combinatorics",
-    "blurb": "The study of counting combinations of numbers and much more.",
+    "blurb": "The study of counting combinations of numbers.",
     "example": "$$\\binom{n}{k} = \\frac{n!}{k!(n-k)!}$$",
     "color": "is-royal"
   }
