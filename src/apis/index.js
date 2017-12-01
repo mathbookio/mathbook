@@ -2,7 +2,7 @@
 
 const github = require("../github-client")
 const _ = require("lodash")
-const forkRepo = require("./fork-repo")
+const createTutorial = require("./createTutorial")
 const deleteTutorial = require("./deleteTutorial")
 const submitTutorial = require("./submitTutorial")
 const saveTutorial = require("./saveTutorial")
@@ -26,7 +26,7 @@ apiRouter.use((req, res, next) => {
   next()
 })
 
-apiRouter.post("/fork", forkRepo)
+apiRouter.post("/create", createTutorial)
 apiRouter.put("/submit/tutorial", submitTutorial)
 apiRouter.put("/save/tutorial", saveTutorial)
 apiRouter.delete("/remove/tutorial", deleteTutorial)

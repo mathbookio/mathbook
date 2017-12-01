@@ -5,12 +5,15 @@ const moment = require("moment")
 const _ = require("lodash")
 const github = require("../github-client")
 const Base64 = require("js-base64").Base64
+const errors = require("../errors")
+const transformError = require("../transformers/errorTransformer")
 const constants = require("../../config/constants.json")
 const branchPrefix = constants.BRANCH_PREFIX
 const basePath = constants.TUTORIALS_PATH
 const repoName = constants.REPO
 
 module.exports = async function(req, res) {
+  const log = req.log
   const data = JSON.parse(req.body.data)
   const configData = _.get(data, "config", {})
   const contentData = _.get(data, "content", [])
@@ -25,12 +28,10 @@ module.exports = async function(req, res) {
     await saveFile("exercises", username, branchName, exerciseData, currentDate)
     res.sendStatus(204)
   } catch (err) {
-    console.log(err)
-    const error = {
-      status: 500,
-      code: "InternalServerError",
-      message: "Uh-oh, something went wrong in the server-side of things. Unable to save tutorial state"
-    }
+    log.error({ err, details: err.details }, "failed to save tutorial state")
+    const error = new errors.InternalServerError(
+      "Uh-oh, something went wrong in the server-side of things. Unable to save tutorial state"
+    )
     res.status(error.status).send(error)
   }
 }
@@ -43,9 +44,9 @@ function getUsername() {
       return login
     })
     .catch(err => {
-      err.source = "saveTutorial::getUsername::catch::err"
-      err.params = {}
-      return Promise.reject(err)
+      const source = "saveTutorial::getUsername::catch::err"
+      const params = {}
+      return Promise.reject(transformError(err, source, params))
     })
 }
 
@@ -65,9 +66,9 @@ function getFile(fileType, username, branchName) {
     })
     .then(contentFile => contentFile.data)
     .catch(err => {
-      err.source = "saveTutorial::getFile::catch::err"
-      err.params = { fileType, username, branchName }
-      return Promise.reject(err)
+      const source = "saveTutorial::getFile::catch::err"
+      const params = { fileType, username, branchName }
+      return Promise.reject(transformError(err, source, params))
     })
 }
 
@@ -85,8 +86,8 @@ function updateFile(fileType, username, branchName, data, sha, currentDate) {
       })
     )
     .catch(err => {
-      err.source = "saveTutorial::updateFile::catch::err"
-      err.params = { fileType, username, branchName, data, currentDate }
-      return Promise.reject(err)
+      const source = "saveTutorial::updateFile::catch::err"
+      const params = { fileType, username, branchName, data, currentDate }
+      return Promise.reject(transformError(err, source, params))
     })
 }

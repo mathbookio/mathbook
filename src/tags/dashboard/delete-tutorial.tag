@@ -115,6 +115,7 @@
         }
       })
       .fail(function(res) {
+        console.log(res)
         const error = res.responseJSON
         console.error(error)
         that.deleteTutorialFailed(error.message)

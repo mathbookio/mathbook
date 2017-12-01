@@ -1,6 +1,8 @@
 "use strict"
 const _ = require("lodash")
 const github = require("../github-client")
+const errors = require("../errors")
+const transformError = require("../transformers/errorTransformer")
 const constants = require("../../config/constants.json")
 const branchPrefix = constants.BRANCH_PREFIX
 const repoOwner = constants.OWNER
@@ -8,6 +10,7 @@ const repoName = constants.REPO
 const baseBranch = constants.BASE_BRANCH
 
 module.exports = async function(req, res) {
+  const log = req.log
   const tutorialName = _.get(req, "body.tutorialName", "")
   let submitDescription = _.get(req, "body.submitDescription", "")
 
@@ -26,31 +29,32 @@ module.exports = async function(req, res) {
       tutorial: tutorialName
     })
   } catch (err) {
-    console.log(`there was error when trying to submit a tutorial: ${tutorialName}`, err)
+    log.error({ err, details: err.details }, `there was error when trying to submit a tutorial: ${tutorialName}`)
     let error
     if (err.code === 422) {
-      error = {
-        status: 404,
-        code: "ResourceNotFound",
-        message: "Unable to submit tutorial because the tutorial could not be found."
-      }
+      error = new errors.ResourceNotFound("Unable to submit tutorial because the tutorial could not be found.")
     } else {
-      error = {
-        status: 500,
-        code: "InternalServerError",
-        message: "Uh-oh something broke on the server side of things. Unable to submit tutorial."
-      }
+      error = new errors.InternalServerError(
+        "Uh-oh something broke on the server side of things. Unable to submit tutorial."
+      )
     }
     res.status(error.status).send(error)
   }
 }
 
 function getUsername() {
-  return github.users.get({}).then(result => {
-    const login = result.data.login
-    console.log("login", login)
-    return login
-  })
+  return github.users
+    .get({})
+    .then(result => {
+      const login = result.data.login
+      console.log("login", login)
+      return login
+    })
+    .catch(err => {
+      const source = "submitTutorial::getUsername::catch::err"
+      const params = {}
+      return Promise.reject(transformError(err, source, params))
+    })
 }
 
 function createPullRequest(title, body, head) {
@@ -64,4 +68,9 @@ function createPullRequest(title, body, head) {
       base: baseBranch
     })
     .then(prResult => prResult.data)
+    .catch(err => {
+      const source = "submitTutorial::createPullRequest::catch::err"
+      const params = { title, body, head }
+      return Promise.reject(transformError(err, source, params))
+    })
 }

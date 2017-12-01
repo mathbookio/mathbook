@@ -91,7 +91,7 @@
         return
       }
       this.prepareToCreateTutorial()
-      const url = '/v1/fork'
+      const url = '/v1/create'
       $.post(url, {
         'branchName': tutorialName
       }, function (result) {
