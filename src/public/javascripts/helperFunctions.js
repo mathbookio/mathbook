@@ -20,3 +20,9 @@ function redirectTo404() {
 function redirectTo500() {
   window.location.href = "/error/500"
 }
+
+function renderMath(id) {
+  try {
+    renderMathInElement(document.getElementById(id))
+  } catch (err) {}
+}
