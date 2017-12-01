@@ -91,7 +91,7 @@
         return
       }
       this.prepareToCreateTutorial()
-      const url = '/v1/fork'
+      const url = '/v1/create'
       $.post(url, {
         'branchName': tutorialName
       }, function (result) {
@@ -108,7 +108,7 @@
         let message = ''
         if (error.status === 401){
           console.log('the name of tutorial you entered is unavailable.')
-          message = 'The tutorial name is taken. Please choose a different name.'
+          message = 'The tutorial name is already in use. Please create a different name.'
         }
         else{
           message = 'Uh-oh something broke on the server side. Please try again.'

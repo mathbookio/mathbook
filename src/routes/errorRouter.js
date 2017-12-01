@@ -1,10 +1,9 @@
 "use strict"
-
 const express = require("express")
 const router = express.Router()
 
-router.get("/:subject", (req, res) => {
-  res.render("subject-catalog", { subject: req.params.subject })
+router.get("/500", (req, res) => {
+  res.render("500")
 })
 
 module.exports = router

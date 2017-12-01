@@ -32,7 +32,7 @@
             <span class="icon is-small has-text-danger">
               <i class="fa fa-times"></i>
             </span>
-            Unfortunately, we were unable to submit your tutorial. Please try again.
+            Unfortunately, we were unable to submit your tutorial for the following reason, <strong>{ failedMessage }</strong>
           </p>
         </footer>
       </div>
@@ -46,6 +46,7 @@
     this.submitFailed = false
     this.isSubmitting = false
     this.submitComplete = false
+    this.failedMessage = ''
 
     this.on('mount', function(){
       this.observable.on('openSubmitModal', function(tutorialName){
@@ -80,9 +81,10 @@
           }, 4500)
         }
       })
-      .fail(function(error) {
+      .fail(function(res) {
+        const error = res.responseJSON
         console.log(error)
-        that.submitTutorialFailed()
+        that.submitTutorialFailed(error.message)
         that.update()
       })
     }
@@ -93,13 +95,16 @@
       this.isSubmitting = false
       this.submitComplete = true
       this.pullRequestUrl = pullRequestUrl
+      this.failedMessage = ''
     }
 
-    submitTutorialFailed(){
+    submitTutorialFailed(message){
       this.submitSuccess = false
       this.submitFailed = true
       this.isSubmitting = false
       this.submitComplete = false
+      this.pullRequestUrl = ''
+      this.failedMessage = message
     }
 
     closeSubmitTutorialModal() {

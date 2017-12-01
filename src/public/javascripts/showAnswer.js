@@ -1,3 +1,3 @@
-function showAnswer (id) {
+function showAnswer(id) {
   $(id).toggle()
 }

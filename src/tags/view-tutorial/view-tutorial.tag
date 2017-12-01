@@ -1,14 +1,20 @@
 <view-tutorial>
-  <topic-title></topic-title>
-  <intro></intro>
-  <pre-reqs></pre-reqs>
-  <table-contents></table-contents>
-  <tutorial-sections></tutorial-sections>
-  <tutorial-exercises></tutorial-exercises>
-  <resource-list></resource-list>
-  <meta-keywords></meta-keywords>
+<loading-spinner loading-flag={ isLoading } text={ loadingText }></loading-spinner>
+  <div hide={ isLoading }>
+    <topic-title></topic-title>
+    <intro></intro>
+    <pre-reqs></pre-reqs>
+    <table-contents></table-contents>
+    <tutorial-sections></tutorial-sections>
+    <tutorial-exercises></tutorial-exercises>
+    <resource-list></resource-list>
+    <meta-keywords></meta-keywords>
+  </div>
   <script>
     var that = this
+    this.loadingText = 'Loading Tutorial...just a sec.'
+    this.isLoading = true
+
     console.log('this.opts', this.opts)
     this.tutorialName = this.opts.tutorialName || ''
     this.tutorialSubject = this.opts.subject || ''
@@ -20,9 +26,6 @@
       const url = '/v1/tutorial/local/' + this.tutorialSubject + '/' + this.tutorialName
       $.get(url, function (result) {
         console.log('getTutorialData result', result)
-        result.config = JSON.parse(result.config)
-        result.content = JSON.parse(result.content)
-        result.exercises = JSON.parse(result.exercises)
         result.config['table-contents'] = []
         for (var section of result.content){
           const sectionTitle = section['title']
@@ -43,6 +46,15 @@
         that.update()
         renderMathInElement(document.body)
       })
+      .fail(function (res){
+        console.log('there was an error fetching the tutorial', res)
+        handleError(res)
+      })
+      .always(function() {
+        that.isLoading = false
+        that.update()
+      });
+
     })
 
     formatConfig(config) {

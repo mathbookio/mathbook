@@ -114,10 +114,11 @@
           }, 2500)
         }
       })
-      .fail(function(error) {
+      .fail(function(res) {
+        console.log(res)
+        const error = res.responseJSON
         console.error(error)
-        const message = 'Uh oh, something broke on the server side of things. Sorry.'
-        that.deleteTutorialFailed(message)
+        that.deleteTutorialFailed(error.message)
         that.update()
       })
     }

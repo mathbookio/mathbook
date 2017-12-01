@@ -1,32 +1,41 @@
-'use strict'
-const _ = require('lodash')
-const fs = require('fs')
-const subjectMap = require('../../subjectMap.json')
-const constants = require('../../../config/constants.json')
-console.log("CONSTANTS", constants)
-const branchPrefix = constants.BRANCH_PREFIX
+"use strict"
+const _ = require("lodash")
+const fs = require("fs")
+const subjectMap = require("../../subjectMap.json")
+const errors = require("../../errors")
+const transformError = require("../../transformers/errorTransformer")
+const constants = require("../../../config/constants.json")
 const basePath = constants.TUTORIALS_PATH
-const Promise = require('bluebird')
+const Promise = require("bluebird")
 
-module.exports = function (subject) {
-  if (!_.isString(subject) || _.isEmpty(subject)){
-    return Promise.reject({ status: 400, code: 'BadRequest', message: 'subject is invalid' })
+module.exports = async function(subject, log) {
+  if (!_.isString(subject) || _.isEmpty(subject)) {
+    const error = new errors.BadRequestError("subject is invalid")
+    return Promise.reject(error)
   }
-  // get authenticated user
-  const subjectData = _.find(subjectMap, (item) => item.id === subject)
-  try{
+  const requestedSubject = _.find(subjectMap, item => item.id === subject)
+  if (requestedSubject === undefined) {
+    const error = new errors.ResourceNotFound("The subject you requested does not exist on Mathbook.")
+    return Promise.reject(error)
+  }
+
+  try {
+    let topics = []
     const subjectTopicsPath = `${basePath}/${subject}/topics.json`
-    console.log('subject', subject)
-    const topicData = fs.readFileSync(subjectTopicsPath, 'utf-8')
-    return Promise.resolve({ 
-      topics: JSON.parse(topicData),
-      subjectData: subjectData
+    const topicFileExists = fs.existsSync(subjectTopicsPath)
+    if (topicFileExists) {
+      topics = JSON.parse(fs.readFileSync(subjectTopicsPath, "utf-8"))
+    }
+    return Promise.resolve({
+      topics: topics,
+      subjectData: requestedSubject
     })
-                          
-  }
-  catch(err){
-      console.log('dataHelper::error getting local tutorial Data', err)
-      return Promise.resolve({ topics: [], subjectData: subjectData })
+  } catch (err) {
+    const source = "dataHelper::getLocalTopicsData::catch::err"
+    const params = { subject }
+    const logError = transformError(err, source, params)
+    log.error({ logError, details: logError.details }, "failed to get topics for a subject")
+    const error = new errors.InternalServerError("Uh-oh, something broke on the server-side of things.")
+    return Promise.reject(error)
   }
 }
-

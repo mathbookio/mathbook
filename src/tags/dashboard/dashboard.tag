@@ -21,6 +21,14 @@
           </span>
         </p>
       </div>
+      <div show={ failedToGetTutorials } class="column has-text-centered has-text-grey">
+        <p>
+          Failed to retrieve tutorials for the following reason, { failedMessage }
+          <span class="icon is-small">
+            <i class="fa fa-frown-o"></i>
+          </span>
+        </p>
+      </div>
       <div show={ loadingTutorials } class="column has-text-centered has-text-grey">
         <p> Locating your Tutorials 
           <span class="icon is-medium">
@@ -111,13 +119,14 @@
     this.loadingTutorials = false
     this.noTutorialsFound = false
     this.tutorials = []
+    this.failedToGetTutorials = false
 
     $(document).ready(function() {
       that.loadingTutorials = true
       that.update()
       $.get('/v1/tutorials', function (result) {
         console.log('result from /v1/tutorials', result)
-        that.loadingTutorials = false
+        that.succeededRequest()
         if(Array.isArray(result.tutorials) && result.tutorials.length === 0){
           that.noTutorialsFound = true
         }
@@ -128,7 +137,25 @@
 
         that.update()
       })
+      .fail(function(res) {
+        const error = res.responseJSON
+        console.error('something broke while getting tutorials', error)
+        that.failedRequest(error.message)
+        that.update()
+      })
     })
+
+    succeededRequest(){
+      this.loadingTutorials = false
+      this.failedToGetTutorials = false
+      this.failedMessage = ''
+    }
+
+    failedRequest(message){
+      this.loadingTutorials = false
+      this.failedToGetTutorials = true
+      this.failedMessage = message
+    }
 
     editTutorial(e) {
       console.log('editing tutorial with id', e.item)

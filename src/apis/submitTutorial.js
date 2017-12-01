@@ -1,41 +1,75 @@
-'use strict'
-const github = require('../github-client')
-const constants = require('../../config/constants.json')
+"use strict"
+const _ = require("lodash")
+const github = require("../github-client")
+const errors = require("../errors")
+const transformError = require("../transformers/errorTransformer")
+const constants = require("../../config/constants.json")
 const branchPrefix = constants.BRANCH_PREFIX
 const repoOwner = constants.OWNER
 const repoName = constants.REPO
-const baseBranch =  constants.BASE_BRANCH
+const baseBranch = constants.BASE_BRANCH
 
-module.exports = function (req, res) {
-  console.log("YOU HIT /v1/submit/tutorial")
-  const tutorialName = req.body.tutorialName
-  let submitDescription = req.body.submitDescription
-  // get authenticated user
-  return github.users.get({})
-  .then((result) => {
-    const login = result.data.login
-    console.log('login', login)
-    return login
-  })
-  .then((username) => {
+module.exports = async function(req, res) {
+  const log = req.log
+  const tutorialName = _.get(req, "body.tutorialName", "")
+  let submitDescription = _.get(req, "body.submitDescription", "")
+
+  try {
+    // get authenticated user
+    const username = await getUsername()
     const reviewUrl = `http://localhost:4000/review/${username}/${tutorialName}`
     submitDescription += `\n\n Here is the link to preview the tutorial [${reviewUrl}](${reviewUrl})`
-    return github.pullRequests.create({
+    const head = `${username}:${branchPrefix}/${tutorialName}`
+    const submitTitle = `merge tutorial ${tutorialName} into ${baseBranch}`
+    const submitTutorial = await createPullRequest(submitTitle, submitDescription, head)
+    const pullRequestUrl = submitTutorial["html_url"]
+    res.send({
+      submitted: true,
+      pullRequestUrl: pullRequestUrl,
+      tutorial: tutorialName
+    })
+  } catch (err) {
+    log.error({ err, details: err.details }, `there was error when trying to submit a tutorial: ${tutorialName}`)
+    let error
+    if (err.code === 422) {
+      error = new errors.ResourceNotFound("Unable to submit tutorial because the tutorial could not be found.")
+    } else {
+      error = new errors.InternalServerError(
+        "Uh-oh something broke on the server side of things. Unable to submit tutorial."
+      )
+    }
+    res.status(error.status).send(error)
+  }
+}
+
+function getUsername() {
+  return github.users
+    .get({})
+    .then(result => {
+      const login = result.data.login
+      return login
+    })
+    .catch(err => {
+      const source = "submitTutorial::getUsername::catch::err"
+      const params = {}
+      return Promise.reject(transformError(err, source, params))
+    })
+}
+
+function createPullRequest(title, body, head) {
+  return github.pullRequests
+    .create({
       owner: repoOwner,
       repo: repoName,
-      title: `merge tutorial ${tutorialName} into ${baseBranch}`,
-      body: submitDescription,
-      head: `${username}:${branchPrefix}/${tutorialName}`,
+      title: title,
+      body: body,
+      head: head,
       base: baseBranch
     })
-  })
-  .then((prResult) => {
-    console.log({ prResult })
-    const pullRequestUrl = prResult.data['html_url']
-    res.send({ submitted: true, pullRequestUrl: pullRequestUrl, tutorial: tutorialName })
-  })
-  .catch((err) => {
-    console.log('error submitting branches/tutorial', err)
-    res.status(400).send(err)
-  })
+    .then(prResult => prResult.data)
+    .catch(err => {
+      const source = "submitTutorial::createPullRequest::catch::err"
+      const params = { title, body, head }
+      return Promise.reject(transformError(err, source, params))
+    })
 }

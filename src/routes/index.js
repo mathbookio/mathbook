@@ -1,19 +1,19 @@
-const express = require('express')
+const express = require("express")
 const router = express.Router()
-const contributeRouter = require('./contribute')
-const editorRouter = require('./editor')
-const authRouter = require('./authenticate')
-const previewRouter = require('./preview')
-const reviewRouter = require('./review')
-const dashboardRouter = require('./dashboard')
-const viewTutorialRouter = require('./viewTutorial')
-const subjectRouter = require('./subject')
+const contributeRouter = require("./contribute")
+const editorRouter = require("./editor")
+const authRouter = require("./authenticate")
+const previewRouter = require("./preview")
+const reviewRouter = require("./review")
+const dashboardRouter = require("./dashboard")
+const viewTutorialRouter = require("./viewTutorial")
+const subjectRouter = require("./subject")
+const errorRouter = require("./errorRouter")
 
-const subjectMap = require('../subjectMap.json')
-console.log({ subjectMap })
+const subjectMap = require("../subjectMap.json")
 /* GET home page. */
-router.get('/', function (req, res, next) {
-  res.render('index', { subjects: subjectMap})
+router.get("/", function(req, res) {
+  res.render("index", { subjects: subjectMap })
 })
 
 module.exports = {
@@ -25,5 +25,6 @@ module.exports = {
   previewRouter,
   reviewRouter,
   viewTutorialRouter,
-  subjectRouter
+  subjectRouter,
+  errorRouter
 }
