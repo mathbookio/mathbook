@@ -3,13 +3,14 @@
     <div class="hero-body">
       <div class="container">
         <h1 class="title">Welcome to Mathbook</h1>
-        <h2 class="subtitle">An online resource for tutorials on topics covering all subjects in mathematics</h2>
+        <h2 class="subtitle">An online repository of peer-reviewed tutorials on topics covering most subjects in mathematics</h2>
       </div>
     </div>
   </section>
   <section class="section my-section-margin">
     <div class="container">
-      <h3 class="title is-3">Select A Subject To Get Started</h3>
+      <h3 class="title is-3">Browse Subjects</h3>
+      <h5 class="subtitle is-5">Each subject contains tutorials covering certain topics created by the contributors of Mathbook.</h5>
     </div>
   </section>
   <section class="section my-section-margin">
@@ -27,11 +28,11 @@
       </div>
     </div>
   </section>
-  <section class="hero is-light is-bold">
+  <section class="hero is-info">
     <div class="hero-body">
       <div class="container has-text-centered">
-        <h1 class="title">Math is a tool created to help us measure the world around us.</h1>
-        <h2 class="subtitle">For that reason alone, math is worth learning</h2>
+        <h4 class="title is-4">Math is a tool we use to help us measure the world around us.</h4>
+        <h6 class="subtitle is-5">For this reason alone, the benefits of learning math are worthwhile.</h6>
       </div>
     </div>
   </section>

@@ -16,30 +16,29 @@
   {
     "id": "linear-algebra",
     "title": "Linear Algebra",
-    "blurb": "Matrices and Vector manipulations.",
+    "blurb": "The study of Vector Spaces and their respective Mappings.",
     "example": "$$M = \\begin{bmatrix} 1 & 0 & 2 \\\\ 0 & 3 & 0 \\\\ 4 & 0 & 5 \\end{bmatrix}$$",
     "color": "is-info"
   },
   {
     "id": "number-theory",
     "title": "Number Theory",
-    "blurb": "Known as \"The Queen of Mathematics\". The study of integers.",
+    "blurb": "The study of integers and their unique properties.",
     "example": "$$a^n + b^n = c^n$$",
     "color": "is-success"
   },
   {
-    "id": "geometry",
-    "title": "Geometry",
-    "blurb": "Questions of shape, size, relative position of figures, and the properties of space.",
+    "id": "trigonometry",
+    "title": "Trigonometry",
+    "blurb": "The study of the relationships between the sides and angles of triangles",
     "example": "$$tan(x) = \\frac{sin(x)}{cos(x)}$$",
     "color": "is-danger"
   },
   {
     "id": "combinatorics",
     "title": "Combinatorics",
-    "blurb": "Counting numbers.",
+    "blurb": "The study of counting combinations of numbers and much more.",
     "example": "$$\\binom{n}{k} = \\frac{n!}{k!(n-k)!}$$",
     "color": "is-royal"
   }
-
 ]
