@@ -13,7 +13,7 @@ const errorRouter = require("./errorRouter")
 const subjectMap = require("../subjectMap.json")
 /* GET home page. */
 router.get("/", function(req, res) {
-  res.render("index", { subjects: subjectMap })
+  res.render("index", { data: JSON.stringify(subjectMap) })
 })
 
 module.exports = {
