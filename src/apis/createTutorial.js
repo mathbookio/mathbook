@@ -210,13 +210,28 @@ function updateContributorFile(username, branch) {
 }
 
 function createFile(fileType, username, branch, branchName) {
+  let content
+  switch (fileType) {
+    case "config":
+      content = {}
+      break
+    case "content":
+      content = []
+      break
+    case "exercises":
+      content = []
+      break
+    default:
+      content = {}
+      break
+  }
   return github.repos
     .createFile({
       owner: username,
       repo: repoName,
       path: `${basePath}/${branchName}/${fileType}.json`,
       message: `created ${fileType} file for tutorial ${branchName}`,
-      content: Base64.encode(JSON.stringify({})),
+      content: Base64.encode(JSON.stringify(content)),
       branch: branch
     })
     .catch(err => {

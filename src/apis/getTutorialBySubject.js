@@ -4,13 +4,11 @@ const _ = require("lodash")
 const getLocalTutorialData = require("./dataHelpers/getLocalTutorialData")
 
 module.exports = function(req, res) {
+  const log = req.log
   const subject = _.get(req, "params.subject", "")
   const tutorialName = _.get(req, "params.tutorialName", "")
   console.log({ subject, tutorialName })
-  return getLocalTutorialData(subject, tutorialName)
+  return getLocalTutorialData(subject, tutorialName, log)
     .then(data => res.send(data))
-    .catch(err => {
-      console.error("getTutorialBySubject::getLocalTutorialData", err)
-      res.status(err.status).send(err)
-    })
+    .catch(err => res.status(err.status).send(err))
 }

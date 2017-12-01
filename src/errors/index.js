@@ -30,8 +30,17 @@ class ResourceUnavailable extends ResponseError {
   }
 }
 
+class BadRequestError extends ResponseError {
+  constructor(message = "The user made a bad response") {
+    super(message)
+    this.code = "BadRequestError"
+    this.status = 400
+  }
+}
+
 module.exports = {
   ResourceNotFound,
   InternalServerError,
-  ResourceUnavailable
+  ResourceUnavailable,
+  BadRequestError
 }

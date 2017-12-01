@@ -2,11 +2,13 @@
 const _ = require("lodash")
 const github = require("../../github-client")
 const Base64 = require("js-base64").Base64
+const errors = require("../../errors")
+const transformError = require("../../transformers/errorTransformer")
 const constants = require("../../../config/constants.json")
 const branchPrefix = constants.BRANCH_PREFIX
 const basePath = constants.TUTORIALS_PATH
 const repoName = constants.REPO
-module.exports = async function(branchName, username = null) {
+module.exports = async function(branchName, username = null, log) {
   // get authenticated user
   const branch = `${branchPrefix}/${branchName}`
   const configPath = `${basePath}/${branchName}/config.json`
@@ -25,6 +27,11 @@ module.exports = async function(branchName, username = null) {
         ref: branch
       })
       .then(configFile => JSON.parse(Base64.decode(configFile.data.content)))
+      .catch(err => {
+        const source = "dataHelper::getTutorialData::configData::catch:err"
+        const params = { branchName, username }
+        return Promise.reject(transformError(err, source, params))
+      })
 
     const contentData = await github.repos
       .getContent({
@@ -34,6 +41,11 @@ module.exports = async function(branchName, username = null) {
         ref: branch
       })
       .then(contentFile => JSON.parse(Base64.decode(contentFile.data.content)))
+      .catch(err => {
+        const source = "dataHelper::getTutorialData::contentData::catch:err"
+        const params = { branchName, username }
+        return Promise.reject(transformError(err, source, params))
+      })
 
     const exerciseData = await github.repos
       .getContent({
@@ -43,36 +55,41 @@ module.exports = async function(branchName, username = null) {
         ref: branch
       })
       .then(exerciseFile => JSON.parse(Base64.decode(exerciseFile.data.content)))
+      .catch(err => {
+        const source = "dataHelper::getTutorialData::exerciseData::catch:err"
+        const params = { branchName, username }
+        return Promise.reject(transformError(err, source, params))
+      })
 
-    return {
+    return Promise.resolve({
       config: configData,
       content: contentData,
       exercises: exerciseData
-    }
+    })
   } catch (err) {
-    err.source = "dataHelper::getTutorialData::catch:err"
-    console.log(err)
+    log.error({ err, details: err.details }, "failed to get tutorial data from github.")
     let error
     if (err.code === 404) {
-      error = {
-        status: 404,
-        code: "ResourceNotFound",
-        message: "Uh-oh, the tutorial data could not be found."
-      }
+      error = new errors.ResourceNotFound("The tutorial data could not be found")
     } else {
-      error = {
-        status: 500,
-        code: "InternalServerError",
-        message: "Uh-oh, we were unable to retrieve the data we need due to some unknown issue."
-      }
+      error = new errors.InternalServerError(
+        "Uh-oh, we were unable to retrieve the data we need due to some unknown issue."
+      )
     }
     return Promise.reject(error)
   }
 }
 
 function getUsername() {
-  return github.users.get({}).then(result => {
-    const login = result.data.login
-    return login
-  })
+  return github.users
+    .get({})
+    .then(result => {
+      const login = result.data.login
+      return login
+    })
+    .catch(err => {
+      const source = "dataHelper::getTutorialData::getUsername::catch:err"
+      const params = {}
+      return Promise.reject(transformError(err, source, params))
+    })
 }

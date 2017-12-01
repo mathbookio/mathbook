@@ -3,24 +3,18 @@
 const _ = require("lodash")
 const github = require("../../github-client")
 const Base64 = require("js-base64").Base64
+const errors = require("../../errors")
+const transformError = require("../../transformers/errorTransformer")
 const constants = require("../../../config/constants.json")
 const branchPrefix = constants.BRANCH_PREFIX
 const basePath = constants.TUTORIALS_PATH
 const fs = require("fs")
 const repoName = constants.REPO
-module.exports = async function(subject, tutorialName) {
+module.exports = async function(subject, tutorialName, log) {
   if (!_.isString(subject) || _.isEmpty(subject)) {
-    return Promise.reject({
-      status: 400,
-      code: "BadRequest",
-      message: "subject is invalid"
-    })
+    return Promise.reject(new errors.BadRequestError("subject is invalid"))
   } else if (!_.isString(tutorialName) || _.isEmpty(tutorialName)) {
-    return Promise.reject({
-      status: 400,
-      code: "BadRequest",
-      message: "tutorialName is invalid"
-    })
+    return Promise.reject(new errors.BadRequestError("tutorialName is invalid"))
   }
   // get authenticated user
   const configPath = `${basePath}/${subject}/${tutorialName}/config.json`
@@ -36,22 +30,16 @@ module.exports = async function(subject, tutorialName) {
       exercises: exerciseData
     }
   } catch (err) {
-    err.source = "dataHelper::getLocalTutorialData::catch::err"
-    console.log(err)
+    const source = "dataHelper::getLocalTutorialData::catch::err"
+    const params = { subject, tutorialName }
+    err = transformError(err, source, params)
+    log.error({ err, details: err.details }, "failed to get local tutorial data")
     let error
     if (err.code === "ENOENT") {
-      console.log("someone requested a tutorial that is not stored locally", { subject, tutorialName })
-      error = {
-        status: 404,
-        code: "ResourceNotFound",
-        message: "the tutorial you requested does not exist."
-      }
+      log.warn("someone requested a tutorial that is not stored locally", { subject, tutorialName })
+      error = new errors.ResourceNotFound("the tutorial you requested does not exist.")
     } else {
-      error = {
-        status: 500,
-        code: "InternalServerError",
-        message: "Uh-oh something broke on our side of things."
-      }
+      error = new errors.InternalServerError("Uh-oh something broke on our side of things.")
     }
     return Promise.reject(error)
   }
