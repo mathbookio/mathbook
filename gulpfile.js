@@ -5,12 +5,24 @@ const plugins = require("gulp-load-plugins")()
 const browserSync = require("browser-sync").create()
 
 const files = {
-  allFiles: ["./src/**/*.js", "./tests/*.spec.js", "!./src/public/javascripts/*.js"],
+  allFiles: ["src/**/*.js", "tests/*.spec.js", "!src/public/javascripts/*.js"],
   testFiles: ["./tests/**/*.spec.js"],
   srcFiles: ["./src/**/*.js", "./src/**/*.pug", "./src/**/*.css"],
   srcTestFiles: ["./src/**/*.js"],
   tagFiles: ["./src/tags/**/*.tag"]
 }
+
+gulp.task("lint", () => {
+  return (
+    gulp
+      .src(files.allFiles)
+      .pipe(plugins.eslint())
+      .pipe(plugins.eslint.format())
+      // To have the process exit with an error code (1) on
+      // lint error, return the stream and pipe to failAfterError last.
+      .pipe(plugins.eslint.failAfterError())
+  )
+})
 
 gulp.task("test:config", () => {
   return (
@@ -33,18 +45,6 @@ gulp.task("test", ["test:config"], () => {
     .once("end", () => {
       process.exit()
     })
-})
-
-gulp.task("lint", function() {
-  return gulp
-    .src(files.allFiles)
-    .pipe(plugins.standard({ ignore: ["src/public", "src/public/tags"] }))
-    .pipe(
-      plugins.standard.reporter("default", {
-        breakOnError: true,
-        quiet: true
-      })
-    )
 })
 
 // we'd need a slight delay to reload browsers

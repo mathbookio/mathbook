@@ -1,15 +1,11 @@
 "use strict"
 
 const _ = require("lodash")
-const github = require("../../github-client")
-const Base64 = require("js-base64").Base64
 const errors = require("../../errors")
 const transformError = require("../../transformers/errorTransformer")
 const constants = require("../../../config/constants.json")
-const branchPrefix = constants.BRANCH_PREFIX
 const basePath = constants.TUTORIALS_PATH
 const fs = require("fs")
-const repoName = constants.REPO
 module.exports = async function(subject, tutorialName, log) {
   if (!_.isString(subject) || _.isEmpty(subject)) {
     return Promise.reject(new errors.BadRequestError("subject is invalid"))
@@ -32,8 +28,8 @@ module.exports = async function(subject, tutorialName, log) {
   } catch (err) {
     const source = "dataHelper::getLocalTutorialData::catch::err"
     const params = { subject, tutorialName }
-    err = transformError(err, source, params)
-    log.error({ err, details: err.details }, "failed to get local tutorial data")
+    const logError = transformError(err, source, params)
+    log.error({ logError, details: logError.details }, "failed to get local tutorial data")
     let error
     if (err.code === "ENOENT") {
       log.warn("someone requested a tutorial that is not stored locally", { subject, tutorialName })

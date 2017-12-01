@@ -47,7 +47,6 @@ function getUsername() {
     .get({})
     .then(result => {
       const login = result.data.login
-      console.log("login", login)
       return login
     })
     .catch(err => {

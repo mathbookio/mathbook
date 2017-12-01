@@ -11,9 +11,8 @@ const subjectRouter = require("./subject")
 const errorRouter = require("./errorRouter")
 
 const subjectMap = require("../subjectMap.json")
-console.log({ subjectMap })
 /* GET home page. */
-router.get("/", function(req, res, next) {
+router.get("/", function(req, res) {
   res.render("index", { subjects: subjectMap })
 })
 

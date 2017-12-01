@@ -17,8 +17,6 @@ const apiRouter = express.Router()
 // middleware that is specific to this router
 apiRouter.use((req, res, next) => {
   const authToken = _.get(req, "cookies.accessToken")
-  console.log("Time: ", Date.now(), "using apiRouter")
-  console.log("authToken", authToken)
   github.authenticate({
     type: "oauth",
     token: authToken
@@ -36,8 +34,7 @@ apiRouter.get("/tutorial/local/:subject/:tutorialName", getTutorialBySubject)
 apiRouter.get("/tutorial/:tutorialName", getTutorial)
 apiRouter.get("/subject/:subject", getSubjectTopics)
 
-apiRouter.use(function(req, res, next) {
-  console.log("the client requested an invalid url")
+apiRouter.use(function(req, res) {
   res.status(400).send({ code: "BadRequest", message: "the url requested does not exist" })
 })
 

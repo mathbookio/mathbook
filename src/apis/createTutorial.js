@@ -60,7 +60,7 @@ module.exports = async function(req, res) {
       log.warn("failed to create files for new tutorial. Going to roll back and delete created branch.")
       const deleteRef = `heads/${branchPrefix}/${branchName}`
       await deleteBranch(username, deleteRef)
-        .then(result => log.info("successfully completed rollback and deleted bad branch"))
+        .then(() => log.info("successfully completed rollback and deleted bad branch"))
         .catch(err => log.error({ err, details: err.details }, "failed to rollback and delete bad branch."))
     }
     log.error({ err, details: err.details }, "failed to create a tutorial")
@@ -78,7 +78,7 @@ function isTutorialNameAvailable(tutorialName) {
       repo: repoName,
       path: `${basePath}/${tutorialName}`
     })
-    .then(availResult => false) // not available
+    .then(() => false) // not available
     .catch(err => {
       if (err.code === 404) {
         return true // available
@@ -96,7 +96,7 @@ function isRepoForked(username) {
       owner: username,
       repo: repoName
     })
-    .then(repository => true) // forked
+    .then(() => true) // forked
     .catch(err => {
       if (err.code === 404) {
         return false // not forked yet
@@ -156,7 +156,7 @@ function isBranchAvailable(owner, repo, branch) {
       repo,
       branch
     })
-    .then(branchResult => false) // branch already exists
+    .then(() => false) // branch already exists
     .catch(err => {
       if (err.code === 404) {
         return true // branch doesn't exist, hence return true (available)

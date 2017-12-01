@@ -1,5 +1,4 @@
 "use strict"
-const _ = require("lodash")
 const github = require("../../github-client")
 const Base64 = require("js-base64").Base64
 const errors = require("../../errors")

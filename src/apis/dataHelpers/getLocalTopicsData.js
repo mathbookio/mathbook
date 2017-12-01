@@ -5,7 +5,6 @@ const subjectMap = require("../../subjectMap.json")
 const errors = require("../../errors")
 const transformError = require("../../transformers/errorTransformer")
 const constants = require("../../../config/constants.json")
-const branchPrefix = constants.BRANCH_PREFIX
 const basePath = constants.TUTORIALS_PATH
 const Promise = require("bluebird")
 
@@ -34,8 +33,8 @@ module.exports = async function(subject, log) {
   } catch (err) {
     const source = "dataHelper::getLocalTopicsData::catch::err"
     const params = { subject }
-    err = transformError(err, source, params)
-    log.error({ err, details: err.details }, "failed to get topics for a subject")
+    const logError = transformError(err, source, params)
+    log.error({ logError, details: logError.details }, "failed to get topics for a subject")
     const error = new errors.InternalServerError("Uh-oh, something broke on the server-side of things.")
     return Promise.reject(error)
   }
