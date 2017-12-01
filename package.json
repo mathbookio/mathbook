@@ -55,6 +55,7 @@
     "standard": "^10.0.2"
   },
   "lint-staged": {
+    "*.js": ["eslint --fix"],
     "*.{js,json,css}": ["prettier --write", "git add"]
   }
 }
