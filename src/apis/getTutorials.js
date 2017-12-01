@@ -2,18 +2,19 @@
 const _ = require("lodash")
 const github = require("../github-client")
 const Promise = require("bluebird")
+const errors = require("../errors")
+const transformError = require("../transformers/errorTransformer")
 const constants = require("../../config/constants.json")
 const branchPrefix = constants.BRANCH_PREFIX
 const repoName = constants.REPO
 const repoOwner = constants.OWNER
 module.exports = async function(req, res) {
+  const log = req.log
   try {
     // get authenticated user
     const username = await getUsername()
-    console.log({ username })
     const allBranches = await getAllBranches(username)
-    console.log("allBranches", allBranches)
-    return Promise.map(allBranches, async branch => {
+    await Promise.map(allBranches, async branch => {
       const branchName = branch.name
       if (branchName === "master") {
         return
@@ -35,16 +36,14 @@ module.exports = async function(req, res) {
       return res.send({ tutorials: validTutorials })
     })
   } catch (err) {
-    console.log("getTutorials::catch::err", err)
+    log.error({ err, details: err.details }, "failed to get tutorials for a user")
     let error
     if (err.code === 404) {
-      error = { status: 404, code: "ResourceNotFound", message: "unable to locate tutorials for the requested user." }
+      error = new errors.ResourceNotFound("unable to locate tutorials for the requested user.")
     } else {
-      error = {
-        status: 500,
-        code: "InternalServerError",
-        message: "Uh-oh, something broke on the server-side of things. Unable to fetch tutorials."
-      }
+      error = new errors.InternalServerError(
+        "Uh-oh, something broke on the server-side of things. Unable to fetch tutorials."
+      )
     }
     res.status(error.status).send(error)
   }
@@ -89,8 +88,9 @@ function getUsername() {
       return login
     })
     .catch(err => {
-      err.source = "getTutorials::getUsername"
-      return Promise.reject(err)
+      const source = "getTutorials::getUsername::catch:err"
+      const params = {}
+      return Promise.reject(transformError(err, source, params))
     })
 }
 
@@ -107,8 +107,9 @@ function getAllBranches(username) {
       if (err.code === 404) {
         return [] // the user does not have the repo forked so no branches exist.
       }
-      err.source = "getTutorials::getAllBranches"
-      return Promise.reject(err)
+      const source = "getTutorials::getAllBranches::catch:err"
+      const params = { username }
+      return Promise.reject(transformError(err, source, params))
     })
 }
 
@@ -120,8 +121,9 @@ function getBranchData(username, branchName) {
       branch: branchName
     })
     .catch(err => {
-      err.source = "getTutorials::getBranchData"
-      return Promise.reject(err)
+      const source = "getTutorials::getBranchData::catch:err"
+      const params = { username, branchName }
+      return Promise.reject(transformError(err, source, params))
     })
 }
 
@@ -135,8 +137,9 @@ function getBranchPullRequest(branch) {
     })
     .then(result => _.get(result, "data", [])[0])
     .catch(err => {
-      err.source = "getTutorials::getBranchPullRequest"
-      return Promise.reject(err)
+      const source = "getTutorials::getBranchPullRequest::catch::err"
+      const params = { branch }
+      return Promise.reject(transformError(err, source, params))
     })
 }
 
@@ -149,8 +152,9 @@ function getBranchPullRequestReviews(prNumber) {
     })
     .then(result => _.get(result, "data", []))
     .catch(err => {
-      err.source = "getTutorials::getBranchPullRequestReviews"
-      return Promise.reject(err)
+      const source = "getTutorials::getBranchPullRequestReviews::catch:err"
+      const params = { prNumber }
+      return Promise.reject(transformError(err, source, params))
     })
 }
 
