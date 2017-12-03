@@ -1,0 +1,162 @@
+extends ../contribute
+block info
+  section.section
+    .container
+      .columns
+        .column.is-two
+          aside.menu
+            p.menu-label
+              | Guide
+            ul.menu-list
+              li
+                a(href='#gettingStarted') Getting Started
+              li
+                a(href='#know') Things to Know
+              li
+                a(href='#components') Tutorial Components
+              li
+                a(href='#publishing') Publishing Tutorials
+              li
+                a(href='#start') Start building your tutorial
+        .column.is-10
+          .title.is-3 Creating a Tutorial 
+          .content
+            h3#gettingStarted Getting Started
+            p Thanks for showing interest in creating a tutorial for Mathbook. Tutorials are at the heart of everything we want to accomplish with Mathbook.
+            p To start, let's first discuss the idea behind Mathbook which in turn will help us define the purpose of our tutorials.
+            p
+              | The idea behind Mathbook is a very simple one, which is 
+              | to provide the world a free online resource to learn the 
+              strong What
+              |, 
+              strong Why
+              |, and 
+              strong How 
+              | for all things Mathematics.
+            
+            p So, we can apply this idea to our tutorials, which is to make sure that the tutorial answers the three important questions.
+              br
+              | From the perspective of the reader,
+              ul
+                li What are you trying to explain ?
+                li Why is it important ?
+                li How do I do it ?
+
+              p Please be sure that your tutorial addresses these three questions because we feel that the reader deserves to have those questions answered in every tutorial.
+
+            h3#know Things to Know
+            p In order to start building a tutorial, there are a few things you will need,
+              ul
+                li a GitHub account (you will need to 
+                  a(href="https://github.com" target="_blank") create
+                  |  one if you don't already have one)
+                li some knowledge of 
+                  a(href="https://en.wikipedia.org/wiki/TeX" target="_blank") TeX
+                li basic knowledge of HTML and CSS (for formatting purposes)
+              strong Note
+              | : If you don't know much about TeX or HTML and CSS, don't worry about it too much, you can easily learn as you start building out the tutorial.
+            p If you want to write a tutorial for a subject that is not listed in Mathbook, feel free to create an issue about it 
+              a(href="https://github.com/JetJet13/mathbook/issues" target="_blank") here
+              |  and a contributor will try their best to get it added in a timely manner.
+            p When your tutorial gets approved and added to Mathbook, you will be added as a contributor (if you aren't one already).
+            p The next section will talk about the different components that make up a tutorial.
+
+            h3#components Tutorial Components
+            p A Mathbook tutorial is composed of three components.
+            ul
+              li
+                a(href='#config') Configuration
+              li
+                a(href='#content') Content
+              li 
+                a(href='#exercises') Exercises
+            p Every tutorial follows a certain structure so that the reader can expect a certain format for each tutorial regardless of subject.
+            h5#config Configuration
+            p The configuration component contains basic information and metadata for the tutorial. In order for a tutorial to be considered complete and ready for submission, 
+              | the configuration component must be completed in full i.e.) no empty data fields.
+              br
+              | Here's the full list of required data.
+            ul
+              li 
+                strong Subject 
+                span - the subject that the tutorial belongs to
+              li 
+                strong Title 
+                span - the title of the tutorial
+              li 
+                strong Opening Statement 
+                span - an opening statement for the tutorial 
+              li 
+                strong Prerequisite Topics 
+                span - a list of pre-requisite topics that the reader should know before starting
+              li 
+                strong Exercises' Statement 
+                span - a statement regarding the set of exercises presented at the end of the tutorial
+              li 
+                strong Resources 
+                span - A list of external resources related to the topic discussed in the tutorial
+              li 
+                strong Keywords 
+                span - a list of words that relate to the topic of the tutorial
+
+            h5#cont Content
+            p The content of the tutorial is simply all the sections (the body) of the tutorial that are not a part of the configuration and exercises. Each section can contain blocks of TeX that require rendering. For example,
+            pre 
+              code
+                | &lt;p&gt; Here's an example for finding the roots of a polynomial. &lt;/p&gt;
+                | $$ \text{Find the roots for} \quad y = x^2 - 4 $$
+                | $$
+                | \begin{aligned}
+                | y &= x^2 - 4 \\
+                | y &= (x - 2)(x + 2) \\
+                | x &= \pm 2 \quad \text{$\square$}
+                | \end{aligned}
+                | $$
+            p Will render into
+            #mathSample.box
+              p Here's an example for finding the roots of a polynomial.
+                | $$ \text{Find the roots for} \quad y = x^2 - 4 $$
+                | $$
+                | \begin{aligned}
+                | y &= x^2 - 4 \\
+                | y &= (x - 2)(x + 2) \\
+                | x &= \pm 2 \quad \text{$\square$}
+                | \end{aligned}
+                | $$
+            h5#exercises Exercises
+            p The last component of a tutorial are the exercises. 
+              | At the end of each tutorial, you will need to provide some exercises (at least 3) 
+              | so that the reader can apply and practice what was explained in the tutorial. One requirement
+              | of the exercises is that they must increase in difficulty and they must be accompanied by answers.
+              | Feel free to include small hints if you think they help the reader start off on the right track.
+            p 
+              strong Note
+              | : The exercises cannot be links to an external site, they must live on the page of the tutorial.
+            h3#publishing Publishing Tutorials
+            p 
+              | Once you have provided the required configuration information, content and exercises for your tutorial, and you feel
+              | that your tutorial is complete and ready to be shipped, you can then submit the tutorial for review. 
+              | Submitting the tutorial requires you to navigate to the tutorial dashboard and hitting the send icon for the tutorial 
+              | you want to submit. It will then open a modal and you will be asked to provide a description (it's optional).
+            p  
+              | Once you submit, 
+              | the tutorial needs to be reviewed by a fellow Mathbook contributor and approved.
+              | Changes may be requested and discussed so having a github account is necessary for this process.
+            p Once your tutorial gets approved and merged, it gets added to the collection of tutorials on Mathbook and 
+              | your github account and name will be added to the contributors list.
+            p You can take a look at the tutorials currently submitted for review
+              a(href='https://github.com/JetJet13/mathbook/pulls' target="_blank")  here
+            h3#start Start building your tutorial
+            p For your convenience, here is a list of resources that we think will come in handy when you are creating your tutorial.
+              ul
+                li 
+                  a(href="https://khan.github.io/KaTeX/function-support.html" target="_blank") Katex - Function Support
+                li
+                  a(href="https://developer.mozilla.org/en-US/docs/Web/HTML" target="_blank") Mozilla Developer Network - HTML Docs
+                li
+                  a(href="https://developer.mozilla.org/en-US/docs/Web/CSS" target="_blank") Mozilla Developer Network - CSS Docs
+            p That's it! You are now equipped with the knowledge and information you need to create a tutorial, best of luck.
+            p
+              a.button.is-info(href='/sign-in') Get Started
+            script. 
+              renderMath('mathSample')

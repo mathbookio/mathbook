@@ -4,7 +4,7 @@
     <div class="control">
       <div class="select">
       <select id="subjectSelect">
-        <option value="Elementary Algebra">Elementary Algebra</option>
+        <option value="Algebra">Algebra</option>
         <option value="Calculus">Calculus</option>
         <option value="Linear Algebra">Linear Algebra</option>
         <option value="Number Theory">Number Theory</option>

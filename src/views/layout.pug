@@ -20,22 +20,23 @@ html
     script(type="text/javascript" src="/js/smoothScroll.js")
     script(type="text/javascript" src="/js/helperFunctions.js")
   body
-    nav.nav
+    nav.navbar
       .container
-        .nav-left
-          a.nav-item(href='/')
+        .navbar-brand
+          a.navbar-item(href='/')
             img(src='/images/mathbook_indigo_white_v5.png', alt='Mathbook Logo')
-        span.nav-toggle
-          span
-          span
-          span
-        .nav-right.nav-menu
-          a.nav-item(href='/')
-            | Home
-          a.nav-item(href='/contribute')
-            | Contribute
-          a.nav-item(href='/login')
-            | Login
+          span.navbar-burger
+            span
+            span
+            span
+        .navbar-menu
+          .navbar-end
+            a.navbar-item(href='/')
+              | Home
+            a.navbar-item(href='/contribute')
+              | Contribute
+            a.navbar-item(href='/login')
+              | Login
     #wrapper.my-wrapper
       block content
   .columns.is-marginless.is-hidden-touch
