@@ -188,7 +188,7 @@ function updateContributorFile(username, branch) {
     .getContent({
       owner: username,
       repo: repoName,
-      path: "contributors.md",
+      path: "CONTRIBUTORS.md",
       ref: branch
     })
     .then(contributorFile => {
@@ -202,7 +202,7 @@ function updateContributorFile(username, branch) {
       return github.repos.updateFile({
         owner: username,
         repo: repoName,
-        path: "contributors.md",
+        path: "CONTRIBUTORS.md",
         message: `added ${username} to the contributors list`,
         sha: sha,
         content: updatedContent,
