@@ -127,13 +127,13 @@
       $.get('/v1/tutorials', function (result) {
         console.log('result from /v1/tutorials', result)
         that.succeededRequest()
-        if(Array.isArray(result.tutorials) && result.tutorials.length === 0){
+        if(Array.isArray(result.data.tutorials) && result.data.tutorials.length === 0){
           that.noTutorialsFound = true
         }
         else{
           that.noTutorialsFound = false
         }
-        that.tutorials = result.tutorials
+        that.tutorials = result.data.tutorials
 
         that.update()
       })
@@ -141,6 +141,7 @@
         const error = res.responseJSON
         console.error('something broke while getting tutorials', error)
         that.failedRequest(error.message)
+        handleError(error)
         that.update()
       })
     })

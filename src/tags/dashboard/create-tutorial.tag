@@ -106,7 +106,7 @@
       .fail(function(error) {
         console.log(error)
         let message = ''
-        if (error.status === 401){
+        if (error.status === 409){
           console.log('the name of tutorial you entered is unavailable.')
           message = 'The tutorial name is already in use. Please create a different name.'
         }
@@ -114,6 +114,7 @@
           message = 'Uh-oh something broke on the server side. Please try again.'
         }
         that.createTutorialFailed(message)
+        handleError(error)
         that.update()
       })
     }

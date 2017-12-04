@@ -22,11 +22,11 @@ class InternalServerError extends ResponseError {
   }
 }
 
-class ResourceUnavailable extends ResponseError {
-  constructor(message = "the name is not available for use") {
+class ConflictError extends ResponseError {
+  constructor(message = "Unable to complete your request due to some conflict with an existing resource") {
     super(message)
-    this.code = "ResourceUnavailableError"
-    this.status = 401
+    this.code = "ConflictError"
+    this.status = 409
   }
 }
 
@@ -38,9 +38,18 @@ class BadRequestError extends ResponseError {
   }
 }
 
+class UnauthorizedError extends ResponseError {
+  constructor(message = "you are unauthorized to access this resource") {
+    super(message)
+    this.code = "UnauthorizedError"
+    this.status = 401
+  }
+}
+
 module.exports = {
   ResourceNotFound,
   InternalServerError,
-  ResourceUnavailable,
-  BadRequestError
+  ConflictError,
+  BadRequestError,
+  UnauthorizedError
 }

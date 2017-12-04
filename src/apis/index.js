@@ -1,6 +1,7 @@
 "use strict"
 
 const github = require("../github-client")
+const errors = require("../errors")
 const _ = require("lodash")
 const createTutorial = require("./createTutorial")
 const deleteTutorial = require("./deleteTutorial")
@@ -12,16 +13,38 @@ const getTutorialByUsername = require("./getTutorialByUsername")
 const getTutorialBySubject = require("./getTutorialBySubject")
 const getSubjectTopics = require("./getSubjectTopics")
 const express = require("express")
+const redisClient = require("../redis-client")
 const apiRouter = express.Router()
 
 // middleware that is specific to this router
-apiRouter.use((req, res, next) => {
-  const authToken = _.get(req, "cookies.accessToken")
-  github.authenticate({
-    type: "oauth",
-    token: authToken
-  })
-  next()
+apiRouter.use(async (req, res, next) => {
+  const hashToken = _.get(req, "cookies.hashToken")
+  if (hashToken && _.isString(hashToken)) {
+    const storedData = await redisClient.getAsync(hashToken).then(result => {
+      if (result) {
+        return JSON.parse(result)
+      }
+      return null
+    })
+    const authToken = _.get(storedData, "authToken", null)
+    const expiresOn = _.get(storedData, "expiresOn", null)
+    if (authToken) {
+      github.authenticate({
+        type: "oauth",
+        token: authToken
+      })
+      _.set(req, "expiresOn", expiresOn)
+      next()
+    } else {
+      const error = new errors.UnauthorizedError("you are unauthorized to access this resource")
+      res.status(error.status).send(error)
+      return
+    }
+  } else {
+    const error = new errors.UnauthorizedError("you are unauthorized to access this resource")
+    res.status(error.status).send(error)
+    return
+  }
 })
 
 apiRouter.post("/create", createTutorial)
@@ -35,7 +58,8 @@ apiRouter.get("/tutorial/:tutorialName", getTutorial)
 apiRouter.get("/subject/:subject", getSubjectTopics)
 
 apiRouter.use(function(req, res) {
-  res.status(400).send({ code: "BadRequest", message: "the url requested does not exist" })
+  const badRequest = new errors.BadRequestError("the url requested does not exist")
+  res.status(badRequest.status).send(badRequest)
 })
 
 module.exports = apiRouter

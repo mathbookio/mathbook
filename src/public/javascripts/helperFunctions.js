@@ -7,8 +7,12 @@ function handleError(err) {
     case 404:
       redirectTo404()
       break
-    default:
+    case 401:
+      redirectToLogin()
+      break
+    case 500:
       redirectTo500()
+    default:
       break
   }
 }
@@ -21,8 +25,25 @@ function redirectTo500() {
   window.location.href = "/error/500"
 }
 
+function redirectToLogin() {
+  window.location.href = "/login"
+}
+
 function renderMath(id) {
   try {
     renderMathInElement(document.getElementById(id))
   } catch (err) {}
+}
+
+function openNavMenu() {
+  const navbarBurger = $(".navbar-burger")
+  const navbarMenu = $(".navbar-menu")
+  if (navbarBurger.hasClass("is-active")) {
+    // return to initial state
+    navbarBurger.removeClass("is-active")
+    navbarMenu.removeClass("is-active")
+    return
+  }
+  navbarBurger.addClass("is-active")
+  navbarMenu.addClass("is-active")
 }

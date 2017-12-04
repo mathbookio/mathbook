@@ -19,7 +19,7 @@ module.exports = async function(req, res) {
   try {
     const isNameAvailable = await isTutorialNameAvailable(branchName)
     if (!isNameAvailable) {
-      const error = new errors.ResourceUnavailable(
+      const error = new errors.ConflictError(
         "Tutorial name chosen is already in use. Please create a new tutorial name."
       )
       res.status(error.status).send(error)
@@ -43,9 +43,7 @@ module.exports = async function(req, res) {
       await createBranch(username, ref, referenceSHA)
     } else {
       // branch name is taken
-      const error = new errors.ResourceUnavailable(
-        "branch name chosen is already in use. Please select a new branch name."
-      )
+      const error = new errors.ConflictError("branch name chosen is already in use. Please select a new branch name.")
       res.status(error.status).send(error)
       return
     }
@@ -188,7 +186,7 @@ function updateContributorFile(username, branch) {
     .getContent({
       owner: username,
       repo: repoName,
-      path: "CONTRIBUTORS.md",
+      path: "contributors.md",
       ref: branch
     })
     .then(contributorFile => {
@@ -202,7 +200,7 @@ function updateContributorFile(username, branch) {
       return github.repos.updateFile({
         owner: username,
         repo: repoName,
-        path: "CONTRIBUTORS.md",
+        path: "contributors.md",
         message: `added ${username} to the contributors list`,
         sha: sha,
         content: updatedContent,

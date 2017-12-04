@@ -25,7 +25,7 @@ html
         .navbar-brand
           a.navbar-item(href='/')
             img(src='/images/mathbook_indigo_white_v5.png', alt='Mathbook Logo')
-          span.navbar-burger
+          span.navbar-burger(onclick="openNavMenu()")
             span
             span
             span
@@ -37,6 +37,8 @@ html
               | Contribute
             a.navbar-item(href='/login')
               | Login
+            if loggedIn
+              span.navbar-item #{username} momo
     #wrapper.my-wrapper
       block content
   .columns.is-marginless.is-hidden-touch

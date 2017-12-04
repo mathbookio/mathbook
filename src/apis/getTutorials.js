@@ -33,7 +33,7 @@ module.exports = async function(req, res) {
       }
     }).then(tutorials => {
       const validTutorials = tutorials.filter(tutorial => tutorial !== undefined)
-      return res.send({ tutorials: validTutorials })
+      return res.send({ data: { tutorials: validTutorials }, metadata: { expiresOn: req["expiresOn"] } })
     })
   } catch (err) {
     log.error({ err, details: err.details }, "failed to get tutorials for a user")

@@ -28,8 +28,10 @@
     "morgan": "~1.8.1",
     "pug": "~2.0.0-beta11",
     "query-string": "^5.0.0",
+    "redis": "^2.8.0",
     "riot": "^3.6.2",
     "serve-favicon": "~2.4.2",
+    "sha256": "^0.2.0",
     "sortablejs": "^1.6.1",
     "update": "^0.7.4"
   },

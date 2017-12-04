@@ -10,6 +10,7 @@
     }
   </style>
   <loading-spinner loading-flag={ isLoading } text={ loadingText }></loading-spinner>
+  <session-modal observable={ sessionObservable }></session-modal>
   <section class="section" hide={ isLoading }>
     <div class="tabs is-centered is-boxed">
       <ul>
@@ -68,28 +69,74 @@
     var that = this
     this.loadingText = 'Retrieving last saved state. Hang on.'
     this.isLoading = true
-
+    this.sessionObservable = riot.observable()
+    this.sessionExpiry = 0
+    this.sessionExpiryTimer
     this.tutorialName = this.opts.tutorialName || ''
     this.currentTime = ''
     this.showedPreviewConfirmation = false
     this.isSavingTutorial = false
     this.saveTutorialSuccess = false
     this.saveTutorialFailed = false
+
     this.on('mount', function () {
+      this.initLeavePrompt()
       this.pickConfiguration();
       const url = '/v1/tutorial/' + this.tutorialName
-      $.get(url, function(data) {
-        console.log('getTutorialData data', data)
-        that.tags.configuration.set(data.config),
-        that.tags.content.set(data.content),
-        that.tags.exercises.set(data.exercises)
+      $.get(url, function(result) {
+        console.log('getTutorialData data', result)
+        that.tags.configuration.set(result.data.config),
+        that.tags.content.set(result.data.content),
+        that.tags.exercises.set(result.data.exercises)
         that.isLoading = false
+        that.sessionExpiry = result.metadata.expiresOn
+        that.initSessionExpiryTimer()
         that.update()
       })
-      .fail(function (error){
+      .fail(function (res){
+        const error = res.responseJSON
         handleError(error)
       })
+
+      this.sessionObservable.on('saveTutorial', function(){
+        that.saveState(function(err, result) {
+            if (err){
+              that.sessionObservable.trigger('saveFailed')
+            }
+            else{
+              that.sessionObservable.trigger('saveSuccess')
+            }
+            that.update()
+        })
+      })
+
     })
+
+    initLeavePrompt(){
+      $(window).bind('beforeunload', function(){
+        return 'Please make sure you save your changes before navigating away from this page.';
+      });
+    }
+
+    initSessionExpiryTimer(){
+      const triggerTime = 300 //seconds 
+      var currentTime = moment.utc().unix()
+      this.sessionExpiryTimer = setInterval(function() {
+        const timeRemaining = that.sessionExpiry - currentTime
+        console.log("timeRemaining", timeRemaining, "currentTime", currentTime, "sessionExpiry", that.sessionExpiry)
+        if (timeRemaining <= triggerTime){
+          that.sessionObservable.trigger('sessionExpiringSoon', timeRemaining)
+          that.killSessionExpiryTimer()
+        }
+        currentTime += 1
+
+      }, 1000)
+    }
+
+    killSessionExpiryTimer(){
+      clearInterval(this.sessionExpiryTimer)
+    }
+
     pickConfiguration() {
       $("#configTab").addClass("is-active")
       $("#contentTab").removeClass("is-active")
@@ -159,17 +206,18 @@
           if (callback){
             callback(null, { status: 200 })
           }
-        },
-        error: function (xhr, textStatus, errorThrown) {
+        }
+        })
+        .fail(function (res){
           that.isSavingTutorial = false
           that.saveTutorialSuccess = false
           that.saveTutorialFailed = true
           that.update()
-          console.log(errorThrown)
+          const error = res.responseJSON
+          console.log(error)
           if (callback){
-            callback(errorThrown, null)
+            callback(error, null)
           }
-        }
       })
     }
   </script>
