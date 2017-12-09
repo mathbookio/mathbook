@@ -3,7 +3,7 @@
 const _ = require("lodash")
 const errors = require("../../errors")
 const transformError = require("../../transformers/errorTransformer")
-const constants = require("../../../config/constants.json")
+const constants = require("../../../../config/constants.json")
 const basePath = constants.TUTORIALS_PATH
 const fs = require("fs")
 module.exports = async function(subject, tutorialName, log) {

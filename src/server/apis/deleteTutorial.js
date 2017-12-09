@@ -3,7 +3,7 @@ const _ = require("lodash")
 const github = require("../github-client")
 const transformError = require("../transformers/errorTransformer")
 const errors = require("../errors")
-const constants = require("../../config/constants.json")
+const constants = require("../../../config/constants.json")
 const repoName = constants.REPO
 const branchPrefix = constants.BRANCH_PREFIX
 

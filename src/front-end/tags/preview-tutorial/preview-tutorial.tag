@@ -26,23 +26,24 @@
       const url = '/v1/tutorial/' + this.tutorialName
       $.get(url, function (result) {
         console.log('getTutorialData result', result)
-        result.config['table-contents'] = []
-        for (var section of result.content){
+        const data = result.data
+        data.config['table-contents'] = []
+        for (var section of data.content){
           const sectionTitle = section['title']
           const fragment = '#' + that.toSnakeCase(sectionTitle)
-          result.config['table-contents'].push({ title: sectionTitle, fragment: fragment })
+          data.config['table-contents'].push({ title: sectionTitle, fragment: fragment })
         }
-        result.config['table-contents'].push({
+        data.config['table-contents'].push({
           title: 'Exercises',
           fragment: '#exercises'
         })
-        result.config['table-contents'].push({
+        data.config['table-contents'].push({
           title: 'Resources',
           fragment: '#resources'
         })
-        that.formatConfig(result.config),
-        that.formatContent(result.content),
-        that.formatExercises(result.exercises, result.config.exerciseStatement)
+        that.formatConfig(data.config),
+        that.formatContent(data.content),
+        that.formatExercises(data.exercises, data.config.exerciseStatement)
         that.update()
         renderMathInElement(document.body)
         that.isLoading = false

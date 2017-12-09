@@ -6,6 +6,7 @@ const githubOAuth = require("../github-oauth")
 const sha256 = require("sha256")
 const redisClient = require("../redis-client")
 const moment = require("moment")
+const constants = require("../../../config/constants.json")
 
 router.get("/", (req, res) => {
   res.render("login")
@@ -22,15 +23,19 @@ router.get("/success", async (req, res) => {
       return
     }
     const accessToken = _.get(result, "access_token")
-    // expiresOn is in seconds
-    const expiresOn = moment.utc().unix() + 86400
-    if (accessToken) {
-      const hash = sha256(accessToken)
-      redisClient.setAsync(hash, JSON.stringify({ authToken: accessToken, expiresOn }), "EX", 86400)
-      res.cookie("hashToken", hash)
-    }
+    setupSession(res, accessToken)
     res.render("dashboard")
   })
 })
+
+function setupSession(res, accessToken) {
+  const sessionTimeLimit = constants.SESSION_TIME_LIMIT
+  const expiresOn = moment.utc().unix() + sessionTimeLimit // expiresOn is in seconds
+  if (accessToken) {
+    const hash = sha256(accessToken)
+    redisClient.setAsync(hash, JSON.stringify({ authToken: accessToken, expiresOn }), "EX", sessionTimeLimit)
+    res.cookie("hashToken", hash)
+  }
+}
 
 module.exports = router

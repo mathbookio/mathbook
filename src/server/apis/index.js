@@ -16,7 +16,11 @@ const express = require("express")
 const redisClient = require("../redis-client")
 const apiRouter = express.Router()
 
-// middleware that is specific to this router
+// these requests don't need authentication.
+apiRouter.get("/tutorial/local/:subject/:tutorialName", getTutorialBySubject)
+apiRouter.get("/subject/:subject", getSubjectTopics)
+
+// middleware that checks to see if the user is authenticated.
 apiRouter.use(async (req, res, next) => {
   const hashToken = _.get(req, "cookies.hashToken")
   if (hashToken && _.isString(hashToken)) {
@@ -53,9 +57,7 @@ apiRouter.put("/save/tutorial", saveTutorial)
 apiRouter.delete("/remove/tutorial", deleteTutorial)
 apiRouter.get("/tutorials", getTutorials)
 apiRouter.get("/tutorial/:user/:tutorialName", getTutorialByUsername)
-apiRouter.get("/tutorial/local/:subject/:tutorialName", getTutorialBySubject)
 apiRouter.get("/tutorial/:tutorialName", getTutorial)
-apiRouter.get("/subject/:subject", getSubjectTopics)
 
 apiRouter.use(function(req, res) {
   const badRequest = new errors.BadRequestError("the url requested does not exist")

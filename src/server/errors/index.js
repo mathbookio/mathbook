@@ -46,10 +46,20 @@ class UnauthorizedError extends ResponseError {
   }
 }
 
+class DbError {
+  constructor(err) {
+    this.message = err.message
+    this.code = `DbError::${err.code}`
+    this.stack = err.stack
+    this.name = err.name
+  }
+}
+
 module.exports = {
   ResourceNotFound,
   InternalServerError,
   ConflictError,
   BadRequestError,
-  UnauthorizedError
+  UnauthorizedError,
+  DbError
 }

@@ -4,7 +4,7 @@ const fs = require("fs")
 const subjectMap = require("../../subjectMap.json")
 const errors = require("../../errors")
 const transformError = require("../../transformers/errorTransformer")
-const constants = require("../../../config/constants.json")
+const constants = require("../../../../config/constants.json")
 const basePath = constants.TUTORIALS_PATH
 const Promise = require("bluebird")
 

@@ -1,6 +1,6 @@
 "use strict"
-const CLIENT_ID = require("../config/local.json").clientId
-const CLIENT_SECRET = require("../config/local.json").clientSecret
+const CLIENT_ID = require("../../config/local.json").clientId
+const CLIENT_SECRET = require("../../config/local.json").clientSecret
 const githubOAuth = require("github-oauth")({
   githubClient: CLIENT_ID,
   githubSecret: CLIENT_SECRET,

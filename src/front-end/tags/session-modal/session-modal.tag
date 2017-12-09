@@ -8,12 +8,15 @@
           <section class="modal-card-body">
             <div class="content">
               <p hide={ sessionExpired }>
-                Hey, your session will expire in <strong>{ timeRemaining }</strong>. Currently, all sessions expire after 24 hours. 
-                Please save your changes and for peace of mind, log back in.
+                Hey there,
+                <br/>
+                Your session will expire in <strong>{ timeRemaining }</strong>. Currently, all sessions expire after 24 hours. 
+                Please save your changes and log back in to continue working on your tutorial.
               </p>
               <p show={ sessionExpired }>
-                Your Session has now expired.
+                Your Session has now expired. You are no longer able to save your changes. 
                 <span class="icon"><i class="fa fa-frown-o"></i></span>
+                <br/>
                 <a href="/login">Click here to visit the Login page.</a>
               </p>
               <p show={ savingComplete }>
@@ -35,7 +38,6 @@
     </div>
   <script>
     var that = this
-    console.log("session-modal opts", this.opts)
     this.observable = this.opts.observable
     this.showCreateTutorialModal = false
     this.isSaving = false
@@ -45,7 +47,6 @@
     this.sessionExpired = false
 
     this.on('mount', function(){
-       $(window).unbind('beforeunload')
       this.observable.one('sessionExpiringSoon', function(expireTime){
         that.open(expireTime)
         that.update()
@@ -77,13 +78,18 @@
     })
 
     open(expireTime){
-      console.log("expire time", expireTime)
+      // we don't want to show the popup that prevents the user from accidentally leaving the page. 
+      // the session modal will need to redirect if the user decides to save and log back in.
+      $(window).unbind('beforeunload')
       this.timeRemaining = this.formatExpireTime(expireTime)
       this.initCountdown(expireTime)
       this.showSessionModal = true
     }
 
     close(){
+      $(window).bind('beforeunload', function(){
+        return 'Please make sure you save your changes before navigating away from this page.';
+      })
       this.showSessionModal = false
       this.killCountdown()
     }
@@ -103,7 +109,6 @@
           that.update()
           return
         }
-        console.log("TIME REMAINING", that.timeRemaining)
         expireTime -= 1
         that.update()
       }, 1000)
