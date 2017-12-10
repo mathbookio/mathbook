@@ -54,6 +54,12 @@ const getConfiguration = () => {
       }
     },
     bin: {
+      protocol: {
+        doc: "The protocol to open a connection",
+        format: ["http", "https"],
+        default: "https",
+        env: "PROTOCOL"
+      },
       host: {
         doc: "The IP address to bind.",
         format: "ipaddress",

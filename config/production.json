@@ -1,6 +1,7 @@
 {
   "bin": {
-    "host": "192.168.2.22",
+    "protocol": "http",
+    "host": "127.0.0.1",
     "port": 4000
   },
   "redis": {

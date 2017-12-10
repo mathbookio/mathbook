@@ -54,8 +54,8 @@ redisClient.on("error", function(err) {
 redisClient.on("ready", function() {
   log.info("Redis is now ready and operational.")
 })
-redisClient.on("connect", function(msg) {
-  log.info("Redis stream is now connected to the server.", msg)
+redisClient.on("connect", function() {
+  log.info("Redis stream is now connected to the server.")
 })
 redisClient.on("reconnecting", function() {
   log.warn("Redis is attempting to reconnect, please standby.")
