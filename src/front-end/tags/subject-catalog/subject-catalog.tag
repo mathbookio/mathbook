@@ -50,8 +50,9 @@
       $.get(url, function(result){
         console.log('got a result from url', url)
         console.log(result)
-        that.topics = result.topics
-        that.subjectData = result.subjectData
+        const data = result.data
+        that.topics = data.topics
+        that.subjectData = data.subjectData
         that.update()
       })
       .fail(function (error) {

@@ -35,10 +35,18 @@ html
               | Home
             a.navbar-item(href='/contribute')
               | Contribute
-            a.navbar-item(href='/login')
-              | Login
-            if loggedIn
-              span.navbar-item #{username} momo
+            if authenticated
+              div#navbarDropdown.navbar-item.has-dropdown(onclick="toggleDropdownMenu()")
+                a.navbar-link
+                  | Logged In as #{username}
+                .navbar-dropdown
+                  a.navbar-item(href='/dashboard')
+                    | Dashboard
+                  a.navbar-item(href='/logout')
+                    | Logout
+            else
+              a.navbar-item(href='/login')
+                | Login
     #wrapper.my-wrapper
       block content
   .columns.is-marginless.is-hidden-touch

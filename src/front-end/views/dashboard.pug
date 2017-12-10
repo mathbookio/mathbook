@@ -1,9 +1,10 @@
 extends ./layout
 
 block content
-  section.section
-    .container
-      h3.title Welcome to the Tutorial Dashboard
+  section.hero.is-info
+    .hero-body.has-text-centered
+      h2.title Tutorial Dashboard
+      h5.subtitle Welcome #{username}
   dashboard
   script(type="text/javascript" src="/js/all.js")
   script(type="text/javascript" src="/js/riotInit.js")

@@ -47,3 +47,13 @@ function openNavMenu() {
   navbarBurger.addClass("is-active")
   navbarMenu.addClass("is-active")
 }
+
+function toggleDropdownMenu() {
+  const navbarDropdown = $("#navbarDropdown")
+  if (navbarDropdown.hasClass("is-active")) {
+    // return to initial state
+    navbarDropdown.removeClass("is-active")
+    return
+  }
+  navbarDropdown.addClass("is-active")
+}

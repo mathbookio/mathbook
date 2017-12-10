@@ -5,11 +5,11 @@ const plugins = require("gulp-load-plugins")()
 const browserSync = require("browser-sync").create()
 
 const files = {
-  allFiles: ["src/**/*.js", "tests/*.spec.js", "!src/public/javascripts/*.js"],
+  allFiles: ["src/server/**/*.js", "tests/*.spec.js", "!src/front-end/public/javascripts/*.js"],
   testFiles: ["./tests/**/*.spec.js"],
-  srcFiles: ["./src/**/*.js", "./src/**/*.pug", "./src/**/*.css"],
-  srcTestFiles: ["./src/**/*.js"],
-  tagFiles: ["./src/tags/**/*.tag"]
+  srcFiles: ["./src/server/**/*.js", "./src/server/**/*.pug", "./src/server/**/*.css"],
+  srcTestFiles: ["./src/server/**/*.js"],
+  tagFiles: ["./src/front-end/tags/**/*.tag"]
 }
 
 gulp.task("lint", () => {
@@ -80,7 +80,7 @@ gulp.task("riot", function() {
     .src(files.tagFiles)
     .pipe(plugins.riot())
     .pipe(plugins.concat("all.js"))
-    .pipe(gulp.dest("./src/public/javascripts"))
+    .pipe(gulp.dest("./src/front-end/public/javascripts"))
   // .pipe(gulp.dest('./src/public/tags'))
 })
 

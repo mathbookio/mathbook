@@ -3,6 +3,7 @@
 const express = require("express")
 const path = require("path")
 const bunyanRequest = require("bunyan-request")
+const authenticationMiddleware = require("./middleware/authentication")
 // const favicon = require('serve-favicon')
 const logger = require("./logger")
 const requestLogger = bunyanRequest({
@@ -12,7 +13,7 @@ const requestLogger = bunyanRequest({
 const cookieParser = require("cookie-parser")
 const bodyParser = require("body-parser")
 
-const router = require("./routes/index")
+const viewRouter = require("./routes/index")
 const app = express()
 
 const apis = require("./apis")
@@ -26,6 +27,7 @@ app.use(requestLogger)
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser())
+app.use(authenticationMiddleware())
 
 app.use("/js", express.static(path.join(__dirname, "..", "front-end/public/javascripts")))
 app.use("/stylesheets", express.static(path.join(__dirname, "..", "front-end/public/stylesheets")))
@@ -42,16 +44,30 @@ app.use("/riot", express.static(path.resolve(__dirname, "..", "..", "node_module
 app.use("/katex", express.static(path.resolve(__dirname, "..", "..", "node_modules/katex/dist")))
 
 app.use("/v1", apis)
-app.use("/tutorial", router.viewTutorialRouter)
-app.use("/subject", router.subjectRouter)
-app.use("/contribute", router.contributeRouter)
-app.use("/editor", router.editorRouter)
-app.use("/login", router.authRouter)
-app.use("/dashboard", router.dashboardRouter)
-app.use("/preview", router.previewRouter)
-app.use("/review", router.reviewRouter)
-app.use("/error", router.errorRouter)
-app.use("/", router.router)
+app.get("/tutorial/:subject/:tutorialName", viewRouter.viewTutorial)
+app.get("/subject/:subject", viewRouter.getSubject)
+app.get("/editor/:tutorialName", viewRouter.viewEditor)
+app.get("/dashboard", viewRouter.viewDashboard)
+app.get("/preview/:tutorialName", viewRouter.viewPreview)
+app.get("/review/:user/:tutorialName", viewRouter.reviewTutorial)
+app.get("/error/500", viewRouter.viewError)
+app.use("/contribute", viewRouter.contributeRouter)
+app.use("/login", viewRouter.authRouter)
+app.use("/logout", viewRouter.logout)
+
+/* GET home page. */
+app.get("/", viewRouter.homePage)
+
+app.use(function(req, res, next) {
+  const view = req.locals.view
+  const data = req.locals.data
+  if (view) {
+    res.render(view, data)
+    return
+  }
+  next()
+})
+
 // catch 404 and forward to error handler
 app.use(function(req, res) {
   const err = new Error("Not Found")

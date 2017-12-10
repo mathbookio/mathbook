@@ -1,11 +1,9 @@
 "use strict"
-const express = require("express")
-const router = express.Router()
+const _ = require("lodash")
 
 // define the home page route
-router.get("/:tutorialName", function(req, res) {
-  const tutorialName = req.params.tutorialName
-  res.render("editor", { tutorialName })
-})
-
-module.exports = router
+module.exports = function(req, res, next) {
+  _.set(req, "locals.data.tutorialName", req.params.tutorialName)
+  _.set(req, "locals.view", "editor")
+  next()
+}

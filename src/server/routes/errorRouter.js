@@ -1,9 +1,7 @@
 "use strict"
-const express = require("express")
-const router = express.Router()
+const _ = require("lodash")
 
-router.get("/500", (req, res) => {
-  res.render("500")
-})
-
-module.exports = router
+module.exports = (req, res, next) => {
+  _.set(req, "locals.view", "500")
+  next()
+}

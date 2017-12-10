@@ -1,10 +1,8 @@
 "use strict"
-const express = require("express")
-const router = express.Router()
+const _ = require("lodash")
 
 // define the home page route
-router.get("/", function(req, res) {
-  res.render("dashboard")
-})
-
-module.exports = router
+module.exports = function(req, res, next) {
+  _.set(req, "locals.view", "dashboard")
+  next()
+}

@@ -118,6 +118,10 @@
       });
     }
 
+    disableLeavePrompt(){
+      $(window).unbind('beforeunload')
+    }
+
     initSessionExpiryTimer(){
       const triggerTime = 300 //seconds 
       var currentTime = moment.utc().unix()
@@ -171,6 +175,8 @@
           }
           return
         }
+        that.disableLeavePrompt()
+        that.update()
         window.location.href = '/preview/' + that.tutorialName
         
       })

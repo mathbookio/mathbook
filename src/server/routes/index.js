@@ -1,30 +1,31 @@
-const express = require("express")
-const router = express.Router()
+"use strict"
+const _ = require("lodash")
 const contributeRouter = require("./contribute")
-const editorRouter = require("./editor")
+const viewEditor = require("./editor")
 const authRouter = require("./authenticate")
-const previewRouter = require("./preview")
-const reviewRouter = require("./review")
-const dashboardRouter = require("./dashboard")
-const viewTutorialRouter = require("./viewTutorial")
-const subjectRouter = require("./subject")
-const errorRouter = require("./errorRouter")
-
+const viewPreview = require("./preview")
+const reviewTutorial = require("./review")
+const viewDashboard = require("./dashboard")
+const viewTutorial = require("./viewTutorial")
+const getSubject = require("./subject")
+const viewError = require("./errorRouter")
 const subjectMap = require("../subjectMap.json")
-/* GET home page. */
-router.get("/", function(req, res) {
-  res.render("index", { data: JSON.stringify(subjectMap) })
-})
+const logout = require("./logout")
 
 module.exports = {
-  router,
+  homePage: function(req, res, next) {
+    _.set(req, "locals.data.subjectMap", JSON.stringify(subjectMap))
+    _.set(req, "locals.view", "index")
+    next()
+  },
   contributeRouter,
-  editorRouter,
+  viewEditor,
   authRouter,
-  dashboardRouter,
-  previewRouter,
-  reviewRouter,
-  viewTutorialRouter,
-  subjectRouter,
-  errorRouter
+  viewPreview,
+  reviewTutorial,
+  viewDashboard,
+  viewTutorial,
+  getSubject,
+  viewError,
+  logout
 }

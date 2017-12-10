@@ -1,10 +1,9 @@
 "use strict"
 
-const express = require("express")
-const router = express.Router()
+const _ = require("lodash")
 
-router.get("/:tutorialName", (req, res) => {
-  res.render("preview-tutorial", { tutorialName: req.params.tutorialName })
-})
-
-module.exports = router
+module.exports = (req, res, next) => {
+  _.set(req, "locals.data.tutorialName", req.params.tutorialName)
+  _.set(req, "locals.view", "preview-tutorial")
+  next()
+}
