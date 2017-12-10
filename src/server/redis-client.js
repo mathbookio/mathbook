@@ -8,10 +8,10 @@ const log = require("./logger")
 Promise.promisifyAll(redis.RedisClient.prototype)
 Promise.promisifyAll(redis.Multi.prototype)
 
-const config = require("../../config/local.json")
-const redisHost = config["redisHost"]
-const redisPort = config["redisPort"]
-const redisPassword = config["redisPassword"]
+const config = require("../../config/config")()
+const redisHost = config.get("redis.host")
+const redisPort = config.get("redis.port")
+const redisPassword = config.get("redis.password")
 const redisClient = redis.createClient({
   host: redisHost,
   port: redisPort,
@@ -54,8 +54,8 @@ redisClient.on("error", function(err) {
 redisClient.on("ready", function() {
   log.info("Redis is now ready and operational.")
 })
-redisClient.on("connect", function(msg) {
-  log.info("Redis stream is now connected to the server.", msg)
+redisClient.on("connect", function() {
+  log.info("Redis stream is now connected to the server.")
 })
 redisClient.on("reconnecting", function() {
   log.warn("Redis is attempting to reconnect, please standby.")
