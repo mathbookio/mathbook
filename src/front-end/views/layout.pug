@@ -19,7 +19,7 @@ html
     script(type="text/javascript" src="/js/showAnswer.js")
     script(type="text/javascript" src="/js/smoothScroll.js")
     script(type="text/javascript" src="/js/helperFunctions.js")
-  body
+  body(style="height:100%;min-height:100%;")
     nav.navbar
       .container
         .navbar-brand
@@ -49,21 +49,25 @@ html
                 | Login
     #wrapper.my-wrapper
       block content
-  .columns.is-marginless.is-hidden-touch
-    .column.my-spacer.my-purple-bg
-    .column.my-spacer.my-primary-bg
-    .column.my-spacer.my-blue-bg
-    .column.my-spacer.my-red-bg
-    .column.my-spacer.my-orange-bg
-  footer.footer.my-footer-color
-    .container
-      .content.has-text-centered
-        p.my-footer-text
-          strong.my-footer-text Mathbook
-          |  was created by Johny Georges
-          a.icon.my-footer-text(target='_blank', href='https://github.com/jetjet13')
-            i.fa.fa-github
-        p.my-footer-text
-          a(target='_blank', href='https://github.com/jetjet13/mathbook/licence.md') &lt;LICENCE&gt; 
-          | &amp; 
-          a(target='_blank', href='https://github.com/jetjet13/mathbook') Open Source
+    .columns.is-marginless.is-hidden-touch
+      .column.my-spacer.my-purple-bg
+      .column.my-spacer.my-primary-bg
+      .column.my-spacer.my-blue-bg
+      .column.my-spacer.my-red-bg
+      .column.my-spacer.my-orange-bg
+    footer.footer.my-footer-color
+      .container
+        .content.has-text-centered
+          p.my-footer-text
+            a.my-footer-text(target='_blank', href='https://github.com/jetjet13/mathbook')
+              strong Mathbook
+            |  was created by Johny Georges
+            a.icon.my-footer-text(target='_blank', href='https://github.com/jetjet13')
+              i.fa.fa-github
+          p.my-footer-text
+            | Licensed under 
+            a.my-footer-text(target='_blank', href='https://github.com/jetjet13/mathbook/LICENSE') 
+              strong Mozilla Public License 2.0 
+            a(target="_blank" href="https://opensource.org/")
+              span.icon.is-small
+                image(src="/images/osi_symbol.png")
