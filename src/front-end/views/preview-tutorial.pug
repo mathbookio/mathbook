@@ -1,0 +1,13 @@
+extends ./layout
+
+block content
+  preview-tutorial
+  section.section
+    .container
+      .content.is-pulled-right
+        a.button.is-info(href="/editor/"+tutorialName) Return to Editor
+        <span> </span>
+        a.button(href="/dashboard") Return to Dashboard
+  script(type="text/javascript" src="/js/all.js")
+  script(type="text/javascript" src="/js/riotInit.js")
+      

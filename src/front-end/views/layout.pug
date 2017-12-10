@@ -1,0 +1,73 @@
+doctype html
+html
+  head
+    title Mathbook
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    link(href="https://fonts.googleapis.com/css?family=Merriweather|Roboto+Slab" rel="stylesheet")
+    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css')
+    link(rel='stylesheet', href='/bulma/bulma.css')
+    link(rel='stylesheet', href='/katex/katex.min.css')
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='/stylesheets/layout.css')
+    link(rel='stylesheet', href='/stylesheets/components/topic-box.css')
+    script(type="text/javascript" src="/moment/moment.js")
+    script(type="text/javascript" src="/sortable/Sortable.min.js")
+    script(type="text/javascript" src="/katex/katex.min.js")
+    script(type="text/javascript" src="/katex/contrib/auto-render.min.js")
+    script(type="text/javascript" src="/jquery/dist/jquery.min.js")
+    script(type="text/javascript" src="/riot/riot.min.js")
+    script(type="text/javascript" src="/js/showAnswer.js")
+    script(type="text/javascript" src="/js/smoothScroll.js")
+    script(type="text/javascript" src="/js/helperFunctions.js")
+  body(style="height:100%;min-height:100%;")
+    nav.navbar
+      .container
+        .navbar-brand
+          a.navbar-item(href='/')
+            img(src='/images/mathbook_indigo_white_v5.png', alt='Mathbook Logo')
+          span.navbar-burger(onclick="openNavMenu()")
+            span
+            span
+            span
+        .navbar-menu
+          .navbar-end
+            a.navbar-item(href='/')
+              | Home
+            a.navbar-item(href='/contribute')
+              | Contribute
+            if authenticated
+              div#navbarDropdown.navbar-item.has-dropdown(onclick="toggleDropdownMenu()")
+                a.navbar-link
+                  | Logged In as #{username}
+                .navbar-dropdown
+                  a.navbar-item(href='/dashboard')
+                    | Dashboard
+                  a.navbar-item(href='/logout')
+                    | Logout
+            else
+              a.navbar-item(href='/login')
+                | Login
+    #wrapper.my-wrapper
+      block content
+    .columns.is-marginless.is-hidden-touch
+      .column.my-spacer.my-purple-bg
+      .column.my-spacer.my-primary-bg
+      .column.my-spacer.my-blue-bg
+      .column.my-spacer.my-red-bg
+      .column.my-spacer.my-orange-bg
+    footer.footer.my-footer-color
+      .container
+        .content.has-text-centered
+          p.my-footer-text
+            a.my-footer-text(target='_blank', href='https://github.com/jetjet13/mathbook')
+              strong Mathbook
+            |  was created by Johny Georges
+            a.icon.my-footer-text(target='_blank', href='https://github.com/jetjet13')
+              i.fa.fa-github
+          p.my-footer-text
+            | Licensed under 
+            a.my-footer-text(target='_blank', href='https://github.com/jetjet13/mathbook/LICENSE') 
+              strong Mozilla Public License 2.0 
+            a(target="_blank" href="https://opensource.org/")
+              span.icon.is-small
+                image(src="/images/osi_symbol.png")

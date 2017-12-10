@@ -1,0 +1,8 @@
+{
+  "OWNER": "JetJet13",
+  "REPO": "mathbook",
+  "BRANCH_PREFIX": "tutorial",
+  "TUTORIALS_PATH": "src/tutorials",
+  "BASE_BRANCH": "develop",
+  "SESSION_TIME_LIMIT": 86400
+}

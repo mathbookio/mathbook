@@ -1,0 +1,18 @@
+extends ./layout
+
+block content
+  section.hero.is-info.is-medium
+    .hero-body.has-text-centered
+      h2.title Contributor Login
+      h5.subtitle New and existing contributors
+      a.button.is-white(href='login/authenticate')
+        span Login with GitHub 
+        span.icon
+          i.fa.fa-github
+  section.section
+    .container
+      .content
+        p
+          | Logging in with GitHub will redirect you to the GitHub sign-in page where you will be asked to provide your GitHub username and password.
+        p
+          | If you successfully login, you will be prompted to provide access to the Mathbook application (first-time login). Once you accept, you will be redirected to the Tutorial Dashboard where you will be able to create, edit and delete tutorials.

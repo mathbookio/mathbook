@@ -1,0 +1,114 @@
+html {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family: "Roboto", Arial, sans-serif !important;
+  margin: 0;
+  padding: 0;
+}
+.container {
+  font-family: "Roboto", Arial, sans-serif !important;
+  min-height: 100%;
+}
+.content {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 28px;
+}
+.my-wrapper {
+  min-height: 100%;
+}
+.my-section-margin {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.my-primary-bg {
+  background-color: #00d1b2;
+}
+.my-purple-subject {
+  background-color: #9c27b0;
+  color: white;
+}
+.my-purple-bg {
+  background-color: #9c27b0;
+}
+.my-blue-bg {
+  background-color: #3273dc;
+}
+.my-red-bg {
+  background-color: #ff3860;
+}
+.my-orange-bg {
+  background-color: orange;
+}
+.my-green-icon {
+  color: #20bc56;
+}
+.my-red-icon {
+  color: #ff3860;
+}
+
+.is-royal {
+  background-color: #9c27b0;
+  color: white;
+}
+
+.is-royal:hover {
+  color: white;
+}
+
+.submit {
+  color: #23d160;
+}
+
+.edit {
+  color: #276cda;
+}
+
+.delete-button {
+  color: #ff2b56;
+}
+
+.is-full-width {
+  width: 100%;
+  padding: 0.75rem;
+}
+
+p.previewText {
+  white-space: pre-wrap;
+  font-family: "Merriweather", sans-serif;
+}
+
+.sans {
+  font-family: "Roboto", Arial, sans-serif !important;
+}
+
+.serif {
+  font-family: "Merriweather", sans-serif;
+}
+
+.preWrap {
+  white-space: pre-wrap;
+}
+
+.sortable-chosen {
+  opacity: 0.1;
+}
+.sortable-ghost {
+  opacity: 0.1;
+}
+content-section {
+  position: relative;
+}
+exercise-section {
+  position: relative;
+}
+.comment-textarea {
+  min-height: 50px !important;
+}
+
+.modal-card {
+  width: 80% !important;
+}

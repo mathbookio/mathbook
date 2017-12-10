@@ -1,0 +1,117 @@
+extends ../contribute
+
+block info
+  section.section
+    .container
+      h3.title Contribution Overview
+      .content
+        p.preWrap Hey there, thanks for showing interest in making a contribution towards Mathbook. 
+        | We are always looking to get more hands on deck to help make Mathbook the best math resource available on the internet.
+
+        h3 In what ways can I contribute ?
+        p 
+          | There is always something to do to help maintain and grow Mathbook. You can,
+          ul
+            li 
+              a(href="#create-tutorial") Create a tutorial
+            li 
+              a(href="#review-tutorial") Review a tutorial submitted for review
+            li
+              a(href="#report-bug") Find and report bugs
+            li 
+              a(href="#fix-bugs") Fix Bugs
+            li
+              a(href="#write-docs") Write documentation
+            li
+              a(href="#write-tests") Write tests
+            li 
+              a(href="#feedback") Provide feedback ( positive or negative ) 
+
+        h3#create-tutorial I want to create a tutorial for Mathbook.
+        p.preWrap
+          | You can read up on how to create and submit a tutorial 
+          a(href='contribute/create-tutorial') here.
+
+        h3#review-tutorial I want to review a tutorial submitted for review.
+        p.preWrap
+          | You can read up on the process currently set up for reviewing a tutorial 
+          a(href='/contribute/review-tutorial') here.
+
+        h3#report-bug I want to report a bug I found.
+        p.preWrap
+          | No matter the size of the bug, making the contributors aware of the bug is invaluable, so we thank you in advance.
+          br
+          | The Mathbook project is hosted on GitHub and there is an issues section where you can create an issue and tag it as a bug.
+          br
+          br
+          | Please make sure to follow the bug reporting guidelines outlined 
+          a.is-link(href="https://github.com/JetJet13/mathbook/wiki/Bug-Reporting-Guideline" target="_blank") here
+          |.
+          br
+          br
+          a(href="https://github.com/JetJet13/mathbook/issues" target="_blank") Click here to go the issues page for Mathbook
+          span(class="help has-text-grey") Note: You will need to create a GitHub account if you don't already have one to create an issue.
+        
+        h3#fix-bugs I want to fix/squash some bugs
+        p.preWrap
+          | Fixing bugs is an integral part of maintaining Mathbook. If it's your first time, we recommend starting off with the smaller bugs. 
+          | If and when you get comfortable fixing bugs and making changes to the source code, you are more than welcome to making the jump 
+          | towards squashing bigger bugs.
+          br
+          br
+          a(href="https://github.com/JetJet13/mathbook/issues?utf8=%E2%9C%93&q=is%3Aissue+is%3Aopen+label%3Abug+" target="_blank")
+            | Click here to view the current list of reported bugs
+
+
+        h3#write-docs I want to write some documentation
+        p.preWrap
+          | Documentation is very important for new and existing contributors of Mathbook because it serves as a reference for understanding how Mathbook works under the hood.
+          | Writing documentation requires knowledge of the inner workings of Mathbook and the reasoning behind the decisions made in the architecture and source code.
+        p.preWrap
+          | The documentation for Mathbook lives 
+          a(href="https://github.com/JetJet13/mathbook/wiki" target="_blank") here
+        p.preWrap
+          | We recommend reading through some parts of the docs to get an idea of what's needed to contribute to the docs, ie) formatting, providing examples and 
+          | maybe even referencing some part of the source code
+
+        h3#write-tests I want to contribute by writing some tests
+        p.preWrap
+          | Testing is important to the overall success of Mathbook and all software projects in general. Tests give us visibility into the effects of the changes 
+          | we make into the source code that might be due to a simple refactor or implementing a new feature. 
+          | Always remember, 
+          strong if you find a bug, then that means you missed a test scenario.
+
+        p.preWrap
+          | For Mathbook, the testing framework we use is 
+          a(href="http://chaijs.com/" target="_blank") Chai 
+          | and our test runner is 
+          a(href="https://mochajs.org/" target="_blank") Mocha
+          | . We also use 
+          a(href="http://sinonjs.org/" target="_blank") Sinon
+          |  for stubbing/mocking and setting up spies. 
+          | Check out the tests folder in the 
+          a(href="https://github.com/JetJet13/mathbook/tree/develop/tests" target="_blank") source code 
+          | to get an idea of how we structure our test suites. 
+        p.preWrap You can also check out the 
+          a(href="https://github.com/JetJet13/mathbook/wiki/Testing-Documentation" target="_blank") documentation
+          |  to learn about the reasoning behind the different types of tests that we write.
+
+        h3#feedback I want to provide some feedback
+        p.preWrap
+          | Your feedback is always welcome. Do you have an idea for a new feature or think that some functionality could be improved, let us know.
+          | You can create an issue on GitHub and tag the issue with the proper tag that reflects your feedback (we have a bunch of tags, pick one that best represents your feedback). 
+        p
+          a(href="https://github.com/JetJet13/mathbook/issues" target="_blank") Click here to go the issues page and provide some feedback
+          span(class="help has-text-grey") Note: You will need to create a GitHub account if you don't already have one to create an issue.
+
+        h3#behavior Contributor Behavior
+        p.preWrap
+          | All contributors of Mathbook are expected to be respectful and considerate towards one another. There are no silly questions or suggestions, so feel free to share anything 
+          | that comes to mind. 
+          |
+          | If you plan on reviewing tutorials, please keep all comments and feedback during the review process constructive. Any personal attacks or name calling
+          | will not be tolerated. 
+          |
+          | The common goal we all share is to grow the community of contributors and make Mathbook the best online resource for learning mathematics. 
+          span.icon
+            i.fa.fa-smile-o
