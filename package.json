@@ -1,6 +1,6 @@
 {
   "name": "express-mathbook",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
@@ -39,6 +39,7 @@
     "browser-sync": "^2.18.13",
     "bunyan": "^1.8.12",
     "chai": "^4.1.1",
+    "convict": "^4.0.2",
     "eslint": "^4.12.1",
     "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-prettier": "^2.3.1",

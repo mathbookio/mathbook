@@ -8,10 +8,10 @@ const log = require("./logger")
 Promise.promisifyAll(redis.RedisClient.prototype)
 Promise.promisifyAll(redis.Multi.prototype)
 
-const config = require("../../config/local.json")
-const redisHost = config["redisHost"]
-const redisPort = config["redisPort"]
-const redisPassword = config["redisPassword"]
+const config = require("../../config/config")()
+const redisHost = config.get("redis.host")
+const redisPort = config.get("redis.port")
+const redisPassword = config.get("redis.password")
 const redisClient = redis.createClient({
   host: redisHost,
   port: redisPort,

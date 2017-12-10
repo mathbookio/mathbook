@@ -7,6 +7,7 @@ Mathbook is written in JavaScript and built using NodeJS, ExpressJS, Riot and Pu
 ## Requirements
 
 * Node 8.x
+* Redis 4.x
 
 ## Installation & Setup
 
@@ -18,7 +19,30 @@ cd ./mathbook
 npm i
 ```
 
+To install and start up a Redis Server
+
+```bash
+# linux users
+wget http://download.redis.io/redis-stable.tar.gz
+tar xvzf redis-stable.tar.gz
+cd redis-stable
+make
+
+# mac osx users
+brew install redis
+
+
+# to startup redis server
+redis-server
+```
+
 ## Run Locally
+
+**Note**: You might need to install gulp and bunyan globally first
+
+```bash
+npm i -g gulp-cli bunyan
+```
 
 ```bash
 gulp serve
@@ -27,30 +51,11 @@ gulp serve
 gulp serve | bunyan
 ```
 
-**Note**: if the above commands fail, you might need to install gulp and bunyan globally
-
-```bash
-npm i -g gulp bunyan
-```
-
 ## Testing
 
 ```bash
 # run all tests
 gulp test
-
-# run functional tests
-gulp test:func
-
-# run feature tests
-gulp test:feature
-
-# run component tests
-gulp test:component
-
-
-# To do some TDD, you can use
-gulp tdd
 ```
 
 **Note**: if the above test commands fail, you might need to install gulp and bunyan globally
@@ -65,4 +70,4 @@ If you are looking for the list of Contributors of Mathbook, please refer to [CO
 
 ## License
 
-Mathbook is Open Source and Licensed under ... Please refer to [LICENSE.md](./LICENSE.md) for more info.
+Mathbook is Open Source and Licensed under MPL-2.0 Please refer to [LICENSE](./LICENSE) for more info.
