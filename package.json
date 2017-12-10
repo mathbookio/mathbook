@@ -10,7 +10,7 @@
   "dependencies": {
     "bluebird": "^3.5.0",
     "body-parser": "~1.17.1",
-    "bulma": "^0.5.0",
+    "bulma": "^0.6.1",
     "bunyan-request": "^1.2.0",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.3",
@@ -28,9 +28,12 @@
     "morgan": "~1.8.1",
     "pug": "~2.0.0-beta11",
     "query-string": "^5.0.0",
+    "redis": "^2.8.0",
     "riot": "^3.6.2",
     "serve-favicon": "~2.4.2",
-    "sortablejs": "^1.6.1"
+    "sha256": "^0.2.0",
+    "sortablejs": "^1.6.1",
+    "update": "^0.7.4"
   },
   "devDependencies": {
     "browser-sync": "^2.18.13",

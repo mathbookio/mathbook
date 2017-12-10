@@ -1,0 +1,6 @@
+extends layout
+block content
+  homepage
+  script(type="text/javascript" src="/js/all.js")
+  script.
+    riot.mount('homepage', { subjects: !{subjectMap} })

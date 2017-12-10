@@ -1,0 +1,64 @@
+extends ../contribute
+
+block info
+  section.section
+    .container
+      h3.title The Tutorial Review Process
+      .content
+        h3 How does it work ?
+        p When a contributor submits a tutorial for review, the contributor is creating what's called a Pull Request.
+        p The pull request is what the reviewer will use to leave comments, request changes and approve the tutorial.
+        p
+          | Once a tutorial has been reviewed and approved, it needs to merged. Merging is currently done by the admins of Mathbook. This way the admins can
+          | stay informed as to what is being added to Mathbook. Admins will also leave a buffer time of 3 days after a tutorial has been reviewed and approved
+          | to give other contributors time to review the tutorial if they want to. Remember, the more eyes we have for a review the better. 
+        p After 3 days have passed 
+          | and the tutorial remains in a state of approval, it will be merged and added to Mathbook. That tutorial will then be added to the next release of Mathbook,
+          | which depending on the number of tutorials and features and bug fixes, can vary (from the same day to a week).
+        p All pull requests for tutorials that have been submitted for review live 
+          a(href="https://github.com/JetJet13/mathbook/pulls") here
+          |.
+        h3 What do I need to do ?
+        p You'll notice that every tutorial has a description box with a link to preview the tutorial. This link will navigate you to Mathbook 
+          | and should showcase the tutorial in a readable and formatted state. You are encouraged to use this preview state for reviewing the tutorial. 
+          | When you spot something you think is incorrect or needs addressing, navigate back to the pull request page and leave a comment on the line of 
+          | code that contains the issue that needs addressing.
+        p To sum up what the process of reviewing a pull request will look like, please watch this short 
+          a(href="https://www.youtube.com/watch?v=HW0RPaJqm4g" target="_blank") video
+          |.
+
+        h3 Why do we need to review tutorials ?
+        p Having a peer review a tutorial is something that is invaluable, not only to the quality of the tutorial itself but to the people involved as well. 
+          | The peer review process will help shine light on the things that might have been missed by the creator or even provide feedback on how to make things 
+          | clearer and more explicit if needed.
+          | Overall, it makes sure that everyone is alert and aware of anything that appears uncertain or not clear.
+          
+        p For the creator of the tutorial, it really makes you 
+          | think about the stuff you are writing about and makes sure that you really know your stuff. It can also appear to be a little stressful because 
+          | it feels as if the people reviewing your tutorial are judging your knowledge of a certain topic and subject, but that's ok, it's for the greater good.
+          span.icon
+            i.fa.fa-smile-o
+          br
+          | All jokes aside, we would assume that people are reviewing your tutorial because they know a thing or two about it and they feel that they might learn
+          | a thing or two from you. Everyone wins.
+
+        h3 What constitutes a Change Request ?
+        p There are many things that can require you to submit a review that states that changes might need to be made before approval.
+        p If the tutorial you are reviewing does not meet the following requirements, then feel free to highlight them in your review.
+          ul
+            li The tutorial must have a complete configuration file, i.e.) no empty or missing fields
+            li The tutorial must be previewable. If you can't preview the tutorial, then there's something wrong.
+            li The tutorial must provide answers to the What, Why and How of the topic being written about.
+            li The tutorial must have at least 3 exercises, that range in difficulty from easiest to hardest.
+            li Each exercise must have an answer that is valid and correct.
+        p 
+          | Keep in mind that this list is not exhaustive, there are many other obvious things that constitute a Change Request.
+          | for example, if you notice some math formula is not rendered due to some typo, then that tutorial requires changes.
+
+        P In the end, you must use your best judgment and your experience to get an idea of what qualifies for a Change Request. 
+
+        h3 Is that all I need to know ?
+        p Almost. Always remember that if something isn't clear or if you have any questions, 
+          | don't hesitate to reach out to your fellow contributors of Mathbook. We are here to help.
+        
+        p Happy Reviewing!
