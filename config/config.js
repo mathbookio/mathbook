@@ -60,6 +60,12 @@ const getConfiguration = () => {
         default: "https",
         env: "PROTOCOL"
       },
+      domain: {
+        doc: "The domain name",
+        format: "String",
+        default: "mathbook.io",
+        env: "DOMAIN_NAME"
+      },
       host: {
         doc: "The IP address to bind.",
         format: "ipaddress",

@@ -51,6 +51,44 @@ gulp serve
 gulp serve | bunyan
 ```
 
+If you want to get the GitHub OAuth Login functionality working, you will need to do the following,
+
+1. Visit github.com and Sign In
+2. Navigate to your profile settings page
+3. In the side bar, find and click on `Developer Settings`
+4. Then click on `New OAuth App`
+5. You will then be navigated to a page that looks similar to this,
+
+![screenshot](./setting-up-mathbook-app.png)
+
+6. Confirm that the `Homepage URL` and `Authorization callback URL` you entered match what you see in the screenshot
+   above.
+7. Click `Update Application`
+8. Now, copy the `clientId` and `clientSecret` for your newly created Application into your `config/local.json` file.
+
+Your `local.json` file should look something like the following,
+
+```json
+{
+  "bin": {
+    "protocol": "http",
+    "host": "127.0.0.1",
+    "port": 4000,
+    "domain": "127.0.0.1"
+  },
+
+  "github": {
+    "clientId": "<CLIENT_ID>",
+    "clientSecret": "<CLIENT_SECRET>"
+  },
+  "redis": {
+    "host": "127.0.0.1",
+    "port": 6379,
+    "password": "<REDIS_PASSWORD>"
+  }
+}
+```
+
 ## Testing
 
 ```bash
