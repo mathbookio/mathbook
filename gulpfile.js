@@ -24,21 +24,10 @@ gulp.task("lint", () => {
   )
 })
 
-gulp.task("test:config", () => {
-  return (
-    gulp
-      .src(files.srcTestFiles)
-      // Covering files
-      .pipe(plugins.istanbul())
-      // Force `require` to return covered files
-      .pipe(plugins.istanbul.hookRequire())
-  )
-})
-
-gulp.task("test", ["test:config"], () => {
+gulp.task("test", () => {
   gulp
     .src(files.testFiles)
-    .pipe(plugins.mocha())
+    .pipe(plugins.ava())
     .once("error", () => {
       process.exit(1)
     })
