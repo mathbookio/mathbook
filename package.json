@@ -5,7 +5,8 @@
   "scripts": {
     "start": "node ./bin/www",
     "serve": "nodemon ./bin/www",
-    "precommit": "lint-staged"
+    "precommit": "lint-staged",
+    "test": "ava"
   },
   "dependencies": {
     "bluebird": "^3.5.0",
@@ -36,6 +37,7 @@
     "update": "^0.7.4"
   },
   "devDependencies": {
+    "ava": "^0.24.0",
     "browser-sync": "^2.18.13",
     "bunyan": "^1.8.12",
     "chai": "^4.1.1",
@@ -43,6 +45,7 @@
     "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-prettier": "^2.3.1",
     "gulp": "^3.9.1",
+    "gulp-ava": "^0.18.0",
     "gulp-concat": "^2.6.1",
     "gulp-eslint": "^4.0.0",
     "gulp-istanbul": "^1.1.2",
@@ -54,6 +57,7 @@
     "husky": "^0.14.3",
     "lint-staged": "^5.0.0",
     "mocha": "^3.5.0",
+    "nyc": "^11.3.0",
     "prettier": "^1.8.2",
     "sinon": "^3.0.0",
     "standard": "^10.0.2"
