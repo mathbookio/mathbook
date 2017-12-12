@@ -1,4 +1,4 @@
-# Mathbook
+# Mathbook [![Build Status](https://travis-ci.org/JetJet13/mathbook.svg?branch=develop)](https://travis-ci.org/JetJet13/mathbook)
 
 Mathbook is a website that provides peer-reviewed tutorials on topics covering most subjects in mathematics.
 
