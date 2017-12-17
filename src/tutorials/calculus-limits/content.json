@@ -9,6 +9,6 @@
         "id": "sectionBox_6pg2ol1tlb",
         "contentIndex": 1,
         "title": "The Definition of a Limit",
-        "text": "The following definition of a limit is something that will take a little time to really sink in so don't worry too much if you don't understand it at first.\n\n$$\\text{Given a function $f(x)$ that is defined on an open interval $(a, b)$}$$\n$$\\text{We can find the $\\bold{limit}$ of $n$ where $n \\in (a,b)$}$$\n$$\\lim\\limits_{x \\to ~n} f(x) = L$$\n$$\n\\text{If for every $\\epsilon \\gt 0$, there exists a $\\delta \\gt 0$ such that}\n$$\n$$\n\\text{if $0 \\lt \\lvert~ x ~-~n ~\\rvert \\lt \\delta$ $\\quad$ then $\\quad$ $\\lvert ~ f(x) ~ - ~ L ~ \\rvert \\lt \\epsilon$ }\n$$"
+        "text": "The following definition of a limit is something that will take a little time to really sink in so don't worry too much if you don't understand it at first.\n\n$$\\text{Given a function $f(x)$ that is defined on an open interval $(a, b)$}$$\n$$\\text{We can find the $\\bold{limit}$ of $n$ where $n \\in (a,b)$}$$\n$$\\lim\\limits_{x~ \\to ~n} f(x) = L$$\n$$\n\\text{If for every $\\epsilon \\gt 0$, there exists a $\\delta \\gt 0$ such that}\n$$\n$$\n\\text{if $0 \\lt \\lvert~ x ~-~n ~\\rvert \\lt \\delta$ $\\quad$ then $\\quad$ $\\lvert ~ f(x) ~ - ~ L ~ \\rvert \\lt \\epsilon$ }\n$$"
     }
 ]
