@@ -1,18 +1,23 @@
 {
   "name": "express-mathbook",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
     "serve": "nodemon ./bin/www",
     "precommit": "lint-staged",
-    "test": "ava"
+    "postinstall": "node ./bin/createLogFile",
+    "test": "ava",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "dependencies": {
     "bluebird": "^3.5.0",
     "body-parser": "~1.18.2",
     "bulma": "^0.6.1",
+    "bunyan": "^1.8.12",
     "bunyan-request": "^1.2.0",
+    "convict": "^4.0.2",
     "cookie-parser": "~1.4.3",
     "debug": "~3.1.0",
     "express": "~4.16.2",
@@ -34,14 +39,13 @@
     "serve-favicon": "~2.4.2",
     "sha256": "^0.2.0",
     "sortablejs": "^1.6.1",
-    "update": "^0.7.4"
+    "update": "^0.7.4",
+    "snyk": "^1.59.1"
   },
   "devDependencies": {
     "ava": "^0.24.0",
     "browser-sync": "^2.18.13",
-    "bunyan": "^1.8.12",
     "chai": "^4.1.1",
-    "convict": "^4.0.2",
     "eslint": "^4.12.1",
     "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-prettier": "^2.3.1",
@@ -66,5 +70,6 @@
   "lint-staged": {
     "*.js": ["eslint --fix"],
     "*.{js,json,css}": ["prettier --write", "git add"]
-  }
+  },
+  "snyk": true
 }

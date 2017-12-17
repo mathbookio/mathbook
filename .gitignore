@@ -4,6 +4,6 @@ node_modules
 coverage
 .nyc_output
 npm-debug.log
-src/logs/
+src/server/logs/
 src/front-end/public/javascripts/all.js
 config/local.json
