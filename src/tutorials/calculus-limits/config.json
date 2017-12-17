@@ -1,7 +1,7 @@
 {
     "subject": "Calculus",
     "title": "Definition of Limits",
-    "openingStatement": "The concept of Limits is foundational to Differential Calculus. We use Limits to help us find derivatives and all things related to rates of change.",
+    "openingStatement": "The concept of Limits is foundational to Differential Calculus. We use Limits to help us find derivatives and all things related to rates of change. This tutorial will go over Limits and provide you with a precise definition of Limits.",
     "preReqs": [],
     "exerciseStatement": "Find the Limit for the following functions",
     "resources": [],
