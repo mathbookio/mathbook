@@ -12,7 +12,7 @@ const getConfiguration = () => {
   config = convict({
     env: {
       doc: "The application environment.",
-      format: ["production", "development", "local"],
+      format: ["production", "development", "local", "test"],
       default: "local",
       env: "NODE_ENV"
     },
