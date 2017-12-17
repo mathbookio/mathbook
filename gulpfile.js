@@ -50,10 +50,11 @@ gulp.task("nodemon", function(done) {
       if (!called) {
         const host = config.get("bin.host")
         const port = config.get("bin.port")
+        const proxyPort = config.get("bin.proxyPort")
         setTimeout(() => {
           browserSync.init({
             proxy: `${host}:${port}`,
-            port: port + 1
+            port: proxyPort
           })
         }, 2000)
         done()

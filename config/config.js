@@ -55,7 +55,7 @@ const getConfiguration = () => {
     },
     bin: {
       protocol: {
-        doc: "The protocol to open a connection",
+        doc: "The Hypertext Transfer Protocol",
         format: ["http", "https"],
         default: "https",
         env: "PROTOCOL"
@@ -77,6 +77,12 @@ const getConfiguration = () => {
         format: "port",
         default: 4000,
         env: "PORT"
+      },
+      proxyPort: {
+        doc: "The port that browser-sync will use to proxy the server",
+        format: "port",
+        default: 4001,
+        env: "PROXY_PORT"
       }
     }
   })
