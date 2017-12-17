@@ -3,11 +3,12 @@
 const gulp = require("gulp")
 const plugins = require("gulp-load-plugins")()
 const browserSync = require("browser-sync").create()
+const config = require("./config/config")()
 
 const files = {
   allFiles: ["src/server/**/*.js", "tests/*.spec.js", "!src/front-end/public/javascripts/*.js"],
   testFiles: ["./tests/**/*.spec.js"],
-  srcFiles: ["./src/server/**/*.js", "./src/server/**/*.pug", "./src/server/**/*.css"],
+  watchFiles: ["./src/server/**/*.js", "./src/front-end/**/*.css", "./src/front-end/views/*.pug"],
   srcTestFiles: ["./src/server/**/*.js"],
   tagFiles: ["./src/front-end/tags/**/*.tag"]
 }
@@ -36,66 +37,46 @@ gulp.task("test", () => {
     })
 })
 
-// we'd need a slight delay to reload browsers
-// connected to browser-sync after restarting nodemon
-const BROWSER_SYNC_RELOAD_DELAY = 500
-
-gulp.task("nodemon", function(cb) {
+gulp.task("nodemon", function(done) {
   let called = false
   return plugins
     .nodemon({
       // nodemon our expressjs server
-      script: "./bin/www"
+      script: "./bin/www",
+      ignore: ["src/front-end/public", "src/front-end/tags"]
     })
     .on("start", function onStart() {
       // ensure start only got called once
       if (!called) {
-        cb()
+        const host = config.get("bin.host")
+        const port = config.get("bin.port")
+        setTimeout(() => {
+          browserSync.init({
+            proxy: `${host}:${port}`,
+            port: port + 1
+          })
+        }, 2000)
+        done()
       }
       called = true
-    })
-    .on("restart", function onRestart() {
-      // reload connected browsers after a slight delay
-      setTimeout(function reload() {
-        browserSync.reload({
-          stream: false
-        })
-      }, BROWSER_SYNC_RELOAD_DELAY)
+      // for more browser-sync config options: http://www.browsersync.io/docs/options/
     })
 })
 
 gulp.task("riot", function() {
-  gulp
+  return gulp
     .src(files.tagFiles)
     .pipe(plugins.riot())
     .pipe(plugins.concat("all.js"))
     .pipe(gulp.dest("./src/front-end/public/javascripts"))
-  // .pipe(gulp.dest('./src/public/tags'))
 })
 
 gulp.task("serve", ["nodemon"], function() {
-  // for more browser-sync config options: http://www.browsersync.io/docs/options/
-  browserSync.init({
-    // informs browser-sync to proxy our expressjs app which would run at the following location
-    proxy: "http://192.168.2.22:3000",
-
-    // informs browser-sync to use the following port for the proxied app
-    // notice that the default port is 3000, which would clash with our expressjs
-    port: 4000
-  })
-
-  gulp.watch(files.tagFiles, ["riot"])
-  gulp.watch(files.srcFiles).on("change", browserSync.reload)
+  gulp.watch(files.tagFiles, ["riot:reload"])
+  gulp.watch(files.watchFiles).on("change", browserSync.reload)
 })
 
-gulp.task("default", () =>
-  gulp
-    .src(files.testFiles)
-    .pipe(plugins.mocha())
-    .once("error", () => {
-      process.exit(1)
-    })
-    .once("end", () => {
-      process.exit()
-    })
-)
+gulp.task("riot:reload", ["riot"], done => {
+  browserSync.reload()
+  done()
+})
