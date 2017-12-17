@@ -1,5 +1,8 @@
-# Mathbook 
-[![Build Status](https://travis-ci.org/JetJet13/mathbook.svg?branch=develop)](https://travis-ci.org/JetJet13/mathbook) [![Greenkeeper badge](https://badges.greenkeeper.io/JetJet13/mathbook.svg)](https://greenkeeper.io/)
+# Mathbook
+
+[![Build Status](https://travis-ci.org/JetJet13/mathbook.svg?branch=develop)](https://travis-ci.org/JetJet13/mathbook)
+[![Greenkeeper badge](https://badges.greenkeeper.io/JetJet13/mathbook.svg)](https://greenkeeper.io/)
+[![Gitter chat](https://badges.gitter.im/gitterHQ/gitter.png)](https://gitter.im/mathbook-chat/Lobby)
 
 Mathbook is a website that provides peer-reviewed tutorials on topics covering most subjects in mathematics.
 
@@ -28,6 +31,8 @@ wget http://download.redis.io/redis-stable.tar.gz
 tar xvzf redis-stable.tar.gz
 cd redis-stable
 make
+make test
+make install
 
 # mac osx users
 brew install redis
@@ -75,7 +80,8 @@ Your `local.json` file should look something like the following,
     "protocol": "http",
     "host": "127.0.0.1",
     "port": 4000,
-    "domain": "127.0.0.1"
+    "domain": "localhost",
+    "proxyPort": 4001
   },
 
   "github": {
