@@ -9,3 +9,6 @@ patch:
   'npm:tough-cookie:20170905':
     - riot > riot-cli > chokidar > fsevents > node-pre-gyp > request > tough-cookie:
         patched: '2017-12-16T18:51:09.363Z'
+  'npm:request:20160119':
+    - github-oauth > request:
+        patched: '2018-01-07T16:34:19.511Z'
