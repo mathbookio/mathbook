@@ -2,8 +2,6 @@
 
 const GitHubApi = require("github")
 
-const gh = new GitHubApi({
-  Promise: require("bluebird")
-})
+const gh = new GitHubApi()
 
 module.exports = gh

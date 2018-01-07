@@ -127,7 +127,7 @@
       var currentTime = moment.utc().unix()
       this.sessionExpiryTimer = setInterval(function() {
         const timeRemaining = that.sessionExpiry - currentTime
-        console.log("timeRemaining", timeRemaining, "currentTime", currentTime, "sessionExpiry", that.sessionExpiry)
+        //console.log("timeRemaining", timeRemaining, "currentTime", currentTime, "sessionExpiry", that.sessionExpiry)
         if (timeRemaining <= triggerTime){
           that.sessionObservable.trigger('sessionExpiringSoon', timeRemaining)
           that.killSessionExpiryTimer()
