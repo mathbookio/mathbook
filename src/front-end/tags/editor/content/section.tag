@@ -50,7 +50,7 @@
 </div>
 <script>
 console.log(this.opts)
-var that = this
+var self = this
 this.showModal = false
 this.sectionId = 'content_' + this.opts.id
 this.sectionTitle = this.opts.sectionTitle
@@ -70,48 +70,54 @@ this.on('mount', function() {
   // bind section content
   this.$('sectionId').html(this.sectionText)
   this.render(this.sectionId)
-  that.renderCharts(that.sectionCharts)
+  this.renderCharts(this.sectionCharts)
   
   // preview section content edits/changes in modal view
   this.$('editSectionId').on('input', function(e) {
-      var contentVal = that.$('editSectionId').val()
-      that.$('editSectionTextId').html(contentVal)
-       that.render(that.editSectionTextId)
+      var contentVal = self.$('editSectionId').val()
+      self.$('editSectionTextId').html(contentVal)
+       self.render(self.editSectionTextId)
+       self.renderEditModalCharts(self.sectionCharts)
     });
 
-    that.opts.contentObservable.on('deletedContentSection', function(contentId, contentIndex) {
+    self.opts.contentObservable.on('renderCharts', function() {
+      console.log('rendering charts')
+      self.renderCharts(self.sectionCharts)
+    })
+
+    self.opts.contentObservable.on('deletedContentSection', function(contentId, contentIndex) {
     console.log('content obeservable deletedContentSection triggered', { contentId: contentId, contentIndex: contentIndex })
-      if(contentIndex < that.opts.contentIndex){
-       console.log('an content was deleted before', that.sectionTitle, that.opts.contentIndex)
-       that.opts.contentIndex -= 1
-       console.log('an content was deleted after', that.sectionTitle, that.opts.contentIndex)
+      if(contentIndex < self.opts.contentIndex){
+       console.log('a content was deleted before', self.sectionTitle, self.opts.contentIndex)
+       self.opts.contentIndex -= 1
+       console.log('a content was deleted after', self.sectionTitle, self.opts.contentIndex)
 
       }
   })
 
-  that.opts.contentObservable.on('contentOrderUpdate', function(oldIndex, newIndex){
+  self.opts.contentObservable.on('contentOrderUpdate', function(oldIndex, newIndex){
     console.log('contentOrderUpdate triggered', { oldIndex: oldIndex, newIndex: newIndex })
-    if (oldIndex === that.opts.contentIndex){
+    if (oldIndex === self.opts.contentIndex){
       console.log('oldIndex === contentIndex')
-      that.opts.contentIndex = newIndex
-      console.log('after oldIndex === contentIndex',that.sectionTitle, that.opts.contentIndex)
+      self.opts.contentIndex = newIndex
+      console.log('after oldIndex === contentIndex',self.sectionTitle, self.opts.contentIndex)
       return
     }
 
     // an content was moved up the list
-    if (oldIndex > newIndex && newIndex <= that.opts.contentIndex && oldIndex > that.opts.contentIndex){
-      console.log('an content was moved up the list before', that.sectionTitle, that.opts.contentIndex)
-      that.opts.contentIndex += 1
-      console.log('an content was moved up the list after', that.sectionTitle, that.opts.contentIndex)
+    if (oldIndex > newIndex && newIndex <= self.opts.contentIndex && oldIndex > self.opts.contentIndex){
+      console.log('an content was moved up the list before', self.sectionTitle, self.opts.contentIndex)
+      self.opts.contentIndex += 1
+      console.log('an content was moved up the list after', self.sectionTitle, self.opts.contentIndex)
     }
     // an content was moved down the list
-    else if (oldIndex < newIndex && newIndex >= that.opts.contentIndex && oldIndex < that.opts.contentIndex){
-      console.log('an content was moved down the list before', that.sectionTitle, that.opts.contentIndex)
-      that.opts.contentIndex -= 1
-      console.log('an content was moved down the list after', that.sectionTitle, that.opts.contentIndex)
+    else if (oldIndex < newIndex && newIndex >= self.opts.contentIndex && oldIndex < self.opts.contentIndex){
+      console.log('an content was moved down the list before', self.sectionTitle, self.opts.contentIndex)
+      self.opts.contentIndex -= 1
+      console.log('an content was moved down the list after', self.sectionTitle, self.opts.contentIndex)
     } 
     else{
-      console.log('nothing happened for', that.sectionTitle, that.opts.contentIndex)
+      console.log('nothing happened for', self.sectionTitle, self.opts.contentIndex)
     }
   })
 })
@@ -123,6 +129,7 @@ editSection(){
   this.$('editSectionId').val(this.sectionText)
   this.$('editSectionTextId').html(this.sectionText)
   this.render(this.editSectionTextId)
+  this.renderEditModalCharts(this.sectionCharts)
 }
 
 saveChanges(){
@@ -139,6 +146,7 @@ updateContent(){
   this.sectionText = this.$('editSectionId').val()
   this.$('sectionId').html(this.sectionText)
   this.render(this.sectionId)
+  this.renderCharts(this.sectionCharts)
 }
 
 close(){
@@ -194,7 +202,15 @@ renderCharts(chartList) {
     console.log('selector', selector)
     new Chartist.Line(selector, chart.data, chart.options)
   }
-  that.update()
+}
+
+renderEditModalCharts(chartList) {
+  for (var i in chartList) {
+    const chart = chartList[i]
+    const selector = $('#'+this.editSectionTextId+'> #'+chart.id).get(0)
+    console.log('renderEditModalCharts::selector', selector)
+    new Chartist.Line(selector, chart.data, chart.options)
+  }
 }
 
 // jquery alias

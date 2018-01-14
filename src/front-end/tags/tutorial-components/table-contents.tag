@@ -12,7 +12,7 @@
     </div>
   </section>
   <script>
-  var that = this
+  var self = this
   this.contentsList = this.opts.contentsList || []
   set(data){
     this.contentsList = data['table-contents']

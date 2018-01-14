@@ -15,7 +15,7 @@
     <resource-list></resource-list>
     <meta-keywords></meta-keywords>
   <script>
-    var that = this
+    var self = this
     this.tutorialName = ''
     this.config = {}
     this.error = {}
@@ -35,7 +35,7 @@
         result.config['table-contents'] = []
         for (var section of result.content){
           const sectionTitle = section['title']
-          const fragment = '#' + that.toSnakeCase(sectionTitle)
+          const fragment = '#' + self.toSnakeCase(sectionTitle)
           result.config['table-contents'].push({ title: sectionTitle, fragment: fragment })
         }
         result.config['table-contents'].push({
@@ -46,10 +46,10 @@
           title: 'Resources',
           fragment: '#resources'
         })
-        that.formatConfig(result.config),
-        that.formatContent(result.content),
-        that.formatExercises(result.exercises, result.config.exerciseStatement)
-        that.update()
+        self.formatConfig(result.config),
+        self.formatContent(result.content),
+        self.formatExercises(result.exercises, result.config.exerciseStatement)
+        self.update()
         renderMathInElement(document.body)
       })
       .fail(function(error) {
@@ -83,7 +83,7 @@
 
     formatContent(sections){
       for(var section of sections){
-        section['fragment'] = that.toSnakeCase(section.title)
+        section['fragment'] = self.toSnakeCase(section.title)
       }
       this.tags['tutorial-sections'].set(sections)
     }

@@ -1,4 +1,4 @@
-<exercises>
+<exercises id="exercisesComponent">
   <style>
     #exerciseAnswerText{
       white-space: pre-wrap;
@@ -43,21 +43,31 @@
   </section>
 <script>
 
-    var that = this
+    var self = this
     this.exerciseMap = {}
     this.isQuestionInvalid = false
     this.isAnswerInvalid = false
+    this.tabObservable = this.opts.observable
     this.exerciseObservable = riot.observable()
 
   this.on('mount', function() {
-    that.initSortable()
+    self.initSortable()
+
+    this.tabObservable.on('show', function(type){
+      if (type === 'exercises'){
+        $('#exercisesComponent').show()
+      }
+      else{
+        $('#exercisesComponent').hide()
+      }
+    })
 
     this.exerciseObservable.on('createdExercise', function(exerciseId, exerciseObj) {
-      that.exerciseMap[exerciseId] = exerciseObj
+      self.exerciseMap[exerciseId] = exerciseObj
     })
    
     this.exerciseObservable.on('deletedExercise', function(exerciseId) {
-      delete that.exerciseMap[exerciseId]
+      delete self.exerciseMap[exerciseId]
     })
 
     $('#exerciseQuestion').on('input', function(e) {
@@ -80,7 +90,7 @@
         console.log('onUpdate triggered', e)
         console.log('old index', e.oldIndex)
         console.log('new index', e.newIndex)
-        that.exerciseObservable.trigger('exerciseOrderUpdate', e.oldIndex, e.newIndex)
+        self.exerciseObservable.trigger('exerciseOrderUpdate', e.oldIndex, e.newIndex)
 
       } });
   }

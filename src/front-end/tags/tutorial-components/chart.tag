@@ -2,12 +2,12 @@
 <p>You loaded a chart component</p>
 <canvas id="{ chartId }"></canvas>
 <script>
-  var that = this
+  var self = this
   this.chartId = Math.random().toString(36).substr(2, 10);
   this.data = this.opts.data || []
   this.chart = ''
   this.on('mount', function() {
-    const chartElement = document.getElementById(that.chartId)
+    const chartElement = document.getElementById(self.chartId)
     console.log('chartElement', chartElement)
     const myChart = new Chart(chartElement, 
       {
@@ -46,7 +46,7 @@
             }
         }
     })
-  that.update()
+  self.update()
   })
 
   uniqueId() {

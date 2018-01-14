@@ -114,7 +114,7 @@
     <delete-tutorial observable={ dashboardObservable }></delete-tutorial>
   </section>
   <script>
-    var that = this
+    var self = this
     this.dashboardObservable = riot.observable()
     this.loadingTutorials = false
     this.noTutorialsFound = false
@@ -122,27 +122,27 @@
     this.failedToGetTutorials = false
 
     $(document).ready(function() {
-      that.loadingTutorials = true
-      that.update()
+      self.loadingTutorials = true
+      self.update()
       $.get('/v1/tutorials', function (result) {
         console.log('result from /v1/tutorials', result)
-        that.succeededRequest()
+        self.succeededRequest()
         if(Array.isArray(result.data.tutorials) && result.data.tutorials.length === 0){
-          that.noTutorialsFound = true
+          self.noTutorialsFound = true
         }
         else{
-          that.noTutorialsFound = false
+          self.noTutorialsFound = false
         }
-        that.tutorials = result.data.tutorials
+        self.tutorials = result.data.tutorials
 
-        that.update()
+        self.update()
       })
       .fail(function(res) {
         const error = res.responseJSON
         console.error('something broke while getting tutorials', error)
-        that.failedRequest(error.message)
+        self.failedRequest(error.message)
         handleError(error)
-        that.update()
+        self.update()
       })
     })
 

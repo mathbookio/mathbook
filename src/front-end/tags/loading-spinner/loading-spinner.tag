@@ -7,7 +7,7 @@
         </p>
   </div>
   <script>
-    var that = this
+    var self = this
     console.log(this.opts)
   </script>
 </loading-spinner>

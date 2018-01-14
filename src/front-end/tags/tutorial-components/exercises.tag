@@ -28,7 +28,7 @@
     </div>
   </section>
 <script>
-var that = this
+var self = this
 this.exerciseStatement = this.opts.exerciseStatment || ''
 this.exercises = this.opts.exercises || []
 

@@ -1,4 +1,4 @@
-<configuration>
+<configuration id="configComponent">
   <section class="section">
     <div class="container">
       <h5 class="title">Configuration</h5>
@@ -17,6 +17,21 @@
       <keywords></keywords>
   </section>
   <script>
+
+    this.tabObservable = this.opts.observable
+
+    this.on('mount', function() {
+        this.tabObservable.on('show', function(type){
+          if (type === 'config'){
+            $('#configComponent').show()
+          }
+          else{
+            $('#configComponent').hide()
+          }
+        })
+    })
+
+
     get(){
       return {
         subject: this.tags['subject'].get(),

@@ -14,7 +14,7 @@
   </div>
 
   <script>
-    var that = this
+    var self = this
 
   this.on('mount', function() {
     

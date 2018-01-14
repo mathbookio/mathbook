@@ -38,7 +38,7 @@
       </div>
     </div>
   <script>
-    var that = this
+    var self = this
     this.tutorialName = ''
     this.observable = this.opts.observable
     this.showSubmitTutorialModel = false
@@ -50,8 +50,8 @@
 
     this.on('mount', function(){
       this.observable.on('openSubmitModal', function(tutorialName){
-        that.openSubmitModal(tutorialName)
-        that.update()
+        self.openSubmitModal(tutorialName)
+        self.update()
       })
     })
 
@@ -74,8 +74,8 @@
         },
         success: function (result) {
           const pullRequestUrl = result.pullRequestUrl
-          that.submitTutorialSucceeded(pullRequestUrl)
-          that.update()
+          self.submitTutorialSucceeded(pullRequestUrl)
+          self.update()
           setTimeout(function () {
             window.location.reload()
           }, 4500)
@@ -84,8 +84,8 @@
       .fail(function(res) {
         const error = res.responseJSON
         console.log(error)
-        that.submitTutorialFailed(error.message)
-        that.update()
+        self.submitTutorialFailed(error.message)
+        self.update()
       })
     }
 

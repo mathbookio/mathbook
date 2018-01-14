@@ -6,12 +6,12 @@
     </div>
   </section>
 <script>
-var that = this
+var self = this
 this.sections = this.opts.sections || []
 
 this.on('mount', function(){
-  that.renderContent()
-  that.update()
+  self.renderContent()
+  self.update()
 })
 
 renderContent(){
@@ -22,6 +22,7 @@ renderContent(){
     const sectionContentElement = document.getElementById(sectionId)
     try{
       renderMathInElement(sectionContentElement)
+      renderCharts(section.charts)
     }
     catch(err){
       console.log(err)
@@ -33,8 +34,8 @@ set(data){
   console.log('tutorial-section', data)
   this.sections = data || []
   $(document).ready(function() {
-  that.renderContent()
-that.update()
+  self.renderContent()
+self.update()
   })
 }
 </script>

@@ -1,4 +1,4 @@
-<content>
+<content id="contentComponent">
   <style>
     #contentSectionText{
       white-space: pre-wrap;
@@ -42,38 +42,50 @@
   </section>
   
   <script>
-    var that = this
+    var self = this
     this.contentMap = {}
     this.chartList = []
     this.isTitleEmpty = false
     this.isContentEmpty = false
     this.showChartModal = false
+    this.tabObservable = this.opts.observable
     this.contentObservable = riot.observable()
     this.chartObservable = riot.observable()
 
   this.on('mount', function() {
-    that.initSortable()
+    self.initSortable()
     
+    this.tabObservable.on('show', function(type){
+      console.log('contentComponent tab observable triggered', type)
+      if (type === 'content'){
+        $('#contentComponent').show()
+        self.contentObservable.trigger('renderCharts')
+      }
+      else{
+        $('#contentComponent').hide()
+      }
+    })
+
     this.contentObservable.on('createdContentSection', function(contentId, contentObj) {
-      that.contentMap[contentId] = contentObj
+      self.contentMap[contentId] = contentObj
     })
     
     this.contentObservable.on('deletedContentSection', function(contentId) {
-      delete that.contentMap[contentId]
+      delete self.contentMap[contentId]
     })
 
     this.chartObservable.on('savedChart', function(chartData, chartOptions) {
       console.log('savedChart', chartData, chartOptions)
-      const newChartId = that.uniqueId()
+      const newChartId = self.uniqueId()
       
       const currentContentSection = $('#contentSection').val()
-      const appendDiv = '<div id="'+newChartId+'" class="ct-chart">'
+      const appendDiv = '<div id="'+newChartId+'" class="ct-chart ct-square"></div>'
       $('#contentSection').val(currentContentSection + ' ' + appendDiv)
       const newChart = true
       const newChartData = { id: newChartId, data: chartData, options: chartOptions }
       $('#contentSection').trigger('input', [ newChart, newChartData ])
-      that.chartList.push(newChartData)
-      console.log('chartList', that.chartList)
+      self.chartList.push(newChartData)
+      console.log('chartList', self.chartList)
     })
 
     $('#contentSection').on('input', function(e, newChart, newChartData) {
@@ -84,7 +96,7 @@
       if (newChart){
         new Chartist.Line(document.getElementById(newChartData.id), newChartData.data, newChartData.options)
       }
-      renderCharts(that.chartList)
+      renderCharts(self.chartList)
     })
 
   })
@@ -97,7 +109,7 @@
         console.log('onUpdate triggered', e)
         console.log('old index', e.oldIndex)
         console.log('new index', e.newIndex)
-        that.contentObservable.trigger('contentOrderUpdate', e.oldIndex, e.newIndex)
+        self.contentObservable.trigger('contentOrderUpdate', e.oldIndex, e.newIndex)
 
       } });
   }
@@ -164,7 +176,8 @@
         const sectionId = data[i].id
         const sectionTitle = data[i].title
         const sectionText = data[i].text
-        this.generateSection(sectionId, sectionTitle, sectionText)
+        const sectionCharts = data[i].charts
+        this.generateSection(sectionId, sectionTitle, sectionText, sectionCharts)
       }
     }
   }

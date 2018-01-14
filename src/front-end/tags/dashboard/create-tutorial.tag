@@ -50,7 +50,7 @@
       </div>
     </div>
   <script>
-    var that = this
+    var self = this
     this.observable = this.opts.observable
     this.showCreateTutorialModal = false
     this.invalidTutorialName = false
@@ -61,8 +61,8 @@
 
     this.on('mount', function(){
       this.observable.on('openCreateModal', function(){
-        that.open()
-        that.update()
+        self.open()
+        self.update()
       })
     })
 
@@ -96,8 +96,8 @@
         'branchName': tutorialName
       }, function (result) {
         console.log("result from post", result)
-        that.createTutorialSucceeded()
-        that.update()
+        self.createTutorialSucceeded()
+        self.update()
         setTimeout(function () {
           console.log("tutorial created successfully")
           window.location.href = '/editor/' + tutorialName
@@ -113,9 +113,9 @@
         else{
           message = 'Uh-oh something broke on the server side. Please try again.'
         }
-        that.createTutorialFailed(message)
+        self.createTutorialFailed(message)
         handleError(error)
-        that.update()
+        self.update()
       })
     }
 

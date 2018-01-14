@@ -6,7 +6,7 @@
     </div>
   </div>
   <script>
-  var that = this
+  var self = this
   get(){
     return this.refs.tutorialTitle.value
   }

@@ -40,7 +40,7 @@
   </section>
 
   <script>
-    var that = this
+    var self = this
     console.log('subject catalog options', this.opts)
     this.subject = this.opts.subject || ''
     this.subjectData = {}
@@ -51,9 +51,9 @@
         console.log('got a result from url', url)
         console.log(result)
         const data = result.data
-        that.topics = data.topics
-        that.subjectData = data.subjectData
-        that.update()
+        self.topics = data.topics
+        self.subjectData = data.subjectData
+        self.update()
       })
       .fail(function (error) {
         console.log('failed to get anything from url', url)

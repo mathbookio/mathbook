@@ -34,9 +34,9 @@
         </li>
       </ul>
     </div>
-    <configuration id="config"></configuration>
-    <content id="content"></content>
-    <exercises id="exercises"></exercises>
+    <configuration id="configView" observable="{ tabObservable }"></configuration>
+    <content id="contentView" observable="{ tabObservable }"></content>
+    <exercises id="exercisesView" observable="{ tabObservable }"></exercises>
     <div class="container">
       <div class="level">
         <div class="level-left">
@@ -69,9 +69,10 @@
     </div>
   </section>
   <script>
-    var that = this
+    var self = this
     this.loadingText = 'Retrieving last saved state. Hang on.'
     this.isLoading = true
+    this.tabObservable = riot.observable()
     this.sessionObservable = riot.observable()
     this.sessionExpiry = 0
     this.sessionExpiryTimer
@@ -84,17 +85,17 @@
 
     this.on('mount', function () {
       //this.initLeavePrompt()
-      this.pickConfiguration();
       const url = '/v1/tutorial/' + this.tutorialName
       $.get(url, function(result) {
         console.log('getTutorialData data', result)
-        that.tags.configuration.set(result.data.config),
-        that.tags.content.set(result.data.content),
-        that.tags.exercises.set(result.data.exercises)
-        that.isLoading = false
-        that.sessionExpiry = result.metadata.expiresOn
-        that.initSessionExpiryTimer()
-        that.update()
+        self.tags.configuration.set(result.data.config),
+        self.tags.content.set(result.data.content),
+        self.tags.exercises.set(result.data.exercises)
+        self.isLoading = false
+        self.sessionExpiry = result.metadata.expiresOn
+        self.initSessionExpiryTimer()
+        self.update()
+        self.pickConfiguration()
       })
       .fail(function (res){
         const error = res.responseJSON
@@ -102,14 +103,14 @@
       })
 
       this.sessionObservable.on('saveTutorial', function(){
-        that.saveState(function(err, result) {
+        self.saveState(function(err, result) {
             if (err){
-              that.sessionObservable.trigger('saveFailed')
+              self.sessionObservable.trigger('saveFailed')
             }
             else{
-              that.sessionObservable.trigger('saveSuccess')
+              self.sessionObservable.trigger('saveSuccess')
             }
-            that.update()
+            self.update()
         })
       })
 
@@ -129,11 +130,11 @@
       const triggerTime = 300 //seconds 
       var currentTime = moment.utc().unix()
       this.sessionExpiryTimer = setInterval(function() {
-        const timeRemaining = that.sessionExpiry - currentTime
-        //console.log("timeRemaining", timeRemaining, "currentTime", currentTime, "sessionExpiry", that.sessionExpiry)
+        const timeRemaining = self.sessionExpiry - currentTime
+        //console.log("timeRemaining", timeRemaining, "currentTime", currentTime, "sessionExpiry", self.sessionExpiry)
         if (timeRemaining <= triggerTime){
-          that.sessionObservable.trigger('sessionExpiringSoon', timeRemaining)
-          that.killSessionExpiryTimer()
+          self.sessionObservable.trigger('sessionExpiringSoon', timeRemaining)
+          self.killSessionExpiryTimer()
         }
         currentTime += 1
 
@@ -148,25 +149,22 @@
       $("#configTab").addClass("is-active")
       $("#contentTab").removeClass("is-active")
       $("#exercisesTab").removeClass("is-active")
-      $("#content").hide();
-      $("#exercises").hide();
-      $("#config").show();
+      this.tabObservable.trigger('show', 'config')
     }
     pickContent() {
       $("#configTab").removeClass("is-active")
       $("#contentTab").addClass("is-active")
       $("#exercisesTab").removeClass("is-active")
-      $("#content").show();
-      $("#exercises").hide();
-      $("#config").hide();
+      this.tabObservable.trigger('show', 'content')
     }
     pickExercises() {
       $("#configTab").removeClass("is-active")
       $("#contentTab").removeClass("is-active")
       $("#exercisesTab").addClass("is-active")
-      $("#content").hide();
-      $("#exercises").show();
-      $("#config").hide();
+      this.tabObservable.trigger('show', 'exercises')
+      // $("#content").hide();
+      // $("#exercises").show();
+      // $("#config").hide();
     }
 
     previewTutorial(){
@@ -174,13 +172,13 @@
         if (err){
           const skipSaving = confirm('Unfortunately, we were unable to save the current state of the tutorial. Would you like to preview your last saved state ? \n Note that your current changes will be lost.')
           if(skipSaving){
-            window.location.href = '/preview/' + that.tutorialName
+            window.location.href = '/preview/' + self.tutorialName
           }
           return
         }
-        that.disableLeavePrompt()
-        that.update()
-        window.location.href = '/preview/' + that.tutorialName
+        self.disableLeavePrompt()
+        self.update()
+        window.location.href = '/preview/' + self.tutorialName
         
       })
     }
@@ -207,21 +205,21 @@
         data: { data: JSON.stringify(data) },
         success: function (result) {
           console.log('saved tutorial successfully')
-          that.isSavingTutorial = false
-          that.saveTutorialSuccess = true
-          that.saveTutorialFailed = false
-          that.currentTime = new Date().toLocaleTimeString()
-          that.update()
+          self.isSavingTutorial = false
+          self.saveTutorialSuccess = true
+          self.saveTutorialFailed = false
+          self.currentTime = new Date().toLocaleTimeString()
+          self.update()
           if (callback){
             callback(null, { status: 200 })
           }
         }
         })
         .fail(function (res){
-          that.isSavingTutorial = false
-          that.saveTutorialSuccess = false
-          that.saveTutorialFailed = true
-          that.update()
+          self.isSavingTutorial = false
+          self.saveTutorialSuccess = false
+          self.saveTutorialFailed = true
+          self.update()
           const error = res.responseJSON
           console.log(error)
           if (callback){
