@@ -16,6 +16,11 @@
   </div>
   <div class="field">
     <div class="control">
+      <a class="button" onclick={ showChartModal }>Insert Chart</a>
+    </div>
+  </div>
+  <div class="field">
+    <div class="control">
       <textarea id="contentSection" class="textarea mathContent {is-danger: isContentEmpty}" placeholder="section content..."></textarea>
        <p show={ isContentEmpty } class="help is-danger">The content section can't be empty</p>
     </div>
@@ -31,6 +36,7 @@
     <a class="button is-info" onclick={ saveSection }>Add Section</a>
   </div>
   <br/>
+    <chart-modal observable={ chartObservable }></chart-modal>
     <div id="sectionList"></div>
     </div>
   </section>
@@ -38,9 +44,12 @@
   <script>
     var that = this
     this.contentMap = {}
+    this.chartList = []
     this.isTitleEmpty = false
     this.isContentEmpty = false
+    this.showChartModal = false
     this.contentObservable = riot.observable()
+    this.chartObservable = riot.observable()
 
   this.on('mount', function() {
     that.initSortable()
@@ -53,11 +62,30 @@
       delete that.contentMap[contentId]
     })
 
-    $('#contentSection').on('input', function(e) {
+    this.chartObservable.on('savedChart', function(chartData, chartOptions) {
+      console.log('savedChart', chartData, chartOptions)
+      const newChartId = that.uniqueId()
+      
+      const currentContentSection = $('#contentSection').val()
+      const appendDiv = '<div id="'+newChartId+'" class="ct-chart">'
+      $('#contentSection').val(currentContentSection + ' ' + appendDiv)
+      const newChart = true
+      const newChartData = { id: newChartId, data: chartData, options: chartOptions }
+      $('#contentSection').trigger('input', [ newChart, newChartData ])
+      that.chartList.push(newChartData)
+      console.log('chartList', that.chartList)
+    })
+
+    $('#contentSection').on('input', function(e, newChart, newChartData) {
+      console.log('hey you updated the contentSection', e, newChart, newChartData)
       var contentVal = $('#contentSection').val()
       $('#contentSectionText').html(contentVal)
       renderMathInElement(document.getElementById('contentSectionText'))
-    });
+      if (newChart){
+        new Chartist.Line(document.getElementById(newChartData.id), newChartData.data, newChartData.options)
+      }
+      renderCharts(that.chartList)
+    })
 
   })
 
@@ -80,29 +108,35 @@
 
     var sectionTitle = $('#contentTitle').val()
     var sectionText = $('#contentSection').val()
+    var sectionCharts = this.chartList
 
     this.isTitleEmpty = this.isTextEmpty(sectionTitle)
     this.isContentEmpty = this.isTextEmpty(sectionText)
     if (this.isTitleEmpty || this.isContentEmpty){
       return
     }
-    this.generateSection(sectionId, sectionTitle, sectionText)
+    this.generateSection(sectionId, sectionTitle, sectionText, sectionCharts)
   }
 
-  generateSection(sectionId, sectionTitle, sectionText){
+  generateSection(sectionId, sectionTitle, sectionText, sectionCharts){
     const contentIndex = $('content-section').length
     console.log('contentIndex', contentIndex)
     $('#sectionList').append('<content-section ref="'+sectionId+'" id="'+sectionId+'"></content-section>')
-    riot.mount('#'+sectionId, 'content-section', { contentObservable: this.contentObservable, contentIndex: contentIndex, sectionTitle: sectionTitle, sectionText: sectionText })[0]
+    riot.mount('#'+sectionId, 'content-section', { contentObservable: this.contentObservable, contentIndex: contentIndex, sectionTitle: sectionTitle, sectionText: sectionText, sectionCharts: sectionCharts })[0]
     this.cleanupFields()
     this.update()
   }
-
+  
   cleanupFields(){
     $('#contentTitle').val('')
     $('#contentSection').val('')
     $('#contentSectionText').html('')
+    this.chartList = []
 
+  }
+
+  showChartModal(){
+    this.chartObservable.trigger('showChartModal')
   }
 
   isTextEmpty(text){

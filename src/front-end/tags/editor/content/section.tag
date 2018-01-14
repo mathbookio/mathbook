@@ -55,6 +55,8 @@ this.showModal = false
 this.sectionId = 'content_' + this.opts.id
 this.sectionTitle = this.opts.sectionTitle
 this.sectionText = this.opts.sectionText
+this.sectionCharts = this.opts.sectionCharts
+console.log('sectionCharts', this.sectionCharts)
 
 //generate Id's
 this.editTitleId =  'editContentTitle_' + this.opts.id
@@ -68,6 +70,7 @@ this.on('mount', function() {
   // bind section content
   this.$('sectionId').html(this.sectionText)
   this.render(this.sectionId)
+  that.renderCharts(that.sectionCharts)
   
   // preview section content edits/changes in modal view
   this.$('editSectionId').on('input', function(e) {
@@ -169,7 +172,8 @@ get(){
     id: this.opts.id,
     contentIndex: this.opts.contentIndex,
     title: this.sectionTitle,
-    text: this.sectionText 
+    text: this.sectionText,
+    charts: this.sectionCharts
   }
 }
 
@@ -179,7 +183,18 @@ render(id){
     renderMathInElement(document.getElementById(id))
   }
   catch(err){
+    console.log('section::render::err',err)
   }
+}
+
+renderCharts(chartList) {
+  for (var i in chartList) {
+    const chart = chartList[i]
+    const selector = $('#'+this.sectionId+'> #'+chart.id).get(0)
+    console.log('selector', selector)
+    new Chartist.Line(selector, chart.data, chart.options)
+  }
+  that.update()
 }
 
 // jquery alias

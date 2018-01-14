@@ -3,6 +3,9 @@
     .mathContent {
       font-family: 'consolas';
     }
+    .json{
+      font-family: 'consolas';
+    }
 
     .moveHandle {
       cursor: move;
@@ -80,7 +83,7 @@
     this.saveTutorialFailed = false
 
     this.on('mount', function () {
-      this.initLeavePrompt()
+      //this.initLeavePrompt()
       this.pickConfiguration();
       const url = '/v1/tutorial/' + this.tutorialName
       $.get(url, function(result) {

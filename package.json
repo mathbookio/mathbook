@@ -17,7 +17,7 @@
     "bulma": "^0.6.1",
     "bunyan": "^1.8.12",
     "bunyan-request": "^1.2.0",
-    "chart.js": "^2.7.1",
+    "chartist": "^0.11.0",
     "convict": "^4.0.2",
     "cookie-parser": "~1.4.3",
     "express": "~4.16.2",

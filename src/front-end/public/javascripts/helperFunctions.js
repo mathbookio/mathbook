@@ -35,6 +35,13 @@ function renderMath(id) {
   } catch (err) {}
 }
 
+function renderCharts(chartList) {
+  for (var i in chartList) {
+    const chart = chartList[i]
+    new Chartist.Line(document.getElementById(chart.id), chart.data, chart.options)
+  }
+}
+
 function openNavMenu() {
   const navbarBurger = $(".navbar-burger")
   const navbarMenu = $(".navbar-menu")
