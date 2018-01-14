@@ -41,23 +41,18 @@
 
   <script>
     var self = this
-    console.log('subject catalog options', this.opts)
     this.subject = this.opts.subject || ''
     this.subjectData = {}
     this.topics = []
     this.on('mount', function(){
       const url = '/v1/subject/' + this.subject
       $.get(url, function(result){
-        console.log('got a result from url', url)
-        console.log(result)
         const data = result.data
         self.topics = data.topics
         self.subjectData = data.subjectData
         self.update()
       })
       .fail(function (error) {
-        console.log('failed to get anything from url', url)
-        console.log(error)
         handleError(error)
       })
     })

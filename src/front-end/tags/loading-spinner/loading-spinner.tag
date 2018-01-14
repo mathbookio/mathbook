@@ -8,6 +8,5 @@
   </div>
   <script>
     var self = this
-    console.log(this.opts)
   </script>
 </loading-spinner>

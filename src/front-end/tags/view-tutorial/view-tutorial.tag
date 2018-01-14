@@ -15,17 +15,14 @@
     this.loadingText = 'Loading Tutorial...just a sec.'
     this.isLoading = true
 
-    console.log('this.opts', this.opts)
     this.tutorialName = this.opts.tutorialName || ''
     this.tutorialSubject = this.opts.subject || ''
     this.config = {}
     this.sections = []
     this.exercises = []
     this.on('mount', function () {
-      console.log('tutorial subject', this.tutorialSubject, 'tutorialName', this.tutorialName)
       const url = '/v1/tutorial/local/' + this.tutorialSubject + '/' + this.tutorialName
       $.get(url, function (result) {
-        console.log('getTutorialData result', result)
         result.config['table-contents'] = []
         for (var section of result.content){
           const sectionTitle = section['title']
@@ -47,7 +44,6 @@
         renderMathInElement(document.body)
       })
       .fail(function (res){
-        console.log('there was an error fetching the tutorial', res)
         handleError(res)
       })
       .always(function() {

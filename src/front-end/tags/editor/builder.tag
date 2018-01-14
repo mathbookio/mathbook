@@ -87,7 +87,6 @@
       //this.initLeavePrompt()
       const url = '/v1/tutorial/' + this.tutorialName
       $.get(url, function(result) {
-        console.log('getTutorialData data', result)
         self.tags.configuration.set(result.data.config),
         self.tags.content.set(result.data.content),
         self.tags.exercises.set(result.data.exercises)
@@ -131,7 +130,6 @@
       var currentTime = moment.utc().unix()
       this.sessionExpiryTimer = setInterval(function() {
         const timeRemaining = self.sessionExpiry - currentTime
-        //console.log("timeRemaining", timeRemaining, "currentTime", currentTime, "sessionExpiry", self.sessionExpiry)
         if (timeRemaining <= triggerTime){
           self.sessionObservable.trigger('sessionExpiringSoon', timeRemaining)
           self.killSessionExpiryTimer()
@@ -197,14 +195,12 @@
         content: this.tags.content.get(),
         exercises: this.tags.exercises.get()
       }
-      console.log(data)
       const url = '/v1/save/tutorial'
       $.ajax({
         url: url,
         type: 'PUT',
         data: { data: JSON.stringify(data) },
         success: function (result) {
-          console.log('saved tutorial successfully')
           self.isSavingTutorial = false
           self.saveTutorialSuccess = true
           self.saveTutorialFailed = false
@@ -221,7 +217,6 @@
           self.saveTutorialFailed = true
           self.update()
           const error = res.responseJSON
-          console.log(error)
           if (callback){
             callback(error, null)
           }

@@ -38,6 +38,7 @@ function renderMath(id) {
 function renderCharts(chartList) {
   for (var i in chartList) {
     const chart = chartList[i]
+    console.log("renderCharts::chart", chart)
     new Chartist.Line(document.getElementById(chart.id), chart.data, chart.options)
   }
 }

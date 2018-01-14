@@ -83,7 +83,6 @@
       })
       .fail(function(res) {
         const error = res.responseJSON
-        console.log(error)
         self.submitTutorialFailed(error.message)
         self.update()
       })

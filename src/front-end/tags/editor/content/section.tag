@@ -49,14 +49,12 @@
   </div>
 </div>
 <script>
-console.log(this.opts)
 var self = this
 this.showModal = false
 this.sectionId = 'content_' + this.opts.id
 this.sectionTitle = this.opts.sectionTitle
 this.sectionText = this.opts.sectionText
 this.sectionCharts = this.opts.sectionCharts
-console.log('sectionCharts', this.sectionCharts)
 
 //generate Id's
 this.editTitleId =  'editContentTitle_' + this.opts.id
@@ -81,44 +79,30 @@ this.on('mount', function() {
     });
 
     self.opts.contentObservable.on('renderCharts', function() {
-      console.log('rendering charts')
       self.renderCharts(self.sectionCharts)
     })
 
     self.opts.contentObservable.on('deletedContentSection', function(contentId, contentIndex) {
-    console.log('content obeservable deletedContentSection triggered', { contentId: contentId, contentIndex: contentIndex })
       if(contentIndex < self.opts.contentIndex){
-       console.log('a content was deleted before', self.sectionTitle, self.opts.contentIndex)
        self.opts.contentIndex -= 1
-       console.log('a content was deleted after', self.sectionTitle, self.opts.contentIndex)
 
       }
   })
 
   self.opts.contentObservable.on('contentOrderUpdate', function(oldIndex, newIndex){
-    console.log('contentOrderUpdate triggered', { oldIndex: oldIndex, newIndex: newIndex })
     if (oldIndex === self.opts.contentIndex){
-      console.log('oldIndex === contentIndex')
       self.opts.contentIndex = newIndex
-      console.log('after oldIndex === contentIndex',self.sectionTitle, self.opts.contentIndex)
       return
     }
 
     // an content was moved up the list
     if (oldIndex > newIndex && newIndex <= self.opts.contentIndex && oldIndex > self.opts.contentIndex){
-      console.log('an content was moved up the list before', self.sectionTitle, self.opts.contentIndex)
       self.opts.contentIndex += 1
-      console.log('an content was moved up the list after', self.sectionTitle, self.opts.contentIndex)
     }
     // an content was moved down the list
     else if (oldIndex < newIndex && newIndex >= self.opts.contentIndex && oldIndex < self.opts.contentIndex){
-      console.log('an content was moved down the list before', self.sectionTitle, self.opts.contentIndex)
       self.opts.contentIndex -= 1
-      console.log('an content was moved down the list after', self.sectionTitle, self.opts.contentIndex)
     } 
-    else{
-      console.log('nothing happened for', self.sectionTitle, self.opts.contentIndex)
-    }
   })
 })
 
@@ -199,7 +183,6 @@ renderCharts(chartList) {
   for (var i in chartList) {
     const chart = chartList[i]
     const selector = $('#'+this.sectionId+'> #'+chart.id).get(0)
-    console.log('selector', selector)
     new Chartist.Line(selector, chart.data, chart.options)
   }
 }
@@ -208,7 +191,6 @@ renderEditModalCharts(chartList) {
   for (var i in chartList) {
     const chart = chartList[i]
     const selector = $('#'+this.editSectionTextId+'> #'+chart.id).get(0)
-    console.log('renderEditModalCharts::selector', selector)
     new Chartist.Line(selector, chart.data, chart.options)
   }
 }

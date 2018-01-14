@@ -60,7 +60,6 @@
 <script>
 
 var self = this
-console.log(this.opts)
 this.showModal = false
 
 // generate Id's
@@ -91,40 +90,26 @@ this.on('mount', function() {
     });
 
   self.opts.exerciseObservable.on('deletedExercise', function(exerciseId, exerciseIndex) {
-    console.log('exercise obeservable deletedExercise triggered', { exerciseId: exerciseId, exerciseIndex: exerciseIndex })
       if(exerciseIndex < self.opts.exerciseIndex){
-       console.log('an exercise was deleted before', self.opts.question, self.opts.exerciseIndex)
        self.opts.exerciseIndex -= 1
-       console.log('an exercise was deleted after', self.opts.question, self.opts.exerciseIndex)
 
       }
   })
 
   self.opts.exerciseObservable.on('exerciseOrderUpdate', function(oldIndex, newIndex){
-    console.log('exerciseOrderUpdate triggered', { oldIndex: oldIndex, newIndex: newIndex })
     if (oldIndex === self.opts.exerciseIndex){
-      console.log('oldIndex === exerciseIndex')
       self.opts.exerciseIndex = newIndex
-      console.log('after oldIndex === exerciseIndex',self.opts.question, self.opts.exerciseIndex)
       return
     }
 
     // an exercise was moved up the list
     if (oldIndex > newIndex && newIndex <= self.opts.exerciseIndex && oldIndex > self.opts.exerciseIndex){
-      console.log('an exercise was moved up the list before', self.opts.question, self.opts.exerciseIndex)
       self.opts.exerciseIndex += 1
-      console.log('an exercise was moved up the list after', self.opts.question, self.opts.exerciseIndex)
     }
     // an exercise was moved down the list
     else if (oldIndex < newIndex && newIndex >= self.opts.exerciseIndex && oldIndex < self.opts.exerciseIndex){
-      console.log('an exercise was moved down the list before', self.opts.question, self.opts.exerciseIndex)
       self.opts.exerciseIndex -= 1
-      console.log('an exercise was moved down the list after', self.opts.question, self.opts.exerciseIndex)
     } 
-    else{
-      console.log('nothing happened for', self.opts.question, self.opts.exerciseIndex)
-    }
-
 
   })
   

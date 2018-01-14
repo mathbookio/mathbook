@@ -21,11 +21,9 @@
     this.exercises = []
     this.on('mount', function () {
       const urlPaths = window.location.href.split('/')
-      console.log('url paths', urlPaths)
       this.tutorialName = urlPaths.pop()
       const url = '/v1/tutorial/' + this.tutorialName
       $.get(url, function (result) {
-        console.log('getTutorialData result', result)
         const data = result.data
         data.config['table-contents'] = []
         for (var section of data.content){

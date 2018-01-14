@@ -25,7 +25,6 @@
     addKeyword() {
 
       var keyword = this.refs.keyword.value
-      console.log(keyword)
       this.invalidKeyword = isKeywordInvalid(keyword)
       if (!this.invalidKeyword) {
         if (this.keywords.length >= 5) {
@@ -35,11 +34,9 @@
         this.tooManyKeywords = false
         var insertIndex = this.keywords.length - 2
         this.keywords.splice(insertIndex, 0, keyword)
-        console.log("Keyword IS VALID")
         this.refs.keyword.value = ''
         return
       }
-        console.log("Keyword IS INVALID")
       
     }
 

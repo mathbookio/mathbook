@@ -38,7 +38,6 @@
   </section>
   <script>
     var self = this
-    console.log('options',this.opts)
     this.subjects = this.opts.subjects
     this.on('mount', function(){
       renderMath('mathSubjects')

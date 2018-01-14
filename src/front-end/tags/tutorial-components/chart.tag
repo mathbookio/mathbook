@@ -8,7 +8,6 @@
   this.chart = ''
   this.on('mount', function() {
     const chartElement = document.getElementById(self.chartId)
-    console.log('chartElement', chartElement)
     const myChart = new Chart(chartElement, 
       {
         type: 'bar',

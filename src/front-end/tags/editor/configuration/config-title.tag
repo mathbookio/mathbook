@@ -11,7 +11,6 @@
     return this.refs.tutorialTitle.value
   }
   set(title){
-    console.log('configTitle::set', title)
     this.refs.tutorialTitle.value = title
   }
 

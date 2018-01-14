@@ -86,7 +86,6 @@
     createTutorial() {
       const tutorialName = this.refs.tutorialName.value
       if (this.tutorialNameInvalid(tutorialName)) {
-        console.log('tutorial Name invalid', tutorialName)
         this.invalidTutorialNameEntered()
         return
       }
@@ -95,19 +94,15 @@
       $.post(url, {
         'branchName': tutorialName
       }, function (result) {
-        console.log("result from post", result)
         self.createTutorialSucceeded()
         self.update()
         setTimeout(function () {
-          console.log("tutorial created successfully")
           window.location.href = '/editor/' + tutorialName
         }, 2500)
       })
       .fail(function(error) {
-        console.log(error)
         let message = ''
         if (error.status === 409){
-          console.log('the name of tutorial you entered is unavailable.')
           message = 'The tutorial name is already in use. Please create a different name.'
         }
         else{

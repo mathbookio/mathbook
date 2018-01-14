@@ -125,7 +125,6 @@
       self.loadingTutorials = true
       self.update()
       $.get('/v1/tutorials', function (result) {
-        console.log('result from /v1/tutorials', result)
         self.succeededRequest()
         if(Array.isArray(result.data.tutorials) && result.data.tutorials.length === 0){
           self.noTutorialsFound = true
@@ -159,24 +158,20 @@
     }
 
     editTutorial(e) {
-      console.log('editing tutorial with id', e.item)
       window.location.href = '/editor/' + e.item.name
     }
 
     previewTutorial(e){
-      console.log('editing tutorial with id', e.item)
       window.location.href = '/preview/' + e.item.name 
     }
 
     openSubmitTutorialModal(e) {
-      console.log('submitTutorialName', this.submitTutorialName)
       const submitTutorialName = e.item.name
       this.dashboardObservable.trigger('openSubmitModal', submitTutorialName)
     }
 
     openDeleteTutorialModal(e) {
       const tutorialName = e.item.name
-      console.log('deleteTutorialName', tutorialName)
       this.dashboardObservable.trigger('openDeleteModal', tutorialName)
     }
 
@@ -185,11 +180,9 @@
     }
 
     formatDateFromNow(timestamp) {
-      console.log('timestamp', timestamp)
       return moment(timestamp).fromNow()
     }
     formatDate(timestamp) {
-      console.log('timestamp', timestamp)
       return moment(timestamp).format('MMMM DD, YYYY HH:mm:ss')
     }
   </script>

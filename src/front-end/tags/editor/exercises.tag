@@ -87,9 +87,6 @@
     Sortable.create(exerciseList, { 
       handle: '.moveHandle',
       onUpdate: function(e){
-        console.log('onUpdate triggered', e)
-        console.log('old index', e.oldIndex)
-        console.log('new index', e.newIndex)
         self.exerciseObservable.trigger('exerciseOrderUpdate', e.oldIndex, e.newIndex)
 
       } });
@@ -116,7 +113,6 @@
 
   generateExercise(exerciseId, question, questionText, answer, answerText){
     const exerciseIndex = $('exercise-section').length
-    console.log('exerciseIndex', exerciseIndex)
     $('#exerciseList').append('<exercise-section id="'+exerciseId+'"></exercise-section>')
     riot.mount('#'+exerciseId, 
     { exerciseObservable: this.exerciseObservable,
@@ -142,7 +138,6 @@
 
   get(){
     const exerciseList = []
-    console.log('exerciseMap', this.exerciseMap)
     for (var exerciseId in this.exerciseMap){
       var exercise = this.exerciseMap[exerciseId].get()
       exerciseList[exercise.exerciseIndex] = exercise
@@ -151,10 +146,8 @@
   }
 
   set(data){
-    console.log(data)
     if(Array.isArray){
       for(var i in data){
-        console.log('set::exercise', data[i])
         const exerciseId = data[i].id
         const question = data[i].question
         const questionText = data[i].questionText

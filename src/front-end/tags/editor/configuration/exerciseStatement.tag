@@ -20,7 +20,6 @@
     
     $('#exerciseStatement').on('input', function(e) {
       var osText = $('#exerciseStatement').val()
-      console.log('osText', osText)
       $('#exerciseStatementText').html(osText)
       renderMathInElement(document.getElementById('exerciseStatementText'))
     });

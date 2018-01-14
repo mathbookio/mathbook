@@ -56,7 +56,6 @@
     self.initSortable()
     
     this.tabObservable.on('show', function(type){
-      console.log('contentComponent tab observable triggered', type)
       if (type === 'content'){
         $('#contentComponent').show()
         self.contentObservable.trigger('renderCharts')
@@ -74,28 +73,21 @@
       delete self.contentMap[contentId]
     })
 
-    this.chartObservable.on('savedChart', function(chartData, chartOptions) {
-      console.log('savedChart', chartData, chartOptions)
+    this.chartObservable.on('savedChart', function(chartSize, chartData, chartOptions) {
       const newChartId = self.uniqueId()
       
       const currentContentSection = $('#contentSection').val()
-      const appendDiv = '<div id="'+newChartId+'" class="ct-chart ct-square"></div>'
+      const appendDiv = '<div id="'+newChartId+'" class="ct-chart '+chartSize+'"></div>'
       $('#contentSection').val(currentContentSection + ' ' + appendDiv)
-      const newChart = true
-      const newChartData = { id: newChartId, data: chartData, options: chartOptions }
-      $('#contentSection').trigger('input', [ newChart, newChartData ])
-      self.chartList.push(newChartData)
-      console.log('chartList', self.chartList)
+      self.chartList.push({ id: newChartId, data: chartData, options: chartOptions })
+      console.log('self.chartList', self.chartList)
+      $('#contentSection').trigger('input')
     })
 
-    $('#contentSection').on('input', function(e, newChart, newChartData) {
-      console.log('hey you updated the contentSection', e, newChart, newChartData)
+    $('#contentSection').on('input', function(e, newChart) {
       var contentVal = $('#contentSection').val()
       $('#contentSectionText').html(contentVal)
       renderMathInElement(document.getElementById('contentSectionText'))
-      if (newChart){
-        new Chartist.Line(document.getElementById(newChartData.id), newChartData.data, newChartData.options)
-      }
       renderCharts(self.chartList)
     })
 
@@ -106,9 +98,6 @@
     Sortable.create(sectionList, { 
       handle: '.moveHandle',
       onUpdate: function(e){
-        console.log('onUpdate triggered', e)
-        console.log('old index', e.oldIndex)
-        console.log('new index', e.newIndex)
         self.contentObservable.trigger('contentOrderUpdate', e.oldIndex, e.newIndex)
 
       } });
@@ -132,7 +121,6 @@
 
   generateSection(sectionId, sectionTitle, sectionText, sectionCharts){
     const contentIndex = $('content-section').length
-    console.log('contentIndex', contentIndex)
     $('#sectionList').append('<content-section ref="'+sectionId+'" id="'+sectionId+'"></content-section>')
     riot.mount('#'+sectionId, 'content-section', { contentObservable: this.contentObservable, contentIndex: contentIndex, sectionTitle: sectionTitle, sectionText: sectionText, sectionCharts: sectionCharts })[0]
     this.cleanupFields()
@@ -169,10 +157,8 @@
   }
 
   set(data){
-    console.log(data)
     if(Array.isArray(data)){
       for(var i in data){
-        console.log('set::section', data[i])
         const sectionId = data[i].id
         const sectionTitle = data[i].title
         const sectionText = data[i].text

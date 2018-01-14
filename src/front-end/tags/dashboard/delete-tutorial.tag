@@ -57,8 +57,6 @@
 
     $('#deleteTutorialName').on('input', function(e) {
       var inputTutorialName = e.target.value
-      //console.log('input tutorial name', inputTutorialName)
-      //console.log('self.tutorialName', self.tutorialName)
       if (inputTutorialName === self.tutorialName){
         self.safeToDelete = true
         self.update()
@@ -115,9 +113,7 @@
         }
       })
       .fail(function(res) {
-        console.log(res)
         const error = res.responseJSON
-        console.error(error)
         self.deleteTutorialFailed(error.message)
         self.update()
       })

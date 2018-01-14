@@ -37,17 +37,14 @@
         title: this.refs.preReqTitle.value,
         url: this.refs.preReqUrl.value
       }
-      console.log(preReq)
       this.tooManyPreReqs = false
       this.invalidPreReqTitle = isPreReqTitleInvalid(preReq.title)
       this.invalidPreReqUrl = isPreReqUrlInvalid(preReq.url)
       if (!this.invalidPreReqTitle && !this.invalidPreReqUrl) {
         this.preRequisites.push(preReq)
-        console.log("PREREQ IS VALID")
         this.emptyFields()
         return
       }
-        console.log("PREREQ IS INVALID")
       
     }
 

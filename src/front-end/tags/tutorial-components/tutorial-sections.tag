@@ -17,7 +17,6 @@ this.on('mount', function(){
 renderContent(){
   for (var section of this.sections){
     const sectionId = 'content_'+section.contentIndex
-    console.log('section', section)
     $('#'+sectionId).html(section.text)
     const sectionContentElement = document.getElementById(sectionId)
     try{
@@ -31,7 +30,6 @@ renderContent(){
 }
 
 set(data){
-  console.log('tutorial-section', data)
   this.sections = data || []
   $(document).ready(function() {
   self.renderContent()

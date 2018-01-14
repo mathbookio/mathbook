@@ -37,17 +37,14 @@
         title: this.refs.resourceTitle.value,
         url: this.refs.resourceUrl.value
       }
-      console.log(resource)
       this.tooManyResources = false
       this.invalidResourceTitle = isResourceTitleInvalid(resource.title)
       this.invalidResourceUrl = isResourceUrlInvalid(resource.url)
       if (!this.invalidResourceTitle && !this.invalidResourceUrl) {
         this.resources.push(resource)
-        console.log("Resource IS VALID")
         this.emptyFields()
         return
       }
-        console.log("Resource IS INVALID")
       
     }
 

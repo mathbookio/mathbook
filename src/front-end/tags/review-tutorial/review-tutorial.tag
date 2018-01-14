@@ -25,13 +25,11 @@
     this.comments = []
     this.on('mount', function () {
       const urlPaths = window.location.href.split('/')
-      console.log('url paths', urlPaths)
       this.tutorialName = urlPaths.pop()
       this.userName = urlPaths.pop()
       const url = '/v1/tutorial/'+ this.userName + '/' + this.tutorialName
       $.get(url, function (result) {
         this.isError = false
-        console.log('getTutorialData result', result)
         result.config['table-contents'] = []
         for (var section of result.content){
           const sectionTitle = section['title']
@@ -53,7 +51,6 @@
         renderMathInElement(document.body)
       })
       .fail(function(error) {
-        console.log(error)
         if (error.status === 404){
           window.location.href = '/404'
           return
