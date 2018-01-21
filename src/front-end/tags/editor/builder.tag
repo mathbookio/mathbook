@@ -35,8 +35,9 @@
       </ul>
     </div>
     <configuration id="configView" observable="{ tabObservable }"></configuration>
-    <content id="contentView" observable="{ tabObservable }"></content>
-    <exercises id="exercisesView" observable="{ tabObservable }"></exercises>
+    <content id="contentView" observable="{ tabObservable }" chart-observable="{ chartObservable }"></content>
+    <exercises id="exercisesView" observable="{ tabObservable }" chart-observable="{ chartObservable }"></exercises>
+    <chart-modal observable={ chartObservable }></chart-modal>
     <div class="container">
       <div class="level">
         <div class="level-left">
@@ -74,6 +75,7 @@
     this.isLoading = true
     this.tabObservable = riot.observable()
     this.sessionObservable = riot.observable()
+    this.chartObservable = riot.observable()
     this.sessionExpiry = 0
     this.sessionExpiryTimer
     this.tutorialName = this.opts.tutorialName || ''

@@ -8,6 +8,11 @@
     <div id="exerciseContainer" class="container">
       <h5 class="title">Exercises</h5>
       <h6 class="subtitle">Create a minimum of 3 exercises that range in difficulty</h6>
+    <div class="field">
+      <div class="control">
+        <a class="button" onclick={ showChartModal }>Insert Chart</a>
+      </div>
+  </div>
 <div class="field">
     <div class="control">
       <input type="text" id="exerciseQuestion" class="input mathContent {is-danger: isQuestionInvalid}" placeholder="question"/>
@@ -43,12 +48,15 @@
   </section>
 <script>
 
-    var self = this
-    this.exerciseMap = {}
-    this.isQuestionInvalid = false
-    this.isAnswerInvalid = false
-    this.tabObservable = this.opts.observable
-    this.exerciseObservable = riot.observable()
+  var self = this
+  this.exerciseMap = {}
+  this.chartList = []
+  this.clientId = 'exercises'
+  this.isQuestionInvalid = false
+  this.isAnswerInvalid = false
+  this.tabObservable = this.opts.observable
+  this.chartObservable = this.opts.chartObservable
+  this.exerciseObservable = riot.observable()
 
   this.on('mount', function() {
     self.initSortable()
@@ -56,6 +64,7 @@
     this.tabObservable.on('show', function(type){
       if (type === 'exercises'){
         $('#exercisesComponent').show()
+        self.exerciseObservable.trigger('renderCharts')
       }
       else{
         $('#exercisesComponent').hide()
@@ -74,12 +83,29 @@
       var questionVal = $('#exerciseQuestion').val()
       $('#exerciseQuestionText').html(questionVal)
        renderMathInElement(document.getElementById('exerciseQuestionText'))
+       self.renderEditModalCharts(self.chartList)
     });
     $('#exerciseAnswer').on('input', function(e) {
       var answerVal = $('#exerciseAnswer').val()
       $('#exerciseAnswerText').html(answerVal)
        renderMathInElement(document.getElementById('exerciseAnswerText'))
+       self.renderEditModalCharts(self.chartList)
     });
+
+    this.chartObservable.on('savedChart', function(clientId, chartSize, chartData, chartOptions) {
+      if (clientId !== self.clientId){
+        return
+      }
+      const newChartId = uniqueId()
+      
+      const currentContentSection = $('#exerciseQuestion').val()
+      const appendDiv = '<div id="'+newChartId+'" class="ct-chart '+chartSize+'"></div>'
+      $('#exerciseQuestion').val(currentContentSection + ' ' + appendDiv)
+      self.chartList.push({ id: newChartId, data: chartData, options: chartOptions })
+      console.log('self.chartList', self.chartList)
+      $('#exerciseQuestion').trigger('input')
+    })
+
   })
 
   initSortable(){
@@ -93,7 +119,7 @@
   }
 
   saveSection(){
-    var exerciseNumber = this.uniqueId()
+    var exerciseNumber = uniqueId()
     var exerciseId = 'exerciseBox_'+exerciseNumber
 
     var question = $('#exerciseQuestion').val()
@@ -107,18 +133,20 @@
     if(this.isQuestionInvalid || this.isAnswerInvalid){
       return
     }
-    this.generateExercise(exerciseId, question, questionText, answer, answerText)
+    this.generateExercise(exerciseId, question, questionText, answer, answerText, this.chartList)
     this.cleanupFields()
   }
 
-  generateExercise(exerciseId, question, questionText, answer, answerText){
+  generateExercise(exerciseId, question, questionText, answer, answerText, chartList){
     const exerciseIndex = $('exercise-section').length
     $('#exerciseList').append('<exercise-section id="'+exerciseId+'"></exercise-section>')
     riot.mount('#'+exerciseId, 
     { exerciseObservable: this.exerciseObservable,
+      chartObservable: this.chartObservable,
       exerciseIndex: exerciseIndex,
       question: question, 
-      answer: answer })
+      answer: answer,
+      chartList: chartList })
   }
 
   isTextInvalid(text){
@@ -132,9 +160,23 @@
     $('#exerciseAnswerText').html('')
   }
 
-  uniqueId() {
-    return Math.random().toString(36).substr(2, 10);
-  };
+  showChartModal(){
+    this.chartObservable.trigger('showChartModal', self.clientId)
+  }
+
+  renderEditModalCharts(chartList) {
+    for (var i in chartList) {
+      const chart = chartList[i]
+      const questionSelector = $('#exerciseQuestionText > #'+chart.id).get(0)
+      if (questionSelector){
+        new Chartist.Line(questionSelector, chart.data, chart.options)
+      }
+      const answerSelector = $('#exerciseAnswerText > #'+chart.id).get(0)
+      if (answerSelector){
+        new Chartist.Line(answerSelector, chart.data, chart.options)
+      }
+    }
+  }
 
   get(){
     const exerciseList = []
@@ -153,7 +195,8 @@
         const questionText = data[i].questionText
         const answer = data[i].answer
         const answerText = data[i].answerText
-        this.generateExercise(exerciseId, question, questionText, answer, answerText)
+        const chartList = data[i].chartList
+        this.generateExercise(exerciseId, question, questionText, answer, answerText, chartList)
       }
     }
   }

@@ -28,6 +28,11 @@
     <section class="modal-card-body">
       <div class="field">
         <div class="control">
+          <a class="button" onclick={ showChartModal }>Insert Chart</a>
+        </div>
+      </div>
+      <div class="field">
+        <div class="control">
           <input type="text" id="{ editQuestionId }" class="input mathContent" placeholder="edit exercise question"/>
        </div>
       </div>
@@ -61,7 +66,9 @@
 
 var self = this
 this.showModal = false
-
+this.clientId = this.opts.id
+this.exerciseObservable = this.opts.exerciseObservable
+this.chartObservable = this.opts.chartObservable
 // generate Id's
 this.answerId = 'answer_' + this.opts.id
 this.questionId = 'question_' + this.opts.id
@@ -72,14 +79,17 @@ this.editQuestionTextId = 'editQuestionText_' + this.opts.id
 this.editAnswerId = 'editAnswer_' + this.opts.id
 this.editAnswerTextId = 'editAnswerText_' + this.opts.id
 
+this.chartList = this.opts.chartList
+
 this.on('mount', function() {
-  this.opts.exerciseObservable.trigger('createdExercise', this.opts.id, this)
+  this.exerciseObservable.trigger('createdExercise', this.opts.id, this)
   self.bindExerciseValues()
   // preview question text
   self.$('editQuestionId').on('input', function(e) {
       var questionVal = self.$('editQuestionId').val()
       self.$('editQuestionTextId').html(questionVal)
       self.render(self.editQuestionTextId)
+      self.renderEditModalCharts(self.chartList)
     });
 
   // preview answer text
@@ -87,7 +97,12 @@ this.on('mount', function() {
       var answerVal = self.$('editAnswerId').val()
       self.$('editAnswerTextId').html(answerVal)
       self.render(self.editAnswerTextId)
+      self.renderEditModalCharts(self.chartList)
     });
+
+  this.exerciseObservable.on('renderCharts', function() {
+    self.renderCharts(self.chartList)
+  })
 
   self.opts.exerciseObservable.on('deletedExercise', function(exerciseId, exerciseIndex) {
       if(exerciseIndex < self.opts.exerciseIndex){
@@ -112,6 +127,23 @@ this.on('mount', function() {
     } 
 
   })
+
+
+  this.chartObservable.on('savedChart', function(clientId, chartSize, chartData, chartOptions) {
+
+    if (clientId !== self.clientId){
+      return
+    }
+
+    const newChartId = uniqueId()
+    
+    const currentQuestion = self.$('editQuestionId').val()
+    const appendDiv = '<div id="'+newChartId+'" class="ct-chart '+chartSize+'"></div>'
+    self.$('editQuestionId').val(currentQuestion + ' ' + appendDiv)
+    self.chartList.push({ id: newChartId, data: chartData, options: chartOptions })
+    console.log('self.exerciseCharts', self.exerciseCharts)
+    self.$('editQuestionId').trigger('input')
+  })
   
 })
 
@@ -120,6 +152,7 @@ bindExerciseValues(){
   this.$('answerId').html(this.opts.answer)
   self.render(self.questionId)
   self.render(self.answerId)
+  self.renderCharts(self.chartList)
 }
 
 editExercise(){
@@ -132,6 +165,7 @@ editExercise(){
   this.$('editAnswerId').val(this.opts.answer)
   this.$('editAnswerTextId').html(this.opts.answer)
   self.render(this.editAnswerTextId)
+  self.renderEditModalCharts(this.chartList)
 }
 
 saveChanges(){
@@ -149,6 +183,8 @@ updateExercise(){
 
     this.opts.answer = this.$('editAnswerId').val()
     this.opts.answerText = this.$('editAnswerTextId').html()
+
+    this.opts.chartList = this.chartList
 
     this.$('questionId').html(this.opts.questionText)
     this.$('answerId').html(this.opts.answerText)
@@ -181,12 +217,19 @@ removeExercise(){
 }
 
 get(){
+  console.log('get exercise chartlist', this.opts.chartList)
   return {
     id: this.opts.id,
     question: this.opts.question,
     answer: this.opts.answer,
-    exerciseIndex: this.opts.exerciseIndex
+    exerciseIndex: this.opts.exerciseIndex,
+    chartList: this.opts.chartList
   }
+}
+
+showChartModal(){
+    console.log('trigger showChartModal with clientId', self.clientId)
+    this.chartObservable.trigger('showChartModal', self.clientId)
 }
 
 render(id){
@@ -195,6 +238,37 @@ render(id){
   }
   catch(err){
   }
+}
+
+renderCharts(chartList) {
+  for (var i in chartList) {
+      const chart = chartList[i]
+      const questionSelector = $('#'+this.questionId+'> #'+chart.id).get(0)
+      if (questionSelector){
+        new Chartist.Line(questionSelector, chart.data, chart.options)
+      }
+      const answerSelector = $('#'+this.answerId+'> #'+chart.id).get(0)
+      if (answerSelector){
+        new Chartist.Line(answerSelector, chart.data, chart.options)
+      }
+    }
+}
+
+renderEditModalCharts(chartList) {
+  console.log('renderEditModalCharts', chartList)
+    for (var i in chartList) {
+      const chart = chartList[i]
+      const questionSelector = $('#'+ self.editQuestionTextId +'> #'+chart.id).get(0)
+      console.log('questionSelector', questionSelector)
+      if (questionSelector){
+        new Chartist.Line(questionSelector, chart.data, chart.options)
+      }
+      const answerSelector = $('#'+ self.editAnswerTextId +'> #'+chart.id).get(0)
+      console.log('answerSelector', answerSelector)
+      if (answerSelector){
+        new Chartist.Line(answerSelector, chart.data, chart.options)
+      }
+    }
 }
 
 // jquery alias

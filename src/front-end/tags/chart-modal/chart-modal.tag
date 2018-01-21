@@ -43,11 +43,11 @@
           </div>
         <div class="field is-grouped">
           <div class="control is-expanded">
-          <label>Chart Labels</label>
+          <label>Chart Labels (X-Axis)</label>
             <textarea id="chartLabels" class="textarea json" placeholder="x-axis values"></textarea>
           </div>
           <div class="control is-expanded">
-          <label>Chart Series</label>
+          <label>Chart Series (Y-Axis)</label>
             <textarea id="chartSeries" class="textarea json" placeholder="y-axis values"></textarea>
           </div>
         </div>
@@ -104,8 +104,11 @@
 
   this.on('mount', function() {
     this.chartType = $('#chartTypeSelect').val(); 
-    this.observable.on('showChartModal', function(){
+    this.observable.on('showChartModal', function(clientId){
+      console.log('RECEIVED A SHOW CHART MODAL MSG', clientId)
       self.isActive = true
+      self.clientId = clientId
+      self.update()
       self.generateChart()
     })
 
@@ -127,14 +130,34 @@
       }
     })
     
-
-
     $('#chartSeries').on('input', function(e) {
       try{
         var data = $('#chartSeries').val().split('\n') || []
         const newSeries = []
         for(var i in data){
-          newSeries.push(data[i].split(','))
+          var series = []
+          const dataType = data[i].split(',')  || []
+          console.log('dataType', dataType)
+          for(var k in dataType){
+            if (/^(\-)?\d+(?:\.\d+)?[\;](\-)?\d+(?:\.\d+)?$/.test(dataType[k].trim()) === true){
+              console.log('got a point', )
+              const point = dataType[k].trim().split(';')
+              const x = point[0]
+              const y = point[1]
+              console.log('point', point, 'x',x,'y',y)
+              series.push({ x: x, y: y })
+              console.log('newSeries', newSeries)
+            }
+            else if (/[\d]/.test(dataType[k])){
+              series.push(dataType[k].trim())
+            }
+            else if (dataType[k] === "null"){
+              series.push(null)
+            }
+          }
+          console.log('series', series)
+          newSeries.push(series)
+          series = []
         }
         self.chartSeries = newSeries
         self.generateChart()
@@ -159,7 +182,7 @@
     const ratio = this.chartRatioSize
     const data = { labels: self.chartLabels, series: self.chartSeries}
     const options = { showPoint: self.showPoints, showLine: self.showLines, showArea: self.showArea }
-    this.observable.trigger('savedChart', ratio, data, options)
+    this.observable.trigger('savedChart', self.clientId, ratio, data, options)
     this.close()
   }
 

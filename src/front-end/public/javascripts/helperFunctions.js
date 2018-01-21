@@ -36,11 +36,19 @@ function renderMath(id) {
 }
 
 function renderCharts(chartList) {
+  const renderedCharts = {}
   for (var i in chartList) {
     const chart = chartList[i]
     console.log("renderCharts::chart", chart)
-    new Chartist.Line(document.getElementById(chart.id), chart.data, chart.options)
+    renderedCharts[chart.id] = new Chartist.Line(document.getElementById(chart.id), chart.data, chart.options)
   }
+  return renderedCharts
+}
+
+function uniqueId() {
+  return Math.random()
+    .toString(36)
+    .substr(2, 10)
 }
 
 function openNavMenu() {

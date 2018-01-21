@@ -36,23 +36,24 @@
     <a class="button is-info" onclick={ saveSection }>Add Section</a>
   </div>
   <br/>
-    <chart-modal observable={ chartObservable }></chart-modal>
     <div id="sectionList"></div>
     </div>
   </section>
   
   <script>
     var self = this
+    this.clientId = 'content'
     this.contentMap = {}
     this.chartList = []
     this.isTitleEmpty = false
     this.isContentEmpty = false
     this.showChartModal = false
     this.tabObservable = this.opts.observable
+    this.chartObservable = this.opts.chartObservable
     this.contentObservable = riot.observable()
-    this.chartObservable = riot.observable()
 
   this.on('mount', function() {
+    console.log('content component', this.opts)
     self.initSortable()
     
     this.tabObservable.on('show', function(type){
@@ -73,8 +74,11 @@
       delete self.contentMap[contentId]
     })
 
-    this.chartObservable.on('savedChart', function(chartSize, chartData, chartOptions) {
-      const newChartId = self.uniqueId()
+    this.chartObservable.on('savedChart', function(clientId, chartSize, chartData, chartOptions) {
+      if (clientId !== self.clientId){
+        return
+      }
+      const newChartId = uniqueId()
       
       const currentContentSection = $('#contentSection').val()
       const appendDiv = '<div id="'+newChartId+'" class="ct-chart '+chartSize+'"></div>'
@@ -104,7 +108,7 @@
   }
 
   saveSection(){
-    var sectionNumber = this.uniqueId()
+    var sectionNumber = uniqueId()
     var sectionId = 'sectionBox_'+sectionNumber
 
     var sectionTitle = $('#contentTitle').val()
@@ -122,7 +126,8 @@
   generateSection(sectionId, sectionTitle, sectionText, sectionCharts){
     const contentIndex = $('content-section').length
     $('#sectionList').append('<content-section ref="'+sectionId+'" id="'+sectionId+'"></content-section>')
-    riot.mount('#'+sectionId, 'content-section', { contentObservable: this.contentObservable, contentIndex: contentIndex, sectionTitle: sectionTitle, sectionText: sectionText, sectionCharts: sectionCharts })[0]
+    console.log('chartObservable generateSection', this.contentObservable, self.chartObservable)
+    riot.mount('#'+sectionId, 'content-section', { contentObservable: this.contentObservable, chartObservable: this.chartObservable, contentIndex: contentIndex, sectionTitle: sectionTitle, sectionText: sectionText, sectionCharts: sectionCharts })[0]
     this.cleanupFields()
     this.update()
   }
@@ -136,16 +141,12 @@
   }
 
   showChartModal(){
-    this.chartObservable.trigger('showChartModal')
+    this.chartObservable.trigger('showChartModal', self.clientId)
   }
 
   isTextEmpty(text){
     return ($.trim(text) === '')
   }
-
-  uniqueId() {
-    return Math.random().toString(36).substr(2, 10);
-  };
 
   get(){
     const contentList = []
@@ -157,6 +158,7 @@
   }
 
   set(data){
+    console.log("SETTING DATA", this.opts)
     if(Array.isArray(data)){
       for(var i in data){
         const sectionId = data[i].id

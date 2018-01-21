@@ -30,6 +30,11 @@
       </div>
       <div class="field">
         <div class="control">
+          <a class="button" onclick={ showChartModal }>Insert Chart</a>
+        </div>
+      </div>
+      <div class="field">
+        <div class="control">
           <textarea id="{ editSectionId }" class="textarea mathContent" placeholder="Edit section content"></textarea>
         </div>
         <br/>
@@ -50,11 +55,14 @@
 </div>
 <script>
 var self = this
+
 this.showModal = false
+this.clientId = this.opts.id
 this.sectionId = 'content_' + this.opts.id
 this.sectionTitle = this.opts.sectionTitle
 this.sectionText = this.opts.sectionText
 this.sectionCharts = this.opts.sectionCharts
+this.chartObservable =  this.opts.chartObservable
 
 //generate Id's
 this.editTitleId =  'editContentTitle_' + this.opts.id
@@ -85,7 +93,6 @@ this.on('mount', function() {
     self.opts.contentObservable.on('deletedContentSection', function(contentId, contentIndex) {
       if(contentIndex < self.opts.contentIndex){
        self.opts.contentIndex -= 1
-
       }
   })
 
@@ -104,6 +111,23 @@ this.on('mount', function() {
       self.opts.contentIndex -= 1
     } 
   })
+
+  this.chartObservable.on('savedChart', function(clientId, chartSize, chartData, chartOptions) {
+
+    if (clientId !== self.clientId){
+      return
+    }
+
+    const newChartId = uniqueId()
+    
+    const currentContentSection = self.$('editSectionId').val()
+    const appendDiv = '<div id="'+newChartId+'" class="ct-chart '+chartSize+'"></div>'
+    self.$('editSectionId').val(currentContentSection + ' ' + appendDiv)
+    self.sectionCharts.push({ id: newChartId, data: chartData, options: chartOptions })
+    console.log('self.sectionCharts', self.sectionCharts)
+    self.$('editSectionId').trigger('input')
+  })
+
 })
 
 editSection(){
@@ -178,6 +202,11 @@ render(id){
     console.log('section::render::err',err)
   }
 }
+
+  showChartModal(){
+    console.log('trigger showChartModal with clientId', self.clientId)
+    this.chartObservable.trigger('showChartModal', self.clientId)
+  }
 
 renderCharts(chartList) {
   for (var i in chartList) {
