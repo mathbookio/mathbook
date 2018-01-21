@@ -303,9 +303,17 @@
     return options
   }
 
-  close(){
+  close(showPrompt){
+  if (showPrompt){
+    var confirmClose = confirm('Are you sure you want to close this chart editor view ? Any unsaved changes will be discarded.')
+    if (confirmClose){
+      this.isActive = false
+    }
+  }
+  else{
     this.isActive = false
   }
+}
 
 /* 
 

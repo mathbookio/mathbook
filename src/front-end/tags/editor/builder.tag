@@ -86,7 +86,7 @@
     this.saveTutorialFailed = false
 
     this.on('mount', function () {
-      //this.initLeavePrompt()
+      this.initLeavePrompt()
       const url = '/v1/tutorial/' + this.tutorialName
       $.get(url, function(result) {
         self.tags.configuration.set(result.data.config),
@@ -162,9 +162,7 @@
       $("#contentTab").removeClass("is-active")
       $("#exercisesTab").addClass("is-active")
       this.tabObservable.trigger('show', 'exercises')
-      // $("#content").hide();
-      // $("#exercises").show();
-      // $("#config").hide();
+
     }
 
     previewTutorial(){
