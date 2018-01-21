@@ -4,7 +4,7 @@
   <div class="modal-card">
       <header class="modal-card-head">
         <p class="modal-card-title">Insert Chart</p>
-        <button class="delete" aria-label="close" onclick={ close }></button>
+        <button class="delete" aria-label="close" onclick={ closeModal }></button>
       </header>
       <section class="modal-card-body">
           <div class="field is-grouped">
@@ -44,7 +44,7 @@
             <label class="label">X-Axis Low</label>
               <div class="select">
               <select id="xAxisLowSelect">
-                <option value="">Auto</option>
+                <option value="null">Auto</option>
                 <option value="0">0</option>
                 <option value="-5">-5</option>
                 <option value="-10">-10</option>
@@ -60,7 +60,7 @@
             <label class="label">X-Axis High</label>
               <div class="select">
               <select id="xAxisHighSelect">
-                <option value="">Auto</option>
+                <option value="null">Auto</option>
                 <option value="5">5</option>
                 <option value="10">10</option>
                 <option value="15">15</option>
@@ -75,7 +75,7 @@
             <label class="label">Y-Axis Low</label>
               <div class="select">
               <select id="yAxisLowSelect">
-                <option value="">Auto</option>
+                <option value="null">Auto</option>
                 <option value="0">0</option>
                 <option value="-5">-5</option>
                 <option value="-10">-10</option>
@@ -91,7 +91,7 @@
             <label class="label">Y-Axis High</label>
               <div class="select">
               <select id="yAxisHighSelect">
-                <option value="">Auto</option>
+                <option value="null">Auto</option>
                 <option value="5">5</option>
                 <option value="10">10</option>
                 <option value="15">15</option>
@@ -147,31 +147,31 @@
       </section>
       <footer class="modal-card-foot">
         <button class="is-success button" onclick={ saveChart }>Save Chart</button>
-        <button class="button" onclick={ close }>Cancel</button>
+        <button class="button" onclick={ closeModal }>Cancel</button>
       </footer>
     </div>
   </div>
 
 <script>
   var self = this
+  this.clientId = ''
   this.observable = this.opts.observable
   this.isActive = false
   this.chart
-  this.chartRatioSize = ''
-  this.chartLabels = []
+  this.chartRatioSize
   this.chartSeries = []
   this.showPoints = true
   this.showLines = true
   this.showArea = false
-  this.xAxisLow = ''
-  this.xAxisHigh = ''
-  this.yAxisLow = ''
-  this.yAxisHigh = ''
+  this.xAxisLow
+  this.xAxisHigh
+  this.yAxisLow
+  this.yAxisHigh
 
 
   this.on('mount', function() {
-    this.chartType = $('#chartTypeSelect').val()
-    this.chartRatioSize = $('#chartRatioSizeSelect option:selected').val()
+    this.initChartProperties()
+
     this.observable.on('showChartModal', function(clientId){
       self.isActive = true
       self.clientId = clientId
@@ -183,45 +183,30 @@
       const newRatioSize = this.value
       self.chartRatioSize = newRatioSize
       self.update()
-      self.generateChart()
+      self.updateChart()
     })
+
     $('#xAxisLowSelect').change(function(){
-      const newXAxisLow = this.value
-      self.xAxisLow = newXAxisLow
-      self.update()
-      self.generateChart()
+      self.updateAxisValue('xAxisLow', this.value)
     })
+
     $('#xAxisHighSelect').change(function(){
-      const newXAxisHigh = this.value
-      self.xAxisHigh = newXAxisHigh
-      self.update()
-      self.generateChart()
+      self.updateAxisValue('xAxisHigh', this.value)
     })
+
     $('#yAxisLowSelect').change(function(){
-      const newYAxisLow = this.value
-      self.yAxisLow = newYAxisLow
-      self.update()
-      self.generateChart()
+      self.updateAxisValue('yAxisLow', this.value)
     })
+
     $('#yAxisHighSelect').change(function(){
-      const newYAxisHigh = this.value
-      self.yAxisHigh = newYAxisHigh
-      self.update()
-      self.generateChart()
+      self.updateAxisValue('yAxisHigh', this.value)
     })
 
-
-
-    $('#chartLabels').on('input', function(e) {
-      try{
-        var data = $('#chartLabels').val().split(',')
-        self.chartLabels = data
-        self.generateChart()
-      }
-      catch(err){
-        console.log('error chart labels input change', err)
-      }
-    })
+    updateAxisValue(type, newValue){
+      this[type] = newValue
+      this.update()
+      this.updateChart()
+    }
     
     $('#chartSeries').on('input', function(e) {
       try{
@@ -231,10 +216,11 @@
           var series = []
           const dataType = data[i].split(',')  || []
           for(var k in dataType){
-            if (/^(\-)?\d+(?:\.\d+)?[\;](\-)?\d+(?:\.\d+)?$/.test(dataType[k].trim()) === true){
-              const point = dataType[k].trim().split(';')
-              const x = point[0]
-              const y = point[1]
+            const point = dataType[k].trim()
+            if (self.isValidInputPoint(point)){
+              const splitPoint = point.split(';')
+              const x = splitPoint[0]
+              const y = splitPoint[1]
               series.push({ x: x, y: y })
             }
             else if (dataType[k] === "null"){
@@ -245,7 +231,7 @@
           series = []
         }
         self.chartSeries = newSeries
-        self.generateChart()
+        self.updateChart()
       }
       catch(err){
         console.log('error chart series input change', err)
@@ -254,45 +240,63 @@
 
   })
 
+  isValidInputPoint(point){
+    // point should follow the following format: x;y => 1;3
+    // decimals are allowed
+    return /^(\-)?\d+(?:\.\d+)?[\;](\-)?\d+(?:\.\d+)?$/.test(point)
+  }
+
   toggleOption(type){
     // type can be one of 'showPoints', 'showLines', or 'showArea'
     return function toggleType(){
       self[type] = !self[type]
-      self.generateChart()
+      self.updateChart()
     }
 
   }
 
+  initChartProperties(){
+    this.chartType = $('#chartTypeSelect').val()
+    this.chartRatioSize = $('#chartRatioSizeSelect option:selected').val()
+
+    this.xAxisLow = $('#xAxisLowSelect option:selected').val()
+    this.xAxisHigh = $('#xAxisHighSelect option:selected').val()
+
+    this.yAxisLow = $('#yAxisLowSelect option:selected').val()
+    this.yAxisHigh = $('#yAxisHighSelect option:selected').val()
+  }
+
   saveChart(){
     const ratio = this.chartRatioSize
-    const data = { labels: self.chartLabels, series: self.chartSeries}
+    const data = { series: self.chartSeries}
     const options = this.generateOptions()
     this.observable.trigger('savedChart', self.clientId, ratio, data, options)
     this.close()
   }
 
-  generateChart(chartData, chartOptions){
+  generateChart(){
     const selector = $('#chartRendition').get(0)
-    const data = { labels: self.chartLabels, series: self.chartSeries}
+    const data = { series: self.chartSeries}
     const options = this.generateOptions()
-    if (this.chart){
-      this.chart = this.chart.update(data, options)
-    }
-    else{
-      this.chart = createLineChart(selector, data, options)
-    }
+    this.chart = createLineChart(selector, data, options)
+  }
+
+  updateChart(){
+    const data = { series: self.chartSeries}
+    const options = this.generateOptions()
+    this.chart = updateLineChart(this.chart, data, options)
   }
 
   generateOptions(){
     const options = {
       axisX: {
-        high: self.xAxisHigh !== "" ? self.xAxisHigh : undefined,
-        low: self.xAxisLow !== "" ? self.xAxisLow : undefined,
+        high: self.xAxisHigh !== "null" ? self.xAxisHigh : undefined,
+        low: self.xAxisLow !== "null" ? self.xAxisLow : undefined,
         onlyInteger: true
       },
       axisY: {
-        high: self.yAxisHigh !== "" ? self.yAxisHigh : undefined,
-        low: self.yAxisLow !== "" ? self.yAxisLow : undefined,
+        high: self.yAxisHigh !== "null" ? self.yAxisHigh : undefined,
+        low: self.yAxisLow !== "null" ? self.yAxisLow : undefined,
         onlyInteger: true
       },
       showPoint: self.showPoints, 
@@ -303,16 +307,42 @@
     return options
   }
 
+  cleanUpFields(){
+    $('#chartSeries').val('')
+    $('#chartRendition').empty()
+    $('#xAxisLowSelect').val("null")
+    $('#xAxisHighSelect').val("null")
+    $('#yAxisLowSelect').val("null")
+    $('#yAxisHighSelect').val("null")
+    $('#chartRatioSizeSelect').val("ct-double-octave")
+    this.chartSeries = []
+    this.showPoints = true
+    this.showLines = true
+    this.showArea = false
+    this.chart = undefined
+    this.xAxisLow = "null"
+    this.xAxisHigh = "null"
+    this.yAxisLow = "null"
+    this.yAxisHigh = "null"
+    console.log('finished cleaning up fields')
+  }
+
+  closeModal(){
+    const showPrompt = true
+    this.close(showPrompt)
+  }
+
   close(showPrompt){
-  if (showPrompt){
-    var confirmClose = confirm('Are you sure you want to close this chart editor view ? Any unsaved changes will be discarded.')
-    if (confirmClose){
+    if (showPrompt){
+      var confirmClose = confirm('Are you sure you want to close this chart editor view ? Any unsaved changes will be discarded.')
+      if (confirmClose){
+        this.isActive = false
+      }
+    }
+    else{
       this.isActive = false
     }
-  }
-  else{
-    this.isActive = false
-  }
+    this.cleanUpFields()
 }
 
 /* 

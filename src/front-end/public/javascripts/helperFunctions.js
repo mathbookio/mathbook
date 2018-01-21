@@ -44,6 +44,13 @@ function renderCharts(chartList) {
   return renderedCharts
 }
 
+function updateLineChart(chart, data, options) {
+  if (options["axisX"]) {
+    options["axisX"]["type"] = Chartist.AutoScaleAxis
+  }
+  return chart.update(data, options)
+}
+
 function createLineChart(selector, chartData, chartOptions) {
   if (chartOptions["axisX"]) {
     chartOptions["axisX"]["type"] = Chartist.AutoScaleAxis
