@@ -124,7 +124,6 @@ this.on('mount', function() {
     const appendDiv = '<div id="'+newChartId+'" class="ct-chart '+chartSize+'"></div>'
     self.$('editSectionId').val(currentContentSection + ' ' + appendDiv)
     self.sectionCharts.push({ id: newChartId, data: chartData, options: chartOptions })
-    console.log('self.sectionCharts', self.sectionCharts)
     self.$('editSectionId').trigger('input')
   })
 
@@ -204,7 +203,6 @@ render(id){
 }
 
   showChartModal(){
-    console.log('trigger showChartModal with clientId', self.clientId)
     this.chartObservable.trigger('showChartModal', self.clientId)
   }
 
@@ -212,7 +210,7 @@ renderCharts(chartList) {
   for (var i in chartList) {
     const chart = chartList[i]
     const selector = $('#'+this.sectionId+'> #'+chart.id).get(0)
-    new Chartist.Line(selector, chart.data, chart.options)
+    createLineChart(selector, chart.data, chart.options)
   }
 }
 
@@ -220,7 +218,7 @@ renderEditModalCharts(chartList) {
   for (var i in chartList) {
     const chart = chartList[i]
     const selector = $('#'+this.editSectionTextId+'> #'+chart.id).get(0)
-    new Chartist.Line(selector, chart.data, chart.options)
+    createLineChart(selector, chart.data, chart.options)
   }
 }
 

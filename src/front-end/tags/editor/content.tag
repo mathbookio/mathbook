@@ -53,7 +53,6 @@
     this.contentObservable = riot.observable()
 
   this.on('mount', function() {
-    console.log('content component', this.opts)
     self.initSortable()
     
     this.tabObservable.on('show', function(type){
@@ -84,7 +83,6 @@
       const appendDiv = '<div id="'+newChartId+'" class="ct-chart '+chartSize+'"></div>'
       $('#contentSection').val(currentContentSection + ' ' + appendDiv)
       self.chartList.push({ id: newChartId, data: chartData, options: chartOptions })
-      console.log('self.chartList', self.chartList)
       $('#contentSection').trigger('input')
     })
 
@@ -126,7 +124,6 @@
   generateSection(sectionId, sectionTitle, sectionText, sectionCharts){
     const contentIndex = $('content-section').length
     $('#sectionList').append('<content-section ref="'+sectionId+'" id="'+sectionId+'"></content-section>')
-    console.log('chartObservable generateSection', this.contentObservable, self.chartObservable)
     riot.mount('#'+sectionId, 'content-section', { contentObservable: this.contentObservable, chartObservable: this.chartObservable, contentIndex: contentIndex, sectionTitle: sectionTitle, sectionText: sectionText, sectionCharts: sectionCharts })[0]
     this.cleanupFields()
     this.update()
@@ -158,7 +155,6 @@
   }
 
   set(data){
-    console.log("SETTING DATA", this.opts)
     if(Array.isArray(data)){
       for(var i in data){
         const sectionId = data[i].id

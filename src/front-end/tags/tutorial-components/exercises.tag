@@ -43,17 +43,13 @@ showExerciseAnswer(e){
   $(answerId).toggle()
   const answerCharts = $(answerId+'> .ct-chart')
   for(var aChart of answerCharts){
-    console.log('aChart', aChart)
     const chartId = aChart['id']
-  console.log('chartId', chartId)
-  console.log('renderedCharts', this.renderedCharts)
   this.renderedCharts[chartId].update()
   }
 }
 
 renderExercises(){
   for(var exe of this.exercises){
-    console.log('exe',exe)
     const index = exe.exerciseIndex
 
     const questionId = 'q_' + index
@@ -62,7 +58,6 @@ renderExercises(){
     const answerId = 'a_' + index
     const answerTextId = 'a_text_' + index
 
-      console.log('questionTextId', $('#'+questionTextId).text())
     $('#'+questionTextId).html(exe.question)
     $('#'+answerId).html(exe.answer)
 
@@ -82,7 +77,6 @@ renderExercises(){
 set(data){
   this.exerciseStatement = data['exerciseStatement']
   this.exercises = data['exercises']
-  
 }
 
 </script>

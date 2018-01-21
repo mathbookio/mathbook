@@ -102,7 +102,6 @@
       const appendDiv = '<div id="'+newChartId+'" class="ct-chart '+chartSize+'"></div>'
       $('#exerciseQuestion').val(currentContentSection + ' ' + appendDiv)
       self.chartList.push({ id: newChartId, data: chartData, options: chartOptions })
-      console.log('self.chartList', self.chartList)
       $('#exerciseQuestion').trigger('input')
     })
 
@@ -169,11 +168,11 @@
       const chart = chartList[i]
       const questionSelector = $('#exerciseQuestionText > #'+chart.id).get(0)
       if (questionSelector){
-        new Chartist.Line(questionSelector, chart.data, chart.options)
+        createLineChart(questionSelector, chart.data, chart.options)
       }
       const answerSelector = $('#exerciseAnswerText > #'+chart.id).get(0)
       if (answerSelector){
-        new Chartist.Line(answerSelector, chart.data, chart.options)
+        createLineChart(answerSelector, chart.data, chart.options)
       }
     }
   }

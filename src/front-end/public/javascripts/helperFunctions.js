@@ -1,5 +1,4 @@
 "use strict"
-
 function handleError(err) {
   console.error("something errored out", err)
   const status = err.status
@@ -39,10 +38,17 @@ function renderCharts(chartList) {
   const renderedCharts = {}
   for (var i in chartList) {
     const chart = chartList[i]
-    console.log("renderCharts::chart", chart)
-    renderedCharts[chart.id] = new Chartist.Line(document.getElementById(chart.id), chart.data, chart.options)
+    const selector = document.getElementById(chart.id)
+    renderedCharts[chart.id] = createLineChart(selector, chart.data, chart.options)
   }
   return renderedCharts
+}
+
+function createLineChart(selector, chartData, chartOptions) {
+  if (chartOptions["axisX"]) {
+    chartOptions["axisX"]["type"] = Chartist.AutoScaleAxis
+  }
+  return new Chartist.Line(selector, chartData, chartOptions)
 }
 
 function uniqueId() {

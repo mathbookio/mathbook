@@ -141,7 +141,6 @@ this.on('mount', function() {
     const appendDiv = '<div id="'+newChartId+'" class="ct-chart '+chartSize+'"></div>'
     self.$('editQuestionId').val(currentQuestion + ' ' + appendDiv)
     self.chartList.push({ id: newChartId, data: chartData, options: chartOptions })
-    console.log('self.exerciseCharts', self.exerciseCharts)
     self.$('editQuestionId').trigger('input')
   })
   
@@ -217,7 +216,6 @@ removeExercise(){
 }
 
 get(){
-  console.log('get exercise chartlist', this.opts.chartList)
   return {
     id: this.opts.id,
     question: this.opts.question,
@@ -228,7 +226,6 @@ get(){
 }
 
 showChartModal(){
-    console.log('trigger showChartModal with clientId', self.clientId)
     this.chartObservable.trigger('showChartModal', self.clientId)
 }
 
@@ -245,28 +242,25 @@ renderCharts(chartList) {
       const chart = chartList[i]
       const questionSelector = $('#'+this.questionId+'> #'+chart.id).get(0)
       if (questionSelector){
-        new Chartist.Line(questionSelector, chart.data, chart.options)
+        createLineChart(questionSelector, chart.data, chart.options)
       }
       const answerSelector = $('#'+this.answerId+'> #'+chart.id).get(0)
       if (answerSelector){
-        new Chartist.Line(answerSelector, chart.data, chart.options)
+        createLineChart(answerSelector, chart.data, chart.options)
       }
     }
 }
 
 renderEditModalCharts(chartList) {
-  console.log('renderEditModalCharts', chartList)
     for (var i in chartList) {
       const chart = chartList[i]
       const questionSelector = $('#'+ self.editQuestionTextId +'> #'+chart.id).get(0)
-      console.log('questionSelector', questionSelector)
       if (questionSelector){
-        new Chartist.Line(questionSelector, chart.data, chart.options)
+        createLineChart(questionSelector, chart.data, chart.options)
       }
       const answerSelector = $('#'+ self.editAnswerTextId +'> #'+chart.id).get(0)
-      console.log('answerSelector', answerSelector)
       if (answerSelector){
-        new Chartist.Line(answerSelector, chart.data, chart.options)
+        createLineChart(answerSelector, chart.data, chart.options)
       }
     }
 }
