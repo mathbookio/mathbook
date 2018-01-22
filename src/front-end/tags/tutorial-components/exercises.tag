@@ -31,7 +31,7 @@
 var self = this
 this.exerciseStatement = this.opts.exerciseStatment || ''
 this.exercises = this.opts.exercises || []
-this.renderedCharts = {}
+this.renderedCharts = {} // used to keep track of charts that have been rendered
 
 this.one('updated', function() {
 
@@ -41,10 +41,15 @@ this.one('updated', function() {
 showExerciseAnswer(e){
   const answerId = "#a_"+e.item.exerciseIndex
   $(answerId).toggle()
+  this.rerenderAnswerCharts(answerId)
+}
+
+rerenderAnswerCharts(answerId){
   const answerCharts = $(answerId+'> .ct-chart')
   for(var aChart of answerCharts){
     const chartId = aChart['id']
-  this.renderedCharts[chartId].update()
+    const chart = this.renderedCharts[chartId]
+    updateLineChart(chart)
   }
 }
 

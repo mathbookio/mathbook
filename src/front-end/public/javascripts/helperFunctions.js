@@ -45,10 +45,15 @@ function renderCharts(chartList) {
 }
 
 function updateLineChart(chart, data, options) {
-  if (options["axisX"]) {
-    options["axisX"]["type"] = Chartist.AutoScaleAxis
+  const chartData = data || undefined
+  const chartOptions = options || undefined
+  if (chartData && chartOptions) {
+    if (chartOptions["axisX"]) {
+      chartOptions["axisX"]["type"] = Chartist.AutoScaleAxis
+    }
+    return chart.update(data, options)
   }
-  return chart.update(data, options)
+  return chart.update()
 }
 
 function createLineChart(selector, chartData, chartOptions) {

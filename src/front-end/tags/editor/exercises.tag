@@ -83,13 +83,13 @@
       var questionVal = $('#exerciseQuestion').val()
       $('#exerciseQuestionText').html(questionVal)
        renderMathInElement(document.getElementById('exerciseQuestionText'))
-       self.renderEditModalCharts(self.chartList)
+       self.renderExerciseCharts(self.chartList)
     });
     $('#exerciseAnswer').on('input', function(e) {
       var answerVal = $('#exerciseAnswer').val()
       $('#exerciseAnswerText').html(answerVal)
        renderMathInElement(document.getElementById('exerciseAnswerText'))
-       self.renderEditModalCharts(self.chartList)
+       self.renderExerciseCharts(self.chartList)
     });
 
     this.chartObservable.on('savedChart', function(clientId, chartSize, chartData, chartOptions) {
@@ -163,7 +163,7 @@
     this.chartObservable.trigger('showChartModal', self.clientId)
   }
 
-  renderEditModalCharts(chartList) {
+  renderExerciseCharts(chartList) {
     for (var i in chartList) {
       const chart = chartList[i]
       const questionSelector = $('#exerciseQuestionText > #'+chart.id).get(0)

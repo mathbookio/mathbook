@@ -164,6 +164,7 @@ editExercise(){
   this.$('editAnswerId').val(this.opts.answer)
   this.$('editAnswerTextId').html(this.opts.answer)
   self.render(this.editAnswerTextId)
+
   self.renderEditModalCharts(this.chartList)
 }
 
@@ -237,6 +238,7 @@ render(id){
   }
 }
 
+// used when exercise is created and fully loaded
 renderCharts(chartList) {
   for (var i in chartList) {
       const chart = chartList[i]
@@ -251,6 +253,7 @@ renderCharts(chartList) {
     }
 }
 
+// used to re-render charts during editing process
 renderEditModalCharts(chartList) {
     for (var i in chartList) {
       const chart = chartList[i]
