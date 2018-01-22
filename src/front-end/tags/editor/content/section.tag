@@ -30,6 +30,11 @@
       </div>
       <div class="field">
         <div class="control">
+          <a class="button" onclick={ showChartModal }>Insert Chart</a>
+        </div>
+      </div>
+      <div class="field">
+        <div class="control">
           <textarea id="{ editSectionId }" class="textarea mathContent" placeholder="Edit section content"></textarea>
         </div>
         <br/>
@@ -49,12 +54,15 @@
   </div>
 </div>
 <script>
-console.log(this.opts)
-var that = this
+var self = this
+
 this.showModal = false
+this.clientId = this.opts.id
 this.sectionId = 'content_' + this.opts.id
 this.sectionTitle = this.opts.sectionTitle
 this.sectionText = this.opts.sectionText
+this.sectionCharts = this.opts.sectionCharts
+this.chartObservable =  this.opts.chartObservable
 
 //generate Id's
 this.editTitleId =  'editContentTitle_' + this.opts.id
@@ -68,49 +76,57 @@ this.on('mount', function() {
   // bind section content
   this.$('sectionId').html(this.sectionText)
   this.render(this.sectionId)
+  this.renderCharts(this.sectionCharts)
   
   // preview section content edits/changes in modal view
   this.$('editSectionId').on('input', function(e) {
-      var contentVal = that.$('editSectionId').val()
-      that.$('editSectionTextId').html(contentVal)
-       that.render(that.editSectionTextId)
+      var contentVal = self.$('editSectionId').val()
+      self.$('editSectionTextId').html(contentVal)
+       self.render(self.editSectionTextId)
+       self.renderEditModalCharts(self.sectionCharts)
     });
 
-    that.opts.contentObservable.on('deletedContentSection', function(contentId, contentIndex) {
-    console.log('content obeservable deletedContentSection triggered', { contentId: contentId, contentIndex: contentIndex })
-      if(contentIndex < that.opts.contentIndex){
-       console.log('an content was deleted before', that.sectionTitle, that.opts.contentIndex)
-       that.opts.contentIndex -= 1
-       console.log('an content was deleted after', that.sectionTitle, that.opts.contentIndex)
+    self.opts.contentObservable.on('renderCharts', function() {
+      self.renderCharts(self.sectionCharts)
+    })
 
+    self.opts.contentObservable.on('deletedContentSection', function(contentId, contentIndex) {
+      if(contentIndex < self.opts.contentIndex){
+       self.opts.contentIndex -= 1
       }
   })
 
-  that.opts.contentObservable.on('contentOrderUpdate', function(oldIndex, newIndex){
-    console.log('contentOrderUpdate triggered', { oldIndex: oldIndex, newIndex: newIndex })
-    if (oldIndex === that.opts.contentIndex){
-      console.log('oldIndex === contentIndex')
-      that.opts.contentIndex = newIndex
-      console.log('after oldIndex === contentIndex',that.sectionTitle, that.opts.contentIndex)
+  self.opts.contentObservable.on('contentOrderUpdate', function(oldIndex, newIndex){
+    if (oldIndex === self.opts.contentIndex){
+      self.opts.contentIndex = newIndex
       return
     }
 
     // an content was moved up the list
-    if (oldIndex > newIndex && newIndex <= that.opts.contentIndex && oldIndex > that.opts.contentIndex){
-      console.log('an content was moved up the list before', that.sectionTitle, that.opts.contentIndex)
-      that.opts.contentIndex += 1
-      console.log('an content was moved up the list after', that.sectionTitle, that.opts.contentIndex)
+    if (oldIndex > newIndex && newIndex <= self.opts.contentIndex && oldIndex > self.opts.contentIndex){
+      self.opts.contentIndex += 1
     }
     // an content was moved down the list
-    else if (oldIndex < newIndex && newIndex >= that.opts.contentIndex && oldIndex < that.opts.contentIndex){
-      console.log('an content was moved down the list before', that.sectionTitle, that.opts.contentIndex)
-      that.opts.contentIndex -= 1
-      console.log('an content was moved down the list after', that.sectionTitle, that.opts.contentIndex)
+    else if (oldIndex < newIndex && newIndex >= self.opts.contentIndex && oldIndex < self.opts.contentIndex){
+      self.opts.contentIndex -= 1
     } 
-    else{
-      console.log('nothing happened for', that.sectionTitle, that.opts.contentIndex)
-    }
   })
+
+  this.chartObservable.on('savedChart', function(clientId, chartSize, chartData, chartOptions) {
+
+    if (clientId !== self.clientId){
+      return
+    }
+
+    const newChartId = uniqueId()
+    
+    const currentContentSection = self.$('editSectionId').val()
+    const appendDiv = '<div id="'+newChartId+'" class="ct-chart '+chartSize+'"></div>'
+    self.$('editSectionId').val(currentContentSection + ' ' + appendDiv)
+    self.sectionCharts.push({ id: newChartId, data: chartData, options: chartOptions })
+    self.$('editSectionId').trigger('input')
+  })
+
 })
 
 editSection(){
@@ -120,6 +136,7 @@ editSection(){
   this.$('editSectionId').val(this.sectionText)
   this.$('editSectionTextId').html(this.sectionText)
   this.render(this.editSectionTextId)
+  this.renderEditModalCharts(this.sectionCharts)
 }
 
 saveChanges(){
@@ -136,6 +153,7 @@ updateContent(){
   this.sectionText = this.$('editSectionId').val()
   this.$('sectionId').html(this.sectionText)
   this.render(this.sectionId)
+  this.renderCharts(this.sectionCharts)
 }
 
 close(){
@@ -169,7 +187,8 @@ get(){
     id: this.opts.id,
     contentIndex: this.opts.contentIndex,
     title: this.sectionTitle,
-    text: this.sectionText 
+    text: this.sectionText,
+    charts: this.sectionCharts
   }
 }
 
@@ -179,6 +198,27 @@ render(id){
     renderMathInElement(document.getElementById(id))
   }
   catch(err){
+    console.log('section::render::err',err)
+  }
+}
+
+  showChartModal(){
+    this.chartObservable.trigger('showChartModal', self.clientId)
+  }
+
+renderCharts(chartList) {
+  for (var i in chartList) {
+    const chart = chartList[i]
+    const selector = $('#'+this.sectionId+'> #'+chart.id).get(0)
+    createLineChart(selector, chart.data, chart.options)
+  }
+}
+
+renderEditModalCharts(chartList) {
+  for (var i in chartList) {
+    const chart = chartList[i]
+    const selector = $('#'+this.editSectionTextId+'> #'+chart.id).get(0)
+    createLineChart(selector, chart.data, chart.options)
   }
 }
 

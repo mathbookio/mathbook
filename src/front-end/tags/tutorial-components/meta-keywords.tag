@@ -1,7 +1,7 @@
 <meta-keywords>
     <meta itemprop="keywords" content={ keywords }/>
 <script>
-var that = this
+var self = this
 this.keywords = ''
 
 set(data){

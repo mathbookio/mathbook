@@ -50,7 +50,7 @@
       </div>
     </div>
   <script>
-    var that = this
+    var self = this
     this.observable = this.opts.observable
     this.showCreateTutorialModal = false
     this.invalidTutorialName = false
@@ -61,8 +61,8 @@
 
     this.on('mount', function(){
       this.observable.on('openCreateModal', function(){
-        that.open()
-        that.update()
+        self.open()
+        self.update()
       })
     })
 
@@ -86,7 +86,6 @@
     createTutorial() {
       const tutorialName = this.refs.tutorialName.value
       if (this.tutorialNameInvalid(tutorialName)) {
-        console.log('tutorial Name invalid', tutorialName)
         this.invalidTutorialNameEntered()
         return
       }
@@ -95,27 +94,23 @@
       $.post(url, {
         'branchName': tutorialName
       }, function (result) {
-        console.log("result from post", result)
-        that.createTutorialSucceeded()
-        that.update()
+        self.createTutorialSucceeded()
+        self.update()
         setTimeout(function () {
-          console.log("tutorial created successfully")
           window.location.href = '/editor/' + tutorialName
         }, 2500)
       })
       .fail(function(error) {
-        console.log(error)
         let message = ''
         if (error.status === 409){
-          console.log('the name of tutorial you entered is unavailable.')
           message = 'The tutorial name is already in use. Please create a different name.'
         }
         else{
           message = 'Uh-oh something broke on the server side. Please try again.'
         }
-        that.createTutorialFailed(message)
+        self.createTutorialFailed(message)
         handleError(error)
-        that.update()
+        self.update()
       })
     }
 

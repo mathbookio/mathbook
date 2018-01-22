@@ -6,12 +6,11 @@
     </div>
   </div>
   <script>
-  var that = this
+  var self = this
   get(){
     return this.refs.tutorialTitle.value
   }
   set(title){
-    console.log('configTitle::set', title)
     this.refs.tutorialTitle.value = title
   }
 

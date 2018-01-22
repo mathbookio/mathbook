@@ -38,6 +38,7 @@ app.use("/bulma", express.static(path.resolve(__dirname, "..", "..", "node_modul
 app.use("/jquery", express.static(path.resolve(__dirname, "..", "..", "node_modules/jquery/")))
 app.use("/riot", express.static(path.resolve(__dirname, "..", "..", "node_modules/riot/")))
 app.use("/katex", express.static(path.resolve(__dirname, "..", "..", "node_modules/katex/dist")))
+app.use("/chartist", express.static(path.resolve(__dirname, "..", "..", "node_modules/chartist/dist")))
 
 app.use("/v1", apis)
 app.get("/tutorial/:subject/:tutorialName", viewRouter.viewTutorial)

@@ -8,7 +8,7 @@
     </div>
   </section>
   <script>
-  var that = this
+  var self = this
   this.openingStatement = this.opts.openingStatement || ''
   
   this.on('mount', function() {

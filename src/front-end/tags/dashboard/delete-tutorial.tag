@@ -38,7 +38,7 @@
       </div>
     </div>
   <script>
-    var that = this
+    var self = this
     this.observable = this.opts.observable
     this.showDeleteTutorialModal = false
     this.safeToDelete = false
@@ -51,21 +51,19 @@
     this.on('mount', function() {
 
     this.observable.on('openDeleteModal', function(tutorialName){
-      that.open(tutorialName)
-      that.update()
+      self.open(tutorialName)
+      self.update()
     })
 
     $('#deleteTutorialName').on('input', function(e) {
       var inputTutorialName = e.target.value
-      //console.log('input tutorial name', inputTutorialName)
-      //console.log('that.tutorialName', that.tutorialName)
-      if (inputTutorialName === that.tutorialName){
-        that.safeToDelete = true
-        that.update()
+      if (inputTutorialName === self.tutorialName){
+        self.safeToDelete = true
+        self.update()
         return
       }
-      that.safeToDelete = false
-      that.update()
+      self.safeToDelete = false
+      self.update()
     })
 
     })
@@ -107,34 +105,32 @@
           tutorialName: this.tutorialName
         },
         success: function (result) {
-          that.deleteTutorialSucceeded()
-          that.update()
+          self.deleteTutorialSucceeded()
+          self.update()
           setTimeout(function () {
             window.location.reload()
           }, 2500)
         }
       })
       .fail(function(res) {
-        console.log(res)
         const error = res.responseJSON
-        console.error(error)
-        that.deleteTutorialFailed(error.message)
-        that.update()
+        self.deleteTutorialFailed(error.message)
+        self.update()
       })
     }
 
     deleteTutorialSucceeded(){
-      that.isDeleting = false
-      that.deleteSuccess = true
-      that.deleteFailed = false
-      that.deleteFailedMessage = ''
+      self.isDeleting = false
+      self.deleteSuccess = true
+      self.deleteFailed = false
+      self.deleteFailedMessage = ''
     }
 
     deleteTutorialFailed(message){
-      that.isDeleting = false
-      that.deleteSuccess = false
-      that.deleteFailed = true
-      that.deleteFailedMessage = message
+      self.isDeleting = false
+      self.deleteSuccess = false
+      self.deleteFailed = true
+      self.deleteFailedMessage = message
     }
 
   </script>

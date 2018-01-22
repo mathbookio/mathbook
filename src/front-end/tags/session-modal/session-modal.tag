@@ -37,7 +37,7 @@
       </div>
     </div>
   <script>
-    var that = this
+    var self = this
     this.observable = this.opts.observable
     this.showCreateTutorialModal = false
     this.isSaving = false
@@ -48,31 +48,31 @@
 
     this.on('mount', function(){
       this.observable.one('sessionExpiringSoon', function(expireTime){
-        that.open(expireTime)
-        that.update()
+        self.open(expireTime)
+        self.update()
       })
 
       this.observable.on('saveSuccess', function() {
-        that.isSaving = false
-        that.savingComplete = true
-        that.savingFailed = false
-        that.update()
+        self.isSaving = false
+        self.savingComplete = true
+        self.savingFailed = false
+        self.update()
         setTimeout(function() {
-          that.killCountdown()
-          that.update()
-          that.login()
+          self.killCountdown()
+          self.update()
+          self.login()
         }, 3500)
       })
 
       this.observable.on('saveFailed', function() {
-        that.isSaving = false
-        that.savingComplete = false
-        that.savingFailed = true
-        that.update()
+        self.isSaving = false
+        self.savingComplete = false
+        self.savingFailed = true
+        self.update()
         setTimeout(function() {
-          that.killCountdown()
-          that.update()
-          that.login()
+          self.killCountdown()
+          self.update()
+          self.login()
         }, 3500)
       })
     })
@@ -102,15 +102,15 @@
     initCountdown(startTime){
       var expireTime = startTime
       this.countdown = setInterval(function (){
-        that.timeRemaining = that.formatExpireTime(expireTime)
+        self.timeRemaining = self.formatExpireTime(expireTime)
         if (expireTime <= 0){
-          that.sessionExpired = true
-          that.killCountdown()
-          that.update()
+          self.sessionExpired = true
+          self.killCountdown()
+          self.update()
           return
         }
         expireTime -= 1
-        that.update()
+        self.update()
       }, 1000)
     }
 

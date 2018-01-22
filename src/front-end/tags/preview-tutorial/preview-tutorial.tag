@@ -11,7 +11,7 @@
   <meta-keywords></meta-keywords>
   </div>
   <script>
-    var that = this
+    var self = this
     this.loadingText = 'Preparing Tutorial...'
     this.isLoading = true
 
@@ -21,16 +21,14 @@
     this.exercises = []
     this.on('mount', function () {
       const urlPaths = window.location.href.split('/')
-      console.log('url paths', urlPaths)
       this.tutorialName = urlPaths.pop()
       const url = '/v1/tutorial/' + this.tutorialName
       $.get(url, function (result) {
-        console.log('getTutorialData result', result)
         const data = result.data
         data.config['table-contents'] = []
         for (var section of data.content){
           const sectionTitle = section['title']
-          const fragment = '#' + that.toSnakeCase(sectionTitle)
+          const fragment = '#' + self.toSnakeCase(sectionTitle)
           data.config['table-contents'].push({ title: sectionTitle, fragment: fragment })
         }
         data.config['table-contents'].push({
@@ -41,13 +39,13 @@
           title: 'Resources',
           fragment: '#resources'
         })
-        that.formatConfig(data.config),
-        that.formatContent(data.content),
-        that.formatExercises(data.exercises, data.config.exerciseStatement)
-        that.update()
+        self.formatConfig(data.config),
+        self.formatContent(data.content),
+        self.formatExercises(data.exercises, data.config.exerciseStatement)
+        self.update()
         renderMathInElement(document.body)
-        that.isLoading = false
-        that.update()
+        self.isLoading = false
+        self.update()
       })
       .fail(function (error) {
         handleError(error)
@@ -76,7 +74,7 @@
 
     formatContent(sections){
       for(var section of sections){
-        section['fragment'] = that.toSnakeCase(section.title)
+        section['fragment'] = self.toSnakeCase(section.title)
       }
       this.tags['tutorial-sections'].set(sections)
     }

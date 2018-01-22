@@ -6,6 +6,6 @@
       </div>
     </a>
   <script>
-    var that = this
+    var self = this
   </script>
 </topic-box>
