@@ -114,7 +114,7 @@
     <delete-tutorial observable={ dashboardObservable }></delete-tutorial>
   </section>
   <script>
-    var that = this
+    var self = this
     this.dashboardObservable = riot.observable()
     this.loadingTutorials = false
     this.noTutorialsFound = false
@@ -122,27 +122,26 @@
     this.failedToGetTutorials = false
 
     $(document).ready(function() {
-      that.loadingTutorials = true
-      that.update()
+      self.loadingTutorials = true
+      self.update()
       $.get('/v1/tutorials', function (result) {
-        console.log('result from /v1/tutorials', result)
-        that.succeededRequest()
+        self.succeededRequest()
         if(Array.isArray(result.data.tutorials) && result.data.tutorials.length === 0){
-          that.noTutorialsFound = true
+          self.noTutorialsFound = true
         }
         else{
-          that.noTutorialsFound = false
+          self.noTutorialsFound = false
         }
-        that.tutorials = result.data.tutorials
+        self.tutorials = result.data.tutorials
 
-        that.update()
+        self.update()
       })
       .fail(function(res) {
         const error = res.responseJSON
         console.error('something broke while getting tutorials', error)
-        that.failedRequest(error.message)
+        self.failedRequest(error.message)
         handleError(error)
-        that.update()
+        self.update()
       })
     })
 
@@ -159,24 +158,20 @@
     }
 
     editTutorial(e) {
-      console.log('editing tutorial with id', e.item)
       window.location.href = '/editor/' + e.item.name
     }
 
     previewTutorial(e){
-      console.log('editing tutorial with id', e.item)
       window.location.href = '/preview/' + e.item.name 
     }
 
     openSubmitTutorialModal(e) {
-      console.log('submitTutorialName', this.submitTutorialName)
       const submitTutorialName = e.item.name
       this.dashboardObservable.trigger('openSubmitModal', submitTutorialName)
     }
 
     openDeleteTutorialModal(e) {
       const tutorialName = e.item.name
-      console.log('deleteTutorialName', tutorialName)
       this.dashboardObservable.trigger('openDeleteModal', tutorialName)
     }
 
@@ -185,11 +180,9 @@
     }
 
     formatDateFromNow(timestamp) {
-      console.log('timestamp', timestamp)
       return moment(timestamp).fromNow()
     }
     formatDate(timestamp) {
-      console.log('timestamp', timestamp)
       return moment(timestamp).format('MMMM DD, YYYY HH:mm:ss')
     }
   </script>

@@ -14,13 +14,12 @@
   </div>
 
   <script>
-    var that = this
+    var self = this
 
   this.on('mount', function() {
     
     $('#exerciseStatement').on('input', function(e) {
       var osText = $('#exerciseStatement').val()
-      console.log('osText', osText)
       $('#exerciseStatementText').html(osText)
       renderMathInElement(document.getElementById('exerciseStatementText'))
     });

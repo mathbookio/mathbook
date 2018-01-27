@@ -1,0 +1,19 @@
+language: node_js
+notifications:
+  webhooks:
+    urls:
+      - https://webhooks.gitter.im/e/f277e1d11bf3828eec05
+    on_success: change
+    on_failure: always
+    on_start: never
+env:
+  - NODE_ENV=test
+before_install:
+  - npm install -g npm@5
+  - npm install -g greenkeeper-lockfile@1
+before_script:
+  - greenkeeper-lockfile-update
+  - npm install -g gulp-cli
+  - npm install
+script: gulp test
+after_script: greenkeeper-lockfile-upload

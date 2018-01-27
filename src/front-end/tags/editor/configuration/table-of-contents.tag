@@ -30,16 +30,13 @@
         title: this.refs.title.value,
         isContent: true
       }
-      console.log(content)
       this.invalidTitle = isTitleInvalid(content.title)
       if (!this.invalidTitle) {
         var insertIndex = this.tableOfContents.length - 2
         this.tableOfContents.splice(insertIndex, 0, content)
-        console.log("Title IS VALID")
         this.refs.title.value = ''
         return
       }
-        console.log("Title IS INVALID")
       
     }
 
@@ -62,7 +59,6 @@
       return this.tableOfContents
     }
     set(tableOfContents){
-      console.log('tableOfContents', tableOfContents)
       this.tableOfContents = tableOfContents
     }
   </script>

@@ -37,9 +37,8 @@
     </div>
   </section>
   <script>
-    const that = this
-    console.log('options',this.opts)
-    this.subjects = this.opts.subjects
+    var self = this
+    this.subjects = this.opts.subjects || []
     this.on('mount', function(){
       renderMath('mathSubjects')
     })

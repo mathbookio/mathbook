@@ -1,5 +1,4 @@
 "use strict"
-
 function handleError(err) {
   console.error("something errored out", err)
   const status = err.status
@@ -35,6 +34,41 @@ function renderMath(id) {
   } catch (err) {}
 }
 
+function renderCharts(chartList) {
+  const renderedCharts = {}
+  for (var i in chartList) {
+    const chart = chartList[i]
+    const selector = document.getElementById(chart.id)
+    renderedCharts[chart.id] = createLineChart(selector, chart.data, chart.options)
+  }
+  return renderedCharts
+}
+
+function updateLineChart(chart, data, options) {
+  const chartData = data || undefined
+  const chartOptions = options || undefined
+  if (chartData && chartOptions) {
+    if (chartOptions["axisX"]) {
+      chartOptions["axisX"]["type"] = Chartist.AutoScaleAxis
+    }
+    return chart.update(data, options)
+  }
+  return chart.update()
+}
+
+function createLineChart(selector, chartData, chartOptions) {
+  if (chartOptions["axisX"]) {
+    chartOptions["axisX"]["type"] = Chartist.AutoScaleAxis
+  }
+  return new Chartist.Line(selector, chartData, chartOptions)
+}
+
+function uniqueId() {
+  return Math.random()
+    .toString(36)
+    .substr(2, 10)
+}
+
 function openNavMenu() {
   const navbarBurger = $(".navbar-burger")
   const navbarMenu = $(".navbar-menu")
@@ -48,8 +82,8 @@ function openNavMenu() {
   navbarMenu.addClass("is-active")
 }
 
-function toggleDropdownMenu() {
-  const navbarDropdown = $("#navbarDropdown")
+function toggleDropdownMenu(id) {
+  const navbarDropdown = $("#" + id)
   if (navbarDropdown.hasClass("is-active")) {
     // return to initial state
     navbarDropdown.removeClass("is-active")

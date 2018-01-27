@@ -3,12 +3,15 @@
 const gulp = require("gulp")
 const plugins = require("gulp-load-plugins")()
 const browserSync = require("browser-sync").create()
+const config = require("./config/config")()
 
 const files = {
   allFiles: ["src/server/**/*.js", "tests/*.spec.js", "!src/front-end/public/javascripts/*.js"],
   testFiles: ["./tests/**/*.spec.js"],
-  srcFiles: ["./src/server/**/*.js", "./src/server/**/*.pug", "./src/server/**/*.css"],
+  watchFiles: ["./src/server/**/*.js", "./src/front-end/**/*.css", "./src/front-end/views/*.pug"],
   srcTestFiles: ["./src/server/**/*.js"],
+  jsFiles: ["!src/front-end/public/javascripts/riot-tags.bundle.js", "src/front-end/public/javascripts/*.js"],
+  cssFiles: ["./src/front-end/public/stylesheets/*.css"],
   tagFiles: ["./src/front-end/tags/**/*.tag"]
 }
 
@@ -24,21 +27,34 @@ gulp.task("lint", () => {
   )
 })
 
-gulp.task("test:config", () => {
-  return (
-    gulp
-      .src(files.srcTestFiles)
-      // Covering files
-      .pipe(plugins.istanbul())
-      // Force `require` to return covered files
-      .pipe(plugins.istanbul.hookRequire())
-  )
+gulp.task("bundle:js", ["riot"], () => {
+  const jsFiles = ["src/front-end/public/javascripts/*.js", "!src/front-end/public/javascripts/riotInit.js"]
+  const jsDest = "src/front-end/public/dist/"
+
+  return gulp
+    .src(jsFiles)
+    .pipe(plugins.babel({ presets: ["env"] }))
+    .pipe(plugins.concat("bundle.min.js"))
+    .pipe(gulp.dest(jsDest))
+    .pipe(plugins.uglify())
+    .pipe(gulp.dest(jsDest))
 })
 
-gulp.task("test", ["test:config"], () => {
+gulp.task("bundle:css", () => {
+  const cssDest = "src/front-end/public/dist/"
+
+  return gulp
+    .src(files.cssFiles)
+    .pipe(plugins.concat("bundle.min.css"))
+    .pipe(gulp.dest(cssDest))
+    .pipe(plugins.uglifycss())
+    .pipe(gulp.dest(cssDest))
+})
+
+gulp.task("test", () => {
   gulp
     .src(files.testFiles)
-    .pipe(plugins.mocha())
+    .pipe(plugins.ava())
     .once("error", () => {
       process.exit(1)
     })
@@ -47,66 +63,53 @@ gulp.task("test", ["test:config"], () => {
     })
 })
 
-// we'd need a slight delay to reload browsers
-// connected to browser-sync after restarting nodemon
-const BROWSER_SYNC_RELOAD_DELAY = 500
-
-gulp.task("nodemon", function(cb) {
+gulp.task("nodemon", function(done) {
   let called = false
   return plugins
     .nodemon({
       // nodemon our expressjs server
-      script: "./bin/www"
+      script: "./bin/www",
+      ignore: ["src/front-end/public", "src/front-end/tags"]
     })
     .on("start", function onStart() {
       // ensure start only got called once
       if (!called) {
-        cb()
+        const host = config.get("bin.host")
+        const port = config.get("bin.port")
+        const proxyPort = config.get("bin.proxyPort")
+        setTimeout(() => {
+          browserSync.init({
+            proxy: `${host}:${port}`,
+            port: proxyPort
+          })
+        }, 2000)
+        done()
       }
       called = true
-    })
-    .on("restart", function onRestart() {
-      // reload connected browsers after a slight delay
-      setTimeout(function reload() {
-        browserSync.reload({
-          stream: false
-        })
-      }, BROWSER_SYNC_RELOAD_DELAY)
+      // for more browser-sync config options: http://www.browsersync.io/docs/options/
     })
 })
 
 gulp.task("riot", function() {
-  gulp
+  return gulp
     .src(files.tagFiles)
     .pipe(plugins.riot())
-    .pipe(plugins.concat("all.js"))
+    .pipe(plugins.concat("riot-tags.bundle.js"))
     .pipe(gulp.dest("./src/front-end/public/javascripts"))
-  // .pipe(gulp.dest('./src/public/tags'))
 })
 
 gulp.task("serve", ["nodemon"], function() {
-  // for more browser-sync config options: http://www.browsersync.io/docs/options/
-  browserSync.init({
-    // informs browser-sync to proxy our expressjs app which would run at the following location
-    proxy: "http://192.168.2.22:3000",
-
-    // informs browser-sync to use the following port for the proxied app
-    // notice that the default port is 3000, which would clash with our expressjs
-    port: 4000
-  })
-
-  gulp.watch(files.tagFiles, ["riot"])
-  gulp.watch(files.srcFiles).on("change", browserSync.reload)
+  gulp.watch(files.tagFiles, ["reload:js"])
+  gulp.watch(files.jsFiles, ["reload:js"])
+  gulp.watch(files.cssFiles, ["reload:css"])
+  gulp.watch(files.watchFiles).on("change", browserSync.reload)
 })
 
-gulp.task("default", () =>
-  gulp
-    .src(files.testFiles)
-    .pipe(plugins.mocha())
-    .once("error", () => {
-      process.exit(1)
-    })
-    .once("end", () => {
-      process.exit()
-    })
-)
+gulp.task("reload:js", ["bundle:js"], done => {
+  browserSync.reload()
+  done()
+})
+gulp.task("reload:css", ["bundle:css"], done => {
+  browserSync.reload()
+  done()
+})

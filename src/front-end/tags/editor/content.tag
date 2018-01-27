@@ -1,4 +1,4 @@
-<content>
+<content id="contentComponent">
   <style>
     #contentSectionText{
       white-space: pre-wrap;
@@ -12,6 +12,11 @@
     <div class="control">
       <input type="text" id="contentTitle" class="input mathContent {is-danger: isTitleEmpty}" placeholder="Section Title ie) Understanding Factoring"/>
        <p show={ isTitleEmpty } class="help is-danger">Title can't be empty</p>
+    </div>
+  </div>
+  <div class="field">
+    <div class="control">
+      <a class="button" onclick={ showChartModal }>Insert Chart</a>
     </div>
   </div>
   <div class="field">
@@ -36,28 +41,57 @@
   </section>
   
   <script>
-    var that = this
+    var self = this
+    this.clientId = 'content'
     this.contentMap = {}
+    this.chartList = []
     this.isTitleEmpty = false
     this.isContentEmpty = false
+    this.showChartModal = false
+    this.tabObservable = this.opts.observable
+    this.chartObservable = this.opts.chartObservable
     this.contentObservable = riot.observable()
 
   this.on('mount', function() {
-    that.initSortable()
+    self.initSortable()
     
+    this.tabObservable.on('show', function(type){
+      if (type === 'content'){
+        $('#contentComponent').show()
+        self.contentObservable.trigger('renderCharts')
+      }
+      else{
+        $('#contentComponent').hide()
+      }
+    })
+
     this.contentObservable.on('createdContentSection', function(contentId, contentObj) {
-      that.contentMap[contentId] = contentObj
+      self.contentMap[contentId] = contentObj
     })
     
     this.contentObservable.on('deletedContentSection', function(contentId) {
-      delete that.contentMap[contentId]
+      delete self.contentMap[contentId]
     })
 
-    $('#contentSection').on('input', function(e) {
+    this.chartObservable.on('savedChart', function(clientId, chartSize, chartData, chartOptions) {
+      if (clientId !== self.clientId){
+        return
+      }
+      const newChartId = uniqueId()
+      
+      const currentContentSection = $('#contentSection').val()
+      const appendDiv = '<div id="'+newChartId+'" class="ct-chart '+chartSize+'"></div>'
+      $('#contentSection').val(currentContentSection + ' ' + appendDiv)
+      self.chartList.push({ id: newChartId, data: chartData, options: chartOptions })
+      $('#contentSection').trigger('input')
+    })
+
+    $('#contentSection').on('input', function(e, newChart) {
       var contentVal = $('#contentSection').val()
       $('#contentSectionText').html(contentVal)
       renderMathInElement(document.getElementById('contentSectionText'))
-    });
+      renderCharts(self.chartList)
+    })
 
   })
 
@@ -66,52 +100,50 @@
     Sortable.create(sectionList, { 
       handle: '.moveHandle',
       onUpdate: function(e){
-        console.log('onUpdate triggered', e)
-        console.log('old index', e.oldIndex)
-        console.log('new index', e.newIndex)
-        that.contentObservable.trigger('contentOrderUpdate', e.oldIndex, e.newIndex)
+        self.contentObservable.trigger('contentOrderUpdate', e.oldIndex, e.newIndex)
 
       } });
   }
 
   saveSection(){
-    var sectionNumber = this.uniqueId()
+    var sectionNumber = uniqueId()
     var sectionId = 'sectionBox_'+sectionNumber
 
     var sectionTitle = $('#contentTitle').val()
     var sectionText = $('#contentSection').val()
+    var sectionCharts = this.chartList
 
     this.isTitleEmpty = this.isTextEmpty(sectionTitle)
     this.isContentEmpty = this.isTextEmpty(sectionText)
     if (this.isTitleEmpty || this.isContentEmpty){
       return
     }
-    this.generateSection(sectionId, sectionTitle, sectionText)
+    this.generateSection(sectionId, sectionTitle, sectionText, sectionCharts)
   }
 
-  generateSection(sectionId, sectionTitle, sectionText){
+  generateSection(sectionId, sectionTitle, sectionText, sectionCharts){
     const contentIndex = $('content-section').length
-    console.log('contentIndex', contentIndex)
     $('#sectionList').append('<content-section ref="'+sectionId+'" id="'+sectionId+'"></content-section>')
-    riot.mount('#'+sectionId, 'content-section', { contentObservable: this.contentObservable, contentIndex: contentIndex, sectionTitle: sectionTitle, sectionText: sectionText })[0]
+    riot.mount('#'+sectionId, 'content-section', { contentObservable: this.contentObservable, chartObservable: this.chartObservable, contentIndex: contentIndex, sectionTitle: sectionTitle, sectionText: sectionText, sectionCharts: sectionCharts })[0]
     this.cleanupFields()
     this.update()
   }
-
+  
   cleanupFields(){
     $('#contentTitle').val('')
     $('#contentSection').val('')
     $('#contentSectionText').html('')
+    this.chartList = []
 
+  }
+
+  showChartModal(){
+    this.chartObservable.trigger('showChartModal', self.clientId)
   }
 
   isTextEmpty(text){
     return ($.trim(text) === '')
   }
-
-  uniqueId() {
-    return Math.random().toString(36).substr(2, 10);
-  };
 
   get(){
     const contentList = []
@@ -123,14 +155,13 @@
   }
 
   set(data){
-    console.log(data)
     if(Array.isArray(data)){
       for(var i in data){
-        console.log('set::section', data[i])
         const sectionId = data[i].id
         const sectionTitle = data[i].title
         const sectionText = data[i].text
-        this.generateSection(sectionId, sectionTitle, sectionText)
+        const sectionCharts = data[i].charts
+        this.generateSection(sectionId, sectionTitle, sectionText, sectionCharts)
       }
     }
   }

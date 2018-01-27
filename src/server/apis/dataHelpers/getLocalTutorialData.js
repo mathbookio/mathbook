@@ -27,12 +27,24 @@ module.exports = async function(subject, tutorialName, log) {
     }
   } catch (err) {
     const source = "dataHelper::getLocalTutorialData::catch::err"
-    const params = { subject, tutorialName }
+    const params = {
+      subject,
+      tutorialName
+    }
     const logError = transformError(err, source, params)
-    log.error({ logError, details: logError.details }, "failed to get local tutorial data")
+    log.error(
+      {
+        logError,
+        details: logError.details
+      },
+      "failed to get local tutorial data"
+    )
     let error
     if (err.code === "ENOENT") {
-      log.warn("someone requested a tutorial that is not stored locally", { subject, tutorialName })
+      log.warn("someone requested a tutorial that is not stored locally", {
+        subject,
+        tutorialName
+      })
       error = new errors.ResourceNotFound("the tutorial you requested does not exist.")
     } else {
       error = new errors.InternalServerError("Uh-oh something broke on our side of things.")

@@ -1,0 +1,10 @@
+#!/usr/bin/env node
+
+const fs = require("fs")
+
+const logFilePath = "./src/server/logs/error-logs.json"
+
+if (fs.existsSync(logFilePath) === false) {
+  fs.writeFileSync(logFilePath, "", "utf-8")
+}
+process.exit()

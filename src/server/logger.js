@@ -10,7 +10,7 @@ const logger = bunyan.createLogger({
     },
     {
       level: "error",
-      path: "src/logs/error-logs.json" // log ERROR and above to a file
+      path: "src/server/logs/error-logs.json" // log ERROR and above to a file
     }
   ],
   serializers: {
