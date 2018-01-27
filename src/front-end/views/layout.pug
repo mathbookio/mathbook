@@ -8,12 +8,9 @@ html
     link(rel='stylesheet', href='/bulma/bulma.css')
     link(rel='stylesheet', href='/katex/katex.min.css')
     link(rel='stylesheet', href='/chartist/chartist.min.css')
-    link(rel='stylesheet', href='/stylesheets/style.css')
-    link(rel='stylesheet', href='/stylesheets/layout.css')
-    link(rel='stylesheet', href='/stylesheets/chart-colors.css')
+    link(rel='stylesheet', href='/dist/bundle.min.css')
     link(rel='stylesheet', href='/stylesheets/components/topic-box.css')
     //- script(async src="https://www.googletagmanager.com/gtag/js?id=UA-52081148-8")
-    script(type="text/javascript" src="/js/gtag.js")
     script(type="text/javascript" src="/moment/moment.js")
     script(type="text/javascript" src="/sortable/Sortable.min.js")
     script(type="text/javascript" src="/chartist/chartist.min.js")
@@ -21,9 +18,9 @@ html
     script(type="text/javascript" src="/katex/contrib/auto-render.min.js")
     script(type="text/javascript" src="/jquery/dist/jquery.min.js")
     script(type="text/javascript" src="/riot/riot.min.js")
-    script(type="text/javascript" src="/js/showAnswer.js")
-    script(type="text/javascript" src="/js/smoothScroll.js")
-    script(type="text/javascript" src="/js/helperFunctions.js")
+    script(type="text/javascript" src="/dist/bundle.min.js")
+    if !subjectMap
+      script(type="text/javascript" src="/riotInit" defer="true")
   body(style="height:100%;min-height:100%;")
     nav.navbar
       .container
