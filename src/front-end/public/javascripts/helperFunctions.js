@@ -82,8 +82,8 @@ function openNavMenu() {
   navbarMenu.addClass("is-active")
 }
 
-function toggleDropdownMenu() {
-  const navbarDropdown = $("#navbarDropdown")
+function toggleDropdownMenu(id) {
+  const navbarDropdown = $("#" + id)
   if (navbarDropdown.hasClass("is-active")) {
     // return to initial state
     navbarDropdown.removeClass("is-active")

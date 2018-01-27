@@ -10,6 +10,7 @@ const files = {
   testFiles: ["./tests/**/*.spec.js"],
   watchFiles: ["./src/server/**/*.js", "./src/front-end/**/*.css", "./src/front-end/views/*.pug"],
   srcTestFiles: ["./src/server/**/*.js"],
+  jsFiles: ["!src/front-end/public/javascripts/riot-tags.bundle.js", "src/front-end/public/javascripts/*.js"],
   cssFiles: ["./src/front-end/public/stylesheets/*.css"],
   tagFiles: ["./src/front-end/tags/**/*.tag"]
 }
@@ -99,6 +100,7 @@ gulp.task("riot", function() {
 
 gulp.task("serve", ["nodemon"], function() {
   gulp.watch(files.tagFiles, ["reload:js"])
+  gulp.watch(files.jsFiles, ["reload:js"])
   gulp.watch(files.cssFiles, ["reload:css"])
   gulp.watch(files.watchFiles).on("change", browserSync.reload)
 })

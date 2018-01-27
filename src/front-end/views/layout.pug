@@ -36,10 +36,18 @@ html
           .navbar-end
             a.navbar-item(href='/')
               | Home
-            a.navbar-item(href='/contribute')
-              | Contribute
+            div#navbarContributeDropdown.navbar-item.has-dropdown(onclick="toggleDropdownMenu('navbarContributeDropdown')")
+              a.navbar-link
+                | Contribute
+              .navbar-dropdown
+                a.navbar-item(href='/contribute')
+                  | Overview
+                a.navbar-item(href='/contribute/create-tutorial')
+                  | Create a Tutorial
+                a.navbar-item(href='/contribute/review-tutorial')
+                  | Review a Tutorial
             if authenticated
-              div#navbarDropdown.navbar-item.has-dropdown(onclick="toggleDropdownMenu()")
+              div#navbarDropdown.navbar-item.has-dropdown(onclick="toggleDropdownMenu('navbarDropdown')")
                 a.navbar-link
                   | Logged In as #{username}
                 .navbar-dropdown
