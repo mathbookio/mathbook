@@ -1,5 +1,6 @@
 "use strict"
 
+const config = require("../../config/config")()
 const express = require("express")
 const path = require("path")
 const bunyanRequest = require("bunyan-request")
@@ -59,6 +60,7 @@ app.get("/", viewRouter.homePage)
 app.use(function(req, res, next) {
   const view = req.locals.view
   const data = req.locals.data
+  data["env"] = config.get("env")
   if (view) {
     res.render(view, data)
     return
