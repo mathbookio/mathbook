@@ -45,7 +45,6 @@
     this.subjectData = {}
     this.topics = []
     this.on('mount', function(){
-      console.log("MOUNTED SUBJECT LOG")
       const url = '/v1/subject/' + this.subject
       $.get(url, function(result){
         const data = result.data
