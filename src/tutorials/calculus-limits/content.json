@@ -10,5 +10,103 @@
         "contentIndex": 1,
         "title": "The Definition of a Limit",
         "text": "The following definition of a limit is something that will take a little time to really sink in so don't worry too much if you don't understand it at first.\n\n$$\\text{Given a function $f(x)$ that is defined on an open interval $(a, b)$}$$\n$$\\text{We can find the $\\bold{limit}$ of $n$ where $n \\in (a,b)$}$$\n$$\\lim\\limits_{x~ \\to ~n} f(x) = L$$\n$$\n\\text{If for every $\\epsilon \\gt 0$, there exists a $\\delta \\gt 0$ such that}\n$$\n$$\n\\text{if $0 \\lt \\lvert~ x ~-~n ~\\rvert \\lt \\delta$ $\\quad$ then $\\quad$ $\\lvert ~ f(x) ~ - ~ L ~ \\rvert \\lt \\epsilon$ }\n$$"
+    },
+    {
+        "id": "sectionBox_ty9o3z9qf7",
+        "contentIndex": 2,
+        "title": "Limit Futher Explained",
+        "text": "To give you a visual representation of the definition of a limit, consider the graph of \\( f(x) = x \\) along the open interval \\( (0,5)  \\).\n<div id=\"gcv103lk5q\" class=\"ct-chart ct-double-octave\"></div>\nTake the point \\( (2,2) \\Rightarrow n = f(2) = 2 \\). \n\nNow if we were take any value that is arbitrarily close to \\(n\\), say \\( x = 1.99 \\), then what the definition of the limit tells us is that if there is in fact a limit at \\( 2 \\) then there exists another value of \\( x \\), say \\( z \\) that is closer to \\( n \\) where \\( f(x) \\lt f(z) \\lt f(n) \\).\n\nThink of it this way, as \\( x \\) gets closer to \\( n \\), does \\( f(x) \\) get closer to \\( f(n) \\) as well ? In the case of \\( n = 2 \\) it is true.\n\nPick any value of \\( x \\) that is close to \\( n \\), and you will be able to find another value, say \\( k \\) that is closer to \\( n \\) where \\( \\lvert f(k) - f(n) \\rvert \\lt \\lvert f(x) - f(n) \\rvert \\); The distance between \\( f(k) \\) and \\( f(n) \\) is smaller than \\( f(x) \\) and \\( f(n) \\)",
+        "charts": [
+            {
+                "id": "alaui3vvdg",
+                "data": {
+                    "series": [
+                        [
+                            {
+                                "x": "0",
+                                "y": "0"
+                            },
+                            {
+                                "x": "1",
+                                "y": "1"
+                            },
+                            {
+                                "x": "2",
+                                "y": "2"
+                            },
+                            {
+                                "x": "3",
+                                "y": "3"
+                            },
+                            {
+                                "x": "4",
+                                "y": "4"
+                            },
+                            {
+                                "x": "5",
+                                "y": "5"
+                            }
+                        ]
+                    ],
+                    "labels": []
+                },
+                "options": {
+                    "axisX": {
+                        "onlyInteger": true
+                    },
+                    "axisY": {
+                        "onlyInteger": true
+                    },
+                    "showPoint": true,
+                    "showLine": true,
+                    "showArea": false
+                }
+            },
+            {
+                "id": "gcv103lk5q",
+                "data": {
+                    "series": [
+                        [
+                            {
+                                "x": "0",
+                                "y": "0"
+                            },
+                            {
+                                "x": "1",
+                                "y": "1"
+                            },
+                            {
+                                "x": "2",
+                                "y": "2"
+                            },
+                            {
+                                "x": "3",
+                                "y": "3"
+                            },
+                            {
+                                "x": "4",
+                                "y": "4"
+                            },
+                            {
+                                "x": "5",
+                                "y": "5"
+                            }
+                        ]
+                    ],
+                    "labels": []
+                },
+                "options": {
+                    "axisX": {
+                        "onlyInteger": true
+                    },
+                    "axisY": {
+                        "onlyInteger": true
+                    },
+                    "showPoint": false,
+                    "showLine": true,
+                    "showArea": false
+                }
+            }
+        ]
     }
 ]
