@@ -63,5 +63,12 @@
                 }
             }
         ]
+    },
+    {
+        "id": "sectionBox_twbswb6545",
+        "contentIndex": 3,
+        "title": "Limits from the Left and Right",
+        "text": "left right",
+        "charts": []
     }
 ]
