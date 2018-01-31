@@ -8,112 +8,14 @@
     {
         "id": "sectionBox_6pg2ol1tlb",
         "contentIndex": 1,
-        "title": "The Definition of a Limit",
-        "text": "The following definition of a limit is something that will take a little time to really sink in so don't worry too much if you don't understand it at first.\n\n$$\\text{Given a function $f(x)$ that is defined on an open interval $(a, b)$}$$\n$$\\text{We can find the $\\bold{limit}$ of $n$ where $n \\in (a,b)$}$$\n$$\\lim\\limits_{x~ \\to ~n} f(x) = L$$\n$$\n\\text{If for every $\\epsilon \\gt 0$, there exists a $\\delta \\gt 0$ such that}\n$$\n$$\n\\text{if $0 \\lt \\lvert~ x ~-~n ~\\rvert \\lt \\delta$ $\\quad$ then $\\quad$ $\\lvert ~ f(x) ~ - ~ L ~ \\rvert \\lt \\epsilon$ }\n$$"
-    },
-    {
-        "id": "sectionBox_ty9o3z9qf7",
-        "contentIndex": 2,
-        "title": "Limit Futher Explained",
-        "text": "To give you a visual representation of the definition of a limit, consider the graph of \\( f(x) = x \\) along the open interval \\( (0,5)  \\).\n<div id=\"gcv103lk5q\" class=\"ct-chart ct-double-octave\"></div>\nTake the point \\( (2,2) \\Rightarrow n = f(2) = 2 \\). \n\nNow if we were take any value that is arbitrarily close to \\(n\\), say \\( x = 1.99 \\), then what the definition of the limit tells us is that if there is in fact a limit at \\( 2 \\) then there exists another value of \\( x \\), say \\( z \\) that is closer to \\( n \\) where \\( f(x) \\lt f(z) \\lt f(n) \\).\n\nThink of it this way, as \\( x \\) gets closer to \\( n \\), does \\( f(x) \\) get closer to \\( f(n) \\) as well ? In the case of \\( n = 2 \\) it is true.\n\nPick any value of \\( x \\) that is close to \\( n \\), and you will be able to find another value, say \\( k \\) that is closer to \\( n \\) where \\( \\lvert f(k) - f(n) \\rvert \\lt \\lvert f(x) - f(n) \\rvert \\); The distance between \\( f(k) \\) and \\( f(n) \\) is smaller than \\( f(x) \\) and \\( f(n) \\)\n\nTo give a more formal answer\n\n$$ \\text{Given the function $f(x) = x$, find the limit $L$ as $x$ approaches $2$.} $$\n$$\\lim\\limits_{x~ \\to ~2} f(x) = L$$\n\n$$\n\\begin{aligned}\n\\text{ set $\\delta = 1$, $\\epsilon = 0.5$} \\\\\n\\text{}\n\\end{aligned}\n$$\n\n",
-        "charts": [
-            {
-                "id": "alaui3vvdg",
-                "data": {
-                    "series": [
-                        [
-                            {
-                                "x": "0",
-                                "y": "0"
-                            },
-                            {
-                                "x": "1",
-                                "y": "1"
-                            },
-                            {
-                                "x": "2",
-                                "y": "2"
-                            },
-                            {
-                                "x": "3",
-                                "y": "3"
-                            },
-                            {
-                                "x": "4",
-                                "y": "4"
-                            },
-                            {
-                                "x": "5",
-                                "y": "5"
-                            }
-                        ]
-                    ],
-                    "labels": []
-                },
-                "options": {
-                    "axisX": {
-                        "onlyInteger": true
-                    },
-                    "axisY": {
-                        "onlyInteger": true
-                    },
-                    "showPoint": true,
-                    "showLine": true,
-                    "showArea": false
-                }
-            },
-            {
-                "id": "gcv103lk5q",
-                "data": {
-                    "series": [
-                        [
-                            {
-                                "x": "0",
-                                "y": "0"
-                            },
-                            {
-                                "x": "1",
-                                "y": "1"
-                            },
-                            {
-                                "x": "2",
-                                "y": "2"
-                            },
-                            {
-                                "x": "3",
-                                "y": "3"
-                            },
-                            {
-                                "x": "4",
-                                "y": "4"
-                            },
-                            {
-                                "x": "5",
-                                "y": "5"
-                            }
-                        ]
-                    ],
-                    "labels": []
-                },
-                "options": {
-                    "axisX": {
-                        "onlyInteger": true
-                    },
-                    "axisY": {
-                        "onlyInteger": true
-                    },
-                    "showPoint": false,
-                    "showLine": true,
-                    "showArea": false
-                }
-            }
-        ]
+        "title": "The Formal Definition of a Limit",
+        "text": "The following definition of a limit is something that will take a little time to really sink in so don't worry too much if you don't understand it at first.\n\n$$\\text{Given a function $f(x)$ that is defined on an open interval $(a, b)$}$$\n$$\\text{We can find the $\\bold{limit}$ of $n$ where $n \\in (a,b)$}$$\n$$\\lim\\limits_{x~ \\to ~n} f(x) = L$$\n$$\n\\text{If for every $\\epsilon \\gt 0$, there exists a $\\delta \\gt 0$ such that}\n$$\n$$\n\\text{if $0 \\lt \\lvert~ x ~-~n ~\\rvert \\lt \\delta$ $\\quad$ then $\\quad$ $\\lvert ~ f(x) ~ - ~ L ~ \\rvert \\lt \\epsilon$ }\n$$\n$$ \\text{When we find the limit $L$, we say the limit of $f(x)$ as $x$ approaches $n$ is $L$} $$"
     },
     {
         "id": "sectionBox_qutn53u4ff",
-        "contentIndex": 3,
+        "contentIndex": 2,
         "title": "Understanding Limits by Example",
-        "text": "Consider the following,\n$$\\text{Given $f(x) = x$, find} \\lim\\limits_{x~ \\to ~2} f(x) $$\nTo give a quick representation of what finding the limit means, take a look at the following table,\n\n<table class=\"table table is-bordered is-striped is-narrow is-hoverable is-fullwidth\">\n<thead>\n<tr><th>\\(f(x) ~~ \\text{where} ~~ x \\gt 2\\)</th><th>\\( f(x) ~~ \\text{where} ~~ x \\lt 2 \\)</th></tr>\n</thead>\n<tbody>\n<tr><td>\\(3\\)</td><td>\\(1\\)</td></tr>\n<tr><td>\\(2.5\\)</td><td>\\(1.5\\)</td></tr>\n<tr><td>\\(2.1\\)</td><td>\\(1.9\\)</td></tr>\n<tr><td>\\(2.01\\)</td><td>\\(1.99\\)</td></tr>\n<tr><td>\\(2.001\\)</td><td>\\(1.999\\)</td></tr>\n</tbody>\n</table>\n\nAs you can see, as \\( x \\) approaches \\( 2 \\) from the left and right (think of a number line), \\( f(x) \\) is converging towards \\( 2\\). What this tells us is that\n\n$$\\text{Given $f(x) = x$, the} \\lim\\limits_{x~ \\to ~2} f(x) = 2 $$\n\nTo further elaborate on the answer, take a look at the graph of \\(f(x) = x \\). You can see by inspection that as \\(x\\) gets closer to \\(2\\), \\(f(x)\\) also gets closer and closer to \\(f(2) = 2\\).\n\n\n <div id=\"cn7dop4w60\" class=\"ct-chart ct-double-octave\"></div>",
+        "text": "Consider the following,\n$$\\text{Given $f(x) = x$, find} \\lim\\limits_{x~ \\to ~2} f(x) $$\nTo give a quick representation of what finding the limit means, take a look at the following table\n\n<table class=\"table table is-bordered is-striped is-narrow is-hoverable is-fullwidth\">\n<thead>\n<tr><th>\\(f(x) ~~ \\text{where} ~~ x \\gt 2 ~ \\text{(approaching 2 from the right)}\\)</th><th>\\( f(x) ~~ \\text{where} ~~ x \\lt 2  ~ \\text{(approaching 2 from the left)} \\)</th></tr>\n</thead>\n<tbody>\n<tr><td>\\(3\\)</td><td>\\(1\\)</td></tr>\n<tr><td>\\(2.5\\)</td><td>\\(1.5\\)</td></tr>\n<tr><td>\\(2.1\\)</td><td>\\(1.9\\)</td></tr>\n<tr><td>\\(2.01\\)</td><td>\\(1.99\\)</td></tr>\n<tr><td>\\(2.001\\)</td><td>\\(1.999\\)</td></tr>\n</tbody>\n</table>\n\nAs you can see, as \\( x \\) approaches \\( 2 \\) from the left and right (think of a number line), \\( f(x) \\) is converging towards \\( 2\\).\n\nKeep in mind that the function \\( f(x) = x \\) is a <i>continuous function</i> meaning that it contains no breaks or jumps for any value of \\(x\\), from which we can conclude that \\( f(x) \\) converges to \\(2\\) as \\(x \\rightarrow 2 \\).\n\n$$\\text{Given $f(x) = x$, the limit of $f(x)$ as $x$ approaches $2$ is $2$}$$\n$$\\text{formal notation:} \\lim\\limits_{x~ \\to ~2} f(x) = 2 $$\n\nTo further elaborate on the answer, take a look at the graph of \\(f(x) = x \\). You can see by inspection that as \\(x\\) gets closer to \\(2\\), \\(f(x)\\) also gets closer and closer to \\(f(2) = 2\\).\n\n\n <div id=\"cn7dop4w60\" class=\"ct-chart ct-double-octave\"></div>",
         "charts": [
             {
                 "id": "cn7dop4w60",
