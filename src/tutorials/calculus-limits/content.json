@@ -15,7 +15,7 @@
         "id": "sectionBox_qutn53u4ff",
         "contentIndex": 2,
         "title": "Understanding Limits by Example",
-        "text": "Consider the following,\n$$\\text{Given $f(x) = x$, find} \\lim\\limits_{x~ \\to ~2} f(x) $$\nTo give a quick representation of what finding the limit means, take a look at the following table\n\n<table class=\"table table is-bordered is-striped is-narrow is-hoverable is-fullwidth\">\n<thead>\n<tr><th>\\(f(x) ~~ \\text{where} ~~ x \\gt 2 ~ \\text{(approaching 2 from the right)}\\)</th><th>\\( f(x) ~~ \\text{where} ~~ x \\lt 2  ~ \\text{(approaching 2 from the left)} \\)</th></tr>\n</thead>\n<tbody>\n<tr><td>\\(3\\)</td><td>\\(1\\)</td></tr>\n<tr><td>\\(2.5\\)</td><td>\\(1.5\\)</td></tr>\n<tr><td>\\(2.1\\)</td><td>\\(1.9\\)</td></tr>\n<tr><td>\\(2.01\\)</td><td>\\(1.99\\)</td></tr>\n<tr><td>\\(2.001\\)</td><td>\\(1.999\\)</td></tr>\n</tbody>\n</table>\n\nAs you can see, as \\( x \\) approaches \\( 2 \\) from the left and right (think of a number line), \\( f(x) \\) is converging towards \\( 2\\).\n\nKeep in mind that the function \\( f(x) = x \\) is a <i>continuous function</i> meaning that it contains no breaks or jumps for any value of \\(x\\), from which we can conclude that \\( f(x) \\) converges to \\(2\\) as \\(x \\rightarrow 2 \\).\n\n$$\\text{Given $f(x) = x$, the limit of $f(x)$ as $x$ approaches $2$ is $2$}$$\n$$\\text{formal notation:} \\lim\\limits_{x~ \\to ~2} f(x) = 2 $$\n\nTo further elaborate on the answer, take a look at the graph of \\(f(x) = x \\). You can see by inspection that as \\(x\\) gets closer to \\(2\\), \\(f(x)\\) also gets closer and closer to \\(f(2) = 2\\).\n\n\n <div id=\"cn7dop4w60\" class=\"ct-chart ct-double-octave\"></div>",
+        "text": "Consider the following,\n$$\\text{Given $f(x) = x$, find} \\lim\\limits_{x~ \\to ~2} f(x) $$\nIf we think about the domain of \\( f(x) \\), \\(\\text{D} =\\{ x \\in \\mathbb{R} \\} \\), meaning that \\( f(x) \\) is defined along the real line. Because the domain covers the entire real line, we can state that \\( f(x) \\) is a <i>continuous function</i>.\n\nNow, since \\( f(x) \\) is continuous, we can do some calculations near \\( x = 2 \\) to determine what the limit is as \\(x\\) approaches \\(2\\).\n\n<table class=\"table table is-bordered is-striped is-narrow is-hoverable is-fullwidth\">\n<thead>\n<tr><th>\\(f(x) ~~ \\text{where} ~~ x \\gt 2 ~ \\text{(approaching 2 from the right)}\\)</th><th>\\( f(x) ~~ \\text{where} ~~ x \\lt 2  ~ \\text{(approaching 2 from the left)} \\)</th></tr>\n</thead>\n<tbody>\n<tr><td>\\(3\\)</td><td>\\(1\\)</td></tr>\n<tr><td>\\(2.5\\)</td><td>\\(1.5\\)</td></tr>\n<tr><td>\\(2.1\\)</td><td>\\(1.9\\)</td></tr>\n<tr><td>\\(2.01\\)</td><td>\\(1.99\\)</td></tr>\n<tr><td>\\(2.001\\)</td><td>\\(1.999\\)</td></tr>\n</tbody>\n</table>\n\nAs you can see, as \\( x \\) approaches \\( 2 \\) from the left and right (think of a number line), \\( f(x) \\) is converging towards \\( 2\\).\n\n$$\\text{Given $f(x) = x$, the limit of $f(x)$ as $x$ approaches $2$ is $2$}$$\n$$\\textbf{Answer:} \\quad \\lim\\limits_{x~ \\to ~2} f(x) = 2 $$\n\nTo further elaborate on the answer, take a look at the graph of \\(f(x) = x \\). You can see by inspection that as \\(x\\) gets closer to \\(2\\), \\(f(x)\\) also gets closer and closer to \\(f(2) = 2\\).\n\n <div id=\"aq0a80uruu\" class=\"ct-chart ct-double-octave\"></div>",
         "charts": [
             {
                 "id": "cn7dop4w60",
@@ -45,6 +45,50 @@
                             {
                                 "x": "5",
                                 "y": "5"
+                            }
+                        ]
+                    ],
+                    "labels": []
+                },
+                "options": {
+                    "axisX": {
+                        "onlyInteger": true
+                    },
+                    "axisY": {
+                        "onlyInteger": true
+                    },
+                    "showPoint": true,
+                    "showLine": true,
+                    "showArea": false
+                }
+            },
+            {
+                "id": "aq0a80uruu",
+                "data": {
+                    "series": [
+                        [
+                            {
+                                "x": "0",
+                                "y": "0"
+                            },
+                            {
+                                "x": "1",
+                                "y": "1"
+                            },
+                            {
+                                "x": "3",
+                                "y": "3"
+                            },
+                            {
+                                "x": "4",
+                                "y": "4"
+                            }
+                        ],
+                        [],
+                        [
+                            {
+                                "x": "2",
+                                "y": "2"
                             }
                         ]
                     ],
