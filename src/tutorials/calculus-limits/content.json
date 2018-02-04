@@ -1452,5 +1452,12 @@
                 }
             }
         ]
+    },
+    {
+        "id": "sectionBox_hpom4ew5m5",
+        "contentIndex": 4,
+        "title": "Defined limits for discontinous functions",
+        "text": "Consider,\n$$f(x) = \\begin{cases}\n   3 &\\text{if } x \\not= 2  \\\\\n   1 &\\text{if } x = 2\n\\end{cases}$$",
+        "charts": []
     }
 ]
