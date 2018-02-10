@@ -112,7 +112,7 @@
         "id": "sectionBox_twbswb6545",
         "contentIndex": 3,
         "title": "Understanding when limits are undefined",
-        "text": "There exists functions who are discontinuous and fail to have a limit at every point on it's curve. This occurs when the limit at some point \\(a\\) from the <strong>left</strong> does not equal the limit from the <strong>right</strong>. Formally put,\n\n$$\\text{if} ~ \\lim\\limits_{x~ \\to ~a^-} f(x) \\not= \\lim\\limits_{x~ \\to ~a^+} f(x), ~ \\text{ then} \\lim\\limits_{x~ \\to ~a} f(x) = \\text{undefined}$$\n\nLet's take a take a look at the following example,\n\n$$\\text{Consider} ~ g(x) = \\frac{1}{x}; \\quad \\text{Find}\\lim\\limits_{x~ \\to ~0} g(x)$$\n <div id=\"vgzpzcpg76\" class=\"ct-chart ct-double-octave\"></div>\n\nLooking at the graph, we can see that there exists an asymptote at \\( x = 0 \\). Our strategy of finding the limit as \\(x\\) approaches \\(0\\) will be to find the limit from the left and right of \\(0\\).\n\nTo start, let's find the \\( \\lim\\limits_{x~ \\to ~0^-} g(x)\\) (the limit as \\(x\\) approaches \\(0\\) from the right).\n\nBy inspection, we can see that as we approach \\(0\\) from the right, \\(g(x)\\) is getting more and more negative. In fact, since there is an asymptote at \\(x = 0\\), we say that \\(g(x)\\) is getting infinitely negative as \\(x\\) approaches \\(0\\) from the right.\n\n$$\\lim\\limits_{x~ \\to ~0^-} g(x) = -\\infty$$\n\nNow that we figured out what the limit is from the right of \\(0\\), let's find the limit from the left of \\(0\\).\n\nOnce more, we can apply the same thinking from finding the limit from the right of \\(0\\). Simply put, \\(g(x)\\) is getting infinitely positive as \\(x\\) approaches \\(0\\) from the left.\n\n$$\\lim\\limits_{x~ \\to ~0^+} g(x) = +\\infty$$\n\nNow that we have found the limit of \\(0\\) from the left and right of \\(0\\) let's compare them and see if they match.\n\n$$\\begin{aligned} \n\\lim\\limits_{x~ \\to ~0^-} g(x) &= \\lim\\limits_{x~ \\to ~0^+} g(x)\\\\\n-\\infty &\\not= +\\infty \\\\\n\\end{aligned}$$\n\nSeeing that the limits from the left and right of \\(0\\) are not equal, we can conclude that\n$$\\lim\\limits_{x~ \\to ~0} g(x) = \\text{undefined} \\quad \\text{$\\square$}$$",
+        "text": "There exists functions who are discontinuous and fail to have a limit at every point on it's curve. This occurs when the limit at some point \\(a\\) from the <strong>left</strong> does not equal the limit from the <strong>right</strong>. Formally put,\n\n$$\\text{if} ~ \\lim\\limits_{x~ \\to ~a^-} f(x) \\not= \\lim\\limits_{x~ \\to ~a^+} f(x), ~ \\text{ then} \\lim\\limits_{x~ \\to ~a} f(x) = \\text{undefined}$$\n\nLet's take a take a look at the following example,\n\n$$\\text{Consider} ~ g(x) = \\frac{1}{x}; \\quad \\text{Find}\\lim\\limits_{x~ \\to ~0} g(x)$$\n <div id=\"vgzpzcpg76\" class=\"ct-chart ct-double-octave\"></div>\n\nLooking at the graph, we can see that there exists an asymptote at \\( x = 0 \\). Our strategy of finding the limit as \\(x\\) approaches \\(0\\) will be to find the limit from the left and right of \\(0\\).\n\nTo start, let's find the \\( \\lim\\limits_{x~ \\to ~0^-} g(x)\\) (the limit as \\(x\\) approaches \\(0\\) from the right).\n\nBy inspection, we can see that as we approach \\(0\\) from the right, \\(g(x)\\) is getting more and more negative. In fact, since there is an asymptote at \\(x = 0\\), we say that \\(g(x)\\) is getting infinitely negative as \\(x\\) approaches \\(0\\) from the right.\n\n$$\\lim\\limits_{x~ \\to ~0^-} g(x) = -\\infty$$\n\nNow that we figured out what the limit is from the right of \\(0\\), let's find the limit from the left of \\(0\\).\n\nOnce more, we can apply the same thinking from finding the limit from the right of \\(0\\). Simply put, \\(g(x)\\) is getting infinitely positive as \\(x\\) approaches \\(0\\) from the left.\n\n$$\\lim\\limits_{x~ \\to ~0^-} g(x) = +\\infty$$\n\nNow that we have found the limit of \\(0\\) from the left and right of \\(0\\) let's compare them and see if they match.\n\n$$\\begin{aligned} \n\\lim\\limits_{x~ \\to ~0^-} g(x) &= \\lim\\limits_{x~ \\to ~0^+} g(x)\\\\\n-\\infty &\\not= +\\infty \\\\\n\\end{aligned}$$\n\nSeeing that the limits from the left and right of \\(0\\) are not equal, we can conclude that\n$$\\lim\\limits_{x~ \\to ~0} g(x) = \\text{undefined} \\quad \\text{$\\square$}$$",
         "charts": [
             {
                 "id": "zkh3cwllsq",
@@ -1457,7 +1457,61 @@
         "id": "sectionBox_hpom4ew5m5",
         "contentIndex": 4,
         "title": "Defined limits for discontinous functions",
-        "text": "Consider,\n$$f(x) = \\begin{cases}\n   3 &\\text{if } x \\not= 2  \\\\\n   1 &\\text{if } x = 2\n\\end{cases}$$",
-        "charts": []
+        "text": "Consider,\n$$f(x) = \\begin{cases}\n   3 &\\text{if } x \\not= 2  \\\\\n   1 &\\text{if } x = 2\n\\end{cases}$$ <div id=\"9fu9r8quvr\" class=\"ct-chart ct-double-octave\"></div>",
+        "charts": [
+            {
+                "id": "9fu9r8quvr",
+                "data": {
+                    "series": [
+                        [
+                            {
+                                "x": "0",
+                                "y": "1"
+                            },
+                            {
+                                "x": "1",
+                                "y": "1"
+                            },
+                            {
+                                "x": "2",
+                                "y": "1"
+                            },
+                            {
+                                "x": "3",
+                                "y": "1"
+                            },
+                            {
+                                "x": "4",
+                                "y": "1"
+                            },
+                            {
+                                "x": "5",
+                                "y": "1"
+                            }
+                        ],
+                        [
+                            {
+                                "x": "3",
+                                "y": "0"
+                            }
+                        ]
+                    ],
+                    "labels": []
+                },
+                "options": {
+                    "axisX": {
+                        "onlyInteger": true
+                    },
+                    "axisY": {
+                        "high": "5",
+                        "low": "-5",
+                        "onlyInteger": true
+                    },
+                    "showPoint": true,
+                    "showLine": true,
+                    "showArea": false
+                }
+            }
+        ]
     }
 ]
