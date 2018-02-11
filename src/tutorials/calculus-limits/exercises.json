@@ -1,1 +1,84 @@
-[]
+[
+    {
+        "id": "exerciseBox_n1z2gxbg0e",
+        "question": "\\( \\text{Given} ~~ f(x) = x^2, \\quad \\text{Find} \\lim\\limits_{x~ \\to ~2} f(x)\\)",
+        "answer": "<div id=\"7afhz186ih\" class=\"ct-chart ct-double-octave\"></div>\n",
+        "exerciseIndex": 0,
+        "chartList": [
+            {
+                "id": "7afhz186ih",
+                "data": {
+                    "series": [
+                        [
+                            {
+                                "x": "-5",
+                                "y": "25"
+                            },
+                            {
+                                "x": "-4",
+                                "y": "16"
+                            },
+                            {
+                                "x": "-3",
+                                "y": "9"
+                            },
+                            {
+                                "x": "-2",
+                                "y": "4"
+                            },
+                            {
+                                "x": "-1",
+                                "y": "1"
+                            },
+                            {
+                                "x": "0",
+                                "y": "0"
+                            },
+                            {
+                                "x": "1",
+                                "y": "1"
+                            },
+                            {
+                                "x": "2",
+                                "y": "4"
+                            },
+                            {
+                                "x": "3",
+                                "y": "9"
+                            },
+                            {
+                                "x": "4",
+                                "y": "16"
+                            },
+                            {
+                                "x": "5",
+                                "y": "25"
+                            }
+                        ],
+                        [],
+                        [
+                            {
+                                "x": "2",
+                                "y": "4"
+                            }
+                        ]
+                    ],
+                    "labels": []
+                },
+                "options": {
+                    "axisX": {
+                        "onlyInteger": true
+                    },
+                    "axisY": {
+                        "high": "5",
+                        "low": "0",
+                        "onlyInteger": true
+                    },
+                    "showPoint": true,
+                    "showLine": true,
+                    "showArea": false
+                }
+            }
+        ]
+    }
+]
