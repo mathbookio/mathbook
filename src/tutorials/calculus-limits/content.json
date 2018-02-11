@@ -1457,7 +1457,7 @@
         "id": "sectionBox_hpom4ew5m5",
         "contentIndex": 4,
         "title": "Defined limits for discontinous functions",
-        "text": "Consider,\n$$f(x) = \\begin{cases}\n   3 &\\text{if } x \\not= 2  \\\\\n   1 &\\text{if } x = 2\n\\end{cases}$$ <div id=\"9fu9r8quvr\" class=\"ct-chart ct-double-octave\"></div>",
+        "text": "Consider,\n$$f(x) = \\begin{cases}\n   x &\\text{if } x \\not= 2  \\\\\n   1 &\\text{if } x = 2\n\\end{cases}$$ \n<div id=\"dmunkdrilh\" class=\"ct-chart ct-double-octave\"></div>",
         "charts": [
             {
                 "id": "9fu9r8quvr",
@@ -1505,6 +1505,104 @@
                     "axisY": {
                         "high": "5",
                         "low": "-5",
+                        "onlyInteger": true
+                    },
+                    "showPoint": true,
+                    "showLine": true,
+                    "showArea": false
+                }
+            },
+            {
+                "id": "evssi0vrf8",
+                "data": {
+                    "series": [
+                        [
+                            {
+                                "x": "0",
+                                "y": "3"
+                            },
+                            {
+                                "x": "1",
+                                "y": "3"
+                            },
+                            {
+                                "x": "2",
+                                "y": "3"
+                            },
+                            {
+                                "x": "3",
+                                "y": "3",
+                                "isHole": true
+                            },
+                            {
+                                "x": "4",
+                                "y": "3"
+                            },
+                            {
+                                "x": "3",
+                                "y": "1"
+                            }
+                        ]
+                    ],
+                    "labels": []
+                },
+                "options": {
+                    "axisX": {
+                        "onlyInteger": true
+                    },
+                    "axisY": {
+                        "high": "5",
+                        "low": "0",
+                        "onlyInteger": true
+                    },
+                    "showPoint": true,
+                    "showLine": true,
+                    "showArea": false
+                }
+            },
+            {
+                "id": "dmunkdrilh",
+                "data": {
+                    "series": [
+                        [
+                            {
+                                "x": "0",
+                                "y": "0"
+                            },
+                            {
+                                "x": "1",
+                                "y": "1"
+                            },
+                            {
+                                "x": "2",
+                                "y": "2",
+                                "isHole": true
+                            },
+                            {
+                                "x": "3",
+                                "y": "3"
+                            },
+                            {
+                                "x": "4",
+                                "y": "4"
+                            },
+                            {
+                                "x": "5",
+                                "y": "5"
+                            },
+                            {
+                                "x": "2",
+                                "y": "1"
+                            }
+                        ]
+                    ],
+                    "labels": []
+                },
+                "options": {
+                    "axisX": {
+                        "onlyInteger": true
+                    },
+                    "axisY": {
                         "onlyInteger": true
                     },
                     "showPoint": true,
