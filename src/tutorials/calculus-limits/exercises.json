@@ -2,7 +2,7 @@
     {
         "id": "exerciseBox_n1z2gxbg0e",
         "question": "\\( \\text{Given} ~~ f(x) = x^2, \\quad \\text{Find} \\lim\\limits_{x~ \\to ~2} f(x)\\)",
-        "answer": "<div id=\"7afhz186ih\" class=\"ct-chart ct-double-octave\"></div>\n",
+        "answer": "Note that \\( f(x) = x^2 \\) is a continuous function. Knowing this, we can simply evaluate \\(f(x)\\) at \\(2\\) to find the limit.\n\n$$\n\\begin{aligned}\nf(x) &= x^2 \\\\\nf(2) &= (2)^2 \\\\\nf(2) &= 4 \\\\\\\\\n\\lim\\limits_{x~ \\to ~2} f(x) &= 4 && \\text{$\\square$}\n\\end{aligned}\n$$\n\n<div id=\"7afhz186ih\" class=\"ct-chart ct-double-octave\"></div>\n",
         "exerciseIndex": 0,
         "chartList": [
             {
