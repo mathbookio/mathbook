@@ -109,6 +109,8 @@
             <textarea id="chartSeries" class="textarea" placeholder="x;y pairs, ie. 1;2, 2;3, 3;4"></textarea>
             <p class="help">format: x;y => (1,3).  e.g. 1;2 => (1,2)
             <br/>
+            You are able to insert a hole in the chart: hole(x;y) => hole(1;2)
+            <br/>
             Starting a new line (hitting enter) will add a new line plot
              </p>
           </div>
@@ -223,6 +225,12 @@
               const y = splitPoint[1]
               series.push({ x: x, y: y })
             }
+            else if (self.isValidHolePoint(point)){
+              const splitPoint = point.replace(/(hole\(){1}|(\){1})/g, '').split(';')
+              const x = splitPoint[0]
+              const y = splitPoint[1]
+              series.push({ x: x, y: y, isHole: true })
+            }
             else if (dataType[k] === "null"){
               series.push(null)
             }
@@ -243,7 +251,13 @@
   isValidInputPoint(point){
     // point should follow the following format: x;y => 1;3
     // decimals are allowed
-    return /^(\-)?\d+(?:\.\d+)?[\;](\-)?\d+(?:\.\d+)?$/.test(point)
+    return /^(\-)?\d+(?:\.\d+)?[\;]((\-)?\d+(?:\.\d+)?|(null)?)$/.test(point)
+  }
+
+  isValidHolePoint(point){
+    // point should follow the following format: hole(x;y) => hole(1;3)
+    // decimals are allowed
+    return /^(hole\()(\-)?\d+(?:\.\d+)?[\;]((\-)?\d+(?:\.\d+)?|(null)?)(\))$/.test(point)
   }
 
   toggleOption(type){
@@ -324,7 +338,6 @@
     this.xAxisHigh = "null"
     this.yAxisLow = "null"
     this.yAxisHigh = "null"
-    console.log('finished cleaning up fields')
   }
 
   closeModal(){
