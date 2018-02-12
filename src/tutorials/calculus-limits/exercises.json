@@ -80,5 +80,728 @@
                 }
             }
         ]
+    },
+    {
+        "id": "exerciseBox_8nxwdnpe95",
+        "question": "\\( \\text{Find} ~~ \\lim\\limits_{x~ \\to ~3} f(x) ~~ \\text{where the graph of $f(x)$ looks like the following}\\)  <div id=\"9tygu217iz\" class=\"ct-chart ct-double-octave\"></div>",
+        "answer": "Looking at this chart, we can see that \\( f(x) \\) is a discontinuous function, so simply evaluating \\( f(x) \\) at \\(3\\) will not give us the limit. Instead, we will need to find the limit as \\(x\\) approaches \\(3\\) from the left and right.\n\nFrom the left, it is clear that as \\(x\\) approaches \\(3\\), \\(f(x)\\) is getting closer and closer to \\(2\\). Hence, \\(\\lim\\limits_{x~ \\to ~3^-} f(x) = 2\\)\n\nFrom the right, we can see that as \\(x\\) approaches \\(3\\), \\(f(x)\\) is getting closer and closer to \\(4\\). Hence, \\(\\lim\\limits_{x~ \\to ~3^+} f(x) = 4\\)\n\nNow, since \\(\\lim\\limits_{x~ \\to ~3^-} f(x) \\not= \\lim\\limits_{x~ \\to ~3^+} f(x)\\) we can conclude that,\n\n$$ \\lim\\limits_{x~ \\to ~3} f(x) = \\text{undefined} \\quad \\text{$\\square$}$$\n",
+        "exerciseIndex": 1,
+        "chartList": [
+            {
+                "id": "wj4chj333y",
+                "data": {
+                    "series": [
+                        [
+                            {
+                                "x": "0",
+                                "y": "0"
+                            },
+                            {
+                                "x": "1",
+                                "y": "1"
+                            },
+                            {
+                                "x": "2",
+                                "y": "2",
+                                "isHole": true
+                            },
+                            {
+                                "x": "2",
+                                "y": "4"
+                            },
+                            {
+                                "x": "3",
+                                "y": "4"
+                            },
+                            {
+                                "x": "4",
+                                "y": "4"
+                            }
+                        ]
+                    ],
+                    "labels": []
+                },
+                "options": {
+                    "axisX": {
+                        "high": "5",
+                        "onlyInteger": true
+                    },
+                    "axisY": {
+                        "high": "5",
+                        "onlyInteger": true
+                    },
+                    "showPoint": true,
+                    "showLine": true,
+                    "showArea": false
+                }
+            },
+            {
+                "id": "9tygu217iz",
+                "data": {
+                    "series": [
+                        [
+                            {
+                                "x": "0",
+                                "y": "2"
+                            },
+                            {
+                                "x": "1",
+                                "y": "2"
+                            },
+                            {
+                                "x": "2",
+                                "y": "2"
+                            },
+                            {
+                                "x": "3",
+                                "y": "2",
+                                "isHole": true
+                            },
+                            {
+                                "x": "3",
+                                "y": "4"
+                            },
+                            {
+                                "x": "4",
+                                "y": "4"
+                            },
+                            {
+                                "x": "5",
+                                "y": "4"
+                            },
+                            {
+                                "x": "6",
+                                "y": "4"
+                            }
+                        ]
+                    ],
+                    "labels": []
+                },
+                "options": {
+                    "axisX": {
+                        "low": "0",
+                        "onlyInteger": true
+                    },
+                    "axisY": {
+                        "high": "5",
+                        "low": "-5",
+                        "onlyInteger": true
+                    },
+                    "showPoint": true,
+                    "showLine": true,
+                    "showArea": false
+                }
+            },
+            {
+                "id": "8z5w35juw8",
+                "data": {
+                    "series": [
+                        [
+                            {
+                                "x": "-5",
+                                "y": "-125"
+                            },
+                            {
+                                "x": "-4",
+                                "y": "-64"
+                            },
+                            {
+                                "x": "-3",
+                                "y": "-27"
+                            },
+                            {
+                                "x": "-2",
+                                "y": "-8"
+                            },
+                            {
+                                "x": "-1",
+                                "y": "-1"
+                            },
+                            {
+                                "x": "0",
+                                "y": "0"
+                            },
+                            {
+                                "x": "1",
+                                "y": "1"
+                            },
+                            {
+                                "x": "2",
+                                "y": "8"
+                            },
+                            {
+                                "x": "3",
+                                "y": "27"
+                            },
+                            {
+                                "x": "4",
+                                "y": "64",
+                                "isHole": true
+                            },
+                            {
+                                "x": "5",
+                                "y": "125"
+                            },
+                            {
+                                "x": "4",
+                                "y": "25"
+                            }
+                        ]
+                    ],
+                    "labels": []
+                },
+                "options": {
+                    "axisX": {
+                        "onlyInteger": true
+                    },
+                    "axisY": {
+                        "onlyInteger": true
+                    },
+                    "showPoint": true,
+                    "showLine": true,
+                    "showArea": false
+                }
+            },
+            {
+                "id": "7wszqx35ve",
+                "data": {
+                    "series": [
+                        [
+                            {
+                                "x": "0",
+                                "y": "2"
+                            },
+                            {
+                                "x": "1",
+                                "y": "2"
+                            },
+                            {
+                                "x": "2",
+                                "y": "2"
+                            },
+                            {
+                                "x": "3",
+                                "y": "2",
+                                "isHole": true
+                            },
+                            {
+                                "x": "3",
+                                "y": "1"
+                            },
+                            {
+                                "x": "3",
+                                "y": "3",
+                                "isHole": true
+                            },
+                            {
+                                "x": "4",
+                                "y": "4"
+                            },
+                            {
+                                "x": "5",
+                                "y": "5"
+                            }
+                        ]
+                    ],
+                    "labels": []
+                },
+                "options": {
+                    "axisX": {
+                        "low": "0",
+                        "onlyInteger": true
+                    },
+                    "axisY": {
+                        "high": "5",
+                        "low": "0",
+                        "onlyInteger": true
+                    },
+                    "showPoint": true,
+                    "showLine": true,
+                    "showArea": false
+                }
+            }
+        ]
+    },
+    {
+        "id": "exerciseBox_zlefu24dpx",
+        "question": "\\( \\text{Given} ~~ f(x) = \\begin{cases} x^3 &\\text{if } x \\not= 4  \\\\ 25 &\\text{if } x = 4 \\end{cases}, \\quad \\text{Find} \\lim\\limits_{x~ \\to ~4} f(x)\\)",
+        "answer": "Knowing that we are dealing with a piecewise function, it is a good idea to plot the graph of \\(f(x)\\) to see what we are dealing with.\n<div id=\"8z5w35juw8\" class=\"ct-chart ct-major-twelfth\"></div>\n\nNow, looking at this graph, we can see that there is a jump at \\(x = 4\\) which is the point where we need to find the limit of \\(f(x)\\).\n\nSimilar to the example in the contents of this tutorial, we will need to the find the limit of \\(f(x)\\) as \\(x\\) approaches \\(4\\) from the left and right.\n\nFrom the left,\n$$\\lim\\limits_{x~ \\to ~4^-} f(x) = 64$$\n\nAnd from the right,\n$$\\lim\\limits_{x~ \\to ~4^+} f(x) = 64$$\n\nSeeing that they are both equal we can now claim that,\n$$\\lim\\limits_{x~ \\to ~4} f(x) = 64 \\quad \\text{$\\square$}$$",
+        "exerciseIndex": 2,
+        "chartList": [
+            {
+                "id": "wj4chj333y",
+                "data": {
+                    "series": [
+                        [
+                            {
+                                "x": "0",
+                                "y": "0"
+                            },
+                            {
+                                "x": "1",
+                                "y": "1"
+                            },
+                            {
+                                "x": "2",
+                                "y": "2",
+                                "isHole": true
+                            },
+                            {
+                                "x": "2",
+                                "y": "4"
+                            },
+                            {
+                                "x": "3",
+                                "y": "4"
+                            },
+                            {
+                                "x": "4",
+                                "y": "4"
+                            }
+                        ]
+                    ],
+                    "labels": []
+                },
+                "options": {
+                    "axisX": {
+                        "high": "5",
+                        "onlyInteger": true
+                    },
+                    "axisY": {
+                        "high": "5",
+                        "onlyInteger": true
+                    },
+                    "showPoint": true,
+                    "showLine": true,
+                    "showArea": false
+                }
+            },
+            {
+                "id": "9tygu217iz",
+                "data": {
+                    "series": [
+                        [
+                            {
+                                "x": "0",
+                                "y": "2"
+                            },
+                            {
+                                "x": "1",
+                                "y": "2"
+                            },
+                            {
+                                "x": "2",
+                                "y": "2"
+                            },
+                            {
+                                "x": "3",
+                                "y": "2",
+                                "isHole": true
+                            },
+                            {
+                                "x": "3",
+                                "y": "4"
+                            },
+                            {
+                                "x": "4",
+                                "y": "4"
+                            },
+                            {
+                                "x": "5",
+                                "y": "4"
+                            },
+                            {
+                                "x": "6",
+                                "y": "4"
+                            }
+                        ]
+                    ],
+                    "labels": []
+                },
+                "options": {
+                    "axisX": {
+                        "low": "0",
+                        "onlyInteger": true
+                    },
+                    "axisY": {
+                        "high": "5",
+                        "low": "-5",
+                        "onlyInteger": true
+                    },
+                    "showPoint": true,
+                    "showLine": true,
+                    "showArea": false
+                }
+            },
+            {
+                "id": "8z5w35juw8",
+                "data": {
+                    "series": [
+                        [
+                            {
+                                "x": "-5",
+                                "y": "-125"
+                            },
+                            {
+                                "x": "-4",
+                                "y": "-64"
+                            },
+                            {
+                                "x": "-3",
+                                "y": "-27"
+                            },
+                            {
+                                "x": "-2",
+                                "y": "-8"
+                            },
+                            {
+                                "x": "-1",
+                                "y": "-1"
+                            },
+                            {
+                                "x": "0",
+                                "y": "0"
+                            },
+                            {
+                                "x": "1",
+                                "y": "1"
+                            },
+                            {
+                                "x": "2",
+                                "y": "8"
+                            },
+                            {
+                                "x": "3",
+                                "y": "27"
+                            },
+                            {
+                                "x": "4",
+                                "y": "64",
+                                "isHole": true
+                            },
+                            {
+                                "x": "5",
+                                "y": "125"
+                            },
+                            {
+                                "x": "4",
+                                "y": "25"
+                            }
+                        ]
+                    ],
+                    "labels": []
+                },
+                "options": {
+                    "axisX": {
+                        "onlyInteger": true
+                    },
+                    "axisY": {
+                        "onlyInteger": true
+                    },
+                    "showPoint": true,
+                    "showLine": true,
+                    "showArea": false
+                }
+            },
+            {
+                "id": "7wszqx35ve",
+                "data": {
+                    "series": [
+                        [
+                            {
+                                "x": "0",
+                                "y": "2"
+                            },
+                            {
+                                "x": "1",
+                                "y": "2"
+                            },
+                            {
+                                "x": "2",
+                                "y": "2"
+                            },
+                            {
+                                "x": "3",
+                                "y": "2",
+                                "isHole": true
+                            },
+                            {
+                                "x": "3",
+                                "y": "1"
+                            },
+                            {
+                                "x": "3",
+                                "y": "3",
+                                "isHole": true
+                            },
+                            {
+                                "x": "4",
+                                "y": "4"
+                            },
+                            {
+                                "x": "5",
+                                "y": "5"
+                            }
+                        ]
+                    ],
+                    "labels": []
+                },
+                "options": {
+                    "axisX": {
+                        "low": "0",
+                        "onlyInteger": true
+                    },
+                    "axisY": {
+                        "high": "5",
+                        "low": "0",
+                        "onlyInteger": true
+                    },
+                    "showPoint": true,
+                    "showLine": true,
+                    "showArea": false
+                }
+            }
+        ]
+    },
+    {
+        "id": "exerciseBox_d2nnvi1sxg",
+        "question": "\\( \\text{Find} ~~ \\lim\\limits_{x~ \\to ~3} g(x) ~~ \\text{where the graph of $g(x)$ looks like the following}\\)  <div id=\"7wszqx35ve\" class=\"ct-chart ct-major-twelfth\"></div>",
+        "answer": "By looking at the graph of \\(g(x)\\) it is safe to say that \\(g(x)\\) is a discontinuous piece-wise function. Knowing this, we will need to find the limit as \\(x\\) approaches 3 from the <strong>left</strong> and <strong>right</strong>.\n\nFrom the left,\n$$\\lim\\limits_{x~ \\to ~3^-} g(x) = 2$$\n\nAnd from the right,\n$$\\lim\\limits_{x~ \\to ~3^+} g(x) = 3$$\n\nSeeing that they are not equal we can claim that,\n$$\\lim\\limits_{x~ \\to ~3} g(x) = \\text{undefined} \\quad \\text{$\\square$}$$",
+        "exerciseIndex": 3,
+        "chartList": [
+            {
+                "id": "wj4chj333y",
+                "data": {
+                    "series": [
+                        [
+                            {
+                                "x": "0",
+                                "y": "0"
+                            },
+                            {
+                                "x": "1",
+                                "y": "1"
+                            },
+                            {
+                                "x": "2",
+                                "y": "2",
+                                "isHole": true
+                            },
+                            {
+                                "x": "2",
+                                "y": "4"
+                            },
+                            {
+                                "x": "3",
+                                "y": "4"
+                            },
+                            {
+                                "x": "4",
+                                "y": "4"
+                            }
+                        ]
+                    ],
+                    "labels": []
+                },
+                "options": {
+                    "axisX": {
+                        "high": "5",
+                        "onlyInteger": true
+                    },
+                    "axisY": {
+                        "high": "5",
+                        "onlyInteger": true
+                    },
+                    "showPoint": true,
+                    "showLine": true,
+                    "showArea": false
+                }
+            },
+            {
+                "id": "9tygu217iz",
+                "data": {
+                    "series": [
+                        [
+                            {
+                                "x": "0",
+                                "y": "2"
+                            },
+                            {
+                                "x": "1",
+                                "y": "2"
+                            },
+                            {
+                                "x": "2",
+                                "y": "2"
+                            },
+                            {
+                                "x": "3",
+                                "y": "2",
+                                "isHole": true
+                            },
+                            {
+                                "x": "3",
+                                "y": "4"
+                            },
+                            {
+                                "x": "4",
+                                "y": "4"
+                            },
+                            {
+                                "x": "5",
+                                "y": "4"
+                            },
+                            {
+                                "x": "6",
+                                "y": "4"
+                            }
+                        ]
+                    ],
+                    "labels": []
+                },
+                "options": {
+                    "axisX": {
+                        "low": "0",
+                        "onlyInteger": true
+                    },
+                    "axisY": {
+                        "high": "5",
+                        "low": "-5",
+                        "onlyInteger": true
+                    },
+                    "showPoint": true,
+                    "showLine": true,
+                    "showArea": false
+                }
+            },
+            {
+                "id": "8z5w35juw8",
+                "data": {
+                    "series": [
+                        [
+                            {
+                                "x": "-5",
+                                "y": "-125"
+                            },
+                            {
+                                "x": "-4",
+                                "y": "-64"
+                            },
+                            {
+                                "x": "-3",
+                                "y": "-27"
+                            },
+                            {
+                                "x": "-2",
+                                "y": "-8"
+                            },
+                            {
+                                "x": "-1",
+                                "y": "-1"
+                            },
+                            {
+                                "x": "0",
+                                "y": "0"
+                            },
+                            {
+                                "x": "1",
+                                "y": "1"
+                            },
+                            {
+                                "x": "2",
+                                "y": "8"
+                            },
+                            {
+                                "x": "3",
+                                "y": "27"
+                            },
+                            {
+                                "x": "4",
+                                "y": "64",
+                                "isHole": true
+                            },
+                            {
+                                "x": "5",
+                                "y": "125"
+                            },
+                            {
+                                "x": "4",
+                                "y": "25"
+                            }
+                        ]
+                    ],
+                    "labels": []
+                },
+                "options": {
+                    "axisX": {
+                        "onlyInteger": true
+                    },
+                    "axisY": {
+                        "onlyInteger": true
+                    },
+                    "showPoint": true,
+                    "showLine": true,
+                    "showArea": false
+                }
+            },
+            {
+                "id": "7wszqx35ve",
+                "data": {
+                    "series": [
+                        [
+                            {
+                                "x": "0",
+                                "y": "2"
+                            },
+                            {
+                                "x": "1",
+                                "y": "2"
+                            },
+                            {
+                                "x": "2",
+                                "y": "2"
+                            },
+                            {
+                                "x": "3",
+                                "y": "2",
+                                "isHole": true
+                            },
+                            {
+                                "x": "3",
+                                "y": "1"
+                            },
+                            {
+                                "x": "3",
+                                "y": "3",
+                                "isHole": true
+                            },
+                            {
+                                "x": "4",
+                                "y": "4"
+                            },
+                            {
+                                "x": "5",
+                                "y": "5"
+                            }
+                        ]
+                    ],
+                    "labels": []
+                },
+                "options": {
+                    "axisX": {
+                        "low": "0",
+                        "onlyInteger": true
+                    },
+                    "axisY": {
+                        "high": "5",
+                        "low": "0",
+                        "onlyInteger": true
+                    },
+                    "showPoint": true,
+                    "showLine": true,
+                    "showArea": false
+                }
+            }
+        ]
     }
 ]
