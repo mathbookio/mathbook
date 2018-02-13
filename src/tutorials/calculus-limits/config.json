@@ -5,5 +5,11 @@
     "preReqs": [],
     "exerciseStatement": "Find the limit at the value specified for the following functions.",
     "resources": [],
-    "keywords": []
+    "keywords": [
+        "epsilon delta",
+        "math",
+        "infinitesimal",
+        "limits",
+        "calculus"
+    ]
 }
