@@ -1618,5 +1618,12 @@
                 }
             }
         ]
+    },
+    {
+        "id": "sectionBox_gseu9prgcz",
+        "contentIndex": 6,
+        "title": "Closing Remarks & Summary",
+        "text": "As you can see, there are certain scenarios that you will need to be aware of when it comes to finding limits of functions. Things are pretty straightforward if the function is continuous, but if its discontinuous, you will need to check the limit from the left and right.\n\nIn regards to the definition of a limit, I highly recommend attempting the exercise below that asks you to prove the limit exists using the epsilon-delta definition.\n\nThat being said, I hope this tutorial has been of great help to you in firmly understanding limits.",
+        "charts": []
     }
 ]
