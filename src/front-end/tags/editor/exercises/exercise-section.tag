@@ -28,6 +28,11 @@
     <section class="modal-card-body">
       <div class="field">
         <div class="control">
+          <a class="button" onclick={ showChartModal }>Insert Chart</a>
+        </div>
+      </div>
+      <div class="field">
+        <div class="control">
           <input type="text" id="{ editQuestionId }" class="input mathContent" placeholder="edit exercise question"/>
        </div>
       </div>
@@ -59,10 +64,11 @@
 </div>
 <script>
 
-var that = this
-console.log(this.opts)
+var self = this
 this.showModal = false
-
+this.clientId = this.opts.id
+this.exerciseObservable = this.opts.exerciseObservable
+this.chartObservable = this.opts.chartObservable
 // generate Id's
 this.answerId = 'answer_' + this.opts.id
 this.questionId = 'question_' + this.opts.id
@@ -73,59 +79,69 @@ this.editQuestionTextId = 'editQuestionText_' + this.opts.id
 this.editAnswerId = 'editAnswer_' + this.opts.id
 this.editAnswerTextId = 'editAnswerText_' + this.opts.id
 
+this.chartList = this.opts.chartList
+
 this.on('mount', function() {
-  this.opts.exerciseObservable.trigger('createdExercise', this.opts.id, this)
-  that.bindExerciseValues()
+  this.exerciseObservable.trigger('createdExercise', this.opts.id, this)
+  self.bindExerciseValues()
   // preview question text
-  that.$('editQuestionId').on('input', function(e) {
-      var questionVal = that.$('editQuestionId').val()
-      that.$('editQuestionTextId').html(questionVal)
-      that.render(that.editQuestionTextId)
+  self.$('editQuestionId').on('input', function(e) {
+      var questionVal = self.$('editQuestionId').val()
+      self.$('editQuestionTextId').html(questionVal)
+      self.render(self.editQuestionTextId)
+      self.renderEditModalCharts(self.chartList)
     });
 
   // preview answer text
-  that.$('editAnswerId').on('input', function(e) {
-      var answerVal = that.$('editAnswerId').val()
-      that.$('editAnswerTextId').html(answerVal)
-      that.render(that.editAnswerTextId)
+  self.$('editAnswerId').on('input', function(e) {
+      var answerVal = self.$('editAnswerId').val()
+      self.$('editAnswerTextId').html(answerVal)
+      self.render(self.editAnswerTextId)
+      self.renderEditModalCharts(self.chartList)
     });
 
-  that.opts.exerciseObservable.on('deletedExercise', function(exerciseId, exerciseIndex) {
-    console.log('exercise obeservable deletedExercise triggered', { exerciseId: exerciseId, exerciseIndex: exerciseIndex })
-      if(exerciseIndex < that.opts.exerciseIndex){
-       console.log('an exercise was deleted before', that.opts.question, that.opts.exerciseIndex)
-       that.opts.exerciseIndex -= 1
-       console.log('an exercise was deleted after', that.opts.question, that.opts.exerciseIndex)
+  this.exerciseObservable.on('renderCharts', function() {
+    self.renderCharts(self.chartList)
+  })
+
+  self.opts.exerciseObservable.on('deletedExercise', function(exerciseId, exerciseIndex) {
+      if(exerciseIndex < self.opts.exerciseIndex){
+       self.opts.exerciseIndex -= 1
 
       }
   })
 
-  that.opts.exerciseObservable.on('exerciseOrderUpdate', function(oldIndex, newIndex){
-    console.log('exerciseOrderUpdate triggered', { oldIndex: oldIndex, newIndex: newIndex })
-    if (oldIndex === that.opts.exerciseIndex){
-      console.log('oldIndex === exerciseIndex')
-      that.opts.exerciseIndex = newIndex
-      console.log('after oldIndex === exerciseIndex',that.opts.question, that.opts.exerciseIndex)
+  self.opts.exerciseObservable.on('exerciseOrderUpdate', function(oldIndex, newIndex){
+    if (oldIndex === self.opts.exerciseIndex){
+      self.opts.exerciseIndex = newIndex
       return
     }
 
     // an exercise was moved up the list
-    if (oldIndex > newIndex && newIndex <= that.opts.exerciseIndex && oldIndex > that.opts.exerciseIndex){
-      console.log('an exercise was moved up the list before', that.opts.question, that.opts.exerciseIndex)
-      that.opts.exerciseIndex += 1
-      console.log('an exercise was moved up the list after', that.opts.question, that.opts.exerciseIndex)
+    if (oldIndex > newIndex && newIndex <= self.opts.exerciseIndex && oldIndex > self.opts.exerciseIndex){
+      self.opts.exerciseIndex += 1
     }
     // an exercise was moved down the list
-    else if (oldIndex < newIndex && newIndex >= that.opts.exerciseIndex && oldIndex < that.opts.exerciseIndex){
-      console.log('an exercise was moved down the list before', that.opts.question, that.opts.exerciseIndex)
-      that.opts.exerciseIndex -= 1
-      console.log('an exercise was moved down the list after', that.opts.question, that.opts.exerciseIndex)
+    else if (oldIndex < newIndex && newIndex >= self.opts.exerciseIndex && oldIndex < self.opts.exerciseIndex){
+      self.opts.exerciseIndex -= 1
     } 
-    else{
-      console.log('nothing happened for', that.opts.question, that.opts.exerciseIndex)
+
+  })
+
+
+  this.chartObservable.on('savedChart', function(clientId, chartSize, chartData, chartOptions) {
+
+    if (clientId !== self.clientId){
+      return
     }
 
-
+    const newChartId = uniqueId()
+    
+    const currentQuestion = self.$('editQuestionId').val()
+    const appendDiv = '<div id="'+newChartId+'" class="ct-chart '+chartSize+'"></div>'
+    self.$('editQuestionId').val(currentQuestion + ' ' + appendDiv)
+    self.chartList.push({ id: newChartId, data: chartData, options: chartOptions })
+    self.$('editQuestionId').trigger('input')
   })
   
 })
@@ -133,8 +149,9 @@ this.on('mount', function() {
 bindExerciseValues(){
   this.$('questionId').html(this.opts.question)
   this.$('answerId').html(this.opts.answer)
-  that.render(that.questionId)
-  that.render(that.answerId)
+  self.render(self.questionId)
+  self.render(self.answerId)
+  self.renderCharts(self.chartList)
 }
 
 editExercise(){
@@ -142,11 +159,13 @@ editExercise(){
   // when the modal opens, we want the question and answer values to carry over
   this.$('editQuestionId').val(this.opts.question)
   this.$('editQuestionTextId').html(this.opts.question)
-  that.render(this.editQuestionTextId)
+  self.render(this.editQuestionTextId)
 
   this.$('editAnswerId').val(this.opts.answer)
   this.$('editAnswerTextId').html(this.opts.answer)
-  that.render(this.editAnswerTextId)
+  self.render(this.editAnswerTextId)
+
+  self.renderEditModalCharts(this.chartList)
 }
 
 saveChanges(){
@@ -164,6 +183,8 @@ updateExercise(){
 
     this.opts.answer = this.$('editAnswerId').val()
     this.opts.answerText = this.$('editAnswerTextId').html()
+
+    this.opts.chartList = this.chartList
 
     this.$('questionId').html(this.opts.questionText)
     this.$('answerId').html(this.opts.answerText)
@@ -200,8 +221,13 @@ get(){
     id: this.opts.id,
     question: this.opts.question,
     answer: this.opts.answer,
-    exerciseIndex: this.opts.exerciseIndex
+    exerciseIndex: this.opts.exerciseIndex,
+    chartList: this.opts.chartList
   }
+}
+
+showChartModal(){
+    this.chartObservable.trigger('showChartModal', self.clientId)
 }
 
 render(id){
@@ -210,6 +236,36 @@ render(id){
   }
   catch(err){
   }
+}
+
+// used when exercise is created and fully loaded
+renderCharts(chartList) {
+  for (var i in chartList) {
+      const chart = chartList[i]
+      const questionSelector = $('#'+this.questionId+'> #'+chart.id).get(0)
+      if (questionSelector){
+        createLineChart(questionSelector, chart.data, chart.options)
+      }
+      const answerSelector = $('#'+this.answerId+'> #'+chart.id).get(0)
+      if (answerSelector){
+        createLineChart(answerSelector, chart.data, chart.options)
+      }
+    }
+}
+
+// used to re-render charts during editing process
+renderEditModalCharts(chartList) {
+    for (var i in chartList) {
+      const chart = chartList[i]
+      const questionSelector = $('#'+ self.editQuestionTextId +'> #'+chart.id).get(0)
+      if (questionSelector){
+        createLineChart(questionSelector, chart.data, chart.options)
+      }
+      const answerSelector = $('#'+ self.editAnswerTextId +'> #'+chart.id).get(0)
+      if (answerSelector){
+        createLineChart(answerSelector, chart.data, chart.options)
+      }
+    }
 }
 
 // jquery alias

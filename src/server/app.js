@@ -1,5 +1,6 @@
 "use strict"
 
+const config = require("../../config/config")()
 const express = require("express")
 const path = require("path")
 const bunyanRequest = require("bunyan-request")
@@ -29,19 +30,17 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser())
 app.use(authenticationMiddleware())
 
-app.use("/js", express.static(path.join(__dirname, "..", "front-end/public/javascripts")))
+app.use("/dist", express.static(path.join(__dirname, "..", "front-end/public/dist")))
+app.use("/riotInit", express.static(path.join(__dirname, "..", "front-end/public/javascripts/riotInit.js")))
 app.use("/stylesheets", express.static(path.join(__dirname, "..", "front-end/public/stylesheets")))
 app.use("/images", express.static(path.join(__dirname, "..", "front-end/public/images")))
-app.use("/tags", express.static(path.join(__dirname, "..", "front-end/public/tags")))
-app.use("/qs", express.static(path.resolve(__dirname, "..", "..", "node_modules/query-string/index.js")))
 app.use("/moment", express.static(path.resolve(__dirname, "..", "..", "node_modules/moment/")))
 app.use("/sortable", express.static(path.resolve(__dirname, "..", "..", "node_modules/sortablejs/")))
 app.use("/bulma", express.static(path.resolve(__dirname, "..", "..", "node_modules/bulma/css/")))
-app.use("/mathjax", express.static(path.resolve(__dirname, "..", "..", "node_modules/mathjax/")))
 app.use("/jquery", express.static(path.resolve(__dirname, "..", "..", "node_modules/jquery/")))
-app.use("/highlight", express.static(path.resolve(__dirname, "..", "..", "node_modules/highlight.js/")))
 app.use("/riot", express.static(path.resolve(__dirname, "..", "..", "node_modules/riot/")))
 app.use("/katex", express.static(path.resolve(__dirname, "..", "..", "node_modules/katex/dist")))
+app.use("/chartist", express.static(path.resolve(__dirname, "..", "..", "node_modules/chartist/dist")))
 
 app.use("/v1", apis)
 app.get("/tutorial/:subject/:tutorialName", viewRouter.viewTutorial)
@@ -61,6 +60,7 @@ app.get("/", viewRouter.homePage)
 app.use(function(req, res, next) {
   const view = req.locals.view
   const data = req.locals.data
+  data["env"] = config.get("env")
   if (view) {
     res.render(view, data)
     return

@@ -12,7 +12,7 @@ const getConfiguration = () => {
   config = convict({
     env: {
       doc: "The application environment.",
-      format: ["production", "development", "local"],
+      format: ["production", "development", "local", "test"],
       default: "local",
       env: "NODE_ENV"
     },
@@ -55,10 +55,16 @@ const getConfiguration = () => {
     },
     bin: {
       protocol: {
-        doc: "The protocol to open a connection",
+        doc: "The Hypertext Transfer Protocol",
         format: ["http", "https"],
         default: "https",
         env: "PROTOCOL"
+      },
+      domain: {
+        doc: "The domain name",
+        format: "String",
+        default: "mathbook.io",
+        env: "DOMAIN_NAME"
       },
       host: {
         doc: "The IP address to bind.",
@@ -71,6 +77,12 @@ const getConfiguration = () => {
         format: "port",
         default: 4000,
         env: "PORT"
+      },
+      proxyPort: {
+        doc: "The port that browser-sync will use to proxy the server",
+        format: "port",
+        default: 4001,
+        env: "PROXY_PORT"
       }
     }
   })

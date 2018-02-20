@@ -4,6 +4,8 @@ node_modules
 coverage
 .nyc_output
 npm-debug.log
-src/logs/
-src/front-end/public/javascripts/all.js
+src/server/logs/
+src/front-end/public/javascripts/riot-tags.bundle.js
+src/front-end/public/dist/*.css
+src/front-end/public/dist/*.js
 config/local.json

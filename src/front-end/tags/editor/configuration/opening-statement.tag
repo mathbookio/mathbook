@@ -19,13 +19,12 @@
   </div>
 
   <script>
-    var that = this
+    var self = this
 
   this.on('mount', function() {
     
     $('#openingStatement').on('input', function(e) {
       var osText = $('#openingStatement').val()
-      console.log('osText', osText)
       $('#openingStatementText').html(osText)
       renderMathInElement(document.getElementById('openingStatementText'))
     });

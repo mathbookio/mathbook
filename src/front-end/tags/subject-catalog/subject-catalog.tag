@@ -40,24 +40,19 @@
   </section>
 
   <script>
-    var that = this
-    console.log('subject catalog options', this.opts)
+    var self = this
     this.subject = this.opts.subject || ''
     this.subjectData = {}
     this.topics = []
     this.on('mount', function(){
       const url = '/v1/subject/' + this.subject
       $.get(url, function(result){
-        console.log('got a result from url', url)
-        console.log(result)
         const data = result.data
-        that.topics = data.topics
-        that.subjectData = data.subjectData
-        that.update()
+        self.topics = data.topics
+        self.subjectData = data.subjectData
+        self.update()
       })
       .fail(function (error) {
-        console.log('failed to get anything from url', url)
-        console.log(error)
         handleError(error)
       })
     })

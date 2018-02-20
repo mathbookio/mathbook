@@ -15,7 +15,7 @@
     </div>
   </section>
   <script>
-  var that = this
+  var self = this
   this.breadcrumbs = this.opts.breadcrumbs || []
   this.topicTitle = this.opts.title || ''
 

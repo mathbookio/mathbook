@@ -12,7 +12,7 @@
     </div>
   </section>
   <script>
-  var that = this
+  var self = this
   this.resourceList = this.opts.resourceList || []
   set(data){
     this.resourceList = data['resources']

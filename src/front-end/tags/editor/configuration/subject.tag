@@ -19,7 +19,6 @@
     return $("#subjectSelect option:selected" ).text();
   }
   set(subject){
-    console.log('subjectTag::subject', subject)
     $('#subjectSelect').val(subject)
   }
   </script>

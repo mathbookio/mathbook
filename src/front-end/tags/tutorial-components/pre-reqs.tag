@@ -18,7 +18,7 @@
     </div>
   </section>
   <script>
-  var that = this
+  var self = this
   this.preReqs = this.opts.preReqs || []
   
   set(data){

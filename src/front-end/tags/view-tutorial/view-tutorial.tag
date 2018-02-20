@@ -11,25 +11,22 @@
     <meta-keywords></meta-keywords>
   </div>
   <script>
-    var that = this
+    var self = this
     this.loadingText = 'Loading Tutorial...just a sec.'
     this.isLoading = true
 
-    console.log('this.opts', this.opts)
     this.tutorialName = this.opts.tutorialName || ''
     this.tutorialSubject = this.opts.subject || ''
     this.config = {}
     this.sections = []
     this.exercises = []
     this.on('mount', function () {
-      console.log('tutorial subject', this.tutorialSubject, 'tutorialName', this.tutorialName)
       const url = '/v1/tutorial/local/' + this.tutorialSubject + '/' + this.tutorialName
       $.get(url, function (result) {
-        console.log('getTutorialData result', result)
         result.config['table-contents'] = []
         for (var section of result.content){
           const sectionTitle = section['title']
-          const fragment = '#' + that.toSnakeCase(sectionTitle)
+          const fragment = '#' + self.toSnakeCase(sectionTitle)
           result.config['table-contents'].push({ title: sectionTitle, fragment: fragment })
         }
         result.config['table-contents'].push({
@@ -40,19 +37,18 @@
           title: 'Resources',
           fragment: '#resources'
         })
-        that.formatConfig(result.config),
-        that.formatContent(result.content),
-        that.formatExercises(result.exercises, result.config.exerciseStatement)
-        that.update()
+        self.formatConfig(result.config),
+        self.formatContent(result.content),
+        self.formatExercises(result.exercises, result.config.exerciseStatement)
+        self.update()
         renderMathInElement(document.body)
       })
       .fail(function (res){
-        console.log('there was an error fetching the tutorial', res)
         handleError(res)
       })
       .always(function() {
-        that.isLoading = false
-        that.update()
+        self.isLoading = false
+        self.update()
       });
 
     })
@@ -79,15 +75,12 @@
 
     formatContent(sections){
       for(var section of sections){
-        section['fragment'] = that.toSnakeCase(section.title)
+        section['fragment'] = self.toSnakeCase(section.title)
       }
       this.tags['tutorial-sections'].set(sections)
     }
 
     formatExercises(exercises, exerciseStatement){
-      for(var exercise of exercises){
-        exercise['showAnswer'] = false
-      }
       this.tags['tutorial-exercises'].set({ exercises: exercises, exerciseStatement: exerciseStatement })
     }
 
