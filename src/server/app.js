@@ -44,6 +44,7 @@ app.use("/chartist", express.static(path.resolve(__dirname, "..", "..", "node_mo
 
 app.use("/v1", apis)
 app.get("/tutorial/:subject/:tutorialName", viewRouter.viewTutorial)
+app.get("/tutorials/submitted", viewRouter.submittedTutorials)
 app.get("/subject/:subject", viewRouter.getSubject)
 app.get("/editor/:tutorialName", viewRouter.viewEditor)
 app.get("/dashboard", viewRouter.viewDashboard)
