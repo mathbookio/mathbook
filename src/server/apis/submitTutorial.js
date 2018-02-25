@@ -1,4 +1,6 @@
 "use strict"
+const config = require("../../../config/config")()
+const domain = config.get("bin.domain")
 const _ = require("lodash")
 const github = require("../github-client")
 const errors = require("../errors")
@@ -17,7 +19,7 @@ module.exports = async function(req, res) {
   try {
     // get authenticated user
     const username = await getUsername()
-    const reviewUrl = `http://localhost:4000/review/${username}/${tutorialName}`
+    const reviewUrl = `http://${domain}/review/${username}/${tutorialName}`
     submitDescription += `\n\n Here is the link to preview the tutorial [${reviewUrl}](${reviewUrl})`
     const head = `${username}:${branchPrefix}/${tutorialName}`
     const submitTitle = `merge tutorial ${tutorialName} into ${baseBranch}`
