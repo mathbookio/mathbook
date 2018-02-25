@@ -7,6 +7,7 @@ const viewPreview = require("./preview")
 const reviewTutorial = require("./review")
 const viewDashboard = require("./dashboard")
 const viewTutorial = require("./viewTutorial")
+const submittedTutorials = require("./submittedTutorials")
 const getSubject = require("./subject")
 const viewError = require("./errorRouter")
 const subjectMap = require("../subjectMap.json")
@@ -25,6 +26,7 @@ module.exports = {
   reviewTutorial,
   viewDashboard,
   viewTutorial,
+  submittedTutorials,
   getSubject,
   viewError,
   logout
