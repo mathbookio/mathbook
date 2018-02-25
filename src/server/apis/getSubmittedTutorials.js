@@ -65,9 +65,9 @@ function getAllPullRequests(username) {
     })
     .catch(err => {
       if (err.code === 404) {
-        return [] // the user does not have the repo forked so no branches exist.
+        return []
       }
-      const source = "getTutorials::getSubmittedTutorials::catch:err"
+      const source = "getSubmittedTutorials::getAllPullRequests::catch:err"
       const params = { username }
       return Promise.reject(transformError(err, source, params))
     })
@@ -99,7 +99,7 @@ function getPullRequestReviews(prNumber) {
     })
     .then(result => _.get(result, "data", []))
     .catch(err => {
-      const source = "getSubmittedTutorials::getBranchPullRequestReviews::catch:err"
+      const source = "getSubmittedTutorials::getPullRequestReviews::catch:err"
       const params = { prNumber }
       return Promise.reject(transformError(err, source, params))
     })
