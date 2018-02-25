@@ -38,7 +38,7 @@
     "update": "^0.7.4"
   },
   "devDependencies": {
-    "ava": "^0.24.0",
+    "ava": "^0.25.0",
     "babel-preset-env": "^1.6.1",
     "browser-sync": "^2.18.13",
     "chai": "^4.1.1",
