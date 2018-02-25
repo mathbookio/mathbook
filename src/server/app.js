@@ -1,5 +1,6 @@
 "use strict"
 
+const config = require("../../config/config")()
 const express = require("express")
 const path = require("path")
 const bunyanRequest = require("bunyan-request")
@@ -29,7 +30,8 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser())
 app.use(authenticationMiddleware())
 
-app.use("/js", express.static(path.join(__dirname, "..", "front-end/public/javascripts")))
+app.use("/dist", express.static(path.join(__dirname, "..", "front-end/public/dist")))
+app.use("/riotInit", express.static(path.join(__dirname, "..", "front-end/public/javascripts/riotInit.js")))
 app.use("/stylesheets", express.static(path.join(__dirname, "..", "front-end/public/stylesheets")))
 app.use("/images", express.static(path.join(__dirname, "..", "front-end/public/images")))
 app.use("/moment", express.static(path.resolve(__dirname, "..", "..", "node_modules/moment/")))
@@ -42,6 +44,7 @@ app.use("/chartist", express.static(path.resolve(__dirname, "..", "..", "node_mo
 
 app.use("/v1", apis)
 app.get("/tutorial/:subject/:tutorialName", viewRouter.viewTutorial)
+app.get("/tutorials/submitted", viewRouter.submittedTutorials)
 app.get("/subject/:subject", viewRouter.getSubject)
 app.get("/editor/:tutorialName", viewRouter.viewEditor)
 app.get("/dashboard", viewRouter.viewDashboard)
@@ -58,6 +61,7 @@ app.get("/", viewRouter.homePage)
 app.use(function(req, res, next) {
   const view = req.locals.view
   const data = req.locals.data
+  data["env"] = config.get("env")
   if (view) {
     res.render(view, data)
     return

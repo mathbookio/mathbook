@@ -1,4 +1,5 @@
 "use strict"
+
 function handleError(err) {
   console.error("something errored out", err)
   const status = err.status
@@ -60,7 +61,30 @@ function createLineChart(selector, chartData, chartOptions) {
   if (chartOptions["axisX"]) {
     chartOptions["axisX"]["type"] = Chartist.AutoScaleAxis
   }
-  return new Chartist.Line(selector, chartData, chartOptions)
+  const chart = new Chartist.Line(selector, chartData, chartOptions)
+  convertPointsToHoles(chart)
+  return chart
+}
+
+function convertPointsToHoles(chart) {
+  chart.on("draw", function(data) {
+    const pointIndex = data.index
+    const series = data.series
+    if (data.type === "point" && series[pointIndex].isHole) {
+      var point = new Chartist.Svg(
+        "circle",
+        {
+          cx: data.x,
+          cy: data.y,
+          // Edir r value for diffrent sizes
+          r: 5,
+          fill: "white"
+        },
+        "ct-hole"
+      )
+      data.element.replace(point)
+    }
+  })
 }
 
 function uniqueId() {
@@ -82,8 +106,8 @@ function openNavMenu() {
   navbarMenu.addClass("is-active")
 }
 
-function toggleDropdownMenu() {
-  const navbarDropdown = $("#navbarDropdown")
+function toggleDropdownMenu(id) {
+  const navbarDropdown = $("#" + id)
   if (navbarDropdown.hasClass("is-active")) {
     // return to initial state
     navbarDropdown.removeClass("is-active")

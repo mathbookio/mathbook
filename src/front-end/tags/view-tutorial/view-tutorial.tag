@@ -81,9 +81,6 @@
     }
 
     formatExercises(exercises, exerciseStatement){
-      for(var exercise of exercises){
-        exercise['showAnswer'] = false
-      }
       this.tags['tutorial-exercises'].set({ exercises: exercises, exerciseStatement: exerciseStatement })
     }
 
