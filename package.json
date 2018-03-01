@@ -1,6 +1,6 @@
 {
   "name": "mathbook",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
@@ -38,7 +38,7 @@
     "update": "^0.7.4"
   },
   "devDependencies": {
-    "ava": "^0.24.0",
+    "ava": "^0.25.0",
     "babel-preset-env": "^1.6.1",
     "browser-sync": "^2.18.13",
     "chai": "^4.1.1",
@@ -57,7 +57,7 @@
     "gulp-uglify": "^3.0.0",
     "gulp-uglifycss": "^1.0.9",
     "husky": "^0.14.3",
-    "lint-staged": "^6.0.0",
+    "lint-staged": "^7.0.0",
     "prettier": "^1.8.2",
     "sinon": "^4.1.3"
   },
