@@ -1,0 +1,1629 @@
+[
+    {
+        "id": "sectionBox_lpm5ecrxdz",
+        "contentIndex": 0,
+        "title": "The Concept of Limits",
+        "text": "The concept of a limit was first introduced in the 1600's by Sir Isaac Newton. \n\nMathematicians practicing Calculus needed a way to determine the rate of change (\\(\\Delta\\)) between two points on a curve that were <i>infinitesimally</i> apart so that they could find the <i>Instantaneous Rate of Change</i>.\n\n<div class=\"message is-primary\" style=\"white-space:normal;\">\n<div class=\"message-header\">Definition</div>\n<div class=\"message-body\">\nInstantaneous Rate of Change: the rate of change \\((\\Delta)\\) between two points on a curve that are infinitesimally apart.\n</div>\n</div>\nThus, came the introduction of Limits that helped determine that the instantaneous rate of change could be determined as long as the points were on the same curve or were at least on an adjacent curve. This introduces another concept known as <i>Continuity</i>  which will be briefly discussed in a later section.\n\nLimits can help us answer the following questions:\n<ul>\n<li>How fast was a car accelerating at a single moment in time?</li>\n<li>What is the velocity required to escape earth's gravitational force, also known as escape velocity ? <span class=\"has-text-grey\">Answer: \\(11\\text{km/s}\\)</span></li>\n</ul>\nThe next section will go over the definition of a limit which, without doubt is the hardest section in this tutorial. That being said, if you find yourself understanding it, then the subsequent sections will be cake."
+    },
+    {
+        "id": "sectionBox_6pg2ol1tlb",
+        "contentIndex": 1,
+        "title": "The Formal Definition of a Limit",
+        "text": "$$\\text{Given a function $f(x)$ that is defined on an open interval $(a, b)$}$$\n$$\\text{We can find the $\\bold{limit}$ of $n$ where $n \\in (a,b)$}$$\n$$\\lim\\limits_{x~ \\to ~n} f(x) = L$$\n$$\n\\text{If for every $\\epsilon \\gt 0$, there exists a $\\delta \\gt 0$ such that}\n$$\n$$\n\\text{if $0 \\lt \\lvert~ x ~-~n ~\\rvert \\lt \\delta$ $\\quad$ then $\\quad$ $\\lvert ~ f(x) ~ - ~ L ~ \\rvert \\lt \\epsilon$ }\n$$\n$$ \\text{When we find the limit $L$, we say the limit of $f(x)$ as $x$ approaches $n$ is $L$} $$\nIf we try and break this definition down into parts, it might be a little easier to digest.\n\nTo start, we are going to assume that \\(L\\) is the limit for \\(f(x)\\) as \\(x\\) approaches \\(n\\), where \\(n \\in (a,b)\\).\n\nIn order to prove this assumption, there needs to exist a \\(\\delta \\gt 0\\) for every \\(\\epsilon \\gt 0\\) where the distance between \\(f(x)\\) and \\(L\\) is less than \\(\\epsilon\\) and the distance between \\(x\\) and \\(n\\) is less than \\(\\delta\\) as \\(x\\) approaches \\(n\\).\n\nSo, the question then becomes, how can we always guarantee that for every \\(\\epsilon \\gt 0\\), there also exists a \\(\\delta \\gt 0\\) that satisfies the requirement above ? The answer is quite simple; <strong>Represent \\(\\textbf{$\\delta$}\\) as a function of \\(\\textbf{$\\epsilon$}\\)</strong>.\n\nRepresenting \\(\\delta\\) as a function of \\(\\epsilon\\) works because we are trying to determine if we can find a \\(\\delta\\) for every \\(\\epsilon \\gt 0\\), and if we can determine a value for \\(\\delta\\) that is computed using \\(\\epsilon\\), then that means for every \\(\\epsilon \\gt 0\\) there will always be a value for \\(\\delta\\) that satisfies the case. \n\nTo help solidify things, let's do an example.\n$$\\text{Given $f(x) = 5x$ ~~ prove that $\\lim\\limits_{x~ \\to ~2} f(x) = 10 $ using $\\epsilon$ - $\\delta$.}$$\nLet's define our inequalities,\n$$\\text{$\\lvert x - 2 \\rvert \\lt \\delta$ $\\quad$ and $\\quad$ $\\lvert f(x) - 10 \\rvert \\lt \\epsilon$ }$$\n\nIn order to prove this claim, we will need to represent delta \\((\\delta)\\) as a function of epsilon \\((\\epsilon\\)). \n\nTo do that, we will need to work backwards, meaning that we will need to start with the \\(\\epsilon\\) inequality, and try and reduce/factor it so that it equates to the \\(\\delta\\) inequality. \n$$\n\\begin{aligned}\n\\lvert f(x) - 10 \\rvert \\lt \\epsilon \\\\\n\\lvert 5x - 10 \\rvert \\lt \\epsilon \\\\\n5\\lvert x - 2 \\rvert \\lt \\epsilon \\\\\n\\lvert x - 2 \\rvert \\lt \\frac{\\epsilon}{5}\n\\end{aligned}\n$$\n\nAs you can see, we managed to go from \\(\\lvert f(x) - 10 \\rvert\\) to \\(\\lvert x - 2 \\rvert \\). Taking a step back and thinking about what we just accomplished, we just showed that when \\(\\lvert f(x) - 10 \\rvert \\lt \\epsilon\\) is true, then the inequality \\(\\lvert x - 2 \\rvert \\lt \\frac{\\epsilon}{5}\\) also holds true. And since the goal of this proof is to show that for every \\(\\epsilon \\gt 0\\) there exists a \\(\\delta \\gt 0\\) such that \\( \\lvert x - 2 \\rvert \\lt \\delta \\)  we can simply set \\(\\delta = \\frac{\\epsilon}{5} \\) to make it so.\n\nTo verify,\n$$\n\\begin{aligned}\n\\lvert x - 2 \\rvert &\\lt \\delta && \\text{substitute $\\frac{\\epsilon}{5}$ for $\\delta$} \\\\\n\\lvert x - 2 \\rvert &\\lt \\frac{\\epsilon}{5} \\\\\n5\\lvert x - 2 \\rvert &\\lt \\epsilon \\\\\n\\lvert 5x - 10 \\rvert &\\lt \\epsilon \\\\\n\\lvert f(x) - 10 \\rvert &\\lt \\epsilon && \\text{$\\square$}\n\\end{aligned}\n$$\n\nNow that we have the definition of a limit covered and an example under our belt, the next section will cover Continuity which is an important topic closely related to Limits.\n"
+    },
+    {
+        "id": "sectionBox_dgipwhyafq",
+        "contentIndex": 2,
+        "title": "Continuity & Limits",
+        "text": "Continuity is a concept that deserves a tutorial all on its own, but for the purposes of this tutorial, a brief overview should be enough.\n\n$$\\text{Suppose we are given a function $f(x)$ and an interval $(a, b)$. If $f(x)$ is defined for every $k \\in (a, b)$, then $f(x)$ is $\\textbf{continuous}$ along the interval $(a, b)$.}$$\n\nTo put it informally,\n\n$$\\text{If you can draw the graph of $f(x)$ along the interval $(a, b)$ without taking your pencil off the paper, then $f(x)$ is continuous along $(a, b)$.}$$\n\nNow, suppose we are given a function \\(g(x)\\) that is continuous along the real line \\((\\textbf{R})\\). Since its continuous, it has certain properties that we can use to help us find limits. This first being that for any number \\(k \\in \\textbf{R}\\), we can guarantee that the limit will be defined as \\(x \\rightarrow k\\) simply because \\(g(x)\\) is defined near \\(k\\) as well as at \\(k\\).\n\nMoreover, knowing that \\(g(x)\\) is continuous, means that we can also guarantee that as \\(x \\rightarrow k\\), \\(g(x)\\) will be converging towards \\(g(k)\\). This is powerful because we can then claim that the \\( \\lim\\limits_{x~ \\to ~k} g(x) = g(k) \\). \n\nFormally put,\n\n$$\\text{if $g(x)$ is a \\textbf{continuous function} along the real line, then for any $k \\in \\textbf{R}$ $\\lim\\limits_{x~ \\to ~k} g(x) = g(k)$ }$$\nWe can then also claim that,\n$$\\text{if $\\lim\\limits_{x~ \\to ~k} g(x) = g(k)$, then $\\lim\\limits_{x~ \\to ~k^-} g(x) = \\lim\\limits_{x~ \\to ~k^+} g(x) = g(k)$}$$\n\n<div class=\"message is-info\" style=\"white-space:normal;\">\n<div class=\"message-header\">Note</div>\n<div class=\"message-body has-text-centered\">\n\\(x \\rightarrow k^-\\) means to approach the limit from the <strong>left side</strong> of \\(k\\)\n<br/><br/>  \\(x \\rightarrow k^+ \\) means to approach the limit from the <strong>right side</strong> of \\(k\\).\n</div>\n</div>\nThis section concludes the theoretical portion of this tutorial. Let's start applying everything we just learned to get a firmer understanding of limits.",
+        "charts": []
+    },
+    {
+        "id": "sectionBox_qutn53u4ff",
+        "contentIndex": 3,
+        "title": "Understanding Limits by Example",
+        "text": "Consider the following,\n$$\\text{Given $f(x) = x$, find} \\lim\\limits_{x~ \\to ~2} f(x) $$\nIf we think about the domain of \\( f(x) \\), \\(\\text{D} =\\{ x \\in \\mathbb{R} \\} \\), meaning that \\( f(x) \\) is defined along the real line. Because the domain covers the entire real line, we can say that \\( f(x) \\) is continuous.\n\nNow, since \\( f(x) \\) is continuous, we can do some calculations near \\( x = 2 \\) to determine what the limit is as \\(x\\) approaches \\(2\\).\n\n<table class=\"table table is-bordered is-striped is-narrow is-hoverable is-fullwidth\">\n<thead>\n<tr><th>\\(f(x) ~~ \\text{where} ~~ x \\gt 2 ~ \\text{(approaching 2 from the right)}\\)</th><th>\\( f(x) ~~ \\text{where} ~~ x \\lt 2  ~ \\text{(approaching 2 from the left)} \\)</th></tr>\n</thead>\n<tbody>\n<tr><td>\\(3\\)</td><td>\\(1\\)</td></tr>\n<tr><td>\\(2.5\\)</td><td>\\(1.5\\)</td></tr>\n<tr><td>\\(2.1\\)</td><td>\\(1.9\\)</td></tr>\n<tr><td>\\(2.01\\)</td><td>\\(1.99\\)</td></tr>\n<tr><td>\\(2.001\\)</td><td>\\(1.999\\)</td></tr>\n<tr><td>\\(2.0001\\)</td><td>\\(1.9999\\)</td></tr>\n</tbody>\n</table>\n\nAs you can see, as \\( x \\) approaches \\( 2 \\) from the left and right (think of a number line), \\( f(x) \\) is converging towards \\( 2\\).\n\nHence,\n$$\\lim\\limits_{x~ \\to ~2} f(x) = 2 \\quad \\text{$\\square$} $$\n\nTo further elaborate on the answer, take a look at the graph of \\(f(x) = x \\). You can see that as \\(x\\) gets closer to \\(2\\), \\(f(x)\\) also gets closer and closer to \\(f(2) = 2\\).\n\n <div id=\"aq0a80uruu\" class=\"ct-chart ct-double-octave\"></div>",
+        "charts": [
+            {
+                "id": "cn7dop4w60",
+                "data": {
+                    "series": [
+                        [
+                            {
+                                "x": "0",
+                                "y": "0"
+                            },
+                            {
+                                "x": "1",
+                                "y": "1"
+                            },
+                            {
+                                "x": "2",
+                                "y": "2"
+                            },
+                            {
+                                "x": "3",
+                                "y": "3"
+                            },
+                            {
+                                "x": "4",
+                                "y": "4"
+                            },
+                            {
+                                "x": "5",
+                                "y": "5"
+                            }
+                        ]
+                    ],
+                    "labels": []
+                },
+                "options": {
+                    "axisX": {
+                        "onlyInteger": true
+                    },
+                    "axisY": {
+                        "onlyInteger": true
+                    },
+                    "showPoint": true,
+                    "showLine": true,
+                    "showArea": false
+                }
+            },
+            {
+                "id": "aq0a80uruu",
+                "data": {
+                    "series": [
+                        [
+                            {
+                                "x": "0",
+                                "y": "0"
+                            },
+                            {
+                                "x": "1",
+                                "y": "1"
+                            },
+                            {
+                                "x": "3",
+                                "y": "3"
+                            },
+                            {
+                                "x": "4",
+                                "y": "4"
+                            }
+                        ],
+                        [],
+                        [
+                            {
+                                "x": "2",
+                                "y": "2"
+                            }
+                        ]
+                    ],
+                    "labels": []
+                },
+                "options": {
+                    "axisX": {
+                        "onlyInteger": true
+                    },
+                    "axisY": {
+                        "onlyInteger": true
+                    },
+                    "showPoint": true,
+                    "showLine": true,
+                    "showArea": false
+                }
+            }
+        ]
+    },
+    {
+        "id": "sectionBox_twbswb6545",
+        "contentIndex": 4,
+        "title": "Understanding when limits are undefined",
+        "text": "To kick off this section, let's define what constitutes an <strong>undefined</strong> limit.\n\n$$\\text{if} ~ \\lim\\limits_{x~ \\to ~a^-} f(x) \\not= \\lim\\limits_{x~ \\to ~a^+} f(x), ~ \\text{ then} \\lim\\limits_{x~ \\to ~a} f(x) = \\text{undefined}$$\nWhat this definition is saying that if you were to approach the point \\(a\\) from the left \\((x \\rightarrow a^-)\\) and the right \\((x \\rightarrow a^+)\\) and they don't converge to the same value, then the limit at \\(a\\) is \\(\\text{undefined}\\).\n\nLet's take a take a look at the following example,\n\n$$\\text{Consider} ~ g(x) = \\frac{1}{x}; \\quad \\text{Find}\\lim\\limits_{x~ \\to ~0} g(x)$$\n <div id=\"vgzpzcpg76\" class=\"ct-chart ct-double-octave\"></div>\n\nLooking at the graph, we can see that there exists an asymptote at \\( x = 0 \\). Our strategy of finding the limit as \\(x\\) approaches \\(0\\) will be to find the limit from the left and right of \\(0\\).\n\nTo start, let's find the \\( \\lim\\limits_{x~ \\to ~0^-} g(x)\\) (the limit as \\(x\\) approaches \\(0\\) from the left).\n\nBy inspection, we can see that as we approach \\(0\\) from the left, \\(g(x)\\) is getting more and more negative. In fact, since there is an asymptote at \\(x = 0\\), we say that \\(g(x)\\) is getting infinitely negative as \\(x\\) approaches \\(0\\) from the left.\n\n$$\\lim\\limits_{x~ \\to ~0^-} g(x) = -\\infty$$\n\nNow that we figured out what the limit is from the left of \\(0\\), let's find the limit from the right of \\(0\\).\n\nOnce more, we can apply the same thinking from finding the limit from the left of \\(0\\). Simply put, \\(g(x)\\) is getting infinitely positive as \\(x\\) approaches \\(0\\) from the right.\n\n$$\\lim\\limits_{x~ \\to ~0^+} g(x) = +\\infty$$\n\nNow that we have found the limit of \\(0\\) from the left and right of \\(0\\), let's compare them and see if they match.\n\n$$\\begin{aligned} \n\\lim\\limits_{x~ \\to ~0^-} g(x) &= \\lim\\limits_{x~ \\to ~0^+} g(x)\\\\\n-\\infty &\\not= +\\infty \\\\\n\\end{aligned}$$\n\nSeeing that the limits from the left and right of \\(0\\) are not equal, we can conclude that\n$$\\lim\\limits_{x~ \\to ~0} g(x) = \\text{undefined} \\quad \\text{$\\square$}$$",
+        "charts": [
+            {
+                "id": "zkh3cwllsq",
+                "data": {
+                    "series": [
+                        [
+                            {
+                                "x": "0",
+                                "y": "0"
+                            },
+                            {
+                                "x": "1",
+                                "y": "1"
+                            },
+                            {
+                                "x": "2",
+                                "y": "2"
+                            },
+                            {
+                                "x": "3",
+                                "y": "3"
+                            },
+                            {
+                                "x": "5",
+                                "y": "5"
+                            }
+                        ]
+                    ],
+                    "labels": []
+                },
+                "options": {
+                    "axisX": {
+                        "high": "5",
+                        "low": "-5",
+                        "onlyInteger": true
+                    },
+                    "axisY": {
+                        "high": "20",
+                        "low": "-5",
+                        "onlyInteger": true
+                    },
+                    "showPoint": true,
+                    "showLine": true,
+                    "showArea": false
+                }
+            },
+            {
+                "id": "3i7c5p8bux",
+                "data": {
+                    "series": [
+                        [
+                            {
+                                "x": "0",
+                                "y": "3"
+                            },
+                            {
+                                "x": "1",
+                                "y": "3"
+                            },
+                            {
+                                "x": "1.995",
+                                "y": "3"
+                            },
+                            {
+                                "x": "2",
+                                "y": "null"
+                            },
+                            {
+                                "x": "2.005",
+                                "y": "3"
+                            },
+                            {
+                                "x": "3",
+                                "y": "3"
+                            },
+                            {
+                                "x": "4",
+                                "y": "3"
+                            },
+                            {
+                                "x": "5",
+                                "y": "3"
+                            }
+                        ],
+                        [
+                            {
+                                "x": "1.995",
+                                "y": "2"
+                            },
+                            {
+                                "x": "2.005",
+                                "y": "2"
+                            }
+                        ]
+                    ],
+                    "labels": []
+                },
+                "options": {
+                    "axisX": {
+                        "high": "5",
+                        "low": "0",
+                        "onlyInteger": true
+                    },
+                    "axisY": {
+                        "high": "5",
+                        "low": "0",
+                        "onlyInteger": true
+                    },
+                    "showPoint": false,
+                    "showLine": true,
+                    "showArea": false
+                }
+            },
+            {
+                "id": "vgzpzcpg76",
+                "data": {
+                    "series": [
+                        [
+                            {
+                                "x": "-3.0",
+                                "y": "-0.333333333333"
+                            },
+                            {
+                                "x": "-2.98",
+                                "y": "-0.335570469799"
+                            },
+                            {
+                                "x": "-2.96",
+                                "y": "-0.337837837838"
+                            },
+                            {
+                                "x": "-2.94",
+                                "y": "-0.340136054422"
+                            },
+                            {
+                                "x": "-2.92",
+                                "y": "-0.342465753425"
+                            },
+                            {
+                                "x": "-2.9",
+                                "y": "-0.344827586207"
+                            },
+                            {
+                                "x": "-2.88",
+                                "y": "-0.347222222222"
+                            },
+                            {
+                                "x": "-2.86",
+                                "y": "-0.34965034965"
+                            },
+                            {
+                                "x": "-2.84",
+                                "y": "-0.352112676056"
+                            },
+                            {
+                                "x": "-2.82",
+                                "y": "-0.354609929078"
+                            },
+                            {
+                                "x": "-2.8",
+                                "y": "-0.357142857143"
+                            },
+                            {
+                                "x": "-2.78",
+                                "y": "-0.359712230216"
+                            },
+                            {
+                                "x": "-2.76",
+                                "y": "-0.36231884058"
+                            },
+                            {
+                                "x": "-2.74",
+                                "y": "-0.36496350365"
+                            },
+                            {
+                                "x": "-2.72",
+                                "y": "-0.367647058824"
+                            },
+                            {
+                                "x": "-2.7",
+                                "y": "-0.37037037037"
+                            },
+                            {
+                                "x": "-2.68",
+                                "y": "-0.373134328358"
+                            },
+                            {
+                                "x": "-2.66",
+                                "y": "-0.375939849624"
+                            },
+                            {
+                                "x": "-2.64",
+                                "y": "-0.378787878788"
+                            },
+                            {
+                                "x": "-2.62",
+                                "y": "-0.381679389313"
+                            },
+                            {
+                                "x": "-2.6",
+                                "y": "-0.384615384615"
+                            },
+                            {
+                                "x": "-2.58",
+                                "y": "-0.387596899225"
+                            },
+                            {
+                                "x": "-2.56",
+                                "y": "-0.390625"
+                            },
+                            {
+                                "x": "-2.54",
+                                "y": "-0.393700787402"
+                            },
+                            {
+                                "x": "-2.52",
+                                "y": "-0.396825396825"
+                            },
+                            {
+                                "x": "-2.5",
+                                "y": "-0.4"
+                            },
+                            {
+                                "x": "-2.48",
+                                "y": "-0.403225806452"
+                            },
+                            {
+                                "x": "-2.46",
+                                "y": "-0.406504065041"
+                            },
+                            {
+                                "x": "-2.44",
+                                "y": "-0.409836065574"
+                            },
+                            {
+                                "x": "-2.42",
+                                "y": "-0.413223140496"
+                            },
+                            {
+                                "x": "-2.4",
+                                "y": "-0.416666666667"
+                            },
+                            {
+                                "x": "-2.38",
+                                "y": "-0.420168067227"
+                            },
+                            {
+                                "x": "-2.36",
+                                "y": "-0.423728813559"
+                            },
+                            {
+                                "x": "-2.34",
+                                "y": "-0.42735042735"
+                            },
+                            {
+                                "x": "-2.32",
+                                "y": "-0.431034482759"
+                            },
+                            {
+                                "x": "-2.3",
+                                "y": "-0.434782608696"
+                            },
+                            {
+                                "x": "-2.28",
+                                "y": "-0.438596491228"
+                            },
+                            {
+                                "x": "-2.26",
+                                "y": "-0.442477876106"
+                            },
+                            {
+                                "x": "-2.24",
+                                "y": "-0.446428571429"
+                            },
+                            {
+                                "x": "-2.22",
+                                "y": "-0.45045045045"
+                            },
+                            {
+                                "x": "-2.2",
+                                "y": "-0.454545454545"
+                            },
+                            {
+                                "x": "-2.18",
+                                "y": "-0.45871559633"
+                            },
+                            {
+                                "x": "-2.16",
+                                "y": "-0.462962962963"
+                            },
+                            {
+                                "x": "-2.14",
+                                "y": "-0.467289719626"
+                            },
+                            {
+                                "x": "-2.12",
+                                "y": "-0.471698113208"
+                            },
+                            {
+                                "x": "-2.1",
+                                "y": "-0.47619047619"
+                            },
+                            {
+                                "x": "-2.08",
+                                "y": "-0.480769230769"
+                            },
+                            {
+                                "x": "-2.06",
+                                "y": "-0.485436893204"
+                            },
+                            {
+                                "x": "-2.04",
+                                "y": "-0.490196078431"
+                            },
+                            {
+                                "x": "-2.02",
+                                "y": "-0.49504950495"
+                            },
+                            {
+                                "x": "-2.0",
+                                "y": "-0.5"
+                            },
+                            {
+                                "x": "-1.98",
+                                "y": "-0.50505050505"
+                            },
+                            {
+                                "x": "-1.96",
+                                "y": "-0.510204081633"
+                            },
+                            {
+                                "x": "-1.94",
+                                "y": "-0.515463917526"
+                            },
+                            {
+                                "x": "-1.92",
+                                "y": "-0.520833333333"
+                            },
+                            {
+                                "x": "-1.9",
+                                "y": "-0.526315789474"
+                            },
+                            {
+                                "x": "-1.88",
+                                "y": "-0.531914893617"
+                            },
+                            {
+                                "x": "-1.86",
+                                "y": "-0.537634408602"
+                            },
+                            {
+                                "x": "-1.84",
+                                "y": "-0.54347826087"
+                            },
+                            {
+                                "x": "-1.82",
+                                "y": "-0.549450549451"
+                            },
+                            {
+                                "x": "-1.8",
+                                "y": "-0.555555555556"
+                            },
+                            {
+                                "x": "-1.78",
+                                "y": "-0.561797752809"
+                            },
+                            {
+                                "x": "-1.76",
+                                "y": "-0.568181818182"
+                            },
+                            {
+                                "x": "-1.74",
+                                "y": "-0.574712643678"
+                            },
+                            {
+                                "x": "-1.72",
+                                "y": "-0.581395348837"
+                            },
+                            {
+                                "x": "-1.7",
+                                "y": "-0.588235294118"
+                            },
+                            {
+                                "x": "-1.68",
+                                "y": "-0.595238095238"
+                            },
+                            {
+                                "x": "-1.66",
+                                "y": "-0.602409638554"
+                            },
+                            {
+                                "x": "-1.64",
+                                "y": "-0.609756097561"
+                            },
+                            {
+                                "x": "-1.62",
+                                "y": "-0.617283950617"
+                            },
+                            {
+                                "x": "-1.6",
+                                "y": "-0.625"
+                            },
+                            {
+                                "x": "-1.58",
+                                "y": "-0.632911392405"
+                            },
+                            {
+                                "x": "-1.56",
+                                "y": "-0.641025641026"
+                            },
+                            {
+                                "x": "-1.54",
+                                "y": "-0.649350649351"
+                            },
+                            {
+                                "x": "-1.52",
+                                "y": "-0.657894736842"
+                            },
+                            {
+                                "x": "-1.5",
+                                "y": "-0.666666666667"
+                            },
+                            {
+                                "x": "-1.48",
+                                "y": "-0.675675675676"
+                            },
+                            {
+                                "x": "-1.46",
+                                "y": "-0.684931506849"
+                            },
+                            {
+                                "x": "-1.44",
+                                "y": "-0.694444444444"
+                            },
+                            {
+                                "x": "-1.42",
+                                "y": "-0.704225352113"
+                            },
+                            {
+                                "x": "-1.4",
+                                "y": "-0.714285714286"
+                            },
+                            {
+                                "x": "-1.38",
+                                "y": "-0.724637681159"
+                            },
+                            {
+                                "x": "-1.36",
+                                "y": "-0.735294117647"
+                            },
+                            {
+                                "x": "-1.34",
+                                "y": "-0.746268656716"
+                            },
+                            {
+                                "x": "-1.32",
+                                "y": "-0.757575757576"
+                            },
+                            {
+                                "x": "-1.3",
+                                "y": "-0.769230769231"
+                            },
+                            {
+                                "x": "-1.28",
+                                "y": "-0.78125"
+                            },
+                            {
+                                "x": "-1.26",
+                                "y": "-0.793650793651"
+                            },
+                            {
+                                "x": "-1.24",
+                                "y": "-0.806451612903"
+                            },
+                            {
+                                "x": "-1.22",
+                                "y": "-0.819672131147"
+                            },
+                            {
+                                "x": "-1.2",
+                                "y": "-0.833333333333"
+                            },
+                            {
+                                "x": "-1.18",
+                                "y": "-0.847457627119"
+                            },
+                            {
+                                "x": "-1.16",
+                                "y": "-0.862068965517"
+                            },
+                            {
+                                "x": "-1.14",
+                                "y": "-0.877192982456"
+                            },
+                            {
+                                "x": "-1.12",
+                                "y": "-0.892857142857"
+                            },
+                            {
+                                "x": "-1.1",
+                                "y": "-0.909090909091"
+                            },
+                            {
+                                "x": "-1.08",
+                                "y": "-0.925925925926"
+                            },
+                            {
+                                "x": "-1.06",
+                                "y": "-0.943396226415"
+                            },
+                            {
+                                "x": "-1.04",
+                                "y": "-0.961538461538"
+                            },
+                            {
+                                "x": "-1.02",
+                                "y": "-0.980392156863"
+                            },
+                            {
+                                "x": "-1.0",
+                                "y": "-1.0"
+                            },
+                            {
+                                "x": "-0.98",
+                                "y": "-1.02040816327"
+                            },
+                            {
+                                "x": "-0.96",
+                                "y": "-1.04166666667"
+                            },
+                            {
+                                "x": "-0.94",
+                                "y": "-1.06382978723"
+                            },
+                            {
+                                "x": "-0.92",
+                                "y": "-1.08695652174"
+                            },
+                            {
+                                "x": "-0.9",
+                                "y": "-1.11111111111"
+                            },
+                            {
+                                "x": "-0.88",
+                                "y": "-1.13636363636"
+                            },
+                            {
+                                "x": "-0.86",
+                                "y": "-1.16279069767"
+                            },
+                            {
+                                "x": "-0.84",
+                                "y": "-1.19047619048"
+                            },
+                            {
+                                "x": "-0.82",
+                                "y": "-1.21951219512"
+                            },
+                            {
+                                "x": "-0.8",
+                                "y": "-1.25"
+                            },
+                            {
+                                "x": "-0.78",
+                                "y": "-1.28205128205"
+                            },
+                            {
+                                "x": "-0.76",
+                                "y": "-1.31578947368"
+                            },
+                            {
+                                "x": "-0.74",
+                                "y": "-1.35135135135"
+                            },
+                            {
+                                "x": "-0.72",
+                                "y": "-1.38888888889"
+                            },
+                            {
+                                "x": "-0.7",
+                                "y": "-1.42857142857"
+                            },
+                            {
+                                "x": "-0.68",
+                                "y": "-1.47058823529"
+                            },
+                            {
+                                "x": "-0.66",
+                                "y": "-1.51515151515"
+                            },
+                            {
+                                "x": "-0.64",
+                                "y": "-1.5625"
+                            },
+                            {
+                                "x": "-0.62",
+                                "y": "-1.61290322581"
+                            },
+                            {
+                                "x": "-0.6",
+                                "y": "-1.66666666667"
+                            },
+                            {
+                                "x": "-0.58",
+                                "y": "-1.72413793103"
+                            },
+                            {
+                                "x": "-0.56",
+                                "y": "-1.78571428571"
+                            },
+                            {
+                                "x": "-0.54",
+                                "y": "-1.85185185185"
+                            },
+                            {
+                                "x": "-0.52",
+                                "y": "-1.92307692308"
+                            },
+                            {
+                                "x": "-0.5",
+                                "y": "-2.0"
+                            },
+                            {
+                                "x": "-0.48",
+                                "y": "-2.08333333333"
+                            },
+                            {
+                                "x": "-0.46",
+                                "y": "-2.17391304348"
+                            },
+                            {
+                                "x": "-0.44",
+                                "y": "-2.27272727273"
+                            },
+                            {
+                                "x": "-0.42",
+                                "y": "-2.38095238095"
+                            },
+                            {
+                                "x": "-0.4",
+                                "y": "-2.5"
+                            },
+                            {
+                                "x": "-0.38",
+                                "y": "-2.63157894737"
+                            },
+                            {
+                                "x": "-0.36",
+                                "y": "-2.77777777778"
+                            },
+                            {
+                                "x": "-0.34",
+                                "y": "-2.94117647059"
+                            },
+                            {
+                                "x": "-0.32",
+                                "y": "-3.125"
+                            },
+                            {
+                                "x": "-0.3",
+                                "y": "-3.33333333333"
+                            },
+                            {
+                                "x": "-0.28",
+                                "y": "-3.57142857143"
+                            },
+                            {
+                                "x": "-0.26",
+                                "y": "-3.84615384615"
+                            },
+                            {
+                                "x": "-0.24",
+                                "y": "-4.16666666666"
+                            },
+                            {
+                                "x": "-0.22",
+                                "y": "-4.54545454545"
+                            },
+                            {
+                                "x": "-0.2",
+                                "y": "-5.0"
+                            },
+                            {
+                                "x": "-0.18",
+                                "y": "-5.55555555555"
+                            },
+                            {
+                                "x": "-0.16",
+                                "y": "-6.25"
+                            },
+                            {
+                                "x": "-0.14",
+                                "y": "-7.14285714285"
+                            },
+                            {
+                                "x": "-0.12",
+                                "y": "-8.33333333333"
+                            },
+                            {
+                                "x": "-0.1",
+                                "y": "-9.99999999999"
+                            },
+                            {
+                                "x": "-0.0800000000001",
+                                "y": "-12.5"
+                            },
+                            {
+                                "x": "-0.0600000000001",
+                                "y": "-16.6666666666"
+                            },
+                            {
+                                "x": "-0.0400000000001",
+                                "y": "-24.9999999999"
+                            },
+                            {
+                                "x": "-0.0200000000001",
+                                "y": "-49.9999999997"
+                            },
+                            {
+                                "x": "0",
+                                "y": "null"
+                            },
+                            {
+                                "x": "0.02",
+                                "y": "50.0"
+                            },
+                            {
+                                "x": "0.04",
+                                "y": "25.0"
+                            },
+                            {
+                                "x": "0.06",
+                                "y": "16.6666666667"
+                            },
+                            {
+                                "x": "0.08",
+                                "y": "12.5"
+                            },
+                            {
+                                "x": "0.1",
+                                "y": "10.0"
+                            },
+                            {
+                                "x": "0.12",
+                                "y": "8.33333333333"
+                            },
+                            {
+                                "x": "0.14",
+                                "y": "7.14285714286"
+                            },
+                            {
+                                "x": "0.16",
+                                "y": "6.25"
+                            },
+                            {
+                                "x": "0.18",
+                                "y": "5.55555555556"
+                            },
+                            {
+                                "x": "0.2",
+                                "y": "5.0"
+                            },
+                            {
+                                "x": "0.22",
+                                "y": "4.54545454545"
+                            },
+                            {
+                                "x": "0.24",
+                                "y": "4.16666666667"
+                            },
+                            {
+                                "x": "0.26",
+                                "y": "3.84615384615"
+                            },
+                            {
+                                "x": "0.28",
+                                "y": "3.57142857143"
+                            },
+                            {
+                                "x": "0.3",
+                                "y": "3.33333333333"
+                            },
+                            {
+                                "x": "0.32",
+                                "y": "3.125"
+                            },
+                            {
+                                "x": "0.34",
+                                "y": "2.94117647059"
+                            },
+                            {
+                                "x": "0.36",
+                                "y": "2.77777777778"
+                            },
+                            {
+                                "x": "0.38",
+                                "y": "2.63157894737"
+                            },
+                            {
+                                "x": "0.4",
+                                "y": "2.5"
+                            },
+                            {
+                                "x": "0.42",
+                                "y": "2.38095238095"
+                            },
+                            {
+                                "x": "0.44",
+                                "y": "2.27272727273"
+                            },
+                            {
+                                "x": "0.46",
+                                "y": "2.17391304348"
+                            },
+                            {
+                                "x": "0.48",
+                                "y": "2.08333333333"
+                            },
+                            {
+                                "x": "0.5",
+                                "y": "2.0"
+                            },
+                            {
+                                "x": "0.52",
+                                "y": "1.92307692308"
+                            },
+                            {
+                                "x": "0.54",
+                                "y": "1.85185185185"
+                            },
+                            {
+                                "x": "0.56",
+                                "y": "1.78571428571"
+                            },
+                            {
+                                "x": "0.58",
+                                "y": "1.72413793103"
+                            },
+                            {
+                                "x": "0.6",
+                                "y": "1.66666666667"
+                            },
+                            {
+                                "x": "0.62",
+                                "y": "1.61290322581"
+                            },
+                            {
+                                "x": "0.64",
+                                "y": "1.5625"
+                            },
+                            {
+                                "x": "0.66",
+                                "y": "1.51515151515"
+                            },
+                            {
+                                "x": "0.68",
+                                "y": "1.47058823529"
+                            },
+                            {
+                                "x": "0.7",
+                                "y": "1.42857142857"
+                            },
+                            {
+                                "x": "0.72",
+                                "y": "1.38888888889"
+                            },
+                            {
+                                "x": "0.74",
+                                "y": "1.35135135135"
+                            },
+                            {
+                                "x": "0.76",
+                                "y": "1.31578947368"
+                            },
+                            {
+                                "x": "0.78",
+                                "y": "1.28205128205"
+                            },
+                            {
+                                "x": "0.8",
+                                "y": "1.25"
+                            },
+                            {
+                                "x": "0.82",
+                                "y": "1.21951219512"
+                            },
+                            {
+                                "x": "0.84",
+                                "y": "1.19047619048"
+                            },
+                            {
+                                "x": "0.86",
+                                "y": "1.16279069767"
+                            },
+                            {
+                                "x": "0.88",
+                                "y": "1.13636363636"
+                            },
+                            {
+                                "x": "0.9",
+                                "y": "1.11111111111"
+                            },
+                            {
+                                "x": "0.92",
+                                "y": "1.08695652174"
+                            },
+                            {
+                                "x": "0.94",
+                                "y": "1.06382978723"
+                            },
+                            {
+                                "x": "0.96",
+                                "y": "1.04166666667"
+                            },
+                            {
+                                "x": "0.98",
+                                "y": "1.02040816327"
+                            },
+                            {
+                                "x": "1.0",
+                                "y": "1.0"
+                            },
+                            {
+                                "x": "1.02",
+                                "y": "0.980392156863"
+                            },
+                            {
+                                "x": "1.04",
+                                "y": "0.961538461538"
+                            },
+                            {
+                                "x": "1.06",
+                                "y": "0.943396226415"
+                            },
+                            {
+                                "x": "1.08",
+                                "y": "0.925925925926"
+                            },
+                            {
+                                "x": "1.1",
+                                "y": "0.909090909091"
+                            },
+                            {
+                                "x": "1.12",
+                                "y": "0.892857142857"
+                            },
+                            {
+                                "x": "1.14",
+                                "y": "0.877192982456"
+                            },
+                            {
+                                "x": "1.16",
+                                "y": "0.862068965517"
+                            },
+                            {
+                                "x": "1.18",
+                                "y": "0.847457627119"
+                            },
+                            {
+                                "x": "1.2",
+                                "y": "0.833333333333"
+                            },
+                            {
+                                "x": "1.22",
+                                "y": "0.819672131148"
+                            },
+                            {
+                                "x": "1.24",
+                                "y": "0.806451612903"
+                            },
+                            {
+                                "x": "1.26",
+                                "y": "0.793650793651"
+                            },
+                            {
+                                "x": "1.28",
+                                "y": "0.78125"
+                            },
+                            {
+                                "x": "1.3",
+                                "y": "0.769230769231"
+                            },
+                            {
+                                "x": "1.32",
+                                "y": "0.757575757576"
+                            },
+                            {
+                                "x": "1.34",
+                                "y": "0.746268656716"
+                            },
+                            {
+                                "x": "1.36",
+                                "y": "0.735294117647"
+                            },
+                            {
+                                "x": "1.38",
+                                "y": "0.724637681159"
+                            },
+                            {
+                                "x": "1.4",
+                                "y": "0.714285714286"
+                            },
+                            {
+                                "x": "1.42",
+                                "y": "0.704225352113"
+                            },
+                            {
+                                "x": "1.44",
+                                "y": "0.694444444444"
+                            },
+                            {
+                                "x": "1.46",
+                                "y": "0.684931506849"
+                            },
+                            {
+                                "x": "1.48",
+                                "y": "0.675675675676"
+                            },
+                            {
+                                "x": "1.5",
+                                "y": "0.666666666667"
+                            },
+                            {
+                                "x": "1.52",
+                                "y": "0.657894736842"
+                            },
+                            {
+                                "x": "1.54",
+                                "y": "0.649350649351"
+                            },
+                            {
+                                "x": "1.56",
+                                "y": "0.641025641026"
+                            },
+                            {
+                                "x": "1.58",
+                                "y": "0.632911392405"
+                            },
+                            {
+                                "x": "1.6",
+                                "y": "0.625"
+                            },
+                            {
+                                "x": "1.62",
+                                "y": "0.617283950617"
+                            },
+                            {
+                                "x": "1.64",
+                                "y": "0.609756097561"
+                            },
+                            {
+                                "x": "1.66",
+                                "y": "0.602409638554"
+                            },
+                            {
+                                "x": "1.68",
+                                "y": "0.595238095238"
+                            },
+                            {
+                                "x": "1.7",
+                                "y": "0.588235294118"
+                            },
+                            {
+                                "x": "1.72",
+                                "y": "0.581395348837"
+                            },
+                            {
+                                "x": "1.74",
+                                "y": "0.574712643678"
+                            },
+                            {
+                                "x": "1.76",
+                                "y": "0.568181818182"
+                            },
+                            {
+                                "x": "1.78",
+                                "y": "0.561797752809"
+                            },
+                            {
+                                "x": "1.8",
+                                "y": "0.555555555556"
+                            },
+                            {
+                                "x": "1.82",
+                                "y": "0.549450549451"
+                            },
+                            {
+                                "x": "1.84",
+                                "y": "0.54347826087"
+                            },
+                            {
+                                "x": "1.86",
+                                "y": "0.537634408602"
+                            },
+                            {
+                                "x": "1.88",
+                                "y": "0.531914893617"
+                            },
+                            {
+                                "x": "1.9",
+                                "y": "0.526315789474"
+                            },
+                            {
+                                "x": "1.92",
+                                "y": "0.520833333333"
+                            },
+                            {
+                                "x": "1.94",
+                                "y": "0.515463917526"
+                            },
+                            {
+                                "x": "1.96",
+                                "y": "0.510204081633"
+                            },
+                            {
+                                "x": "1.98",
+                                "y": "0.505050505051"
+                            },
+                            {
+                                "x": "2.0",
+                                "y": "0.5"
+                            },
+                            {
+                                "x": "2.02",
+                                "y": "0.49504950495"
+                            },
+                            {
+                                "x": "2.04",
+                                "y": "0.490196078431"
+                            },
+                            {
+                                "x": "2.06",
+                                "y": "0.485436893204"
+                            },
+                            {
+                                "x": "2.08",
+                                "y": "0.480769230769"
+                            },
+                            {
+                                "x": "2.1",
+                                "y": "0.47619047619"
+                            },
+                            {
+                                "x": "2.12",
+                                "y": "0.471698113208"
+                            },
+                            {
+                                "x": "2.14",
+                                "y": "0.467289719626"
+                            },
+                            {
+                                "x": "2.16",
+                                "y": "0.462962962963"
+                            },
+                            {
+                                "x": "2.18",
+                                "y": "0.45871559633"
+                            },
+                            {
+                                "x": "2.2",
+                                "y": "0.454545454545"
+                            },
+                            {
+                                "x": "2.22",
+                                "y": "0.45045045045"
+                            },
+                            {
+                                "x": "2.24",
+                                "y": "0.446428571429"
+                            },
+                            {
+                                "x": "2.26",
+                                "y": "0.442477876106"
+                            },
+                            {
+                                "x": "2.28",
+                                "y": "0.438596491228"
+                            },
+                            {
+                                "x": "2.3",
+                                "y": "0.434782608696"
+                            },
+                            {
+                                "x": "2.32",
+                                "y": "0.431034482759"
+                            },
+                            {
+                                "x": "2.34",
+                                "y": "0.42735042735"
+                            },
+                            {
+                                "x": "2.36",
+                                "y": "0.423728813559"
+                            },
+                            {
+                                "x": "2.38",
+                                "y": "0.420168067227"
+                            },
+                            {
+                                "x": "2.4",
+                                "y": "0.416666666667"
+                            },
+                            {
+                                "x": "2.42",
+                                "y": "0.413223140496"
+                            },
+                            {
+                                "x": "2.44",
+                                "y": "0.409836065574"
+                            },
+                            {
+                                "x": "2.46",
+                                "y": "0.406504065041"
+                            },
+                            {
+                                "x": "2.48",
+                                "y": "0.403225806452"
+                            },
+                            {
+                                "x": "2.5",
+                                "y": "0.4"
+                            },
+                            {
+                                "x": "2.52",
+                                "y": "0.396825396825"
+                            },
+                            {
+                                "x": "2.54",
+                                "y": "0.393700787402"
+                            },
+                            {
+                                "x": "2.56",
+                                "y": "0.390625"
+                            },
+                            {
+                                "x": "2.58",
+                                "y": "0.387596899225"
+                            },
+                            {
+                                "x": "2.6",
+                                "y": "0.384615384615"
+                            },
+                            {
+                                "x": "2.62",
+                                "y": "0.381679389313"
+                            },
+                            {
+                                "x": "2.64",
+                                "y": "0.378787878788"
+                            },
+                            {
+                                "x": "2.66",
+                                "y": "0.375939849624"
+                            },
+                            {
+                                "x": "2.68",
+                                "y": "0.373134328358"
+                            },
+                            {
+                                "x": "2.7",
+                                "y": "0.37037037037"
+                            },
+                            {
+                                "x": "2.72",
+                                "y": "0.367647058824"
+                            },
+                            {
+                                "x": "2.74",
+                                "y": "0.36496350365"
+                            },
+                            {
+                                "x": "2.76",
+                                "y": "0.36231884058"
+                            },
+                            {
+                                "x": "2.78",
+                                "y": "0.359712230216"
+                            },
+                            {
+                                "x": "2.8",
+                                "y": "0.357142857143"
+                            },
+                            {
+                                "x": "2.82",
+                                "y": "0.354609929078"
+                            },
+                            {
+                                "x": "2.84",
+                                "y": "0.352112676056"
+                            },
+                            {
+                                "x": "2.86",
+                                "y": "0.34965034965"
+                            },
+                            {
+                                "x": "2.88",
+                                "y": "0.347222222222"
+                            },
+                            {
+                                "x": "2.9",
+                                "y": "0.344827586207"
+                            },
+                            {
+                                "x": "2.92",
+                                "y": "0.342465753425"
+                            },
+                            {
+                                "x": "2.94",
+                                "y": "0.340136054422"
+                            },
+                            {
+                                "x": "2.96",
+                                "y": "0.337837837838"
+                            },
+                            {
+                                "x": "2.98",
+                                "y": "0.335570469799"
+                            },
+                            {
+                                "x": "3.0",
+                                "y": "0.333333333333"
+                            }
+                        ]
+                    ],
+                    "labels": []
+                },
+                "options": {
+                    "axisX": {
+                        "onlyInteger": true
+                    },
+                    "axisY": {
+                        "onlyInteger": true
+                    },
+                    "showPoint": false,
+                    "showLine": true,
+                    "showArea": false
+                }
+            }
+        ]
+    },
+    {
+        "id": "sectionBox_hpom4ew5m5",
+        "contentIndex": 5,
+        "title": "Defined limits for discontinous functions",
+        "text": "Consider,\n$$f(x) = \\begin{cases}\n   x &\\text{if } x \\not= 2  \\\\\n   1 &\\text{if } x = 2\n\\end{cases}$$ \n\nIf we were to plot this piecewise function, we would get the following\n<div id=\"dmunkdrilh\" class=\"ct-chart ct-double-octave\"></div>\nThis piecewise function is a <i>discontinuous function</i>. If you look at the point \\( (2,2) \\) you'll notice an empty point. You'll also notice that below it is the actual point \\( (2,1) \\), and this is what is called a \\(~\\textbf{jump}~\\) in the graph.\n\nSo, if we were asked to find the limit of \\( f(x) \\) as \\( x \\) approaches \\(2\\), what do you think the result would be ?\n\nLet's find out.\n\n$$\\text{Find the} \\lim\\limits_{x~ \\to ~2} f(x)$$\n\nThe way to approach this problem is to take a look at what happens on the graph of \\( f(x) \\) as \\(x\\) approaches \\(2\\) from the left and right.\n\nFrom the left, we can see that \\( f(x) \\) approaches \\(2\\) but never actually get there. That's ok though, because when we talk about limits, we never consider the actual point \\( (2, 1) \\) to be the limit as \\(x\\) approaches \\(2\\) simply because \\( f(x) \\) is not continuous.\n\nWe can then say that,\n\n$$\\lim\\limits_{x~ \\to ~2^-} f(x) = 2$$\n\nFrom the right, we can see the same thing happening. As \\( x \\) approaches \\(2\\) from the right, \\( f(x) \\) gets closer and closer to \\(2\\) but never actually gets there.\n\nJust like the limit from the left side, we can say that,\n$$\\lim\\limits_{x~ \\to ~2^+} f(x) = 2$$\n\nNow, if you haven't noticed, the limit from the left and the limit from the right side of \\( 2 \\) are equal. Knowing this, we can claim that,\n\n$$\\lim\\limits_{x~ \\to ~2} f(x) = 2 \\quad \\text{$\\square$}$$\n\nSo, what we just learned is that, even though the function is discontinuous at a point does not necessarily mean that the limit at the point is undefined. It is possible for a limit to exist even though there is a jump at the respected point.\n",
+        "charts": [
+            {
+                "id": "9fu9r8quvr",
+                "data": {
+                    "series": [
+                        [
+                            {
+                                "x": "0",
+                                "y": "1"
+                            },
+                            {
+                                "x": "1",
+                                "y": "1"
+                            },
+                            {
+                                "x": "2",
+                                "y": "1"
+                            },
+                            {
+                                "x": "3",
+                                "y": "1"
+                            },
+                            {
+                                "x": "4",
+                                "y": "1"
+                            },
+                            {
+                                "x": "5",
+                                "y": "1"
+                            }
+                        ],
+                        [
+                            {
+                                "x": "3",
+                                "y": "0"
+                            }
+                        ]
+                    ],
+                    "labels": []
+                },
+                "options": {
+                    "axisX": {
+                        "onlyInteger": true
+                    },
+                    "axisY": {
+                        "high": "5",
+                        "low": "-5",
+                        "onlyInteger": true
+                    },
+                    "showPoint": true,
+                    "showLine": true,
+                    "showArea": false
+                }
+            },
+            {
+                "id": "evssi0vrf8",
+                "data": {
+                    "series": [
+                        [
+                            {
+                                "x": "0",
+                                "y": "3"
+                            },
+                            {
+                                "x": "1",
+                                "y": "3"
+                            },
+                            {
+                                "x": "2",
+                                "y": "3"
+                            },
+                            {
+                                "x": "3",
+                                "y": "3",
+                                "isHole": true
+                            },
+                            {
+                                "x": "4",
+                                "y": "3"
+                            },
+                            {
+                                "x": "3",
+                                "y": "1"
+                            }
+                        ]
+                    ],
+                    "labels": []
+                },
+                "options": {
+                    "axisX": {
+                        "onlyInteger": true
+                    },
+                    "axisY": {
+                        "high": "5",
+                        "low": "0",
+                        "onlyInteger": true
+                    },
+                    "showPoint": true,
+                    "showLine": true,
+                    "showArea": false
+                }
+            },
+            {
+                "id": "dmunkdrilh",
+                "data": {
+                    "series": [
+                        [
+                            {
+                                "x": "0",
+                                "y": "0"
+                            },
+                            {
+                                "x": "1",
+                                "y": "1"
+                            },
+                            {
+                                "x": "2",
+                                "y": "2",
+                                "isHole": true
+                            },
+                            {
+                                "x": "3",
+                                "y": "3"
+                            },
+                            {
+                                "x": "4",
+                                "y": "4"
+                            },
+                            {
+                                "x": "5",
+                                "y": "5"
+                            },
+                            {
+                                "x": "2",
+                                "y": "1"
+                            }
+                        ]
+                    ],
+                    "labels": []
+                },
+                "options": {
+                    "axisX": {
+                        "onlyInteger": true
+                    },
+                    "axisY": {
+                        "onlyInteger": true
+                    },
+                    "showPoint": true,
+                    "showLine": true,
+                    "showArea": false
+                }
+            }
+        ]
+    },
+    {
+        "id": "sectionBox_gseu9prgcz",
+        "contentIndex": 6,
+        "title": "Closing Remarks & Summary",
+        "text": "As you can see, there are certain scenarios that you will need to be aware of when it comes to finding limits of functions. Things are pretty straightforward if the function is continuous, but if its discontinuous, you will need to check the limit from the left and right.\n\nIn regards to the definition of a limit, I highly recommend attempting the exercise below that asks you to prove the limit exists using the epsilon-delta definition.\n\nThat being said, I hope this tutorial has been of great help to you in firmly understanding limits.",
+        "charts": []
+    }
+]

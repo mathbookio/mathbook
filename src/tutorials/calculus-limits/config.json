@@ -1,0 +1,29 @@
+{
+    "subject": "Calculus",
+    "title": "An Introduction to Limits",
+    "openingStatement": "The concept of Limits is a foundational cornerstone for all branches of Calculus. Most notably, limits are used to help find derivatives of functions and their rates of change.\n\nThis tutorial will go over the formal definition of the limit as well as showing you how to find and prove limits exist.",
+    "preReqs": [
+        {
+            "title": "Factoring",
+            "url": "http://tutorial.math.lamar.edu/Classes/Alg/Factoring.aspx"
+        },
+        {
+            "title": "Absolute Value Inequalities",
+            "url": "https://www.varsitytutors.com/hotmath/hotmath_help/topics/absolute-value-inequalities"
+        }
+    ],
+    "exerciseStatement": "Answer the following questions.",
+    "resources": [
+        {
+            "title": "Properties of Limits",
+            "url": "https://www.saylor.org/site/wp-content/uploads/2011/11/2-3LimitProperties.pdf"
+        }
+    ],
+    "keywords": [
+        "epsilon delta",
+        "math",
+        "infinitesimal",
+        "limits",
+        "calculus"
+    ]
+}
