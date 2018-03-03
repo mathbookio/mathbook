@@ -1,6 +1,9 @@
 .my-topic-box {
   margin-bottom: 20px !important;
 }
+a.box:hover {
+  box-shadow: 0 2px 15px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
+}
 .my-topic-none-border {
   border-top-width: 0px;
 }

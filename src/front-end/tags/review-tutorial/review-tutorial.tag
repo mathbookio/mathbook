@@ -6,6 +6,7 @@
     </div>
   </div>
 </section>
+<div class="container">
     <topic-title></topic-title>
     <intro></intro>
     <pre-reqs></pre-reqs>
@@ -14,6 +15,7 @@
     <tutorial-exercises></tutorial-exercises>
     <resource-list></resource-list>
     <meta-keywords></meta-keywords>
+</div>
   <script>
     var self = this
     this.tutorialName = ''

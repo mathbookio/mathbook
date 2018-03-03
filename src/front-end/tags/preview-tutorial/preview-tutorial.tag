@@ -1,4 +1,5 @@
 <preview-tutorial>
+<div class="container">
   <loading-spinner loading-flag={ isLoading } text={ loadingText }></loading-spinner>
   <div hide={ isLoading }>
   <topic-title></topic-title>
@@ -10,6 +11,7 @@
   <resource-list></resource-list>
   <meta-keywords></meta-keywords>
   </div>
+</div>
   <script>
     var self = this
     this.loadingText = 'Preparing Tutorial...'

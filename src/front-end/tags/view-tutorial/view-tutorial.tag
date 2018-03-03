@@ -1,15 +1,17 @@
 <view-tutorial>
-<loading-spinner loading-flag={ isLoading } text={ loadingText }></loading-spinner>
-  <div hide={ isLoading }>
-    <topic-title></topic-title>
-    <intro></intro>
-    <pre-reqs></pre-reqs>
-    <table-contents></table-contents>
-    <tutorial-sections></tutorial-sections>
-    <tutorial-exercises></tutorial-exercises>
-    <resource-list></resource-list>
-    <meta-keywords></meta-keywords>
-  </div>
+<div class="container">
+  <loading-spinner loading-flag={ isLoading } text={ loadingText }></loading-spinner>
+    <div hide={ isLoading }>
+      <topic-title></topic-title>
+      <intro></intro>
+      <pre-reqs></pre-reqs>
+      <table-contents></table-contents>
+      <tutorial-sections></tutorial-sections>
+      <tutorial-exercises></tutorial-exercises>
+      <resource-list></resource-list>
+      <meta-keywords></meta-keywords>
+    </div>
+</div>
   <script>
     var self = this
     this.loadingText = 'Loading Tutorial...just a sec.'
