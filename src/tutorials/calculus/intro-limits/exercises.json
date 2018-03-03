@@ -1,0 +1,831 @@
+[
+  {
+    "id": "exerciseBox_n1z2gxbg0e",
+    "question": "\\( \\text{Given} ~~ f(x) = x^2, \\quad \\text{Find} \\lim\\limits_{x~ \\to ~2} f(x)\\)",
+    "answer":
+      "Note that \\( f(x) = x^2 \\) is a continuous function. Knowing this, we can simply evaluate \\(f(x)\\) at \\(2\\) to find the limit.\n\n$$\n\\begin{aligned}\nf(x) &= x^2 \\\\\nf(2) &= (2)^2 \\\\\nf(2) &= 4 \\\\\\\\\n\\lim\\limits_{x~ \\to ~2} f(x) &= 4 && \\text{$\\square$}\n\\end{aligned}\n$$\n\n<div id=\"7afhz186ih\" class=\"ct-chart ct-double-octave\"></div>\n",
+    "exerciseIndex": 0,
+    "chartList": [
+      {
+        "id": "7afhz186ih",
+        "data": {
+          "series": [
+            [
+              {
+                "x": "-5",
+                "y": "25"
+              },
+              {
+                "x": "-4",
+                "y": "16"
+              },
+              {
+                "x": "-3",
+                "y": "9"
+              },
+              {
+                "x": "-2",
+                "y": "4"
+              },
+              {
+                "x": "-1",
+                "y": "1"
+              },
+              {
+                "x": "0",
+                "y": "0"
+              },
+              {
+                "x": "1",
+                "y": "1"
+              },
+              {
+                "x": "2",
+                "y": "4"
+              },
+              {
+                "x": "3",
+                "y": "9"
+              },
+              {
+                "x": "4",
+                "y": "16"
+              },
+              {
+                "x": "5",
+                "y": "25"
+              }
+            ],
+            [],
+            [
+              {
+                "x": "2",
+                "y": "4"
+              }
+            ]
+          ],
+          "labels": []
+        },
+        "options": {
+          "axisX": {
+            "onlyInteger": true
+          },
+          "axisY": {
+            "high": "5",
+            "low": "0",
+            "onlyInteger": true
+          },
+          "showPoint": true,
+          "showLine": true,
+          "showArea": false
+        }
+      }
+    ]
+  },
+  {
+    "id": "exerciseBox_8nxwdnpe95",
+    "question":
+      "\\( \\text{Find} ~~ \\lim\\limits_{x~ \\to ~3} f(x) ~~ \\text{where the graph of $f(x)$ looks like the following}\\)  <div id=\"9tygu217iz\" class=\"ct-chart ct-double-octave\"></div>",
+    "answer":
+      "Looking at this chart, we can see that \\( f(x) \\) is a discontinuous function, so simply evaluating \\( f(x) \\) at \\(3\\) will not give us the limit. Instead, we will need to find the limit as \\(x\\) approaches \\(3\\) from the left and right.\n\nFrom the left, it is clear that as \\(x\\) approaches \\(3\\), \\(f(x)\\) is getting closer and closer to \\(2\\). Hence, \\(\\lim\\limits_{x~ \\to ~3^-} f(x) = 2\\)\n\nFrom the right, we can see that as \\(x\\) approaches \\(3\\), \\(f(x)\\) is getting closer and closer to \\(4\\). Hence, \\(\\lim\\limits_{x~ \\to ~3^+} f(x) = 4\\)\n\nNow, since \\(\\lim\\limits_{x~ \\to ~3^-} f(x) \\not= \\lim\\limits_{x~ \\to ~3^+} f(x)\\) we can conclude that,\n\n$$ \\lim\\limits_{x~ \\to ~3} f(x) = \\text{undefined} \\quad \\text{$\\square$}$$\n",
+    "exerciseIndex": 1,
+    "chartList": [
+      {
+        "id": "wj4chj333y",
+        "data": {
+          "series": [
+            [
+              {
+                "x": "0",
+                "y": "0"
+              },
+              {
+                "x": "1",
+                "y": "1"
+              },
+              {
+                "x": "2",
+                "y": "2",
+                "isHole": true
+              },
+              {
+                "x": "2",
+                "y": "4"
+              },
+              {
+                "x": "3",
+                "y": "4"
+              },
+              {
+                "x": "4",
+                "y": "4"
+              }
+            ]
+          ],
+          "labels": []
+        },
+        "options": {
+          "axisX": {
+            "high": "5",
+            "onlyInteger": true
+          },
+          "axisY": {
+            "high": "5",
+            "onlyInteger": true
+          },
+          "showPoint": true,
+          "showLine": true,
+          "showArea": false
+        }
+      },
+      {
+        "id": "9tygu217iz",
+        "data": {
+          "series": [
+            [
+              {
+                "x": "0",
+                "y": "2"
+              },
+              {
+                "x": "1",
+                "y": "2"
+              },
+              {
+                "x": "2",
+                "y": "2"
+              },
+              {
+                "x": "3",
+                "y": "2",
+                "isHole": true
+              },
+              {
+                "x": "3",
+                "y": "4"
+              },
+              {
+                "x": "4",
+                "y": "4"
+              },
+              {
+                "x": "5",
+                "y": "4"
+              },
+              {
+                "x": "6",
+                "y": "4"
+              }
+            ]
+          ],
+          "labels": []
+        },
+        "options": {
+          "axisX": {
+            "low": "0",
+            "onlyInteger": true
+          },
+          "axisY": {
+            "high": "5",
+            "low": "-5",
+            "onlyInteger": true
+          },
+          "showPoint": true,
+          "showLine": true,
+          "showArea": false
+        }
+      },
+      {
+        "id": "8z5w35juw8",
+        "data": {
+          "series": [
+            [
+              {
+                "x": "-5",
+                "y": "-125"
+              },
+              {
+                "x": "-4",
+                "y": "-64"
+              },
+              {
+                "x": "-3",
+                "y": "-27"
+              },
+              {
+                "x": "-2",
+                "y": "-8"
+              },
+              {
+                "x": "-1",
+                "y": "-1"
+              },
+              {
+                "x": "0",
+                "y": "0"
+              },
+              {
+                "x": "1",
+                "y": "1"
+              },
+              {
+                "x": "2",
+                "y": "8"
+              },
+              {
+                "x": "3",
+                "y": "27"
+              },
+              {
+                "x": "4",
+                "y": "64",
+                "isHole": true
+              },
+              {
+                "x": "5",
+                "y": "125"
+              },
+              {
+                "x": "4",
+                "y": "25"
+              }
+            ]
+          ],
+          "labels": []
+        },
+        "options": {
+          "axisX": {
+            "onlyInteger": true
+          },
+          "axisY": {
+            "onlyInteger": true
+          },
+          "showPoint": true,
+          "showLine": true,
+          "showArea": false
+        }
+      },
+      {
+        "id": "7wszqx35ve",
+        "data": {
+          "series": [
+            [
+              {
+                "x": "0",
+                "y": "2"
+              },
+              {
+                "x": "1",
+                "y": "2"
+              },
+              {
+                "x": "2",
+                "y": "2"
+              },
+              {
+                "x": "3",
+                "y": "2",
+                "isHole": true
+              },
+              {
+                "x": "3",
+                "y": "1"
+              },
+              {
+                "x": "3",
+                "y": "3",
+                "isHole": true
+              },
+              {
+                "x": "4",
+                "y": "4"
+              },
+              {
+                "x": "5",
+                "y": "5"
+              }
+            ]
+          ],
+          "labels": []
+        },
+        "options": {
+          "axisX": {
+            "low": "0",
+            "onlyInteger": true
+          },
+          "axisY": {
+            "high": "5",
+            "low": "0",
+            "onlyInteger": true
+          },
+          "showPoint": true,
+          "showLine": true,
+          "showArea": false
+        }
+      }
+    ]
+  },
+  {
+    "id": "exerciseBox_zlefu24dpx",
+    "question":
+      "\\( \\text{Given} ~~ f(x) = \\begin{cases} x^3 &\\text{if } x \\not= 4  \\\\ 25 &\\text{if } x = 4 \\end{cases}, \\quad \\text{Find} \\lim\\limits_{x~ \\to ~4} f(x)\\)",
+    "answer":
+      "Knowing that we are dealing with a piecewise function, it is a good idea to plot the graph of \\(f(x)\\) to see what we are dealing with.\n<div id=\"8z5w35juw8\" class=\"ct-chart ct-major-twelfth\"></div>\n\nNow, looking at this graph, we can see that there is a jump at \\(x = 4\\) which is the point where we need to find the limit of \\(f(x)\\).\n\nSimilar to the example in the contents of this tutorial, we will need to the find the limit of \\(f(x)\\) as \\(x\\) approaches \\(4\\) from the left and right.\n\nFrom the left,\n$$\\lim\\limits_{x~ \\to ~4^-} f(x) = 64$$\n\nAnd from the right,\n$$\\lim\\limits_{x~ \\to ~4^+} f(x) = 64$$\n\nSeeing that they are both equal we can now claim that,\n$$\\lim\\limits_{x~ \\to ~4} f(x) = 64 \\quad \\text{$\\square$}$$",
+    "exerciseIndex": 2,
+    "chartList": [
+      {
+        "id": "wj4chj333y",
+        "data": {
+          "series": [
+            [
+              {
+                "x": "0",
+                "y": "0"
+              },
+              {
+                "x": "1",
+                "y": "1"
+              },
+              {
+                "x": "2",
+                "y": "2",
+                "isHole": true
+              },
+              {
+                "x": "2",
+                "y": "4"
+              },
+              {
+                "x": "3",
+                "y": "4"
+              },
+              {
+                "x": "4",
+                "y": "4"
+              }
+            ]
+          ],
+          "labels": []
+        },
+        "options": {
+          "axisX": {
+            "high": "5",
+            "onlyInteger": true
+          },
+          "axisY": {
+            "high": "5",
+            "onlyInteger": true
+          },
+          "showPoint": true,
+          "showLine": true,
+          "showArea": false
+        }
+      },
+      {
+        "id": "9tygu217iz",
+        "data": {
+          "series": [
+            [
+              {
+                "x": "0",
+                "y": "2"
+              },
+              {
+                "x": "1",
+                "y": "2"
+              },
+              {
+                "x": "2",
+                "y": "2"
+              },
+              {
+                "x": "3",
+                "y": "2",
+                "isHole": true
+              },
+              {
+                "x": "3",
+                "y": "4"
+              },
+              {
+                "x": "4",
+                "y": "4"
+              },
+              {
+                "x": "5",
+                "y": "4"
+              },
+              {
+                "x": "6",
+                "y": "4"
+              }
+            ]
+          ],
+          "labels": []
+        },
+        "options": {
+          "axisX": {
+            "low": "0",
+            "onlyInteger": true
+          },
+          "axisY": {
+            "high": "5",
+            "low": "-5",
+            "onlyInteger": true
+          },
+          "showPoint": true,
+          "showLine": true,
+          "showArea": false
+        }
+      },
+      {
+        "id": "8z5w35juw8",
+        "data": {
+          "series": [
+            [
+              {
+                "x": "-5",
+                "y": "-125"
+              },
+              {
+                "x": "-4",
+                "y": "-64"
+              },
+              {
+                "x": "-3",
+                "y": "-27"
+              },
+              {
+                "x": "-2",
+                "y": "-8"
+              },
+              {
+                "x": "-1",
+                "y": "-1"
+              },
+              {
+                "x": "0",
+                "y": "0"
+              },
+              {
+                "x": "1",
+                "y": "1"
+              },
+              {
+                "x": "2",
+                "y": "8"
+              },
+              {
+                "x": "3",
+                "y": "27"
+              },
+              {
+                "x": "4",
+                "y": "64",
+                "isHole": true
+              },
+              {
+                "x": "5",
+                "y": "125"
+              },
+              {
+                "x": "4",
+                "y": "25"
+              }
+            ]
+          ],
+          "labels": []
+        },
+        "options": {
+          "axisX": {
+            "onlyInteger": true
+          },
+          "axisY": {
+            "onlyInteger": true
+          },
+          "showPoint": true,
+          "showLine": true,
+          "showArea": false
+        }
+      },
+      {
+        "id": "7wszqx35ve",
+        "data": {
+          "series": [
+            [
+              {
+                "x": "0",
+                "y": "2"
+              },
+              {
+                "x": "1",
+                "y": "2"
+              },
+              {
+                "x": "2",
+                "y": "2"
+              },
+              {
+                "x": "3",
+                "y": "2",
+                "isHole": true
+              },
+              {
+                "x": "3",
+                "y": "1"
+              },
+              {
+                "x": "3",
+                "y": "3",
+                "isHole": true
+              },
+              {
+                "x": "4",
+                "y": "4"
+              },
+              {
+                "x": "5",
+                "y": "5"
+              }
+            ]
+          ],
+          "labels": []
+        },
+        "options": {
+          "axisX": {
+            "low": "0",
+            "onlyInteger": true
+          },
+          "axisY": {
+            "high": "5",
+            "low": "0",
+            "onlyInteger": true
+          },
+          "showPoint": true,
+          "showLine": true,
+          "showArea": false
+        }
+      }
+    ]
+  },
+  {
+    "id": "exerciseBox_d2nnvi1sxg",
+    "question":
+      "\\( \\text{Find} ~~ \\lim\\limits_{x~ \\to ~3} g(x) ~~ \\text{where the graph of $g(x)$ looks like the following}\\)  <div id=\"7wszqx35ve\" class=\"ct-chart ct-major-twelfth\"></div>",
+    "answer":
+      "By looking at the graph of \\(g(x)\\) it is safe to say that \\(g(x)\\) is a discontinuous piece-wise function. Knowing this, we will need to find the limit as \\(x\\) approaches 3 from the <strong>left</strong> and <strong>right</strong>.\n\nFrom the left,\n$$\\lim\\limits_{x~ \\to ~3^-} g(x) = 2$$\n\nAnd from the right,\n$$\\lim\\limits_{x~ \\to ~3^+} g(x) = 3$$\n\nSeeing that they are not equal we can claim that,\n$$\\lim\\limits_{x~ \\to ~3} g(x) = \\text{undefined} \\quad \\text{$\\square$}$$",
+    "exerciseIndex": 3,
+    "chartList": [
+      {
+        "id": "wj4chj333y",
+        "data": {
+          "series": [
+            [
+              {
+                "x": "0",
+                "y": "0"
+              },
+              {
+                "x": "1",
+                "y": "1"
+              },
+              {
+                "x": "2",
+                "y": "2",
+                "isHole": true
+              },
+              {
+                "x": "2",
+                "y": "4"
+              },
+              {
+                "x": "3",
+                "y": "4"
+              },
+              {
+                "x": "4",
+                "y": "4"
+              }
+            ]
+          ],
+          "labels": []
+        },
+        "options": {
+          "axisX": {
+            "high": "5",
+            "onlyInteger": true
+          },
+          "axisY": {
+            "high": "5",
+            "onlyInteger": true
+          },
+          "showPoint": true,
+          "showLine": true,
+          "showArea": false
+        }
+      },
+      {
+        "id": "9tygu217iz",
+        "data": {
+          "series": [
+            [
+              {
+                "x": "0",
+                "y": "2"
+              },
+              {
+                "x": "1",
+                "y": "2"
+              },
+              {
+                "x": "2",
+                "y": "2"
+              },
+              {
+                "x": "3",
+                "y": "2",
+                "isHole": true
+              },
+              {
+                "x": "3",
+                "y": "4"
+              },
+              {
+                "x": "4",
+                "y": "4"
+              },
+              {
+                "x": "5",
+                "y": "4"
+              },
+              {
+                "x": "6",
+                "y": "4"
+              }
+            ]
+          ],
+          "labels": []
+        },
+        "options": {
+          "axisX": {
+            "low": "0",
+            "onlyInteger": true
+          },
+          "axisY": {
+            "high": "5",
+            "low": "-5",
+            "onlyInteger": true
+          },
+          "showPoint": true,
+          "showLine": true,
+          "showArea": false
+        }
+      },
+      {
+        "id": "8z5w35juw8",
+        "data": {
+          "series": [
+            [
+              {
+                "x": "-5",
+                "y": "-125"
+              },
+              {
+                "x": "-4",
+                "y": "-64"
+              },
+              {
+                "x": "-3",
+                "y": "-27"
+              },
+              {
+                "x": "-2",
+                "y": "-8"
+              },
+              {
+                "x": "-1",
+                "y": "-1"
+              },
+              {
+                "x": "0",
+                "y": "0"
+              },
+              {
+                "x": "1",
+                "y": "1"
+              },
+              {
+                "x": "2",
+                "y": "8"
+              },
+              {
+                "x": "3",
+                "y": "27"
+              },
+              {
+                "x": "4",
+                "y": "64",
+                "isHole": true
+              },
+              {
+                "x": "5",
+                "y": "125"
+              },
+              {
+                "x": "4",
+                "y": "25"
+              }
+            ]
+          ],
+          "labels": []
+        },
+        "options": {
+          "axisX": {
+            "onlyInteger": true
+          },
+          "axisY": {
+            "onlyInteger": true
+          },
+          "showPoint": true,
+          "showLine": true,
+          "showArea": false
+        }
+      },
+      {
+        "id": "7wszqx35ve",
+        "data": {
+          "series": [
+            [
+              {
+                "x": "0",
+                "y": "2"
+              },
+              {
+                "x": "1",
+                "y": "2"
+              },
+              {
+                "x": "2",
+                "y": "2"
+              },
+              {
+                "x": "3",
+                "y": "2",
+                "isHole": true
+              },
+              {
+                "x": "3",
+                "y": "1"
+              },
+              {
+                "x": "3",
+                "y": "3",
+                "isHole": true
+              },
+              {
+                "x": "4",
+                "y": "4"
+              },
+              {
+                "x": "5",
+                "y": "5"
+              }
+            ]
+          ],
+          "labels": []
+        },
+        "options": {
+          "axisX": {
+            "low": "0",
+            "onlyInteger": true
+          },
+          "axisY": {
+            "high": "5",
+            "low": "0",
+            "onlyInteger": true
+          },
+          "showPoint": true,
+          "showLine": true,
+          "showArea": false
+        }
+      }
+    ]
+  },
+  {
+    "id": "exerciseBox_cu9pe463zj",
+    "question":
+      "\\(\\text{Given $g(x) = x + 5$; Prove that $\\lim\\limits_{x~ \\to ~4} g(x) = 9$ using $\\epsilon - \\delta$} \\)",
+    "answer":
+      "To start, let's layout the inequalities for \\(\\delta\\) and \\(\\epsilon\\).\n$$\\lvert x - 4 \\rvert \\lt \\delta \\quad \\text{and} \\quad \\lvert g(x) - 9 \\rvert \\lt \\epsilon$$\nNow, let's try and make the inequality for \\(\\epsilon\\) resemble the inequality for \\(\\delta\\).\n\n$$\n\\begin{aligned}\n\\lvert g(x) - 9\\rvert &\\lt \\epsilon \\\\\n\\lvert (x + 5) - 9 \\rvert &\\lt \\epsilon\\\\\n\\lvert x - 4\\rvert &\\lt \\epsilon\\\\\n\\end{aligned}\n$$\n\nSo, we end up with the inequality \\( \\lvert x - 4\\rvert \\lt \\epsilon \\). We then declare that \\(\\delta = \\epsilon\\) and all that is left is to verify our claim.\n\nTo verify,\n$$\n\\begin{aligned}\n\\lvert x - 4\\rvert &\\lt \\delta \\\\\n\\lvert x - 4 \\rvert &\\lt \\epsilon\\\\\n\\lvert x + (5 - 9)\\rvert &\\lt \\epsilon && \\text{we can rewrite $4$ as $(5 - 9)$}\\\\\n\\lvert (x + 5) - 9 \\rvert &\\lt \\epsilon \\\\\n\\lvert g(x) - 9 \\rvert &\\lt \\epsilon && \\text{$\\square$}\n\\end{aligned}\n$$\n",
+    "exerciseIndex": 4,
+    "chartList": []
+  },
+  {
+    "id": "exerciseBox_ino09qjg7w",
+    "question": "\\(\\text{Given $h(x) = 4x^2 + 1$; Prove that $\\lim\\limits_{x~ \\to ~3} h(x) = 37$} \\)",
+    "answer":
+      "\nTo start, let's layout the inequalities for \\(\\delta\\) and \\(\\epsilon\\).\n$$\\lvert x - 3 \\rvert \\lt \\delta \\quad \\text{and} \\quad \\lvert h(x) - 37 \\rvert \\lt \\epsilon$$\nNow, let's try and make the inequality for \\(\\epsilon\\) resemble the inequality for \\(\\delta\\).\n\n$$\n\\begin{aligned}\n\\lvert h(x) - 37 \\rvert &\\lt \\epsilon\\\\\n\\lvert (4x^2 + 1) - 37 \\rvert &\\lt \\epsilon\\\\\n\\lvert 4x^2 - 36 \\rvert &\\lt \\epsilon\\\\\n4~\\lvert x^2 - 9 \\rvert &\\lt \\epsilon\\\\\n4~\\lvert (x - 3)(x + 3) \\rvert &\\lt \\epsilon\\\\\n4~\\lvert x + 3\\rvert  ~\\lvert x - 3 \\rvert &\\lt \\epsilon\\\\\n\\lvert x - 3 \\rvert &\\lt \\frac{\\epsilon}{4~\\lvert x + 3\\rvert }\\\\\n\\end{aligned}\n$$\n\nSeeing that the right side of the inquality contains an \\(x\\) variable, we can't use it for \\(\\delta\\) because \\(\\delta\\) is supposed to be a function of \\(\\epsilon\\) only. If we were to allow \\(\\delta\\) to be dependent on both \\(\\epsilon\\) and \\(x\\), then we could have scenario's where \\(\\lvert x - 3 \\rvert \\lt \\frac{\\epsilon}{4~\\lvert (x + 3)\\rvert }\\) does not hold true for every \\(\\epsilon \\gt 0\\).\n\nFor example, if we set \\(\\epsilon\\) to be \\(0.001\\) and \\(x\\) to be relatively close to \\(3\\), say \\(x = 2.999\\), does the inequality still hold true ?\n\n$$\n\\begin{aligned}\n\\lvert x - 3 \\rvert &\\lt \\delta \\\\\n\\lvert x - 3 \\rvert &\\lt \\frac{\\epsilon}{4~\\lvert x + 3\\rvert }\\\\\\\\\n\\lvert 2.999 - 3 \\rvert &\\lt \\frac{0.001}{4~\\lvert 2.999 + 3\\rvert }\\\\\\\\\n0.001 &\\not\\lt 0.00004167\n\\end{aligned}\n$$\n\nSo, our approach should be as follows, let's restrict the values for \\(\\delta\\) so that it satisfies the requirements of \\(\\epsilon\\) for every \\(\\epsilon \\gt 0 \\).\n\nTo start, let's note that we only really care about the values of \\(x\\) as they get closer and closer \\(3\\), so let's set an arbitrary upper bound of \\(1\\) on \\(\\delta\\) so that the distance between \\(x\\) and \\(3\\) is never greater than \\(1\\).\n\nWith that upper bound set, let's think about \\( \\lvert x - 3 \\rvert \\lt 1 \\) for a second. If \\( \\lvert x - 3 \\rvert \\lt 1 \\), then \\(2 \\lt x \\lt 4 \\).\n\nWe can then go one step further with \\(2 \\lt x \\lt 4 ~\\) to get \\(~5 \\lt x + 3 \\lt 7 \\). Now, we can use \\(~5 \\lt x + 3 \\lt 7 \\) to help us simplify \\(\\lvert x - 3 \\rvert \\lt \\frac{\\epsilon}{4~\\lvert x + 3\\rvert }\\).\n\nIf we are guaranteed that \\( x + 3 \\lt 7 \\), then we can claim \\(\\frac{\\epsilon}{4~\\lvert x + 3\\rvert } \\lt \\frac{\\epsilon}{4~\\lvert 7 \\rvert } = \\frac{\\epsilon}{28} \\). \n\nTaking a step back and seeing what we just did, we basically set an upper bound of \\(1\\) on \\(\\delta\\) and because of the upper bound, we now only care about the maximum value of \\(\\frac{\\epsilon}{4~\\lvert x + 3 \\rvert }\\), which we calculated to be \\(\\frac{\\epsilon}{28}\\)\n\nWe are almost there, we just need to verify our work.\n\nTo verify, we first set \\(\\delta = min\\{1, \\frac{\\epsilon}{28}\\}\\)\n\nIf \\(\\delta = 1\\) then \\(1 \\lt \\frac{\\epsilon}{28}\\) which means \\(\\epsilon \\gt 28\\):\n$$\n\\begin{aligned}\n\\lvert x - 3 \\rvert &\\lt \\delta \\\\\n\\lvert x - 3 \\rvert &\\lt 1 \\\\\n\\lvert x - 3 \\rvert \\cdot \\lvert x + 3 \\rvert &\\lt \\lvert x + 3 \\rvert && \\text{because $\\delta = 1$} \\\\\n\\lvert x^2 - 9\\rvert &\\lt \\lvert x + 3 \\rvert \\lt 7 && \\text{remember $~5 \\lt x + 3 \\lt 7$} \\\\\n4 \\cdot \\lvert x^2 - 9\\rvert &\\lt 4 \\cdot 7 \\\\\n\\lvert 4x^2 - 36\\rvert &\\lt 28 \\lt \\epsilon \\\\\n\\lvert 4x^2 + 1 - 37\\rvert &\\lt \\epsilon && \\text{we can rewrite $36$ as $(1 - 37)$}\\\\\n\\lvert f(x) - 37\\rvert &\\lt \\epsilon \\\\\n\\end{aligned}\n$$\n\nIf \\(\\delta = \\frac{\\epsilon}{28}\\):\n$$\n\\begin{aligned}\n\\lvert x - 3 \\rvert &\\lt \\delta \\\\\n\\lvert x - 3 \\rvert &\\lt \\frac{\\epsilon}{28} \\\\\n(x + 3) \\cdot \\lvert x - 3 \\rvert &\\lt 7 \\cdot \\frac{\\epsilon}{28} && \\text{remember $x + 3 \\lt 7$} \\\\\n\\lvert x^2 - 9\\rvert &\\lt \\frac{\\epsilon}{4} \\\\\n4 \\cdot \\lvert x^2 - 9\\rvert &\\lt \\epsilon \\\\\n\\lvert 4x^2 - 36\\rvert &\\lt \\epsilon \\\\\n\\lvert 4x^2 + 1 - 37\\rvert &\\lt \\epsilon && \\text{we can rewrite $36$ as $(1 - 37)$}\\\\\n\\lvert f(x) - 37\\rvert &\\lt \\epsilon && \\text{$\\square$} \\\\\n\\end{aligned}\n$$",
+    "exerciseIndex": 5,
+    "chartList": []
+  }
+]
