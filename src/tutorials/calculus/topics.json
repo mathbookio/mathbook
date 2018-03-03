@@ -1,7 +1,7 @@
 [
   {
     "title": "Intro to Limits",
-    "statement": "An intro to limits covering the basics, including its formal definition.",
+    "statement": "An intro to limits covering the basics as well as the formal definition of a limit.",
     "link": "intro-limits",
     "color": "warning"
   }
