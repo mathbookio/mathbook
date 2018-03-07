@@ -21,7 +21,7 @@
     "convict": "^4.0.2",
     "cookie-parser": "~1.4.3",
     "express": "~4.16.2",
-    "github": "^13.0.1",
+    "github": "^14.0.0",
     "github-oauth": "^0.2.2",
     "jquery": "^3.2.1",
     "js-base64": "^2.3.2",
