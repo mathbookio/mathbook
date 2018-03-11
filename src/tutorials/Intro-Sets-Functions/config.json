@@ -3,7 +3,7 @@
     "title": "Introduction to Sets and Functions",
     "openingStatement": "We will learn the basics of how sets are used in mathematics, as well as how we can define functions between them.",
     "preReqs": [],
-    "exerciseStatement": "Solve the following exercises about functions.",
+    "exerciseStatement": "Consider the function \\(g:\\{1,2\\} \\to \\{1,2,3\\}\\) defined by \\(g(1) = 3\\) and \\(g(2) = 1\\).",
     "resources": [
         {
             "title": "What is a Function",
