@@ -59,6 +59,15 @@ body {
   color: white;
 }
 
+.is-orange {
+  background-color: #fd8e0e;
+  color: white;
+}
+
+.is-orange:hover {
+  color: white;
+}
+
 .submit {
   color: #23d160;
 }
