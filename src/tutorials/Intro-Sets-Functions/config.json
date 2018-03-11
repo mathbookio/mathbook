@@ -1,1 +1,17 @@
-{}
+{
+    "subject": "Algebra",
+    "title": "Introduction to Sets and Functions",
+    "openingStatement": "We will learn the basics of how sets are used in mathematics, as well as how we can define functions between them.",
+    "preReqs": [],
+    "exerciseStatement": "Solve the following exercises about functions.",
+    "resources": [
+        {
+            "title": "What is a Function",
+            "url": "https://www.mathsisfun.com/sets/function.html"
+        }
+    ],
+    "keywords": [
+        "Functions",
+        "Sets"
+    ]
+}
