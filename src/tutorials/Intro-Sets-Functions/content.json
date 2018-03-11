@@ -1,1 +1,9 @@
-[]
+[
+    {
+        "id": "sectionBox_unfdq5xspd",
+        "contentIndex": 0,
+        "title": "Sets",
+        "text": "<p>Most simply, a set is a collection of objects. We can think of the set of all flowers in Hawaii, or the set of whole numbers between 10 and 37. Typically, we use curly brackets (or braces) to denote a set, such as \\(\\{1,2,3\\}\\). If we are using the same set many times in a row, or talking about a set that cannot easily be written down, we can use some other symbol. Throughout this tutorial, we will let \\(S\\) be the set \\(\\{1,2,3\\}\\), and \\(H\\) be the set of all flowers in Hawaii.</p>\n<p> There are certain rules and terms used with sets that allow mathematicians to be consistent when using and talking about sets. </p>\n<p> - Each object in a set is called an <b>element</b> of the set.\n - Each element can only occur once in a set. \\(\\{1,2,1,3\\}\\) is not a valid set since \\(1\\) occurs twice.\n - The order of elements in a set does not matter. \\(S = \\{1,2,3\\} = \\{3,1,2\\}\\).\n - The number of elements in a set is called the set's <b>cardinality</b>. This tutorial will only work with finite sets, where the cardinality is a whole number.\n - The cardinality is often denoted with bars around the set. Since \\(S\\) has three elements, we can write \\(|S|\\) = 3.\n</p>\n<p> Almost everything you see and do in mathematics has sets hiding in the background. They are a universal way of communicating mathematical ideas, and are thus very important to understand.",
+        "charts": []
+    }
+]
