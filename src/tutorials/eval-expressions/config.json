@@ -11,12 +11,12 @@
     "exerciseStatement": "Evaluate the following expressions.",
     "resources": [
         {
-            "title": "What is BEDMAS?",
-            "url": "https://bctf.ca/diversity/ResourceInventory/LessonsTopics/Davies/BEDMAS.pdf"
-        },
-        {
             "title": "What is a term?",
             "url": "https://simple.wikipedia.org/wiki/Term_(mathematics)"
+        },
+        {
+            "title": "What is BEDMAS?",
+            "url": "http://www.cemc.uwaterloo.ca/events/mathcircles/2013-14/Fall/Junior6_Oct8.pdf"
         }
     ],
     "keywords": [
