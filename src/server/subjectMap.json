@@ -16,7 +16,7 @@
   {
     "id": "linear-algebra",
     "title": "Linear Algebra",
-    "blurb": "The study of Vector Spaces and their respective Mappings.",
+    "blurb": "The study of Vector Spaces and their respective mappings.",
     "example": "$$M = \\begin{bmatrix} 1 & 0 & 2 \\\\ 0 & 3 & 0 \\\\ 4 & 0 & 5 \\end{bmatrix}$$",
     "color": "is-info"
   },
@@ -33,6 +33,13 @@
     "blurb": "The study of the relationships between the sides and angles of triangles",
     "example": "$$tan(x) = \\frac{sin(x)}{cos(x)}$$",
     "color": "is-danger"
+  },
+  {
+    "id": "real-analysis",
+    "title": "Real Analysis",
+    "blurb": "The study of the real numbers and all things related.",
+    "example": "$$S = \\{~x \\in \\textbf{R} ~\\vert~ x \\gt 0 ~\\}$$",
+    "color": "is-orange"
   },
   {
     "id": "combinatorics",
