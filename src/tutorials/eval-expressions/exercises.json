@@ -22,5 +22,12 @@
         "question": "\\(\\left(\\frac{14}{9}\\right)^2 + 12y^3 \\qquad \\text{at $y = 2$}\\)",
         "answer": "\\(\\begin{aligned}\n\\left(\\frac{14}{9}\\right)^2 + 12y^3\n&= \\left(\\frac{14}{9}\\right)^2 + 12(2)^3 &&\\text{substitute in 2 wherever you see $y$}\\\\\n&= \\left(\\frac{14}{9}\\right)^2 + 12 \\times 2^3 &&\\text{Exponent}\\\\\n&= \\frac{14^2}{9^2} + 12 \\times 8 &&\\text{Multiplication}\\\\\n&= \\frac{196}{81} + 96 &&\\text{Addition}\\\\\n&= \\frac{196}{81} +  \\frac{7776}{81}\\\\\n&= \\frac{7972}{81} &&\\text{$\\square$}\\\\\n\\end{aligned}\\)",
         "exerciseIndex": 3
+    },
+    {
+        "id": "exerciseBox_9ctu0gpqgu",
+        "question": "\\([~(3 - 5x)+(9 + 2x)^2~] \\quad \\text{at $x = 2$}\\)",
+        "answer": "\\(\\begin{aligned}\n[~(3 - 5x)+(9 + 2x)^2~] &= [~(3 - 5(2))+(9 + 2(2))^2~] && \\text{substitute in $2$ wherever you see $x$}\\\\\n&= [~(3 - 10)+(9 + 4)^2~] && \\text{Brackets (innermost)}\\\\\n&= [~(-7)+(13)^2~] && \\text{Exponent}\\\\\n&= -7+169 && \\text{Addition}\\\\\n&= 162 && \\text{$\\square$}\\\\\n\\end{aligned}\\)",
+        "exerciseIndex": 4,
+        "chartList": []
     }
 ]
