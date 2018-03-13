@@ -23,7 +23,7 @@
     {
         "id": "exerciseBox_rfjn1plryn",
         "question": "<b> Challenge:</b> How many ways can we define a function \\(h: \\{1,2\\} \\to \\{1,2,3\\}\\) so that every input is sent to a different output?",
-        "answer": "There are a number of ways to solve this problem. We could try and list all of the rules to define our function, but we will try to be a bit more clever. First, we will decide what \\(h(1)\\) is. Since the codomain has \\(3\\) elements, we have \\(3\\) choices for \\(h(1)\\). Now, we need to decide what \\(h(2)\\) can be. The problem requires that \\(h(2)\\) not be the same as \\(h(1)\\), so we only have \\(2\\) choices remaining for \\(h(2)\\). This tells us that we have \\(3\\cdot 2 = \\boxed{6}\\) ways to define our function \\(h\\). (<i> Note</i>: A function where every input is sent to a different output is called <i>one-to-one</i> or <i>injective</i>. You'll learn more about these in a later tutorial.) \\(\\square\\)",
+        "answer": "There are a number of ways to solve this problem. We could try and list all of the rules to define our function, but we will try to be a bit more clever. First, we will decide what \\(h(1)\\) is. Since the codomain has \\(3\\) elements, we have \\(3\\) choices for \\(h(1)\\). Now, we need to decide what \\(h(2)\\) can be. The problem requires that \\(h(2)\\) not be the same as \\(h(1)\\), so we only have \\(2\\) choices remaining for \\(h(2)\\). This tells us that we have \\(3\\cdot 2 = 6\\) ways to define our function \\(h\\). \\(\\square\\)\n(<i> Note</i>: A function where every input is sent to a different output is called <i>one-to-one</i> or <i>injective</i>. You'll learn more about these in a later tutorial.) ",
         "exerciseIndex": 3,
         "chartList": []
     }
