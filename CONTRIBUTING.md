@@ -17,7 +17,7 @@ There is always something to do to help maintain and grow Mathbook. You can,
 
 ## I want to create a tutorial for Mathbook.
 
-You can read up on how to create and submit a tutorial [here](http://mathbook.io/contribute/create-tutorial').
+You can read up on how to create and submit a tutorial [here](http://mathbook.io/contribute/create-tutorial).
 
 ## I want to review a tutorial submitted for review.
 

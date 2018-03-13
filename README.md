@@ -111,7 +111,7 @@ If you are interested in contributing please refer to [CONTRIBUTING.md](./CONTRI
 
 ## Contributors
 
-If you are looking for the list of Contributors of Mathbook, please refer to [CONTRIBUTORS.md](./CONTRIBUTORS.md)
+If you are looking for the list of Contributors of Mathbook, please refer to [contributors.md](./contributors.md)
 
 ## License
 
