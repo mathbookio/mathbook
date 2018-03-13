@@ -1,4 +1,5 @@
 # Below is a list of the Contributors of Mathbook
 
 * JetJet13
-- rich1126
+* Gh0stByte
+* rich1126
