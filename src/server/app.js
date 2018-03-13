@@ -55,6 +55,9 @@ app.use("/contribute", viewRouter.contributeRouter)
 app.use("/login", viewRouter.authRouter)
 app.use("/logout", viewRouter.logout)
 
+/* Make HTML pretty. */
+app.locals.pretty = true;
+
 /* GET home page. */
 app.get("/", viewRouter.homePage)
 
