@@ -78,17 +78,17 @@
                   <i class="fa fa-send"></i>
                 </span>
               </div>
-              <a show={ state === null || state === 'closed' } class="card-footer-item" onclick="{ parent.openSubmitTutorialModal }">
+              <a show={ state === null || state === 'closed' } class="card-footer-item" title="Submit" onclick="{ parent.openSubmitTutorialModal }">
                 <span class="icon is-small">
                   <i class="fa fa-send"></i>
                 </span>
               </a>
-              <a class="card-footer-item edit" onclick="{ parent.editTutorial }">
+              <a class="card-footer-item edit" title="Edit" onclick="{ parent.editTutorial }">
                 <span class="icon is-small">
                   <i class="fa fa-pencil"></i>
                 </span>
               </a>
-              <a class="card-footer-item edit" onclick="{ parent.previewTutorial }">
+              <a class="card-footer-item edit" title="Preview" onclick="{ parent.previewTutorial }">
                 <span class="icon is-small">
                   <i class="fa fa-file"></i>
                 </span>
@@ -97,7 +97,7 @@
                   <i class="fa fa-search"></i>
                 </span>
               </a>
-              <a class="card-footer-item delete-button" onclick={ openDeleteTutorialModal }>
+              <a class="card-footer-item delete-button" title="Delete" onclick={ openDeleteTutorialModal }>
                 <span class="icon is-small">
                   <i class="fa fa-trash-o"></i>
                 </span>

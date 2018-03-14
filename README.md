@@ -51,6 +51,11 @@ npm i -g gulp-cli bunyan
 ```
 
 ```bash
+gulp bundle:js
+gulp bundle:css
+```
+
+```bash
 gulp serve
 
 # if you want pretty log formatting (linux/macOS users only)
@@ -111,7 +116,7 @@ If you are interested in contributing please refer to [CONTRIBUTING.md](./CONTRI
 
 ## Contributors
 
-If you are looking for the list of Contributors of Mathbook, please refer to [CONTRIBUTORS.md](./CONTRIBUTORS.md)
+If you are looking for the list of Contributors of Mathbook, please refer to [contributors.md](./contributors.md)
 
 ## License
 
