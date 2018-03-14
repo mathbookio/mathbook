@@ -51,6 +51,11 @@ npm i -g gulp-cli bunyan
 ```
 
 ```bash
+gulp bundle:js
+gulp bundle:css
+```
+
+```bash
 gulp serve
 
 # if you want pretty log formatting (linux/macOS users only)
