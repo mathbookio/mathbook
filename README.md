@@ -1,5 +1,3 @@
-# Mathbook
-
 [![Build Status](https://travis-ci.org/JetJet13/mathbook.svg?branch=develop)](https://travis-ci.org/JetJet13/mathbook)
 [![Greenkeeper badge](https://badges.greenkeeper.io/JetJet13/mathbook.svg)](https://greenkeeper.io/)
 [![Gitter chat](https://badges.gitter.im/gitterHQ/gitter.png)](https://gitter.im/mathbook-chat/Lobby)
@@ -51,8 +49,6 @@ redis-server
 ```bash
 npm i -g gulp-cli bunyan
 ```
-
-Bundle the js and css files
 
 ```bash
 # bundle the js and css files
