@@ -4,9 +4,11 @@
 [![Greenkeeper badge](https://badges.greenkeeper.io/JetJet13/mathbook.svg)](https://greenkeeper.io/)
 [![Gitter chat](https://badges.gitter.im/gitterHQ/gitter.png)](https://gitter.im/mathbook-chat/Lobby)
 
-Mathbook is a website that provides peer-reviewed tutorials on topics covering most subjects in mathematics.
+![mathbook-logo](./src/front-end/public/images/mathbook_indigo_white_v5.png)
 
-Mathbook is written in JavaScript and built using NodeJS, ExpressJS, Riot and Pug (formerly known as Jade)
+Mathbook is an online repository of peer-reviewed tutorials on topics covering a wide range of subjects in Mathematics.
+It's open source and open to anyone who is interested in creating or reviewing a tutorial. The project itself is written
+in JavaScript and built using NodeJS, ExpressJS, Riot and Pug (formerly known as Jade)
 
 ## Requirements
 
@@ -50,15 +52,17 @@ redis-server
 npm i -g gulp-cli bunyan
 ```
 
+Bundle the js and css files
+
 ```bash
+# bundle the js and css files
 gulp bundle:js
 gulp bundle:css
-```
 
-```bash
+# finally, start up the server
 gulp serve
 
-# if you want pretty log formatting (linux/macOS users only)
+# if you want pretty log formatting
 gulp serve | bunyan
 ```
 
