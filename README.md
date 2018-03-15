@@ -51,11 +51,13 @@ npm i -g gulp-cli bunyan
 ```
 
 ```bash
+cd ./mathbook
+
 # bundle the js and css files
 gulp bundle:js
 gulp bundle:css
 
-# finally, start up the server
+# start up the server
 gulp serve
 
 # if you want pretty log formatting
