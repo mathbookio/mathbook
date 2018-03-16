@@ -15,6 +15,8 @@
       <resources></resources>
       <br/>
       <keywords></keywords>
+      <br/>
+      <author></author>
   </section>
   <script>
 
@@ -40,7 +42,8 @@
         preReqs: this.tags['pre-req'].get(),
         exerciseStatement: this.tags['exercise-statement'].get(),
         resources: this.tags['resources'].get(),
-        keywords: this.tags['keywords'].get()
+        keywords: this.tags['keywords'].get(),
+        author: this.tags['author'].get()
       }
     }
     set(data){
@@ -51,6 +54,7 @@
         this.tags['exercise-statement'].set(data['exerciseStatement'])
         this.tags['resources'].set(data['resources'])
         this.tags['keywords'].set(data['keywords'])
+        this.tags['author'].set(data['author'])
     }
   </script>
 </configuration>
