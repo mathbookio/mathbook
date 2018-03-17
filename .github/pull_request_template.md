@@ -1,10 +1,12 @@
 # Changes & Additions
 
-* do not leave this section blank please.
+* highlight what changed and what you added - if applicable
 
 ---
 
 **Issue:** (optional - remove if not being used)
+
+---
 
 # Reason
 
