@@ -13,7 +13,7 @@
 
   set(data){
     this.author = data['author']
-    this.credits = 'Created with \u2665 by ' + this.author
+    this.credits = 'Created by ' + this.author
   }
 
   </script>
