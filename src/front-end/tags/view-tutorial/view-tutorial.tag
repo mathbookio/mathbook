@@ -10,6 +10,7 @@
       <tutorial-exercises></tutorial-exercises>
       <resource-list></resource-list>
       <meta-keywords></meta-keywords>
+      <credits></credits>
     </div>
 </div>
   <script>
