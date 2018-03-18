@@ -56,8 +56,8 @@ app.use("/login", viewRouter.authRouter)
 app.use("/logout", viewRouter.logout)
 
 /* Make HTML pretty during development. */
-if (app.get('env') === 'development') {
-  app.locals.pretty = true;
+if (app.get("env") === "development") {
+  app.locals.pretty = true
 }
 
 /* GET home page. */
