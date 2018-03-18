@@ -38,6 +38,7 @@ function buildServer(useHttps) {
  * Listen on provided port, on all network interfaces.
  */
 const host = config.get("bin.host")
+log.info({ host, port }, `Listening on ${host}:${port}`)
 server.listen(port, host)
 server.on("error", onError)
 server.on("listening", onListening)
@@ -73,7 +74,5 @@ function onError(error) {
  */
 
 function onListening() {
-  var addr = server.address()
-  var bind = typeof addr === "string" ? "pipe " + addr : "port " + addr.port
-  log.info("Listening on " + bind)
+  log.info("Server has started and is now listening for requests")
 }
