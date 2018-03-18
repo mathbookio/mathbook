@@ -11,6 +11,7 @@ services:
       - redis
     environment:
       IP_ADDRESS: 0.0.0.0
+      PORT: 4000
       REDIS_HOST: redis
     ports:
       - "4001:4000"
