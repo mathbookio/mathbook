@@ -20,7 +20,7 @@ Please refer to the wiki to get
 
 ## Local Installation & Setup
 
-### Download/Clone Mathbook Repo & Install Dependencies
+#### Download/Clone Mathbook Repo & Install Dependencies
 
 ```bash
 git clone https://github.com/JetJet13/mathbook.git
@@ -31,17 +31,17 @@ cd ./mathbook
 npm i
 ```
 
-### Additional Steps
+#### Additional Steps
 
 **[required]** - You will need a custom configuration file tailored to your local setup so go ahead and create a file in
 the `config` folder called `local.json`. You can grab a sample local config file
-[from the wiki here](<https://github.com/JetJet13/mathbook/wiki/Sample-Local-Configuration-File-(local.json)>)
+[from the wiki here](<https://github.com/JetJet13/mathbook/wiki/Sample-Local-Configuration-File-(local.json)>).
 
 **[optional]** - This step if only needed if you want to get the authentication functionality of Mathbook to work. There
 is a [wiki page](<(https://github.com/JetJet13/mathbook/wiki/Setup-Your-GitHub-OAuth-Application)>) to get that up and
 running since its not required for a local setup.
 
-### Downloading & Installing Redis
+#### Downloading & Installing Redis
 
 ```bash
 # linux users
@@ -56,13 +56,13 @@ make install
 brew install redis
 ```
 
-### Starting Up A Redis Server
+#### Starting Up A Redis Server
 
 ```bash
 redis-server
 ```
 
-### Starting Up Mathbook
+#### Starting Up Mathbook
 
 **Note**: You might need to install gulp and bunyan globally first
 
