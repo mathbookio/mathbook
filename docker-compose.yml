@@ -10,12 +10,10 @@ services:
     depends_on:
       - redis
     environment:
-      PROTOCOL: http
-      HOST: 0.0.0.0
-      PORT: 4000
+      IP_ADDRESS: 0.0.0.0
       REDIS_HOST: redis
     ports:
-      - "4000:4000"
+      - "4001:4000"
     networks:
       - webnet
 networks: 
