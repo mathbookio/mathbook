@@ -1,7 +1,7 @@
 {
     "subject": "Algebra",
     "title": "Evaluating Expressions",
-    "openingStatement": "Expressions are a simple construct that are used and applied in all areas of Math and Science.\n\nIn its simplest form, an expression is a combination of operators and terms. They come in all different forms and variations, and their main purpose is to help us represent some mathematical model or biological/physical system. This tutorial will go over how to evaluate them and more.",
+    "openingStatement": "Expressions are a simple construct that are used and applied in all areas of Math and Science. You'll find them in Algebra, the Physical Sciences, Biology, Chemistry and Engineering.\n\nIn its simplest form, an expression is a combination of operators and terms. They come in all different forms and variations, and their main purpose is to help us represent some mathematical model or biological/physical system. This tutorial will go over how to evaluate them and more.",
     "preReqs": [
         {
             "title": "BEDMAS",
