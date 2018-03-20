@@ -242,7 +242,7 @@
         self.updateChart()
       }
       catch(err){
-        console.log('error chart series input change', err)
+        console.error('error chart series input change', err)
       }
     })
 

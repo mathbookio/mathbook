@@ -1,0 +1,35 @@
+[
+  {
+    "id": "exerciseBox_9wx24ftfkp",
+    "question": "What is the cardinality of the domain of \\(g\\)?",
+    "answer":
+      "The domain of \\(g\\) is the set \\(\\{1,2\\}\\). There are two elements in this set, so the cardinality of the domain of \\(g\\) is \\(2\\). \\(\\square\\)",
+    "exerciseIndex": 0,
+    "chartList": []
+  },
+  {
+    "id": "exerciseBox_7jan1yphe3",
+    "question": "What is the codomain of \\(g\\)?",
+    "answer":
+      "The codomain of a function \\(f:A\\to B\\) is defined to be the set \\(B\\). We are given a function \\(g: \\{1,2\\} \\to \\{1,2,3\\}\\), so the codomain must be the set \\(\\{1,2,3\\}\\). \\(\\square\\)",
+    "exerciseIndex": 1,
+    "chartList": []
+  },
+  {
+    "id": "exerciseBox_w2npf62u9q",
+    "question": "What is the image of \\(g\\)?",
+    "answer":
+      "The image of \\(g\\) is defined to be the set of possible outputs. Since \\(g(1) = 3\\) and \\(g(2) =1\\), the possible outputs are \\(1\\) and \\(3\\). Hence the image of \\(g\\) is \\(\\{1,3\\}\\). \\(\\square\\) ",
+    "exerciseIndex": 2,
+    "chartList": []
+  },
+  {
+    "id": "exerciseBox_rfjn1plryn",
+    "question":
+      "<b> Challenge:</b> How many ways can we define a function \\(h: \\{1,2\\} \\to \\{1,2,3\\}\\) so that every input is sent to a different output?",
+    "answer":
+      "There are a number of ways to solve this problem. We could try and list all of the rules to define our function, but we will try to be a bit more clever. First, we will decide what \\(h(1)\\) is. Since the codomain has \\(3\\) elements, we have \\(3\\) choices for \\(h(1)\\). Now, we need to decide what \\(h(2)\\) can be. The problem requires that \\(h(2)\\) not be the same as \\(h(1)\\), so we only have \\(2\\) choices remaining for \\(h(2)\\). This tells us that we have \\(3\\cdot 2 = 6\\) ways to define our function \\(h\\). \\(\\square\\)\n(<i> Note</i>: A function where every input is sent to a different output is called <i>one-to-one</i> or <i>injective</i>. You'll learn more about these in a later tutorial.) ",
+    "exerciseIndex": 3,
+    "chartList": []
+  }
+]

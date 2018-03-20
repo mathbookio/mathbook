@@ -11,7 +11,7 @@
     return this.refs.tutorialTitle.value
   }
   set(title){
-    this.refs.tutorialTitle.value = title
+    this.refs.tutorialTitle.value = title || ''
   }
 
   </script>

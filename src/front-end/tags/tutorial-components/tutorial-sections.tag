@@ -24,7 +24,7 @@ renderContent(){
       renderCharts(section.charts)
     }
     catch(err){
-      console.log(err)
+      console.error(err)
     }
   }
 }

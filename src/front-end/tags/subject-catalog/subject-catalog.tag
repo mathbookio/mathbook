@@ -8,7 +8,7 @@
       <h5 class="title is-5">{ subjectData.blurb }</h5>
     </div>
   </section>
-  <section show="{ topics.length > 0 }" class="section my-section-margin">
+  <section show="{ !isLoading && topics.length > 0 }" class="section my-section-margin">
     <div class="container">
       <h3 class="title is-3">Please a select a topic from below</h3>
     </div>
@@ -18,7 +18,7 @@
 
   <section class="section my-section-margin">
     <div class="container">
-      <div show="{ topics.length === 0 }" class=" has-text-centered has-text-grey">
+      <div show="{ !isLoading && topics.length === 0 }" class=" has-text-centered has-text-grey">
         <p>Hey, we couldn't find any tutorials for { subjectData.title } at the moment. Sorry.
           <br/> If you want, you can build a tutorial and have it shown here for others to learn from and share!
           <span class="icon is-small">
@@ -45,7 +45,7 @@
     this.loadingText = 'Fetching tutorials. One sec.'
     this.subject = this.opts.subject || ''
     this.subjectData = {}
-    this.topics
+    this.topics = []
     this.on('mount', function () {
       const url = '/v1/subject/' + this.subject
       $.get(url, function (result) {
