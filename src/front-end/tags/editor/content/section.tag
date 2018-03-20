@@ -198,7 +198,7 @@ render(id){
     renderMathInElement(document.getElementById(id))
   }
   catch(err){
-    console.log('section::render::err',err)
+    console.error('section::render::err',err)
   }
 }
 

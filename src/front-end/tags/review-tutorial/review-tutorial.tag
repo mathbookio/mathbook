@@ -15,6 +15,7 @@
     <tutorial-exercises></tutorial-exercises>
     <resource-list></resource-list>
     <meta-keywords></meta-keywords>
+    <credits></credits>
 </div>
   <script>
     var self = this
@@ -77,6 +78,7 @@
       this.tags['table-contents'].set(config)
       this.tags['resource-list'].set(config)
       this.tags['meta-keywords'].set(config)
+      this.tags['credits'].set(config)
 
     }
 

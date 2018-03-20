@@ -73,6 +73,7 @@
       this.tags['table-contents'].set(config)
       this.tags['resource-list'].set(config)
       this.tags['meta-keywords'].set(config)
+      this.tags['credits'].set(config)
 
     }
 

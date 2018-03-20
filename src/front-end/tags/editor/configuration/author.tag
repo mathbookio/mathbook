@@ -8,10 +8,10 @@
   <script>
   var self = this
   get(){
-    return this.refs.author.value || ''
+    return this.refs.author.value
   }
   set(title){
-    this.refs.author.value = title
+    this.refs.author.value = title || ''
   }
 
   </script>
