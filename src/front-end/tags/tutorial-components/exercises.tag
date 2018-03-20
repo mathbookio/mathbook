@@ -73,7 +73,7 @@ renderExercises(){
       $('#'+answerId).toggle()
     }
     catch(err){
-      console.log('error set:exercise component', err)
+      console.error('error set:exercise component', err)
     }
 
   }

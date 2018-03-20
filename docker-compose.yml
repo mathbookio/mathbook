@@ -1,0 +1,21 @@
+version: '3'
+services:
+  redis:
+    image: "redis:alpine"
+    networks:
+      - webnet
+  mathbook:
+    build:
+      context: .
+    depends_on:
+      - redis
+    environment:
+      IP_ADDRESS: 0.0.0.0
+      PORT: 4000
+      REDIS_HOST: redis
+    ports:
+      - "4001:4000"
+    networks:
+      - webnet
+networks: 
+  webnet:

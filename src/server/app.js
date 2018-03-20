@@ -5,6 +5,7 @@ const express = require("express")
 const path = require("path")
 const bunyanRequest = require("bunyan-request")
 const authenticationMiddleware = require("./middleware/authentication")
+const helmet = require("helmet")
 // const favicon = require('serve-favicon')
 const logger = require("./logger")
 const requestLogger = bunyanRequest({
@@ -28,9 +29,11 @@ app.use(requestLogger)
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser())
+app.use(helmet())
 app.use(authenticationMiddleware())
 
 app.use("/dist", express.static(path.join(__dirname, "..", "front-end/public/dist")))
+app.use("/.well-known/acme-challenge", express.static(path.join(__dirname, "..", "front-end/public/lets-encrypt")))
 app.use("/riotInit", express.static(path.join(__dirname, "..", "front-end/public/javascripts/riotInit.js")))
 app.use("/stylesheets", express.static(path.join(__dirname, "..", "front-end/public/stylesheets")))
 app.use("/images", express.static(path.join(__dirname, "..", "front-end/public/images")))
@@ -54,6 +57,11 @@ app.get("/error/500", viewRouter.viewError)
 app.use("/contribute", viewRouter.contributeRouter)
 app.use("/login", viewRouter.authRouter)
 app.use("/logout", viewRouter.logout)
+
+/* Make HTML pretty during development. */
+if (app.get("env") === "development") {
+  app.locals.pretty = true
+}
 
 /* GET home page. */
 app.get("/", viewRouter.homePage)

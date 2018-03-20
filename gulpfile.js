@@ -27,6 +27,8 @@ gulp.task("lint", () => {
   )
 })
 
+gulp.task("bundle", ["bundle:js", "bundle:css"])
+
 gulp.task("bundle:js", ["riot"], () => {
   const jsFiles = ["src/front-end/public/javascripts/*.js", "!src/front-end/public/javascripts/riotInit.js"]
   const jsDest = "src/front-end/public/dist/"

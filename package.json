@@ -1,6 +1,6 @@
 {
   "name": "mathbook",
-  "version": "1.1.4",
+  "version": "1.2.0",
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
@@ -23,6 +23,8 @@
     "express": "~4.16.2",
     "github": "^13.0.1",
     "github-oauth": "^0.2.2",
+    "helmet": "^3.12.0",
+    "https": "^1.0.0",
     "jquery": "^3.2.1",
     "js-base64": "^2.3.2",
     "katex": "^0.9.0-alpha1",
