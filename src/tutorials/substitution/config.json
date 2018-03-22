@@ -1,1 +1,20 @@
-{}
+{
+    "subject": "Algebra",
+    "title": "Substitution",
+    "openingStatement": "Substitution is a tool that we use to find the answer to systems of equations. It's quite magical if you ask me.",
+    "preReqs": [
+        {
+            "title": "Evaluting Expressions",
+            "url": "https://mathbook.io/tutorial/algebra/eval-expressions"
+        }
+    ],
+    "exerciseStatement": "Solve the following systems of equations.",
+    "resources": [],
+    "keywords": [
+        "algebra",
+        "systems of equations",
+        "math",
+        "substitution"
+    ],
+    "author": "Johny Georges"
+}
