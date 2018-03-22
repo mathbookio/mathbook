@@ -121,7 +121,7 @@ function clearDropDowns(id) {
   $(".navbar-item.has-dropdown").each(function(index) {
     const element = $(this)
     // we only want a single dropdown open at one time
-    if (element.is("#" + id) === false && element.hasClass("is-active")) {
+    if (id && element.is("#" + id) === false && element.hasClass("is-active")) {
       element.removeClass("is-active")
     }
   })
