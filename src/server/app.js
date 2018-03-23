@@ -6,7 +6,7 @@ const path = require("path")
 const bunyanRequest = require("bunyan-request")
 const authenticationMiddleware = require("./middleware/authentication")
 const helmet = require("helmet")
-// const favicon = require('serve-favicon')
+const favicon = require("serve-favicon")
 const logger = require("./logger")
 const requestLogger = bunyanRequest({
   logger: logger,
@@ -24,7 +24,7 @@ app.set("views", path.join(__dirname, "..", "front-end", "views"))
 app.set("view engine", "pug")
 
 // uncomment after placing your favicon in /public
-// app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(favicon(path.join(__dirname, "..", "front-end/public/images/favicon.ico")))
 app.use(requestLogger)
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))

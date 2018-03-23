@@ -113,5 +113,24 @@ function toggleDropdownMenu(id) {
     navbarDropdown.removeClass("is-active")
     return
   }
+  clearDropDowns(id)
   navbarDropdown.addClass("is-active")
 }
+
+function clearDropDowns(id) {
+  $(".navbar-item.has-dropdown").each(function(index) {
+    const element = $(this)
+    // we only want a single dropdown open at one time
+    if (id && element.is("#" + id) === false && element.hasClass("is-active")) {
+      element.removeClass("is-active")
+    }
+  })
+}
+
+// dismiss dropdowns when user clicks away from them
+$(document).click(function(e) {
+  const element = $(e.target)
+  if (element.hasClass("navbar-link") === false) {
+    clearDropDowns()
+  }
+})
