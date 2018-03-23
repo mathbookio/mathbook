@@ -1,1 +1,9 @@
-[]
+[
+    {
+        "id": "exerciseBox_z2qlscx05h",
+        "question": "first question",
+        "answer": "hello world",
+        "exerciseIndex": 0,
+        "chartList": []
+    }
+]
