@@ -1,5 +1,5 @@
-[![Build Status](https://travis-ci.org/JetJet13/mathbook.svg?branch=develop)](https://travis-ci.org/JetJet13/mathbook)
-[![Greenkeeper badge](https://badges.greenkeeper.io/JetJet13/mathbook.svg)](https://greenkeeper.io/)
+[![Build Status](https://travis-ci.org/mathbook-io/mathbook.svg?branch=develop)](https://travis-ci.org/mathbook-io/mathbook)
+[![Greenkeeper badge](https://badges.greenkeeper.io/mathbook-io/mathbook.svg)](https://greenkeeper.io/)
 [![Gitter chat](https://badges.gitter.im/gitterHQ/gitter.png)](https://gitter.im/mathbook-chat/Lobby)
 
 ![mathbook-logo](./src/front-end/public/images/mathbook_indigo_white_v5.png)
@@ -16,14 +16,14 @@ in JavaScript and built using NodeJS, ExpressJS, Riot and Pug.
 ## Up and Running with Docker
 
 Please refer to the wiki to get
-[up and running with Docker](https://github.com/JetJet13/mathbook/wiki/Up-and-Running-with-Docker).
+[up and running with Docker](https://github.com/mathbook-io/mathbook/wiki/Up-and-Running-with-Docker).
 
 ## Local Installation & Setup
 
 #### Download/Clone Mathbook Repo & Install Dependencies
 
 ```bash
-git clone https://github.com/JetJet13/mathbook.git
+git clone https://github.com/mathbook-io/mathbook.git
 
 cd ./mathbook
 
@@ -35,11 +35,11 @@ npm i
 
 **[required]** - You will need a custom configuration file tailored to your local setup so go ahead and create a file in
 the `config` folder called `local.json`. You can grab a sample local config file
-[from the wiki here](<https://github.com/JetJet13/mathbook/wiki/Sample-Local-Configuration-File-(local.json)>).
+[from the wiki here](<https://github.com/mathbook-io/mathbook/wiki/Sample-Local-Configuration-File-(local.json)>).
 
 **[optional]** - This step if only needed if you want to get the authentication functionality of Mathbook to work. There
-is a [wiki page](<(https://github.com/JetJet13/mathbook/wiki/Setup-Your-GitHub-OAuth-Application)>) to get that up and
-running since its not required for a local setup.
+is a [wiki page](<(https://github.com/mathbook-io/mathbook/wiki/Setup-Your-GitHub-OAuth-Application)>) to get that up
+and running since its not required for a local setup.
 
 #### Downloading & Installing Redis
 

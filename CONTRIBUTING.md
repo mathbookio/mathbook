@@ -32,9 +32,9 @@ The Mathbook project is hosted on GitHub and there is an issues section where yo
 bug.
 
 Please make sure to follow the bug reporting guidelines outlined
-[here](https://github.com/JetJet13/mathbook/wiki/Bug-Reporting-Guideline).
+[here](https://github.com/mathbook-io/mathbook/wiki/Bug-Reporting-Guideline).
 
-[Click here to go the issues page for Mathbook](https://github.com/JetJet13/mathbook/issues)
+[Click here to go the issues page for Mathbook](https://github.com/mathbook-io/mathbook/issues)
 
 ## I want to fix/squash some bugs
 
@@ -44,7 +44,7 @@ smaller bugs.
 If and when you get comfortable fixing bugs and making changes to the source code, you are more than welcome to making
 the jump towards squashing bigger bugs.
 
-[Click here to view the current list of reported bugs](https://github.com/JetJet13/mathbook/issues?utf8=%E2%9C%93&q=is%3Aissue+is%3Aopen+label%3Abug+)
+[Click here to view the current list of reported bugs](https://github.com/mathbook-io/mathbook/issues?utf8=%E2%9C%93&q=is%3Aissue+is%3Aopen+label%3Abug+)
 
 ## I want to write some documentation
 
@@ -54,7 +54,7 @@ understanding how Mathbook works under the hood.
 Writing documentation requires knowledge of the inner workings of Mathbook and the reasoning behind the decisions made
 in the architecture and source code.
 
-The documentation for Mathbook lives [here](https://github.com/JetJet13/mathbook/wiki)
+The documentation for Mathbook lives [here](https://github.com/mathbook-io/mathbook/wiki)
 
 We recommend reading through some parts of the docs to get an idea of what's needed to contribute to the docs, ie)
 formatting, providing examples and maybe even referencing some part of the source code
@@ -72,7 +72,7 @@ For Mathbook, the testing framework we use is [Chai](http://chaijs.com/) and our
 
 Check out the tests folder in the [source code](./tests) to get an idea of how we structure our test suites.
 
-You can also check out the [documentation](https://github.com/JetJet13/mathbook/wiki/Testing-Documentation) to learn
+You can also check out the [documentation](https://github.com/mathbook-io/mathbook/wiki/Testing-Documentation) to learn
 about the reasoning behind the different types of tests that we write.
 
 ## I want to provide some feedback
@@ -83,7 +83,7 @@ improved, let us know.
 You can create an issue on GitHub and tag the issue with the proper tag that reflects your feedback (we have a bunch of
 tags, pick one that best represents your feedback).
 
-[Click here to go the issues page and provide some feedback](https://github.com/JetJet13/mathbook/issues)
+[Click here to go the issues page and provide some feedback](https://github.com/mathbook-io/mathbook/issues)
 
 ## Contributor Behavior
 
