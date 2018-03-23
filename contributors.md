@@ -1,5 +1,5 @@
 # Below is a list of the Contributors of Mathbook
 
-* mathbook-io
+* JetJet13
 * Gh0stByte
 * rich1126
