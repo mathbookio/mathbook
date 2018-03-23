@@ -23,12 +23,14 @@
 
   this.on('mount', function() {
     
-    $('#openingStatement').on('input', function(e) {
-      var osText = $('#openingStatement').val()
-      $('#openingStatementText').html(osText)
-      renderMathInElement(document.getElementById('openingStatementText'))
-    });
+    $('#openingStatement').on('input', debounce(self.renderOpeningStatementPreview));
   })
+
+  renderOpeningStatementPreview(){
+    const osText = $('#openingStatement').val()
+    $('#openingStatementText').html(osText)
+    renderMathInElement(document.getElementById('openingStatementText'))
+  }
 
   get(){
     return $('#openingStatement').val()
