@@ -79,18 +79,8 @@
       delete self.exerciseMap[exerciseId]
     })
 
-    $('#exerciseQuestion').on('input', function(e) {
-      var questionVal = $('#exerciseQuestion').val()
-      $('#exerciseQuestionText').html(questionVal)
-       renderMathInElement(document.getElementById('exerciseQuestionText'))
-       self.renderExerciseCharts(self.chartList)
-    });
-    $('#exerciseAnswer').on('input', function(e) {
-      var answerVal = $('#exerciseAnswer').val()
-      $('#exerciseAnswerText').html(answerVal)
-       renderMathInElement(document.getElementById('exerciseAnswerText'))
-       self.renderExerciseCharts(self.chartList)
-    });
+    $('#exerciseQuestion').on('input', debounce(self.renderQuestionPreview));
+    $('#exerciseAnswer').on('input', debounce(self.renderAnswerPreview));
 
     this.chartObservable.on('savedChart', function(clientId, chartSize, chartData, chartOptions) {
       if (clientId !== self.clientId){
@@ -106,6 +96,20 @@
     })
 
   })
+
+  renderQuestionPreview(){
+    const questionVal = $('#exerciseQuestion').val()
+    $('#exerciseQuestionText').html(questionVal)
+    renderMathInElement(document.getElementById('exerciseQuestionText'))
+    self.renderExerciseCharts(self.chartList)
+  }
+
+  renderAnswerPreview(){
+    var answerVal = $('#exerciseAnswer').val()
+    $('#exerciseAnswerText').html(answerVal)
+    renderMathInElement(document.getElementById('exerciseAnswerText'))
+    self.renderExerciseCharts(self.chartList)
+  }
 
   initSortable(){
     var exerciseList = document.getElementById('exerciseList')
