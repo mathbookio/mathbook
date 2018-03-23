@@ -91,7 +91,6 @@
   })
 
   renderPreviewContent(){
-      console.log("DEBOUNCE")
       var contentVal = $('#contentSection').val()
       $('#contentSectionText').html(contentVal)
       renderMathInElement(document.getElementById('contentSectionText'))
