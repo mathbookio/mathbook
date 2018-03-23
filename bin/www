@@ -4,11 +4,9 @@
  * Module dependencies.
  */
 const config = require("../config/config")()
-const fs = require("fs")
 const app = require("../src/server/app")
 const log = require("../src/server/logger")
 const http = require("http")
-const https = require("https")
 
 /**
  * Get port from environment and store in Express.
@@ -20,19 +18,7 @@ app.set("port", port)
 /**
  * Create HTTP server.
  */
-const server = buildServer(config.get("bin.useHttps"))
-
-function buildServer(useHttps) {
-  if (useHttps) {
-    const options = {
-      cert: fs.readFileSync(".ssl/fullchain.pem"),
-      key: fs.readFileSync(".ssl/privkey.pem")
-    }
-    return https.createServer(options, app)
-  } else {
-    return http.createServer(app)
-  }
-}
+const server = http.createServer(app)
 
 /**
  * Listen on provided port, on all network interfaces.
