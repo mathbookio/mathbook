@@ -39,7 +39,6 @@
   <script>
     var self = this
     this.observable = this.opts.observable
-    this.showCreateTutorialModal = false
     this.isSaving = false
     this.savingComplete = false
     this.savingFailed = false
