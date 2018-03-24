@@ -89,12 +89,14 @@
       this.initLeavePrompt()
       const url = '/v1/tutorial/' + this.tutorialName
       $.get(url, function(result) {
+        console.log('/v1/tutorial result', result)
         self.tags.configuration.set(result.data.config),
         self.tags.content.set(result.data.content),
         self.tags.exercises.set(result.data.exercises)
         self.isLoading = false
         self.sessionExpiry = result.metadata.expiresOn
         self.initSessionExpiryTimer()
+        self.initAutoSave()
         self.update()
         self.pickConfiguration()
       })
@@ -143,6 +145,19 @@
 
     killSessionExpiryTimer(){
       clearInterval(this.sessionExpiryTimer)
+    }
+
+    initAutoSave(){
+      setInterval(function() {
+        const data = {
+          tutorialName: self.tutorialName,
+          config: self.tags.configuration.get(),
+          content: self.tags.content.get(),
+          exercises: self.tags.exercises.get()
+        }
+        console.log("CACHING TUTORIAL STATE")
+        cacheTutorial(data)
+      }, 5000)
     }
 
     pickConfiguration() {

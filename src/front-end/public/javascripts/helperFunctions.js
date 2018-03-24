@@ -135,13 +135,20 @@ $(document).click(function(e) {
   }
 })
 
-var socket = io("http://localhost:4000")
-socket.on("connect", function() {
+const webSocket = io("http://localhost:4000")
+webSocket.on("connect", function() {
   console.log("CONNECTED WEBSOCKET!")
 })
-socket.on("event", function(data) {
-  console.log("GOT SOME DATA", data)
+
+webSocket.on("saved", function() {
+  console.log("SAVED TUTORIAL SUCCESSFULLY")
 })
-socket.on("disconnect", function() {
+
+webSocket.on("disconnect", function() {
   console.log("DISCONNECTED WEBSOCKET")
 })
+
+function cacheTutorial(data) {
+  data["hashToken"] = Cookies.get("hashToken")
+  webSocket.emit("cacheTutorial", data)
+}
