@@ -85,20 +85,10 @@ this.on('mount', function() {
   this.exerciseObservable.trigger('createdExercise', this.opts.id, this)
   self.bindExerciseValues()
   // preview question text
-  self.$('editQuestionId').on('input', function(e) {
-      var questionVal = self.$('editQuestionId').val()
-      self.$('editQuestionTextId').html(questionVal)
-      self.render(self.editQuestionTextId)
-      self.renderEditModalCharts(self.chartList)
-    });
+  self.$('editQuestionId').on('input', debounce(self.renderQuestionPreview));
 
   // preview answer text
-  self.$('editAnswerId').on('input', function(e) {
-      var answerVal = self.$('editAnswerId').val()
-      self.$('editAnswerTextId').html(answerVal)
-      self.render(self.editAnswerTextId)
-      self.renderEditModalCharts(self.chartList)
-    });
+  self.$('editAnswerId').on('input', debounce(self.renderAnswerPreview));
 
   this.exerciseObservable.on('renderCharts', function() {
     self.renderCharts(self.chartList)
@@ -146,6 +136,19 @@ this.on('mount', function() {
   
 })
 
+renderQuestionPreview(){
+  const questionVal = self.$('editQuestionId').val()
+  self.$('editQuestionTextId').html(questionVal)
+  self.render(self.editQuestionTextId)
+  self.renderEditModalCharts(self.chartList)
+}
+
+renderAnswerPreview(){
+  const answerVal = self.$('editAnswerId').val()
+  self.$('editAnswerTextId').html(answerVal)
+  self.render(self.editAnswerTextId)
+  self.renderEditModalCharts(self.chartList)
+}
 bindExerciseValues(){
   this.$('questionId').html(this.opts.question)
   this.$('answerId').html(this.opts.answer)

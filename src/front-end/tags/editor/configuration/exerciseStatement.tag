@@ -18,13 +18,14 @@
 
   this.on('mount', function() {
     
-    $('#exerciseStatement').on('input', function(e) {
-      var osText = $('#exerciseStatement').val()
-      $('#exerciseStatementText').html(osText)
-      renderMathInElement(document.getElementById('exerciseStatementText'))
-    });
+    $('#exerciseStatement').on('input', debounce(self.renderExerciseStatementPreview));
   })
 
+  renderExerciseStatementPreview(){
+    const osText = $('#exerciseStatement').val()
+    $('#exerciseStatementText').html(osText)
+    renderMathInElement(document.getElementById('exerciseStatementText'))
+  }
   get(){
     return $('#exerciseStatement').val()
   }

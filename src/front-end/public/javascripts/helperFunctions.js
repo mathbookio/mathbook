@@ -152,3 +152,19 @@ function cacheTutorial(data) {
   data["hashToken"] = Cookies.get("hashToken")
   webSocket.emit("cacheTutorial", data)
 }
+
+// Source: https://davidwalsh.name/javascript-debounce-function
+function debounce(func, wait = 300) {
+  var timeout
+  return function() {
+    var context = this,
+      args = arguments
+    var later = function() {
+      timeout = null
+      func.apply(context, args)
+    }
+    clearTimeout(timeout)
+    timeout = setTimeout(later, wait)
+    if (!timeout) func.apply(context, args)
+  }
+}

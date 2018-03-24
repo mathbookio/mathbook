@@ -79,12 +79,7 @@ this.on('mount', function() {
   this.renderCharts(this.sectionCharts)
   
   // preview section content edits/changes in modal view
-  this.$('editSectionId').on('input', function(e) {
-      var contentVal = self.$('editSectionId').val()
-      self.$('editSectionTextId').html(contentVal)
-       self.render(self.editSectionTextId)
-       self.renderEditModalCharts(self.sectionCharts)
-    });
+  this.$('editSectionId').on('input', debounce(self.renderContentPreview));
 
     self.opts.contentObservable.on('renderCharts', function() {
       self.renderCharts(self.sectionCharts)
@@ -128,6 +123,13 @@ this.on('mount', function() {
   })
 
 })
+
+renderContentPreview(){
+  const contentVal = self.$('editSectionId').val()
+  self.$('editSectionTextId').html(contentVal)
+  self.render(self.editSectionTextId)
+  self.renderEditModalCharts(self.sectionCharts)
+}
 
 editSection(){
   this.showModal = true

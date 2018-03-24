@@ -86,14 +86,16 @@
       $('#contentSection').trigger('input')
     })
 
-    $('#contentSection').on('input', function(e, newChart) {
+    $('#contentSection').on('input',debounce(self.renderPreviewContent))
+
+  })
+
+  renderPreviewContent(){
       var contentVal = $('#contentSection').val()
       $('#contentSectionText').html(contentVal)
       renderMathInElement(document.getElementById('contentSectionText'))
       renderCharts(self.chartList)
-    })
-
-  })
+  }
 
   initSortable(){
     var sectionList = document.getElementById('sectionList')
