@@ -134,3 +134,14 @@ $(document).click(function(e) {
     clearDropDowns()
   }
 })
+
+var socket = io("http://localhost:4000")
+socket.on("connect", function() {
+  console.log("CONNECTED WEBSOCKET!")
+})
+socket.on("event", function(data) {
+  console.log("GOT SOME DATA", data)
+})
+socket.on("disconnect", function() {
+  console.log("DISCONNECTED WEBSOCKET")
+})

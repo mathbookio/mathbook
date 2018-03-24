@@ -21,6 +21,16 @@ app.set("port", port)
  * Create HTTP server.
  */
 const server = buildServer(config.get("bin.useHttps"))
+var io = require("socket.io")(server)
+io.on("connection", function(client) {
+  console.log("WEBSOCKET::CONNECTED")
+  client.on("event", function(data) {
+    console.log("GOT SOME DATA!", data)
+  })
+  client.on("disconnect", function() {
+    console.log("WEBSOCKET::DISCONNECT")
+  })
+})
 
 function buildServer(useHttps) {
   if (useHttps) {
