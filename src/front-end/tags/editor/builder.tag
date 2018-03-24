@@ -34,6 +34,7 @@
         </li>
       </ul>
     </div>
+    <div>Tutorial Auto Saving State: <span show={ autoSaving }>Saving</span> <span show={ autoSaved && !autoSaveFailed }>Saved at { currentTime }</span></div>
     <configuration id="configView" observable="{ tabObservable }"></configuration>
     <content id="contentView" observable="{ tabObservable }" chart-observable="{ chartObservable }"></content>
     <exercises id="exercisesView" observable="{ tabObservable }" chart-observable="{ chartObservable }"></exercises>
@@ -84,9 +85,11 @@
     this.isSavingTutorial = false
     this.saveTutorialSuccess = false
     this.saveTutorialFailed = false
+    this.autoSaving = false
+    this.autoSaved = false
+    this.autoSaveFailed = false
 
     this.on('mount', function () {
-      this.initLeavePrompt()
       const url = '/v1/tutorial/' + this.tutorialName
       $.get(url, function(result) {
         console.log('/v1/tutorial result', result)
@@ -119,16 +122,6 @@
 
     })
 
-    initLeavePrompt(){
-      $(window).bind('beforeunload', function(){
-        return 'Please make sure you save your changes before navigating away from this page.';
-      });
-    }
-
-    disableLeavePrompt(){
-      $(window).unbind('beforeunload')
-    }
-
     initSessionExpiryTimer(){
       const triggerTime = 300 //seconds 
       var currentTime = moment.utc().unix()
@@ -148,7 +141,16 @@
     }
 
     initAutoSave(){
-      setInterval(function() {
+      self.autoSaved = true
+      self.currentTime = new Date().toLocaleTimeString()
+      self.update()
+      webSocket.on('saved', function(){
+        self.autoSaving = false
+        self.autoSaved = true
+        self.currentTime = new Date().toLocaleTimeString()
+        self.update()
+      })
+      $(document).on('input', debounce(function() {
         const data = {
           tutorialName: self.tutorialName,
           config: self.tags.configuration.get(),
@@ -156,8 +158,11 @@
           exercises: self.tags.exercises.get()
         }
         console.log("CACHING TUTORIAL STATE")
+        self.autoSaving = true
+        self.autoSaved = false
+        self.update()
         cacheTutorial(data)
-      }, 5000)
+      }))
     }
 
     pickConfiguration() {
@@ -189,7 +194,6 @@
           }
           return
         }
-        self.disableLeavePrompt()
         self.update()
         window.location.href = '/preview/' + self.tutorialName
         
