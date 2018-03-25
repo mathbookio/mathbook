@@ -4,21 +4,21 @@
   </div>
   <div class="field is-grouped" id="preReq">
     <div class="control is-expanded">
-      <input class="input {is-danger: invalidPreReqTitle}" id="preReqTitle" type='text' placeholder='Topic Title'  ref="preReqTitle" />
+      <input class="autoSaveInput input {is-danger: invalidPreReqTitle}" id="preReqTitle" type='text' placeholder='Topic Title'  ref="preReqTitle" />
        <p show={ invalidPreReqTitle } class="help is-danger">Title can't be empty</p>
        <p show={ tooManyPreReqs } class="help is-danger">Max. number of Pre-Requisites reached (4)</p>
     </div>
     <div class="control is-expanded">
-      <input class="input {is-danger: invalidPreReqUrl}" id="preReqUrl" type='text' placeholder='Topic Url' ref="preReqUrl" />
+      <input class="autoSaveInput input {is-danger: invalidPreReqUrl}" id="preReqUrl" type='text' placeholder='Topic Url' ref="preReqUrl" />
        <p show={ invalidPreReqUrl } class="help is-danger">Invalid Url</p>
     </div>
     <div class="control">
-      <a class="button is-success" onClick={ addPreReq }>Add</a>
+      <a class="autoSaveButton button is-success" onClick={ addPreReq }>Add</a>
     </div>
   </div>
   <div each={ preRequisites } class="field">
     <div class="control">
-      <a class="tag is-danger" onClick={ removePreReq }> REMOVE </a>
+      <a class="autoSaveButton tag is-danger" onClick={ removePreReq }> REMOVE </a>
       <span>{ title } - { url }</span>
     </div>
   </div>
@@ -62,6 +62,7 @@
 
       // remove from collection
       this.preRequisites.splice(index, 1)
+      $('.autoSaveButton').trigger('mouseup')
     }
 
     function isPreReqTitleInvalid(title) {

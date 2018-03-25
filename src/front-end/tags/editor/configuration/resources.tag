@@ -4,21 +4,21 @@
   </div>
   <div class="field is-grouped" id="resource">
     <div class="control is-expanded">
-      <input class="input {is-danger: invalidResourceTitle}" id="resourceTitle" type='text' placeholder='Resource Title'  ref="resourceTitle" />
+      <input class="autoSaveInput input {is-danger: invalidResourceTitle}" id="resourceTitle" type='text' placeholder='Resource Title'  ref="resourceTitle" />
        <p show={ invalidResourceTitle } class="help is-danger">Title can't be empty</p>
        <p show={ tooManyResources } class="help is-danger">Max. number of resources reached (4)</p>
     </div>
     <div class="control is-expanded">
-      <input class="input {is-danger: invalidResourceUrl}" id="resourceUrl" type='text' placeholder='Resource Url' ref="resourceUrl" />
+      <input class="autoSaveInput input {is-danger: invalidResourceUrl}" id="resourceUrl" type='text' placeholder='Resource Url' ref="resourceUrl" />
        <p show={ invalidResourceUrl } class="help is-danger">Invalid Url</p>
     </div>
     <div class="control">
-      <a class="button is-success" onClick={ addResource }>Add</a>
+      <a class="autoSaveButton button is-success" onClick={ addResource }>Add</a>
     </div>
   </div>
   <div each={ resources } class="field">
     <div class="control">
-      <a class="tag is-danger" onClick={ removeResource }> REMOVE </a>
+      <a class="autoSaveButton tag is-danger" onClick={ removeResource }> REMOVE </a>
       <span>{ title } - { url }</span>
     </div>
   </div>
@@ -57,6 +57,7 @@
 
       // remove from collection
       this.resources.splice(index, 1)
+      $('.autoSaveButton').trigger('mouseup')
     }
 
     emptyFields(){

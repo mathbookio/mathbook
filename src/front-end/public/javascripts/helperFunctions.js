@@ -135,7 +135,12 @@ $(document).click(function(e) {
   }
 })
 
-const webSocket = io("http://localhost:4000")
+console.log("DOMAIN", location.hostname, location.protocol, location.port)
+const wsProtocol = location.protocol
+const wsDomain = location.hostname
+const wsPort = location.port
+const wsUrl = `${wsProtocol}//${wsDomain}:${wsPort}`
+const webSocket = io(wsUrl)
 webSocket.on("connect", function() {
   console.log("CONNECTED WEBSOCKET!")
 })

@@ -15,13 +15,13 @@
   </div>
 <div class="field">
     <div class="control">
-      <input type="text" id="exerciseQuestion" class="input mathContent {is-danger: isQuestionInvalid}" placeholder="question"/>
+      <input type="text" id="exerciseQuestion" class="autoSaveInput input mathContent {is-danger: isQuestionInvalid}" placeholder="question"/>
       <p show={ isQuestionInvalid } class="help is-danger">Question can't be empty</p>
     </div>
   </div>
   <div class="field">
     <div class="control">
-      <textarea id="exerciseAnswer" class="textarea mathContent {is-danger: isAnswerInvalid}" placeholder="the answer..."></textarea>
+      <textarea id="exerciseAnswer" class="autoSaveInput textarea mathContent {is-danger: isAnswerInvalid}" placeholder="the answer..."></textarea>
       <p show={ isAnswerInvalid } class="help is-danger">Answer can't be empty</p>
     </div>
     <br/>
@@ -39,7 +39,7 @@
     </div>
   </div>
   <div class="control">
-    <a class="button is-info" onclick={ saveSection }>Add Exercise</a>
+    <a class="autoSaveButton button is-info" onclick={ saveSection }>Add Exercise</a>
   </div>
   <br/>
     <div id="exerciseList">
@@ -119,7 +119,7 @@
       handle: '.moveHandle',
       onUpdate: function(e){
         self.exerciseObservable.trigger('exerciseOrderUpdate', e.oldIndex, e.newIndex)
-
+        $('.autoSaveButton').trigger('mouseup')
       } });
   }
 

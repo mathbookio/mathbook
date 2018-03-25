@@ -6,10 +6,10 @@
       <span class="icon is-small moveHandle"><i class="fa fa-bars" aria-hidden="true"></i></span>
       </span>
       <a class="level-item" onclick={ editExercise }>
-      <span class="icon is-small has-text-info"><i class="fa fa-pencil" aria-hidden="true"></i></span>
+      <span class="icon is-small has-text-info"><i class="fas fa-pencil-alt" aria-hidden="true"></i></span>
       </a>
       <a class="level-item" onclick={ removeExercise }>
-      <span class="icon is-small has-text-danger"><i class="fa fa-close" aria-hidden="true"></i></span>
+      <span class="icon is-small has-text-danger"><i class="fas fa-trash-alt" aria-hidden="true"></i></span>
       </a>
       </div>
      </div>
@@ -176,6 +176,7 @@ saveChanges(){
   if (confirmChanges){
     this.updateExercise()
     const showPrompt = false
+    $('.autoSaveButton').trigger('mouseup')
     this.closeModal(showPrompt)
   }
 }
@@ -214,6 +215,7 @@ removeExercise(){
   var confirmChanges = confirm('Are you sure you want to delete the chosen exercise ?')
   if (confirmChanges){
     this.opts.exerciseObservable.trigger('deletedExercise', this.opts.id, this.opts.exerciseIndex)
+    $('.autoSaveButton').trigger('mouseup')
     this.unmount(true)
     $(this.opts.id).remove()
   }

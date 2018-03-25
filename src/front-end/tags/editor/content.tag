@@ -10,7 +10,7 @@
       <h6 class="subtitle">The content explains the 'What', 'Why' and 'How'</h6>
   <div class="field">
     <div class="control">
-      <input type="text" id="contentTitle" class="input mathContent {is-danger: isTitleEmpty}" placeholder="Section Title ie) Understanding Factoring"/>
+      <input type="text" id="contentTitle" class="autoSaveInput input mathContent {is-danger: isTitleEmpty}" placeholder="Section Title ie) Understanding Factoring"/>
        <p show={ isTitleEmpty } class="help is-danger">Title can't be empty</p>
     </div>
   </div>
@@ -21,7 +21,7 @@
   </div>
   <div class="field">
     <div class="control">
-      <textarea id="contentSection" class="textarea mathContent {is-danger: isContentEmpty}" placeholder="section content..."></textarea>
+      <textarea id="contentSection" class="autoSaveInput textarea mathContent {is-danger: isContentEmpty}" placeholder="section content..."></textarea>
        <p show={ isContentEmpty } class="help is-danger">The content section can't be empty</p>
     </div>
     <br/>
@@ -33,7 +33,7 @@
     </div>
   </div>
   <div class="control">
-    <a class="button is-info" onclick={ saveSection }>Add Section</a>
+    <a class="autoSaveButton button is-info" onclick={ saveSection }>Add Section</a>
   </div>
   <br/>
     <div id="sectionList"></div>
@@ -104,7 +104,7 @@
       handle: '.moveHandle',
       onUpdate: function(e){
         self.contentObservable.trigger('contentOrderUpdate', e.oldIndex, e.newIndex)
-
+        $('.autoSaveButton').trigger('mouseup')
       } });
   }
 

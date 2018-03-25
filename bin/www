@@ -16,7 +16,9 @@ const websocketClient = require("../src/server/websocket-client")
  */
 
 const port = config.get("bin.port")
+const proxyPort = config.get("bin.proxyPort")
 app.set("port", port)
+app.set("proxyPort", proxyPort)
 
 /**
  * Create HTTP server.

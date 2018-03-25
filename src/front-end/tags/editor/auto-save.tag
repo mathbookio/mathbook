@@ -37,7 +37,13 @@
       webSocket.on('saveFailed', function () {
         self.updateState(self.autoSaveStates.Failed)
       })
-      $(document).on('input', debounce(function () {
+      $('.autoSaveInput').on('input', debounce(function () {
+        const includeWorkInProgress = true
+        const data = self.parent.get(includeWorkInProgress)
+        self.updateState(self.autoSaveStates.Saving)
+        cacheTutorial(data)
+      }))
+      $('.autoSaveButton').on('mouseup', debounce(function () {
         const includeWorkInProgress = true
         const data = self.parent.get(includeWorkInProgress)
         self.updateState(self.autoSaveStates.Saving)

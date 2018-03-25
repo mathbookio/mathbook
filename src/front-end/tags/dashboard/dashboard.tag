@@ -75,22 +75,22 @@
             <footer class="card-footer">
               <div show={ state === 'submitted' } class="card-footer-item has-text-grey">
                 <span class="icon is-small">
-                  <i class="fa fa-send"></i>
+                  <i class="fas fa-paper-plane"></i>
                 </span>
               </div>
               <a show={ state === null || state === 'closed' } class="card-footer-item" title="Submit" onclick="{ parent.openSubmitTutorialModal }">
                 <span class="icon is-small">
-                  <i class="fa fa-send"></i>
+                  <i class="fas fa-paper-plane"></i>
                 </span>
               </a>
               <a class="card-footer-item edit" title="Edit" onclick="{ parent.editTutorial }">
                 <span class="icon is-small">
-                  <i class="fa fa-pencil"></i>
+                  <i class="fas fa-pencil-alt"></i>
                 </span>
               </a>
               <a class="card-footer-item edit" title="Preview" onclick="{ parent.previewTutorial }">
                 <span class="icon is-small">
-                  <i class="fa fa-file"></i>
+                  <i class="fas fa-file"></i>
                 </span>
                 <span> </span>
                 <span class="icon is-small">
@@ -99,7 +99,7 @@
               </a>
               <a class="card-footer-item delete-button" title="Delete" onclick={ openDeleteTutorialModal }>
                 <span class="icon is-small">
-                  <i class="fa fa-trash-o"></i>
+                  <i class="fas fa-trash-alt"></i>
                 </span>
               </a>
             </footer>
