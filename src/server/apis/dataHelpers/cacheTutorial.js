@@ -11,6 +11,7 @@ module.exports = async function(data, log) {
   const contentData = _.get(data, "content", [])
   const contentWipData = _.get(data, "contentWip", {})
   const exerciseData = _.get(data, "exercises", [])
+  const exerciseWipData = _.get(data, "exerciseWip", {})
   const branchName = _.get(data, "tutorialName", null)
   const hashToken = _.get(data, "hashToken", null)
   if (hashToken && branchName) {
@@ -23,7 +24,8 @@ module.exports = async function(data, log) {
           config: configData,
           content: contentData,
           contentWip: contentWipData,
-          exercises: exerciseData
+          exercises: exerciseData,
+          exerciseWip: exerciseWipData
         })
       )
       return Promise.resolve()

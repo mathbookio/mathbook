@@ -65,6 +65,8 @@
       if (type === 'exercises'){
         $('#exercisesComponent').show()
         self.exerciseObservable.trigger('renderCharts')
+        self.renderQuestionPreview()
+        self.renderAnswerPreview()
       }
       else{
         $('#exercisesComponent').hide()
@@ -161,6 +163,7 @@
     $('#exerciseQuestionText').html('')
     $('#exerciseAnswer').val('')
     $('#exerciseAnswerText').html('')
+    this.chartList = []
   }
 
   showChartModal(){
@@ -190,6 +193,14 @@
     return exerciseList
   }
 
+  getWorkInProgress(){
+    return {
+      question: $('#exerciseQuestion').val(),
+      answer: $('#exerciseAnswer').val(),
+      chartList: this.chartList
+    }
+  }
+
   set(data){
     if(Array.isArray){
       for(var i in data){
@@ -202,6 +213,13 @@
         this.generateExercise(exerciseId, question, questionText, answer, answerText, chartList)
       }
     }
+  }
+
+  setWorkInProgress(data = {}){
+    console.log('exercise work in progress', data)
+    $('#exerciseQuestion').val(data.question || '')
+    $('#exerciseAnswer').val(data.answer || '')
+    this.chartList = data.chartList || []
   }
 
   </script>

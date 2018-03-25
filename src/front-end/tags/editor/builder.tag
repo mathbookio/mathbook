@@ -102,6 +102,7 @@
         self.tags.content.set(result.data.content),
         self.tags.content.setWorkInProgress(result.data.contentWip),
         self.tags.exercises.set(result.data.exercises)
+        self.tags.exercises.setWorkInProgress(result.data.exerciseWip)
         self.isLoading = false
         self.sessionExpiry = result.metadata.expiresOn
         self.initSessionExpiryTimer()
@@ -196,6 +197,7 @@
         content: self.tags.content.get(),
         exercises: self.tags.exercises.get(),
         contentWip: includeWorkInProgress ? self.tags.content.getWorkInProgress(): undefined,
+        exerciseWip: includeWorkInProgress ? self.tags.exercises.getWorkInProgress(): undefined
       }
     }
   </script>
