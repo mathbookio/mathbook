@@ -9,6 +9,7 @@ const redisClient = require("../../redis-client")
 module.exports = async function(data, log) {
   const configData = _.get(data, "config", {})
   const contentData = _.get(data, "content", [])
+  const contentWipData = _.get(data, "contentWip", {})
   const exerciseData = _.get(data, "exercises", [])
   const branchName = _.get(data, "tutorialName", null)
   const hashToken = _.get(data, "hashToken", null)
@@ -21,6 +22,7 @@ module.exports = async function(data, log) {
         JSON.stringify({
           config: configData,
           content: contentData,
+          contentWip: contentWipData,
           exercises: exerciseData
         })
       )

@@ -59,6 +59,7 @@
       if (type === 'content'){
         $('#contentComponent').show()
         self.contentObservable.trigger('renderCharts')
+        self.renderPreviewContent()
       }
       else{
         $('#contentComponent').hide()
@@ -156,6 +157,14 @@
     return contentList
   }
 
+  getWorkInProgress(){
+    return {
+      title: $('#contentTitle').val(),
+      content: $('#contentSection').val(),
+      chartList: this.chartList
+    }
+  }
+
   set(data){
     if(Array.isArray(data)){
       for(var i in data){
@@ -166,6 +175,12 @@
         this.generateSection(sectionId, sectionTitle, sectionText, sectionCharts)
       }
     }
+  }
+
+  setWorkInProgress(data = {}){
+    $('#contentTitle').val(data.title || '')
+    $('#contentSection').val(data.content || '')
+    this.chartList = data.chartList || []
   }
 
   </script>

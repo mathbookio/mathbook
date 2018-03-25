@@ -100,6 +100,7 @@
         console.log('/v1/tutorial result', result)
         self.tags.configuration.set(result.data.config),
         self.tags.content.set(result.data.content),
+        self.tags.content.setWorkInProgress(result.data.contentWip),
         self.tags.exercises.set(result.data.exercises)
         self.isLoading = false
         self.sessionExpiry = result.metadata.expiresOn
@@ -188,12 +189,13 @@
       })
     }
 
-    get(){
+    get(includeWorkInProgress = false){
       return {
         tutorialName: self.tutorialName,
         config: self.tags.configuration.get(),
         content: self.tags.content.get(),
-        exercises: self.tags.exercises.get()
+        exercises: self.tags.exercises.get(),
+        contentWip: includeWorkInProgress ? self.tags.content.getWorkInProgress(): undefined,
       }
     }
   </script>

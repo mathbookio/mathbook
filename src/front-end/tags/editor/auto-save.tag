@@ -38,8 +38,8 @@
         self.updateState(self.autoSaveStates.Failed)
       })
       $(document).on('input', debounce(function () {
-        const data = self.parent.get()
-        console.log("CACHING TUTORIAL STATE")
+        const includeWorkInProgress = true
+        const data = self.parent.get(includeWorkInProgress)
         self.updateState(self.autoSaveStates.Saving)
         cacheTutorial(data)
       }))
