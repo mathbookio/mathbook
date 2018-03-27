@@ -82,12 +82,7 @@ gulp.task("nodemon", function(done) {
         setTimeout(() => {
           browserSync.init({
             proxy: `${host}:${port}`,
-            port: proxyPort,
-            socket: {
-              domain: host,
-              port: proxyPort,
-              namespace: "/socket.io/"
-            }
+            port: proxyPort
           })
         }, 2000)
         done()
