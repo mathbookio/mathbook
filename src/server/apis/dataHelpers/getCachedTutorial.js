@@ -2,16 +2,13 @@
 
 const redisClient = require("../../redisClient")
 const transformError = require("../../transformers/errorTransformer")
-module.exports = function(hashToken, tutorialName, log) {
+module.exports = function(username, tutorialName) {
   return redisClient
-    .getAsync(hashToken)
-    .then(data => JSON.parse(data).username)
-    .then(username => redisClient.getAsync(`${username}_${tutorialName}`))
+    .getAsync(`${username}_${tutorialName}`)
+    .then(cacheData => JSON.parse(cacheData))
     .catch(err => {
-      const source = "getCachedTutorial::catch::err"
-      const params = { hashToken, tutorialName }
-      transformError(err, source, params)
-      log.error({ err, details: err.details })
+      const source = "getCachedTutorial::byUsername::catch::err"
+      const params = { username, tutorialName }
       return Promise.reject(transformError(err, source, params))
     })
 }

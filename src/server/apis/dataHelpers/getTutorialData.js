@@ -1,13 +1,12 @@
 "use strict"
 const github = require("../../githubClient")
 const Base64 = require("js-base64").Base64
-const errors = require("../../errors")
 const transformError = require("../../transformers/errorTransformer")
 const constants = require("../../../../config/constants.json")
 const branchPrefix = constants.BRANCH_PREFIX
 const basePath = constants.TUTORIALS_PATH
 const repoName = constants.REPO
-module.exports = async function(branchName, username = null, log) {
+module.exports = async function(branchName, username = null) {
   // get authenticated user
   const branch = `${branchPrefix}/${branchName}`
   const configPath = `${basePath}/${branchName}/config.json`
@@ -66,16 +65,7 @@ module.exports = async function(branchName, username = null, log) {
       exercises: exerciseData
     })
   } catch (err) {
-    log.error({ err, details: err.details }, "failed to get tutorial data from github.")
-    let error
-    if (err.code === 404) {
-      error = new errors.ResourceNotFound("The tutorial data could not be found")
-    } else {
-      error = new errors.InternalServerError(
-        "Uh-oh, we were unable to retrieve the data we need due to some unknown issue."
-      )
-    }
-    return Promise.reject(error)
+    return Promise.reject(err)
   }
 }
 
