@@ -104,7 +104,7 @@
       handle: '.moveHandle',
       onUpdate: function(e){
         self.contentObservable.trigger('contentOrderUpdate', e.oldIndex, e.newIndex)
-        $('.autoSaveButton').trigger('mouseup')
+        Messenger.send(MessageTopic.TutorialUpdate)
       } });
   }
 

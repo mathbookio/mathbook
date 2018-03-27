@@ -135,29 +135,6 @@ $(document).click(function(e) {
   }
 })
 
-console.log("DOMAIN", location.hostname, location.protocol, location.port)
-const wsProtocol = location.protocol
-const wsDomain = location.hostname
-const wsPort = location.port
-const wsUrl = `${wsProtocol}//${wsDomain}:${wsPort}`
-const webSocket = io(wsUrl)
-webSocket.on("connect", function() {
-  console.log("CONNECTED WEBSOCKET!")
-})
-
-webSocket.on("saved", function() {
-  console.log("SAVED TUTORIAL SUCCESSFULLY")
-})
-
-webSocket.on("disconnect", function() {
-  console.log("DISCONNECTED WEBSOCKET")
-})
-
-function cacheTutorial(data) {
-  data["hashToken"] = Cookies.get("hashToken")
-  webSocket.emit("cacheTutorial", data)
-}
-
 // Source: https://davidwalsh.name/javascript-debounce-function
 function debounce(func, wait = 300) {
   var timeout

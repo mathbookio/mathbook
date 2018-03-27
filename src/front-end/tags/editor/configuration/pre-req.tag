@@ -62,7 +62,7 @@
 
       // remove from collection
       this.preRequisites.splice(index, 1)
-      $('.autoSaveButton').trigger('mouseup')
+      Messenger.send(MessageTopic.TutorialUpdate)
     }
 
     function isPreReqTitleInvalid(title) {

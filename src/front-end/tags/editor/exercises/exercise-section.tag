@@ -176,7 +176,7 @@ saveChanges(){
   if (confirmChanges){
     this.updateExercise()
     const showPrompt = false
-    $('.autoSaveButton').trigger('mouseup')
+    Messenger.send(MessageTopic.TutorialUpdate)
     this.closeModal(showPrompt)
   }
 }
@@ -215,7 +215,7 @@ removeExercise(){
   var confirmChanges = confirm('Are you sure you want to delete the chosen exercise ?')
   if (confirmChanges){
     this.opts.exerciseObservable.trigger('deletedExercise', this.opts.id, this.opts.exerciseIndex)
-    $('.autoSaveButton').trigger('mouseup')
+    Messenger.send(MessageTopic.TutorialUpdate)
     this.unmount(true)
     $(this.opts.id).remove()
   }

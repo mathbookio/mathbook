@@ -31,25 +31,29 @@
     this.state = this.autoSaveStates.None
     
     this.on('mount', function () {
-      webSocket.on('saved', function () {
+      webSocket.on(WebSocketTopics.Saved, function () {
         self.updateState(self.autoSaveStates.Saved)
       })
-      webSocket.on('saveFailed', function () {
+      webSocket.on(WebSocketTopics.SaveFailed, function () {
         self.updateState(self.autoSaveStates.Failed)
       })
       $('.autoSaveInput').on('input', debounce(function () {
-        const includeWorkInProgress = true
-        const data = self.parent.get(includeWorkInProgress)
-        self.updateState(self.autoSaveStates.Saving)
-        cacheTutorial(data)
+        Messenger.send(MessageTopic.TutorialUpdate)
       }))
       $('.autoSaveButton').on('mouseup', debounce(function () {
-        const includeWorkInProgress = true
-        const data = self.parent.get(includeWorkInProgress)
-        self.updateState(self.autoSaveStates.Saving)
-        cacheTutorial(data)
+        Messenger.send(MessageTopic.TutorialUpdate)
       }))
+      Messenger.subscribe(MessageTopic.TutorialUpdate, function(){
+        self.saveTutorialState()
+      })
     })
+
+    saveTutorialState(){
+      const includeWorkInProgress = true
+      const data = self.parent.get(includeWorkInProgress)
+      self.updateState(self.autoSaveStates.Saving)
+      cacheTutorial(data)
+    }
 
     updateState(newState){
       if (newState === self.autoSaveStates.Saving){

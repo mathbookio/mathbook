@@ -57,7 +57,7 @@
 
       // remove from collection
       this.resources.splice(index, 1)
-      $('.autoSaveButton').trigger('mouseup')
+      Messenger.send(MessageTopic.TutorialUpdate)
     }
 
     emptyFields(){

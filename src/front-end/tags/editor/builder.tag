@@ -97,7 +97,6 @@
     this.on('mount', function () {
       const url = '/v1/tutorial/' + this.tutorialName
       $.get(url, function(result) {
-        console.log('/v1/tutorial result', result)
         self.tags.configuration.set(result.data.config),
         self.tags.content.set(result.data.content),
         self.tags.content.setWorkInProgress(result.data.contentWip),

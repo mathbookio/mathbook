@@ -49,7 +49,7 @@
 
       // remove from collection
       this.keywords.splice(index, 1)
-      $('.autoSaveButton').trigger('mouseup')
+      Messenger.send(MessageTopic.TutorialUpdate)
     }
 
     function isKeywordInvalid(keyword) {

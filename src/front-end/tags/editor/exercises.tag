@@ -119,7 +119,7 @@
       handle: '.moveHandle',
       onUpdate: function(e){
         self.exerciseObservable.trigger('exerciseOrderUpdate', e.oldIndex, e.newIndex)
-        $('.autoSaveButton').trigger('mouseup')
+        Messenger.send(MessageTopic.TutorialUpdate)
       } });
   }
 
@@ -216,7 +216,6 @@
   }
 
   setWorkInProgress(data = {}){
-    console.log('exercise work in progress', data)
     $('#exerciseQuestion').val(data.question || '')
     $('#exerciseAnswer').val(data.answer || '')
     this.chartList = data.chartList || []

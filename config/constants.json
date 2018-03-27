@@ -5,5 +5,9 @@
   "TUTORIALS_PATH": "src/tutorials",
   "BASE_BRANCH": "develop",
   "SESSION_TIME_LIMIT": 86400,
-  "CACHE_TUTORIAL_TIME_LIMIT": 1200
+  "WEBSOCKET_TOPICS": {
+    "CacheTutorial": "cacheTutorial",
+    "Saved": "saved",
+    "SaveFailed": "saveFailed"
+  }
 }
