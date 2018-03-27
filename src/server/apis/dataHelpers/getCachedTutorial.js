@@ -1,6 +1,6 @@
 "use strict"
 
-const redisClient = require("../../redis-client")
+const redisClient = require("../../redisClient")
 const transformError = require("../../transformers/errorTransformer")
 module.exports = function(hashToken, tutorialName, log) {
   return redisClient

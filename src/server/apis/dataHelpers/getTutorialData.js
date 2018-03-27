@@ -1,5 +1,5 @@
 "use strict"
-const github = require("../../github-client")
+const github = require("../../githubClient")
 const Base64 = require("js-base64").Base64
 const errors = require("../../errors")
 const transformError = require("../../transformers/errorTransformer")

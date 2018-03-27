@@ -2,14 +2,14 @@
 const _ = require("lodash")
 const express = require("express")
 const router = express.Router()
-const githubOAuth = require("../github-oauth")
+const githubOAuth = require("../githubOAuth")
 const sha256 = require("sha256")
-const redisClient = require("../redis-client")
+const redisClient = require("../redisClient")
 const moment = require("moment")
 const constants = require("../../../config/constants.json")
 const transformError = require("../transformers/errorTransformer")
 const errors = require("../errors")
-const github = require("../github-client")
+const github = require("../githubClient")
 
 router.get("/", (req, res, next) => {
   _.set(req, "locals.view", "login")

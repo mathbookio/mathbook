@@ -22,7 +22,7 @@
         <p>Hey, we couldn't find any tutorials for { subjectData.title } at the moment. Sorry.
           <br/> If you want, you can build a tutorial and have it shown here for others to learn from and share!
           <span class="icon is-small">
-            <i class="fa fa-smile-o"></i>
+            <i class="far fa-smile"></i>
           </span>
           </br>
           <a href="/contribute">Learn about becoming a contributor of Mathbook.</a>

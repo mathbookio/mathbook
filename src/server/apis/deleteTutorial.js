@@ -1,6 +1,6 @@
 "use strict"
 const _ = require("lodash")
-const github = require("../github-client")
+const github = require("../githubClient")
 const transformError = require("../transformers/errorTransformer")
 const errors = require("../errors")
 const constants = require("../../../config/constants.json")

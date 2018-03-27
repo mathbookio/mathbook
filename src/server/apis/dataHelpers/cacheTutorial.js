@@ -4,7 +4,7 @@ const Promise = require("bluebird")
 const _ = require("lodash")
 const errors = require("../../errors")
 const transformError = require("../../transformers/errorTransformer")
-const redisClient = require("../../redis-client")
+const redisClient = require("../../redisClient")
 
 module.exports = async function(data, log) {
   const configData = _.get(data, "config", {})

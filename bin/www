@@ -9,7 +9,7 @@ const app = require("../src/server/app")
 const log = require("../src/server/logger")
 const http = require("http")
 const https = require("https")
-const websocketClient = require("../src/server/websocket-client")
+const websocketClient = require("../src/server/websocketClient")
 
 /**
  * Get port from environment and store in Express.
