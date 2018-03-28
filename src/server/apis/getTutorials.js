@@ -1,6 +1,6 @@
 "use strict"
 const _ = require("lodash")
-const github = require("../github-client")
+const github = require("../githubClient")
 const Promise = require("bluebird")
 const errors = require("../errors")
 const transformError = require("../transformers/errorTransformer")

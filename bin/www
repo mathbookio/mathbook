@@ -7,6 +7,7 @@ const config = require("../config/config")()
 const app = require("../src/server/app")
 const log = require("../src/server/logger")
 const http = require("http")
+const socketIoClient = require("../src/server/socketIoClient")
 
 /**
  * Get port from environment and store in Express.
@@ -19,6 +20,7 @@ app.set("port", port)
  * Create HTTP server.
  */
 const server = http.createServer(app)
+socketIoClient(server)
 
 /**
  * Listen on provided port, on all network interfaces.
