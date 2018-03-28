@@ -9,7 +9,7 @@ const constants = require("../../../config/constants.json")
 const getCachedTutorial = require("./dataHelpers/getCachedTutorial")
 const getUsername = require("./dataHelpers/getUsername")
 const saveFile = require("./dataHelpers/saveFile")
-const getCurrentTime = require("./dataHelpers/getCurrentTime")
+const dateHelper = require("../helpers/dateHelper")
 const branchPrefix = constants.BRANCH_PREFIX
 const repoOwner = constants.OWNER
 const repoName = constants.REPO
@@ -72,7 +72,7 @@ function createPullRequest(title, body, head) {
 }
 
 async function saveTutorial(username, tutorialName) {
-  const currentDate = getCurrentTime()
+  const currentDate = dateHelper.getZulu()
   try {
     const tutorialData = await getCachedTutorial(username, tutorialName)
     const { config, content, exercises } = tutorialData

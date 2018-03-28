@@ -38,12 +38,12 @@
         self.updateState(self.autoSaveStates.Failed)
       })
       $('.autoSaveInput').on('input', debounce(function () {
-        Messenger.send(MessageTopic.TutorialUpdate)
+        Messenger.send(MessageTopic.TutorialUpdated)
       }))
       $('.autoSaveButton').on('mouseup', debounce(function () {
-        Messenger.send(MessageTopic.TutorialUpdate)
+        Messenger.send(MessageTopic.TutorialUpdated)
       }))
-      Messenger.subscribe(MessageTopic.TutorialUpdate, function(){
+      Messenger.subscribe(MessageTopic.TutorialUpdated, function(){
         self.saveTutorialState()
       })
     })
@@ -52,7 +52,7 @@
       const includeWorkInProgress = true
       const data = self.parent.get(includeWorkInProgress)
       self.updateState(self.autoSaveStates.Saving)
-      cacheTutorial(data)
+      WebSocketService.cacheTutorial(data)
     }
 
     updateState(newState){

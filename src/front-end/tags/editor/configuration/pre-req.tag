@@ -62,7 +62,7 @@
 
       // remove from collection
       this.preRequisites.splice(index, 1)
-      Messenger.send(MessageTopic.TutorialUpdate)
+      Messenger.send(MessageTopic.TutorialUpdated)
     }
 
     function isPreReqTitleInvalid(title) {

@@ -147,7 +147,7 @@ saveChanges(){
   if (confirmChanges){
     this.updateContent()
     const showPrompt = false
-    Messenger.send(MessageTopic.TutorialUpdate)
+    Messenger.send(MessageTopic.TutorialUpdated)
     this.closeModal(false)
   }
 }
@@ -181,7 +181,7 @@ removeSection(){
   var confirmChanges = confirm('Are you sure you want to delete the chosen section ?')
   if (confirmChanges){
     this.opts.contentObservable.trigger('deletedContentSection', this.opts.id, this.opts.contentIndex)
-    Messenger.send(MessageTopic.TutorialUpdate)
+    Messenger.send(MessageTopic.TutorialUpdated)
     this.unmount(true)
     $('#'+this.opts.id).remove()
   }

@@ -10,5 +10,5 @@ const Messenger = {
 
 // enum for all topics being handled
 const MessageTopic = {
-  TutorialUpdate: "tutorialUpdate"
+  TutorialUpdate: "tutorialUpdated"
 }

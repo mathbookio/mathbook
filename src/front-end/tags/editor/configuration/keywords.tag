@@ -49,7 +49,7 @@
 
       // remove from collection
       this.keywords.splice(index, 1)
-      Messenger.send(MessageTopic.TutorialUpdate)
+      Messenger.send(MessageTopic.TutorialUpdated)
     }
 
     function isKeywordInvalid(keyword) {

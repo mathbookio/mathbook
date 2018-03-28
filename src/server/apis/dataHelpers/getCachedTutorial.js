@@ -7,7 +7,7 @@ module.exports = function(username, tutorialName) {
     .getAsync(`${username}_${tutorialName}`)
     .then(cacheData => JSON.parse(cacheData))
     .catch(err => {
-      const source = "getCachedTutorial::byUsername::catch::err"
+      const source = "getCachedTutorial::catch::err"
       const params = { username, tutorialName }
       return Promise.reject(transformError(err, source, params))
     })

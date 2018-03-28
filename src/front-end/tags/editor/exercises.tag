@@ -119,7 +119,7 @@
       handle: '.moveHandle',
       onUpdate: function(e){
         self.exerciseObservable.trigger('exerciseOrderUpdate', e.oldIndex, e.newIndex)
-        Messenger.send(MessageTopic.TutorialUpdate)
+        Messenger.send(MessageTopic.TutorialUpdated)
       } });
   }
 

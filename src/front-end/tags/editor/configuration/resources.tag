@@ -57,7 +57,7 @@
 
       // remove from collection
       this.resources.splice(index, 1)
-      Messenger.send(MessageTopic.TutorialUpdate)
+      Messenger.send(MessageTopic.TutorialUpdated)
     }
 
     emptyFields(){

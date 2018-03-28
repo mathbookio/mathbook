@@ -3,7 +3,7 @@
 const _ = require("lodash")
 const errors = require("../errors")
 const saveFile = require("./dataHelpers/saveFile")
-const getCurrentTime = require("./dataHelpers/getCurrentTime")
+const dateHelper = require("../helpers/dateHelper")
 const getUsername = require("./dataHelpers/getUsername")
 
 module.exports = async function(req, res) {
@@ -15,7 +15,7 @@ module.exports = async function(req, res) {
   const exerciseData = _.get(data, "exercises", [])
   const branchName = _.get(data, "tutorialName")
   try {
-    const currentDate = getCurrentTime()
+    const currentDate = dateHelper.getZulu()
     const username = await getUsername(hashToken)
 
     await saveFile("config", username, branchName, configData, currentDate)

@@ -11,7 +11,6 @@ const wsPort = location.port
  * websocket connections fail/aren't supported by the browser.
  */
 const wsUrl = `${wsProtocol}//${wsDomain}:${wsPort}`
-console.log("websocket url", wsUrl)
 const webSocket = io(wsUrl)
 webSocket.on("connect", function() {
   console.log("Websocket Connected")
@@ -37,9 +36,11 @@ webSocket.on("reconnect_error", error => {
   console.error("Websocket - ReconnectError", error)
 })
 
-function cacheTutorial(data) {
-  data["hashToken"] = Cookies.get("hashToken")
-  webSocket.emit(WebSocketTopics.CacheTutorial, data)
+const WebSocketService = {
+  cacheTutorial: function(data) {
+    data["hashToken"] = Cookies.get("hashToken")
+    webSocket.emit(WebSocketTopics.CacheTutorial, data)
+  }
 }
 
 const WebSocketTopics = {
