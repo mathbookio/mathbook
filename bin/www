@@ -9,7 +9,7 @@ const app = require("../src/server/app")
 const log = require("../src/server/logger")
 const http = require("http")
 const https = require("https")
-const websocketClient = require("../src/server/websocketClient")
+const socketIoClient = require("../src/server/socketIoClient")
 
 /**
  * Get port from environment and store in Express.
@@ -22,7 +22,7 @@ app.set("port", port)
  * Create HTTP server.
  */
 const server = buildServer(config.get("bin.useHttps"))
-websocketClient(server)
+socketIoClient(server)
 function buildServer(useHttps) {
   if (useHttps) {
     const options = {

@@ -31,10 +31,10 @@
     this.state = this.autoSaveStates.None
     
     this.on('mount', function () {
-      webSocket.on(WebSocketTopics.Saved, function () {
+      io.on(SocketIoTopics.Saved, function () {
         self.updateState(self.autoSaveStates.Saved)
       })
-      webSocket.on(WebSocketTopics.SaveFailed, function () {
+      io.on(SocketIoTopics.SaveFailed, function () {
         self.updateState(self.autoSaveStates.Failed)
       })
       $('.autoSaveInput').on('input', debounce(function () {
@@ -52,7 +52,7 @@
       const includeWorkInProgress = true
       const data = self.parent.get(includeWorkInProgress)
       self.updateState(self.autoSaveStates.Saving)
-      WebSocketService.cacheTutorial(data)
+      SocketIoService.cacheTutorial(data)
     }
 
     updateState(newState){
