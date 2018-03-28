@@ -121,7 +121,7 @@ function clearDropDowns(id) {
   $(".navbar-item.has-dropdown").each(function(index) {
     const element = $(this)
     // we only want a single dropdown open at one time
-    if (id && element.is("#" + id) === false && element.hasClass("is-active")) {
+    if (element.is("#" + id) === false && element.hasClass("is-active")) {
       element.removeClass("is-active")
     }
   })
@@ -134,3 +134,19 @@ $(document).click(function(e) {
     clearDropDowns()
   }
 })
+
+// Source: https://davidwalsh.name/javascript-debounce-function
+function debounce(func, wait = 300) {
+  var timeout
+  return function() {
+    var context = this,
+      args = arguments
+    var later = function() {
+      timeout = null
+      func.apply(context, args)
+    }
+    clearTimeout(timeout)
+    timeout = setTimeout(later, wait)
+    if (!timeout) func.apply(context, args)
+  }
+}

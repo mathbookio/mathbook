@@ -1,7 +1,7 @@
 "use strict"
 
 const _ = require("lodash")
-const redisClient = require("../redis-client")
+const redisClient = require("../redisClient")
 const transformError = require("../transformers/errorTransformer")
 module.exports = async (req, res, next) => {
   const log = req.log

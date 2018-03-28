@@ -3,13 +3,13 @@
 <div class="level">
      <div class="level-right">
       <span class="level-item moveHandle" >
-        <span class="icon is-small"><i class="fa fa-bars" aria-hidden="true"></i></span>
+        <span class="icon is-small"><i class="fas fa-bars" aria-hidden="true"></i></span>
      </span>
      <a class="level-item" onclick={ editSection }>
-     <span class="icon is-small has-text-info"><i class="fa fa-pencil" aria-hidden="true"></i></span>
+     <span class="icon is-small has-text-info"><i class="fas fa-pencil-alt" aria-hidden="true"></i></span>
      </a>
      <a class="level-item" onclick={ removeSection }>
-     <span class="icon is-small has-text-danger"><i class="fa fa-close" aria-hidden="true"></i></span>
+     <span class="icon is-small has-text-danger"><i class="fas fa-trash-alt" aria-hidden="true"></i></span>
      </a>
      </div></div>
      <div class="title is-4">{ sectionTitle }</div>
@@ -79,12 +79,7 @@ this.on('mount', function() {
   this.renderCharts(this.sectionCharts)
   
   // preview section content edits/changes in modal view
-  this.$('editSectionId').on('input', function(e) {
-      var contentVal = self.$('editSectionId').val()
-      self.$('editSectionTextId').html(contentVal)
-       self.render(self.editSectionTextId)
-       self.renderEditModalCharts(self.sectionCharts)
-    });
+  this.$('editSectionId').on('input', debounce(self.renderContentPreview));
 
     self.opts.contentObservable.on('renderCharts', function() {
       self.renderCharts(self.sectionCharts)
@@ -109,7 +104,8 @@ this.on('mount', function() {
     // an content was moved down the list
     else if (oldIndex < newIndex && newIndex >= self.opts.contentIndex && oldIndex < self.opts.contentIndex){
       self.opts.contentIndex -= 1
-    } 
+    }
+    
   })
 
   this.chartObservable.on('savedChart', function(clientId, chartSize, chartData, chartOptions) {
@@ -129,6 +125,13 @@ this.on('mount', function() {
 
 })
 
+renderContentPreview(){
+  const contentVal = self.$('editSectionId').val()
+  self.$('editSectionTextId').html(contentVal)
+  self.render(self.editSectionTextId)
+  self.renderEditModalCharts(self.sectionCharts)
+}
+
 editSection(){
   this.showModal = true
   // when the modal opens, we want the section title and content values to carry over
@@ -144,6 +147,7 @@ saveChanges(){
   if (confirmChanges){
     this.updateContent()
     const showPrompt = false
+    Messenger.send(MessageTopic.TutorialUpdated)
     this.closeModal(false)
   }
 }
@@ -177,6 +181,7 @@ removeSection(){
   var confirmChanges = confirm('Are you sure you want to delete the chosen section ?')
   if (confirmChanges){
     this.opts.contentObservable.trigger('deletedContentSection', this.opts.id, this.opts.contentIndex)
+    Messenger.send(MessageTopic.TutorialUpdated)
     this.unmount(true)
     $('#'+this.opts.id).remove()
   }

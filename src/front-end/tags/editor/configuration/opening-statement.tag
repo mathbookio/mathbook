@@ -7,7 +7,7 @@
   <div class="field">
     <label class="label">Opening Statement</label>
     <div class="control">
-      <textarea id="openingStatement" class="textarea mathContent" placeholder="a small and brief discussion of the topic being discussed"></textarea>
+      <textarea id="openingStatement" class="autoSaveInput textarea mathContent" placeholder="a small and brief discussion of the topic being discussed"></textarea>
     </div>
     <br/>
     <div class="control">
@@ -23,12 +23,14 @@
 
   this.on('mount', function() {
     
-    $('#openingStatement').on('input', function(e) {
-      var osText = $('#openingStatement').val()
-      $('#openingStatementText').html(osText)
-      renderMathInElement(document.getElementById('openingStatementText'))
-    });
+    $('#openingStatement').on('input', debounce(self.renderOpeningStatementPreview));
   })
+
+  renderOpeningStatementPreview(){
+    const osText = $('#openingStatement').val()
+    $('#openingStatementText').html(osText)
+    renderMathInElement(document.getElementById('openingStatementText'))
+  }
 
   get(){
     return $('#openingStatement').val()
