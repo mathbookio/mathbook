@@ -8,7 +8,7 @@
                 <p>
                   There are no tutorials currently submitted for review. Please check back later 
                   <span class="icon is-small">
-                    <i class="fa fa-smile-o"></i>
+                    <i class="far fa-smile"></i>
                   </span>
                 </p>
               </div>
@@ -16,7 +16,7 @@
                 <p>
                   Failed to retrieve tutorials submitted for review. Please try again later.
                   <span class="icon is-small">
-                    <i class="fa fa-frown-o"></i>
+                    <i class="far fa-frown"></i>
                   </span>
                 </p>
               </div>
@@ -34,7 +34,7 @@
                               </div>
                               <div class="level-item">
                                 <a href={ url } show={ state !== null } target="_blank"> 
-                                  <span class="icon is-small"><i class="fa fa-external-link"></i></span>
+                                  <span class="icon is-small"><i class="fas fa-external-link-alt"></i></span>
                                 </a>
                               </div>
                             </div>

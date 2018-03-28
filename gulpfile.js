@@ -10,7 +10,7 @@ const files = {
   testFiles: ["./tests/**/*.spec.js"],
   watchFiles: ["./src/server/**/*.js", "./src/front-end/**/*.css", "./src/front-end/views/*.pug"],
   srcTestFiles: ["./src/server/**/*.js"],
-  jsFiles: ["!src/front-end/public/javascripts/riot-tags.bundle.js", "src/front-end/public/javascripts/*.js"],
+  jsFiles: ["!src/front-end/public/javascripts/riotTags.bundle.js", "src/front-end/public/javascripts/*.js"],
   cssFiles: ["./src/front-end/public/stylesheets/*.css"],
   tagFiles: ["./src/front-end/tags/**/*.tag"]
 }
@@ -96,7 +96,7 @@ gulp.task("riot", function() {
   return gulp
     .src(files.tagFiles)
     .pipe(plugins.riot())
-    .pipe(plugins.concat("riot-tags.bundle.js"))
+    .pipe(plugins.concat("riotTags.bundle.js"))
     .pipe(gulp.dest("./src/front-end/public/javascripts"))
 })
 

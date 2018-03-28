@@ -34,24 +34,30 @@
         </li>
       </ul>
     </div>
+    <auto-save></auto-save>
     <configuration id="configView" observable="{ tabObservable }"></configuration>
     <content id="contentView" observable="{ tabObservable }" chart-observable="{ chartObservable }"></content>
     <exercises id="exercisesView" observable="{ tabObservable }" chart-observable="{ chartObservable }"></exercises>
     <chart-modal observable={ chartObservable }></chart-modal>
-    <div class="container">
+    <div class="section-padding container">
       <div class="level">
         <div class="level-left">
           <div class="level-item">
-            <button class="button is-success { is-loading: isSavingTutorial }" onclick={saveTutorial}>Save Current Tutorial State</button>
+          <div class="field">
+            <div class="control">
+              <button class="button is-success { is-loading: updateState === updateTutorialStates.Updating }" onclick={ updateTutorial }>Update Tutorial State</button>
+              <p class="help">push changes to a submitted tutorial.</p>
+            </div>
+          </div>
           </div>
           <div class="level-item">
-            <p show={ saveTutorialSuccess } class="help has-text-grey">
+            <p show={ updateState === updateTutorialStates.Updated } class="help has-text-grey">
               <span class="icon is-small has-text-success">
                 <i class="fa fa-check"></i>
               </span>
               Tutorial State Saved - { currentTime }
             </p>
-            <p show={ saveTutorialFailed } class="help has-text-grey">
+            <p show={ updateState === updateTutorialStates.Failed } class="help has-text-grey">
               <span class="icon is-small has-text-danger">
                 <i class="fa fa-times"></i>
               </span>
@@ -62,7 +68,7 @@
         <div class="level-right">
           <div class="level-item">
             <p>
-              <a class="button is-info" onclick={ previewTutorial }>Save & Preview</a>
+              <a class="button is-info" onclick={ previewTutorial }>Preview Tutorial</a>
             </p>
           </div>
         </div>
@@ -80,18 +86,22 @@
     this.sessionExpiryTimer
     this.tutorialName = this.opts.tutorialName || ''
     this.currentTime = ''
-    this.showedPreviewConfirmation = false
-    this.isSavingTutorial = false
-    this.saveTutorialSuccess = false
-    this.saveTutorialFailed = false
+    this.updateTutorialStates = {
+      Updated: 'updated',
+      Updating: 'updating',
+      Failed: 'failed',
+      None: 'none'
+    }
+    this.updateState = this.updateTutorialStates.None
 
     this.on('mount', function () {
-      this.initLeavePrompt()
       const url = '/v1/tutorial/' + this.tutorialName
       $.get(url, function(result) {
         self.tags.configuration.set(result.data.config),
         self.tags.content.set(result.data.content),
+        self.tags.content.setWorkInProgress(result.data.contentWip),
         self.tags.exercises.set(result.data.exercises)
+        self.tags.exercises.setWorkInProgress(result.data.exerciseWip)
         self.isLoading = false
         self.sessionExpiry = result.metadata.expiresOn
         self.initSessionExpiryTimer()
@@ -116,16 +126,6 @@
       })
 
     })
-
-    initLeavePrompt(){
-      $(window).bind('beforeunload', function(){
-        return 'Please make sure you save your changes before navigating away from this page.';
-      });
-    }
-
-    disableLeavePrompt(){
-      $(window).unbind('beforeunload')
-    }
 
     initSessionExpiryTimer(){
       const triggerTime = 300 //seconds 
@@ -166,61 +166,38 @@
     }
 
     previewTutorial(){
-      return this.saveState(function(err, result) {
-        if (err){
-          const skipSaving = confirm('Unfortunately, we were unable to save the current state of the tutorial. Would you like to preview your last saved state ? \n Note that your current changes will be lost.')
-          if(skipSaving){
-            window.location.href = '/preview/' + self.tutorialName
-          }
-          return
-        }
-        self.disableLeavePrompt()
-        self.update()
-        window.location.href = '/preview/' + self.tutorialName
-        
-      })
+      window.location.href = '/preview/' + self.tutorialName
     }
 
-    saveTutorial(){
-      this.saveState()
-    }
-
-    saveState(callback) {
-      this.isSavingTutorial = true
-      this.saveTutorialSuccess = false
-      this.saveTutorialFailed = false
-      const data = {
-        tutorialName: this.tutorialName,
-        config: this.tags.configuration.get(),
-        content: this.tags.content.get(),
-        exercises: this.tags.exercises.get()
-      }
+    updateTutorial(){
+      this.updateState = this.updateTutorialStates.Updating
+      const data = this.get()
       const url = '/v1/save/tutorial'
       $.ajax({
         url: url,
         type: 'PUT',
         data: { data: JSON.stringify(data) },
         success: function (result) {
-          self.isSavingTutorial = false
-          self.saveTutorialSuccess = true
-          self.saveTutorialFailed = false
+          self.updateState = self.updateTutorialStates.Updated
           self.currentTime = new Date().toLocaleTimeString()
           self.update()
-          if (callback){
-            callback(null, { status: 200 })
-          }
         }
         })
         .fail(function (res){
-          self.isSavingTutorial = false
-          self.saveTutorialSuccess = false
-          self.saveTutorialFailed = true
+          self.updateState = self.updateTutorialStates.Failed
           self.update()
-          const error = res.responseJSON
-          if (callback){
-            callback(error, null)
-          }
       })
+    }
+
+    get(includeWorkInProgress = false){
+      return {
+        tutorialName: self.tutorialName,
+        config: self.tags.configuration.get(),
+        content: self.tags.content.get(),
+        exercises: self.tags.exercises.get(),
+        contentWip: includeWorkInProgress ? self.tags.content.getWorkInProgress(): undefined,
+        exerciseWip: includeWorkInProgress ? self.tags.exercises.getWorkInProgress(): undefined
+      }
     }
   </script>
 </builder>

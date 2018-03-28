@@ -2,7 +2,7 @@
   <div class="field">
     <label class="label">Title</label>
     <div class="control">
-      <input ref="tutorialTitle" class="input" type="text" placeholder="Tutorial Title"/>
+      <input ref="tutorialTitle" class="autoSaveInput input" type="text" placeholder="Tutorial Title"/>
     </div>
   </div>
   <script>

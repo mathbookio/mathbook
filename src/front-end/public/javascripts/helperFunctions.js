@@ -136,7 +136,6 @@ $(document).click(function(e) {
 })
 
 // Source: https://davidwalsh.name/javascript-debounce-function
-
 function debounce(func, wait = 300) {
   var timeout
   return function() {

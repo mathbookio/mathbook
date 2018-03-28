@@ -15,13 +15,13 @@
   </div>
 <div class="field">
     <div class="control">
-      <input type="text" id="exerciseQuestion" class="input mathContent {is-danger: isQuestionInvalid}" placeholder="question"/>
+      <input type="text" id="exerciseQuestion" class="autoSaveInput input mathContent {is-danger: isQuestionInvalid}" placeholder="question"/>
       <p show={ isQuestionInvalid } class="help is-danger">Question can't be empty</p>
     </div>
   </div>
   <div class="field">
     <div class="control">
-      <textarea id="exerciseAnswer" class="textarea mathContent {is-danger: isAnswerInvalid}" placeholder="the answer..."></textarea>
+      <textarea id="exerciseAnswer" class="autoSaveInput textarea mathContent {is-danger: isAnswerInvalid}" placeholder="the answer..."></textarea>
       <p show={ isAnswerInvalid } class="help is-danger">Answer can't be empty</p>
     </div>
     <br/>
@@ -39,7 +39,7 @@
     </div>
   </div>
   <div class="control">
-    <a class="button is-info" onclick={ saveSection }>Add Exercise</a>
+    <a class="autoSaveButton button is-info" onclick={ saveSection }>Add Exercise</a>
   </div>
   <br/>
     <div id="exerciseList">
@@ -65,6 +65,8 @@
       if (type === 'exercises'){
         $('#exercisesComponent').show()
         self.exerciseObservable.trigger('renderCharts')
+        self.renderQuestionPreview()
+        self.renderAnswerPreview()
       }
       else{
         $('#exercisesComponent').hide()
@@ -117,7 +119,7 @@
       handle: '.moveHandle',
       onUpdate: function(e){
         self.exerciseObservable.trigger('exerciseOrderUpdate', e.oldIndex, e.newIndex)
-
+        Messenger.send(MessageTopic.TutorialUpdated)
       } });
   }
 
@@ -161,6 +163,7 @@
     $('#exerciseQuestionText').html('')
     $('#exerciseAnswer').val('')
     $('#exerciseAnswerText').html('')
+    this.chartList = []
   }
 
   showChartModal(){
@@ -190,6 +193,14 @@
     return exerciseList
   }
 
+  getWorkInProgress(){
+    return {
+      question: $('#exerciseQuestion').val(),
+      answer: $('#exerciseAnswer').val(),
+      chartList: this.chartList
+    }
+  }
+
   set(data){
     if(Array.isArray){
       for(var i in data){
@@ -202,6 +213,12 @@
         this.generateExercise(exerciseId, question, questionText, answer, answerText, chartList)
       }
     }
+  }
+
+  setWorkInProgress(data = {}){
+    $('#exerciseQuestion').val(data.question || '')
+    $('#exerciseAnswer').val(data.answer || '')
+    this.chartList = data.chartList || []
   }
 
   </script>
