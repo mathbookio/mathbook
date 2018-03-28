@@ -2,7 +2,6 @@
   "bin": {
     "protocol": "http",
     "host": "127.0.0.1",
-    "useHttps": false,
     "port": 4000,
     "domain": "127.0.0.1"
   },
