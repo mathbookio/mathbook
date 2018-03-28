@@ -1,6 +1,6 @@
 "use strict"
 
-const github = require("../github-client")
+const github = require("../githubClient")
 const errors = require("../errors")
 const _ = require("lodash")
 const createTutorial = require("./createTutorial")
@@ -14,7 +14,7 @@ const getTutorialBySubject = require("./getTutorialBySubject")
 const getSubmittedTutorials = require("./getSubmittedTutorials")
 const getSubjectTopics = require("./getSubjectTopics")
 const express = require("express")
-const redisClient = require("../redis-client")
+const redisClient = require("../redisClient")
 const apiRouter = express.Router()
 
 // these requests don't need authentication.

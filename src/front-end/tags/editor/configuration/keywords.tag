@@ -4,18 +4,18 @@
   </div>
   <div class="field is-grouped" id="preReq">
     <div class="control is-expanded">
-      <input class="input {is-danger: invalidKeyword}" id="keyword" type='text' placeholder='Section Name'  ref="keyword" />
+      <input class="autoSaveInput input {is-danger: invalidKeyword}" id="keyword" type='text' placeholder='Section Name'  ref="keyword" />
        <p show={ invalidKeyword } class="help is-danger">Keyword can't be empty</p>
        <p show={ tooManyKeywords } class="help is-danger">max. number of keywords reached (5).</p>
     </div>
     <div class="control">
-      <a class="button is-success" onClick={ addKeyword }>Add</a>
+      <a class="autoSaveButton button is-success" onClick={ addKeyword }>Add</a>
     </div>
   </div>
   <div each={ keyword in keywords } class="field">
     <div class="control">
       <span> { keyword }</span>
-      <a class="tag is-danger" onClick={ removeKeyword }> REMOVE </a>
+      <a class="autoSaveButton tag is-danger" onClick={ removeKeyword }> REMOVE </a>
     </div>
   </div>
   <script>
@@ -49,6 +49,7 @@
 
       // remove from collection
       this.keywords.splice(index, 1)
+      Messenger.send(MessageTopic.TutorialUpdated)
     }
 
     function isKeywordInvalid(keyword) {

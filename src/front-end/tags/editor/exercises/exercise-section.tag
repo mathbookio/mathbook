@@ -6,10 +6,10 @@
       <span class="icon is-small moveHandle"><i class="fa fa-bars" aria-hidden="true"></i></span>
       </span>
       <a class="level-item" onclick={ editExercise }>
-      <span class="icon is-small has-text-info"><i class="fa fa-pencil" aria-hidden="true"></i></span>
+      <span class="icon is-small has-text-info"><i class="fas fa-pencil-alt" aria-hidden="true"></i></span>
       </a>
       <a class="level-item" onclick={ removeExercise }>
-      <span class="icon is-small has-text-danger"><i class="fa fa-close" aria-hidden="true"></i></span>
+      <span class="icon is-small has-text-danger"><i class="fas fa-trash-alt" aria-hidden="true"></i></span>
       </a>
       </div>
      </div>
@@ -85,20 +85,10 @@ this.on('mount', function() {
   this.exerciseObservable.trigger('createdExercise', this.opts.id, this)
   self.bindExerciseValues()
   // preview question text
-  self.$('editQuestionId').on('input', function(e) {
-      var questionVal = self.$('editQuestionId').val()
-      self.$('editQuestionTextId').html(questionVal)
-      self.render(self.editQuestionTextId)
-      self.renderEditModalCharts(self.chartList)
-    });
+  self.$('editQuestionId').on('input', debounce(self.renderQuestionPreview));
 
   // preview answer text
-  self.$('editAnswerId').on('input', function(e) {
-      var answerVal = self.$('editAnswerId').val()
-      self.$('editAnswerTextId').html(answerVal)
-      self.render(self.editAnswerTextId)
-      self.renderEditModalCharts(self.chartList)
-    });
+  self.$('editAnswerId').on('input', debounce(self.renderAnswerPreview));
 
   this.exerciseObservable.on('renderCharts', function() {
     self.renderCharts(self.chartList)
@@ -146,6 +136,19 @@ this.on('mount', function() {
   
 })
 
+renderQuestionPreview(){
+  const questionVal = self.$('editQuestionId').val()
+  self.$('editQuestionTextId').html(questionVal)
+  self.render(self.editQuestionTextId)
+  self.renderEditModalCharts(self.chartList)
+}
+
+renderAnswerPreview(){
+  const answerVal = self.$('editAnswerId').val()
+  self.$('editAnswerTextId').html(answerVal)
+  self.render(self.editAnswerTextId)
+  self.renderEditModalCharts(self.chartList)
+}
 bindExerciseValues(){
   this.$('questionId').html(this.opts.question)
   this.$('answerId').html(this.opts.answer)
@@ -173,6 +176,7 @@ saveChanges(){
   if (confirmChanges){
     this.updateExercise()
     const showPrompt = false
+    Messenger.send(MessageTopic.TutorialUpdated)
     this.closeModal(showPrompt)
   }
 }
@@ -211,6 +215,7 @@ removeExercise(){
   var confirmChanges = confirm('Are you sure you want to delete the chosen exercise ?')
   if (confirmChanges){
     this.opts.exerciseObservable.trigger('deletedExercise', this.opts.id, this.opts.exerciseIndex)
+    Messenger.send(MessageTopic.TutorialUpdated)
     this.unmount(true)
     $(this.opts.id).remove()
   }

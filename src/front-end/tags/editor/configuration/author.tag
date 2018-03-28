@@ -2,7 +2,7 @@
   <div class="field">
     <label class="label">Author</label>
     <div class="control">
-      <input ref="author" class="input" type="text" placeholder="Your name"/>
+      <input ref="author" class="autoSaveInput input" type="text" placeholder="Your name"/>
     </div>
   </div>
   <script>

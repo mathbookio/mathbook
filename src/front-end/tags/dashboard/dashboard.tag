@@ -17,7 +17,7 @@
         <p>
           No Tutorials found! You should create one 
           <span class="icon is-small">
-            <i class="fa fa-smile-o"></i>
+            <i class="far fa-smile"></i>
           </span>
         </p>
       </div>
@@ -25,14 +25,14 @@
         <p>
           Failed to retrieve tutorials for the following reason, { failedMessage }
           <span class="icon is-small">
-            <i class="fa fa-frown-o"></i>
+            <i class="far fa-frown"></i>
           </span>
         </p>
       </div>
       <div show={ loadingTutorials } class="column has-text-centered has-text-grey">
         <p> Locating your Tutorials 
           <span class="icon is-medium">
-            <i class="fa fa-cog fa-spin"></i>
+            <i class="fas fa-cog fa-spin"></i>
           </span>
         </p>
       </div>
@@ -50,7 +50,7 @@
                   </div>
                   <div class="level-item">
                     <a href={ pullRequestUrl } show={ state !== null } target="_blank"> 
-                      <span class="icon is-small"><i class="fa fa-external-link"></i></span>
+                      <span class="icon is-small"><i class="fas fa-external-link-alt"></i></span>
                     </a>
                   </div>
                 </div>
@@ -66,7 +66,7 @@
                   <div class="level-item">
                     <p class="content lastEdited" title={ formatDate(lastEdited) }>
                       <span class="icon is-small">
-                        <i class="fa fa-clock-o"></i>
+                        <i class="far fa-clock"></i>
                       </span> { formatDateFromNow(lastEdited) }</p>
                   </div>
                 </div>
@@ -75,22 +75,22 @@
             <footer class="card-footer">
               <div show={ state === 'submitted' } class="card-footer-item has-text-grey">
                 <span class="icon is-small">
-                  <i class="fa fa-send"></i>
+                  <i class="fas fa-paper-plane"></i>
                 </span>
               </div>
               <a show={ state === null || state === 'closed' } class="card-footer-item" title="Submit" onclick="{ parent.openSubmitTutorialModal }">
                 <span class="icon is-small">
-                  <i class="fa fa-send"></i>
+                  <i class="fas fa-paper-plane"></i>
                 </span>
               </a>
               <a class="card-footer-item edit" title="Edit" onclick="{ parent.editTutorial }">
                 <span class="icon is-small">
-                  <i class="fa fa-pencil"></i>
+                  <i class="fas fa-pencil-alt"></i>
                 </span>
               </a>
               <a class="card-footer-item edit" title="Preview" onclick="{ parent.previewTutorial }">
                 <span class="icon is-small">
-                  <i class="fa fa-file"></i>
+                  <i class="fas fa-file"></i>
                 </span>
                 <span> </span>
                 <span class="icon is-small">
@@ -99,7 +99,7 @@
               </a>
               <a class="card-footer-item delete-button" title="Delete" onclick={ openDeleteTutorialModal }>
                 <span class="icon is-small">
-                  <i class="fa fa-trash-o"></i>
+                  <i class="fas fa-trash-alt"></i>
                 </span>
               </a>
             </footer>

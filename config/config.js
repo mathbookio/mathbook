@@ -60,12 +60,6 @@ const getConfiguration = () => {
         default: "https",
         env: "PROTOCOL"
       },
-      useHttps: {
-        doc: "use https server if true",
-        format: "Boolean",
-        default: false,
-        env: "USE_HTTPS"
-      },
       domain: {
         doc: "The domain name",
         format: "String",

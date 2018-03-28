@@ -2,7 +2,7 @@
   <div class="field">
     <label class="label">Subject</label>
     <div class="control">
-      <div class="select">
+      <div class="autoSaveInput select">
       <select id="subjectSelect">
         <option value="Algebra">Algebra</option>
         <option value="Calculus">Calculus</option>

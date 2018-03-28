@@ -15,7 +15,7 @@
               </p>
               <p show={ sessionExpired }>
                 Your Session has now expired. You are no longer able to save your changes. 
-                <span class="icon"><i class="fa fa-frown-o"></i></span>
+                <span class="icon"><i class="far fa-frown"></i></span>
                 <br/>
                 <a href="/login">Click here to visit the Login page.</a>
               </p>
@@ -39,7 +39,6 @@
   <script>
     var self = this
     this.observable = this.opts.observable
-    this.showCreateTutorialModal = false
     this.isSaving = false
     this.savingComplete = false
     this.savingFailed = false

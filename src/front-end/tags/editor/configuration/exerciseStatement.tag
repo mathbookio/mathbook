@@ -2,7 +2,7 @@
   <div class="field">
     <label class="label">Exercises' Statement</label>
     <div class="control">
-      <input id="exerciseStatement" class="input mathContent" type='text' placeholder='e.g. Solve for \\(y\\) for the following exercises'/>
+      <input id="exerciseStatement" class="autoSaveInput input mathContent" type='text' placeholder='e.g. Solve for \\(y\\) for the following exercises'/>
     </div>
     <br/>
     <div class="control">
@@ -18,13 +18,14 @@
 
   this.on('mount', function() {
     
-    $('#exerciseStatement').on('input', function(e) {
-      var osText = $('#exerciseStatement').val()
-      $('#exerciseStatementText').html(osText)
-      renderMathInElement(document.getElementById('exerciseStatementText'))
-    });
+    $('#exerciseStatement').on('input', debounce(self.renderExerciseStatementPreview));
   })
 
+  renderExerciseStatementPreview(){
+    const osText = $('#exerciseStatement').val()
+    $('#exerciseStatementText').html(osText)
+    renderMathInElement(document.getElementById('exerciseStatementText'))
+  }
   get(){
     return $('#exerciseStatement').val()
   }
