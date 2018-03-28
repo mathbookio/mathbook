@@ -1,17 +1,17 @@
-const wsProtocol = location.protocol
-const wsDomain = location.hostname
-const wsPort = location.port
+const protocol = location.protocol
+const domain = location.hostname
+const port = location.port
 
 /**
  * HEADS UP!
  * Since we are proxying the server via browsersync during development,
  * socket.io will try to connect using a websocket connection with the
- * following url and it will fail because wsPort=proxyPort. This is
+ * following url and it will fail because port=proxyPort. This is
  * acceptable because socket.io will fall back to long polling if
  * websocket connections fail/aren't supported by the browser.
  */
-const wsUrl = `${wsProtocol}//${wsDomain}:${wsPort}`
-const io = io(wsUrl)
+const url = `${protocol}//${domain}:${port}`
+const io = io(url)
 io.on("connect", function() {
   console.log("socket.io Connected")
 })
